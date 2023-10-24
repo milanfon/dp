@@ -1,0 +1,219 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[czech]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{svg}
+\usepackage{float}
+\usepackage{amssymb}
+\usepackage{tikz}
+\usepackage{csquotes}
+\usepackage[acronym]{glossaries}
+\usepackage{multirow}
+\usepackage{amsmath}
+
+\geometry{
+    a4paper,
+    left=30mm,
+    right=25mm,
+    top=25mm
+}
+
+\MakeOuterQuote{"}
+
+\setlength{\parskip}{1em}
+
+% \usepackage[T1]{fontenc}
+% \fontfamily{bch}\selectfont
+\usepackage{newtxtext,newtxmath}
+
+% Slovník
+\makeglossaries
+\input{gloss.tex}
+
+%Tikz
+\usetikzlibrary{shapes,arrows,quotes,babel,matrix,fit,positioning}
+\tikzstyle{block} = [draw, rectangle, inner sep=1em]
+\tikzstyle{sum} = [draw, circle]
+\tikzstyle{mtitle} = [draw=none, color=gray, inner sep=0pt,font=\bfseries]
+\tikzstyle{mmatrix} = [matrix of nodes, nodes=typetag, row sep=1em]
+\tikzstyle{typetag} = [draw=gray, inner sep=1ex, anchor=west]
+
+\begin{document}
+    % Titulní strana TODO
+    \begin{titlepage}
+        \begin{center}
+            \vspace*{1cm}
+
+            \Large
+            \textbf{
+                Západočeská univerzita v Plzni\\
+                Fakulta aplikovaných věd\\
+                Katedra informatiky\\
+                }
+
+            \vfill
+
+            \Huge
+            \textbf{}\\
+            \vspace*{1cm}
+            \Large
+            {DIPLOMOVÁ PRÁCE}
+
+            \vfill
+
+            \includegraphics[width=0.4\textwidth]{pic/fav.jpg}
+
+            \vspace*{3cm}
+
+            \Large
+            \textbf{PLZEŇ, 2024} \hfill \textbf{Milan Horínek}
+            
+        \end{center}
+    \end{titlepage}
+
+    % TODO: Prohlášení
+    \hspace{0pt}
+    \vfill
+
+    \begin{center}
+        \Large\textbf{PROHLÁŠENÍ}
+    \end{center}    
+    
+    \vspace*{0.5cm}
+        
+    \noindent 
+    Předkládám tímto k posouzení a obhajobě bakalářskou práci zpracovanou na
+    závěr studia na Fakultě aplikovaných věd Západočeské univerzity v Plzni.
+    \\\\
+    Prohlašuji, že jsem bakalářskou práci vypracoval samostatně a výhradně
+    s použitím odborné literatury a pramenů, jejichž úplný seznam je její součástí.
+    \\\\
+    V Plzni dne \today \\\\ 
+    \begin{tabular}{p{10cm}p{5cm}}
+        &   \dotfill \\
+        &   \centering Milan Horínek
+    \end{tabular}
+
+    \vspace*{3cm}
+
+    \begin{center}
+        \Large{\textbf{PODĚKOVÁNÍ}}
+    \end{center}
+
+
+    \vfill
+    \pagebreak
+
+    % Abstrakt / Anotace
+
+    \hspace{0pt}
+    \vfill
+
+    \begin{center}
+        \Large
+        \textbf{ANOTACE}
+    \end{center}
+
+    \vspace*{0.5cm}
+
+    \noindent Autor se zabývá problematikou přistávání raket a tím, že většina prací na toto téma používá model RL. Autor se však rozhodl použít pro řízení dopředný výpočet přistávací trajektorie. Autor stručně popisuje dvě metody řízení, které byly testovány - zpětnou vazbu a numerické řešení ze simulace. Bylo zjištěno, že druhá metoda je přesnější, ale první je vhodnější pro model 3DoF. Autor navrhuje možná rozšíření práce, například přidání rušivých vlivů, jako je vítr, a zvýšení robustnosti a přesnosti řídicího systému.
+
+    \noindent\textbf{Klíčová slova:} raketa, přistání, VTVL, pinpoint landing
+
+    \vspace*{3cm}
+
+    \begin{center}
+        \Large
+        \textbf{ABSTRACT}
+    \end{center}
+
+    \vspace*{0.5cm}
+
+    \noindent The author discusses the problem of rocket landing, and how most works on the topic use the RL model. However, the author decided to use forward calculation of the landing trajectory for control. The author briefly describes two control methods that were tested – feedback and numerical solution from the simulation. The latter was found to be more accurate, but the former was more suitable for the 3DoF model. The author suggests possible extensions for the work, such as adding disturbances such as wind, and increasing the robustness and accuracy of the control system.
+
+    \noindent\textbf{Key words:} raketa, přistání, VTVL, pinpoint landing
+
+    \vfill
+    \pagebreak
+
+    \hspace{0pt}
+    \vfill
+
+    \begin{center}
+        \Large
+        \bf
+        ZADÁNÍ
+    \end{center}
+    \vspace*{5mm}
+    \begin{enumerate}
+        \item Prozkoumejte dostupné práce na téma řízení polohy rakety a přistávacího manévru
+        \item Navrhněte zjednodušený model rakety včetně potřebných příslušných technických prostředků (aktuátorů, senzorů, atd.)
+        \item Navrhněte algoritmus řízení letu rakety včetně potřebných letových módů
+        \item Implementujte model a regulační smyčku ve vybraném simulačním prostředí
+        \item Zhodnoťte získané výsledky
+    \end{enumerate}
+
+    \vspace*{3cm}
+
+    \begin{center}
+        \Large
+        \bf
+        ASSIGNMENT
+    \end{center}
+    \vspace*{5mm}
+    \begin{enumerate}
+        \item Explore available papers on rocket attitude control and landing maneuver
+        \item Create a simplified model of rocket including the necessary technical means (actuators, sensors, etc.)
+        \item Design a rocket flight control algorithm including the necessary flight modes
+        \item Implement the model and control loop in the chosen simulation environment
+        \item Evaluate the obtained results
+    \end{enumerate}
+
+    \vfill
+    \pagebreak
+
+    % Obsah
+    \newpage
+    \tableofcontents
+
+    % Slovník
+    \newpage
+    \printglossary[type=\acronymtype,title=Zkratky]
+    \printglossary[title=Slovník pojmů]
+
+    \newpage
+    \section{Úvod}
+    %TODO Dopsat
+
+    \newpage
+    \section{Provedená práce v problematice} \label{sec:previouswork}
+    
+        \subsection{Vydané publikace}
+        Jeden z poměrně nedávno vydaných článků (září 2023) nazvaný "An Empirical Evaluation of Using Large Language Models for Automated Unit Test Generation" \cite{schafer2023empirical} se zabývá využitím velkých jazykových modelů (\gls{llm}) pro automatizované generování jednotkových testů v jazyce JavaScript. Implementovali nástroj s názvem \textbf{TESTPILOT}, který využívá \gls{llm} \textit{gpt3.5-turbo}, \textit{code-cushman-002} od společnosti OpenAI a  také model StarCoder, který vznikl jako komunitní projekt \cite{StarCoder2023}. Vstupní sada pro \gls{llm} obsahovala signatury funkcí, komentáře k dokumentaci a příklady použití. Nástroj byl vyhodnocen na 25 balíčcích npm obsahujících celkem 1684 funkcí API. Vygenerované testy dosáhly pomocí gpt3.5-turbo mediánu pokrytí příkazů 70,2\% a pokrytí větví 52,8\%, čímž překonaly nejmodernější techniku generování testů v jazyce JavaScript zaměřenou na zpětnou vazbu, Nessie.
+
+        Zmíněný model \emph{StarCoder} byl představen v článku "StarCoder: may the source be with you!" \cite{StarCoder2023} z května 2023. Vytvořeny byly konkrétně 2 verze, \textit{StarCoder} a \textit{StarCoderBase}, s 15,5 miliardami parametrů a délkou kontextu 8K. Tyto modely jsou natrénovány na datové sadě nazvané \textit{The Stack}, která obsahuje 1 bilion tokenů z permisivně licencovaných repozitářů GitHub. \textit{StarCoderBase} je vícejazyčný model, který překonává ostatní modely open-source \gls{llm} modely, zatímco \textit{StarCoder} je vyladěná verze speciálně pro Python, která se vyrovná nebo překoná stávající modely zaměřené čistě na Python. Článek poskytuje komplexní hodnocení, které ukazuje, že tyto modely jsou vysoce efektivní v různých úlohách souvisejících s kódem.
+
+        Článek "Exploring the Effectiveness of Large Language Models in Generating Unit Tests" \cite{siddiq2023exploring} z dubna 2023 hodnotí výkonnost tří \gls{llm} - \textit{Codex}, \textit{CodeGen} a \textit{GPT-3.5} - při generování jednotkových testů pro třídy jazyka Java. Studie používá jako vstupní sady dva benchmarky, \href{https://paperswithcode.com/dataset/humaneval-x}{HumanEval} a \href{https://paperswithcode.com/dataset/evosuite-sf110-benchmark}{Evosuite SF110}. Klíčová zjištění ukazují, že \textit{Codex} dosáhl více než 80\% pokrytí v datové sadě \textit{HumanEval}, ale žádný z modelů nedosáhl více než 2\% pokrytí v benchmarku \textit{SF110}. Kromě toho se ve vygenerovaných testech často objevovaly tzv. \gls{testsmells}, jako jsou \textit{duplicitní tvrzení} a \textit{prázdné testy} \cite{testsmells}.
+
+            \subsubsection{Srovnání výsledků}
+
+        \subsection{Modely}
+            % TODO Tady asi nějaká předmluva k těm modelům a co za modely se vlastně používá 
+
+            Jedním z často používaných modelů v předchozích pracích je \textit{StarCoder} a \textit{StarCoderBase}, diskutovaný již v sekci \ref{sec:previouswork}. \textit{Base} verze je schopna generovat kód pro více jak 80 programovacích jazyků. Model je navržen pro širokou škálu aplikací obsahující \textit{generování}, \textit{modifikaci}, \textit{doplňování} a \textit{vysvětlování} kódu. Jeho distribuce je volná a licence \textbf{CodeML OpenRAIL-M 0.1} \cite{BigCode2023} umožňuje ho využívat pro množštví aplikací včetně komerčních nebo edukačních. Jeho uživatel však má povinnost uvádět, že výsledný kód byl vygenerován modelem. Licence má své restrikce z obavy tvůrců, protože by model mohl někoho při nepsrávném použití ohrozit. Tyto restrikce se aplikují na na všechny derivace projektů pod touto licencí. Zároveň není kompatibilní s Open-Source licencí právě kvůli těmto restrikcím.
+            % TODO Tady nechápu ty restrikce
+
+            Nedávno vydaným modelem je \textit{Code Llama} od společnosti Meta. Jedná se o evoluci jejich jazykového modelu \textit{Llama} specializovaný však čistě na úlohy kódování. Je postaven na platformě \textit{Llama 2} a existuje ve třech variantách: \textit{základní Code Llama}, \textit{Code Llama - Python} a \textit{Code Llama - Instruct}. Model podporuje více programovacích jazyků, včetně jazyků jako Python, C++, Java, PHP, Typescript, C# nebo Bash. Je určen pro úlohy, jako je generování kódu, doplňování kódu a ladění. Code Llama je zdarma pro výzkumné i komerční použití a je uvolněn pod licencí MIT. Uživatelé však musí dodržovat  zásady přijatelného použití, ve kterýcg je uvedeno, že model nelze použít k vytvoření služby, která by konkurovala vlastním službám společnosti Meta. 
+
+            Velmi populárním nástrojem pro generování kódu za pomocí \gls{llm} je \href{https://github.com/features/copilot}{GitHub Copilot}, který je postaven na modelu \textit{codex} od OpenAI. Původní model však byl přestal být zákazníkům nabízen a namísto něj OpenAI doporučuje ke generování kódu využívat chat verze modelů GPT-3.5 a GPT-4. Na architektuře GPT-4 je také postavený nástupce služby Copilot, Copilot X. Zmíněné modely chat GPT-3.5 a GPT-4 jsou primárně určeny pro generování textu formou chatu. Zvládají však zároveň i dobře generovat kód a jsou vhodné i úlohu generování jednotkových testů. Narozdíl od předchozích modelů však nejsou volně distribuovány a jsou poskytovány pouze jako služba společností OpenAI skrze API nebo je lze hostovat v rámci služby Azure společnosti Microsoft, která zajišťuje větší integritu dat. Jedná se tedy o uzavřený model a jeho uživatelé musí souhlasit s jeho podmínkami použití.
+
+            \subsubsection{Srovnání}
+
+    % Reference
+    \newpage
+    \bibliographystyle{ieeetr}
+    \bibliography{refs}
+	
+\end{document}

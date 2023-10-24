@@ -1,0 +1,26 @@
+\begin{thebibliography}{1}
+
+\bibitem{schafer2023empirical}
+M.~Schäfer, S.~Nadi, A.~Eghbali, and F.~Tip, ``An empirical evaluation of
+  using large language models for automated unit test generation,'' {\em arXiv
+  preprint arXiv:2302.06527}, 2023.
+
+\bibitem{StarCoder2023}
+R.~Li, L.~B. Allal, Y.~Zi, N.~Muennighoff, D.~Kocetkov, {\em et~al.},
+  ``Starcoder: may the source be with you!,'' {\em arXiv preprint
+  arXiv:2305.06161}, 2023.
+
+\bibitem{siddiq2023exploring}
+M.~L. Siddiq, J.~C.~S. Santos, R.~H. Tanvir, N.~Ulfat, F.~A. Rifat, and V.~C.
+  Lopes, ``Exploring the effectiveness of large language models in generating
+  unit tests,'' {\em arXiv preprint arXiv:2305.00418}, 2023.
+
+\bibitem{testsmells}
+``Test smells.'' \url{https://testsmells.org/pages/testsmells.html}, 2021.
+\newblock Čteno: 23.10.2023.
+
+\bibitem{BigCode2023}
+B.~Project, ``Codeml openrail-m 0.1 license,'' 2023.
+\newblock Čteno: 23.10.2023.
+
+\end{thebibliography}

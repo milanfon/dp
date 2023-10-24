@@ -12,6 +12,7 @@
 \usepackage[acronym]{glossaries}
 \usepackage{multirow}
 \usepackage{amsmath}
+\usepackage{pdflscape}
 
 \geometry{
     a4paper,
@@ -207,9 +208,33 @@
 
             Nedávno vydaným modelem je \textit{Code Llama} od společnosti Meta. Jedná se o evoluci jejich jazykového modelu \textit{Llama} specializovaný však čistě na úlohy kódování. Je postaven na platformě \textit{Llama 2} a existuje ve třech variantách: \textit{základní Code Llama}, \textit{Code Llama - Python} a \textit{Code Llama - Instruct}. Model podporuje více programovacích jazyků, včetně jazyků jako Python, C++, Java, PHP, Typescript, C# nebo Bash. Je určen pro úlohy, jako je generování kódu, doplňování kódu a ladění. Code Llama je zdarma pro výzkumné i komerční použití a je uvolněn pod licencí MIT. Uživatelé však musí dodržovat  zásady přijatelného použití, ve kterýcg je uvedeno, že model nelze použít k vytvoření služby, která by konkurovala vlastním službám společnosti Meta. 
 
-            Velmi populárním nástrojem pro generování kódu za pomocí \gls{llm} je \href{https://github.com/features/copilot}{GitHub Copilot}, který je postaven na modelu \textit{codex} od OpenAI. Původní model však byl přestal být zákazníkům nabízen a namísto něj OpenAI doporučuje ke generování kódu využívat chat verze modelů GPT-3.5 a GPT-4. Na architektuře GPT-4 je také postavený nástupce služby Copilot, Copilot X. Zmíněné modely chat GPT-3.5 a GPT-4 jsou primárně určeny pro generování textu formou chatu. Zvládají však zároveň i dobře generovat kód a jsou vhodné i úlohu generování jednotkových testů. Narozdíl od předchozích modelů však nejsou volně distribuovány a jsou poskytovány pouze jako služba společností OpenAI skrze API nebo je lze hostovat v rámci služby Azure společnosti Microsoft, která zajišťuje větší integritu dat. Jedná se tedy o uzavřený model a jeho uživatelé musí souhlasit s jeho podmínkami použití.
+            Velmi populárním nástrojem pro generování kódu za pomocí \gls{llm} je \href{https://github.com/features/copilot}{GitHub Copilot}, který je postaven na modelu \textit{codex} od OpenAI. Původní model však byl přestal být zákazníkům nabízen a namísto něj OpenAI doporučuje ke generování kódu využívat chat verze modelů GPT-3.5 a GPT-4. Na architektuře GPT-4 je také postavený nástupce služby Copilot, \href{https://github.com/features/preview/copilot-x}{Copilot X}. Zmíněné modely chat GPT-3.5 a GPT-4 jsou primárně určeny pro generování textu formou chatu. Zvládají však zároveň i dobře generovat kód a jsou vhodné i úlohu generování jednotkových testů. Narozdíl od předchozích modelů však nejsou volně distribuovány a jsou poskytovány pouze jako služba společností OpenAI skrze API nebo je lze hostovat v rámci služby Azure společnosti Microsoft, která zajišťuje větší integritu dat. Jedná se tedy o uzavřený model a jeho uživatelé musí souhlasit s jeho podmínkami použití.
 
-            \subsubsection{Srovnání}
+            %TODO Existují i další modely, co by bylo super přidat
+
+            \subsubsection{Srovnání modelů}
+
+            \begin{landscape}
+                \centering
+                \begin{table}[H]
+                    \begin{tabular}{|c|c|c|c|c|c|}
+                        \hline
+                        \textbf{Model} & \textbf{Otevřenost} & \textbf{Licence} & \textbf{Počet parametrů} & \textbf{Počet programovacích jazyků} & \textbf{Datum vydání} \\
+                        \hline
+                        \textit{StarCoderBase} & Volně dostupný & CodeML OpenRAIL-M 0.1 & 15.5 miliardy & 80+ & 5/2023 \\
+                        \hline
+                        \textit{Code Llama} & Volně dostupný & Llama 2 Licence & 34 miliard & 8+ & 8/2023 \\
+                        \hline
+                        \textit{gpt-3.5-turbo} & Uzavřený & Proprietární & 175 miliard? & ? & 5/2023 \\
+                        \hline
+                        \textit{gpt-4} & Uzavřený & Proprietární & 1.76 bilionu & ? & 3/2023 \\
+                        \hline
+                    \end{tabular}
+                    \centering
+                    \caption{Přehled a srovnání modelů generujících kód}
+                    \label{tab:code_models_comp}
+                \end{table} 
+            \end{landscape}
 
     % Reference
     \newpage

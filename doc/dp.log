@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.24)  24 OCT 2023 10:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 23.10) (preloaded format=pdflatex 2023.10.24)  24 OCT 2023 11:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -915,6 +915,16 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 ))
+(C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
+\col@sep=\dimen283
+\ar@mcellbox=\box73
+\extrarowheight=\dimen284
+\NC@list=\toks53
+\extratabsurround=\skip69
+\backup@length=\skip70
+\ar@cellbox=\box74
+)
 Package csquotes Info: Allocating character ".
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\newtxtext.sty
@@ -956,20 +966,20 @@ LaTeX Info: Redefining \textsw on input line 47.
 LaTeX Info: Redefining \textssc on input line 48.
 LaTeX Info: Redefining \textulc on input line 49.
 )
-\tx@sixem=\dimen283
-\tx@y=\dimen284
-\tx@x=\dimen285
-\tx@tmpdima=\dimen286
-\tx@tmpdimb=\dimen287
-\tx@tmpdimc=\dimen288
-\tx@tmpdimd=\dimen289
-\tx@tmpdime=\dimen290
-\tx@tmpdimf=\dimen291
-\tx@dimA=\dimen292
-\tx@dimAA=\dimen293
-\tx@dimB=\dimen294
-\tx@dimBB=\dimen295
-\tx@dimC=\dimen296
+\tx@sixem=\dimen285
+\tx@y=\dimen286
+\tx@x=\dimen287
+\tx@tmpdima=\dimen288
+\tx@tmpdimb=\dimen289
+\tx@tmpdimc=\dimen290
+\tx@tmpdimd=\dimen291
+\tx@tmpdime=\dimen292
+\tx@tmpdimf=\dimen293
+\tx@dimA=\dimen294
+\tx@dimAA=\dimen295
+\tx@dimB=\dimen296
+\tx@dimBB=\dimen297
+\tx@dimC=\dimen298
 LaTeX Info: Redefining \oldstylenums on input line 710.
 ) (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\newtxmath.sty
 Package: newtxmath 2023/07/30 v1.723
@@ -983,8 +993,8 @@ Package: centernot 2016/05/16 v1.4 Centers the not symbol horizontally (HO)
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/generic/binhex\binhex.tex)
 \tx@Isdigit=\count352
 \tx@IsAlNum=\count353
-\tx@tA=\toks53
-\tx@tB=\toks54
+\tx@tA=\toks54
+\tx@tB=\toks55
 \tx@su=\read4
 
 amsthm NOT loaded
@@ -1070,7 +1080,7 @@ LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
 LaTeX Font Info:    Overwriting symbol font `largesymbolsTXA' in version `bold'
 
 (Font)                  U/ntxexa/m/n --> U/ntxexa/b/n on input line 653.
-\tx@sbptoks=\toks55
+\tx@sbptoks=\toks56
 LaTeX Font Info:    Redeclaring math delimiter \lfloor on input line 876.
 LaTeX Font Info:    Redeclaring math delimiter \rfloor on input line 877.
 LaTeX Font Info:    Redeclaring math delimiter \lceil on input line 878.
@@ -1091,11 +1101,11 @@ LaTeX Info: Redefining \not on input line 2969.
 \glo@main@file=\write5
 \openout5 = `dp.glo'.
 
-Package glossaries Info: Writing glossary file dp.glo on input line 33.
+Package glossaries Info: Writing glossary file dp.glo on input line 35.
 \glo@acronym@file=\write6
 \openout6 = `dp.acn'.
 
-Package glossaries Info: Writing glossary file dp.acn on input line 33.
+Package glossaries Info: Writing glossary file dp.acn on input line 35.
  (gloss.tex)
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryshapes.code.tex
@@ -1144,26 +1154,26 @@ File: tikzlibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries/shapes\
 pgflibraryshapes.multipart.code.tex
 File: pgflibraryshapes.multipart.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\pgfnodepartlowerbox=\box73
-\pgfnodeparttwobox=\box74
-\pgfnodepartthreebox=\box75
-\pgfnodepartfourbox=\box76
-\pgfnodeparttwentybox=\box77
-\pgfnodepartnineteenbox=\box78
-\pgfnodeparteighteenbox=\box79
-\pgfnodepartseventeenbox=\box80
-\pgfnodepartsixteenbox=\box81
-\pgfnodepartfifteenbox=\box82
-\pgfnodepartfourteenbox=\box83
-\pgfnodepartthirteenbox=\box84
-\pgfnodeparttwelvebox=\box85
-\pgfnodepartelevenbox=\box86
-\pgfnodeparttenbox=\box87
-\pgfnodepartninebox=\box88
-\pgfnodeparteightbox=\box89
-\pgfnodepartsevenbox=\box90
-\pgfnodepartsixbox=\box91
-\pgfnodepartfivebox=\box92
+\pgfnodepartlowerbox=\box75
+\pgfnodeparttwobox=\box76
+\pgfnodepartthreebox=\box77
+\pgfnodepartfourbox=\box78
+\pgfnodeparttwentybox=\box79
+\pgfnodepartnineteenbox=\box80
+\pgfnodeparteighteenbox=\box81
+\pgfnodepartseventeenbox=\box82
+\pgfnodepartsixteenbox=\box83
+\pgfnodepartfifteenbox=\box84
+\pgfnodepartfourteenbox=\box85
+\pgfnodepartthirteenbox=\box86
+\pgfnodeparttwelvebox=\box87
+\pgfnodepartelevenbox=\box88
+\pgfnodeparttenbox=\box89
+\pgfnodepartninebox=\box90
+\pgfnodeparteightbox=\box91
+\pgfnodepartsevenbox=\box92
+\pgfnodepartsixbox=\box93
+\pgfnodepartfivebox=\box94
 )))
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryarrows.code.tex
@@ -1172,7 +1182,7 @@ File: tikzlibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibr
 aryarrows.code.tex
 File: pgflibraryarrows.code.tex 2023-01-15 v3.1.10 (3.1.10)
-\arrowsize=\dimen297
+\arrowsize=\dimen299
 ))
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tik
 z/libraries\tikzlibraryquotes.code.tex
@@ -1199,68 +1209,68 @@ Package csquotes Info: ... found 'babel' package.
 Package csquotes Info: Adjusting default style.
 Package csquotes Info: Redefining alias 'default' -> 'czech'.
 LaTeX Font Info:    Trying to load font information for OT1+ntxtlf on input lin
-e 44.
+e 46.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ot1ntxtlf.fd
 File: ot1ntxtlf.fd 2021/05/24 v1.0 font definition file for OT1/ntx/tlf
 )
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 12.0pt on input line 44.
+(Font)              scaled to size 12.0pt on input line 46.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdf
 tex.def
 File: l3backend-pdftex.def 2023-04-19 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count354
-\l__pdf_internal_box=\box93
+\l__pdf_internal_box=\box95
 ) (dp.aux)
 \openout1 = `dp.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 44.
+LaTeX Font Info:    Checking defaults for OML/ntxmi/m/it on input line 46.
 LaTeX Font Info:    Trying to load font information for OML+ntxmi on input line
- 44.
+ 46.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\omlntxmi.fd
 File: omlntxmi.fd 2015/08/25 Fontinst v1.933 font definitions for OML/ntxmi.
 )
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for U/ntxexa/m/n on input line 46.
 LaTeX Font Info:    Trying to load font information for U+ntxexa on input line 
-44.
+46.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxexa.fd
 File: untxexa.fd 2012/04/16 Fontinst v1.933 font definitions for U/ntxexa.
 )
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 44.
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 46.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for LMS/ntxsy/m/n on input line 46.
 LaTeX Font Info:    Trying to load font information for LMS+ntxsy on input line
- 44.
+ 46.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\lmsntxsy.fd
 File: lmsntxsy.fd 2016/07/02 Fontinst v1.933 font definitions for LMS/ntxsy.
 )
-LaTeX Font Info:    ... okay on input line 44.
-LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 44.
+LaTeX Font Info:    ... okay on input line 46.
+LaTeX Font Info:    Checking defaults for LMX/ntxexx/m/n on input line 46.
 LaTeX Font Info:    Trying to load font information for LMX+ntxexx on input lin
-e 44.
+e 46.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\lmxntxexx.fd
 File: lmxntxexx.fd 2016/07/03 Fontinst v1.933 font definitions for LMX/ntxexx.
 )
-LaTeX Font Info:    ... okay on input line 44.
+LaTeX Font Info:    ... okay on input line 46.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -1301,16 +1311,16 @@ LaTeX Font Info:    ... okay on input line 44.
 ii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count355
-\scratchdimen=\dimen298
-\scratchbox=\box94
+\scratchdimen=\dimen300
+\scratchbox=\box96
 \nofMPsegments=\count356
 \nofMParguments=\count357
-\everyMPshowfont=\toks56
+\everyMPshowfont=\toks57
 \MPscratchCnt=\count358
-\MPscratchDim=\dimen299
+\MPscratchDim=\dimen301
 \MPnumerator=\count359
 \makeMPintoPDFobject=\count360
-\everyMPtoPDFconversion=\toks57
+\everyMPtoPDFconversion=\toks58
 )
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-b
 ase.sty
@@ -1322,28 +1332,28 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 fg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-Package hyperref Info: Link coloring OFF on input line 44.
+Package hyperref Info: Link coloring OFF on input line 46.
  (dp.out) (dp.out)
 \@outlinefile=\write7
 \openout7 = `dp.out'.
 
-Package csquotes Info: Redefining character " on input line 44.
-LaTeX Info: Command `\dddot' is already robust on input line 44.
-LaTeX Info: Command `\ddddot' is already robust on input line 44.
+Package csquotes Info: Redefining character " on input line 46.
+LaTeX Info: Command `\dddot' is already robust on input line 46.
+LaTeX Info: Command `\ddddot' is already robust on input line 46.
 \c@mv@tabular=\count361
 \c@mv@boldtabular=\count362
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 17.28pt on input line 50.
+(Font)              scaled to size 17.28pt on input line 52.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 17.28pt on input line 55.
+(Font)              scaled to size 17.28pt on input line 57.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 24.88pt on input line 59.
+(Font)              scaled to size 24.88pt on input line 61.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 24.88pt on input line 60.
+(Font)              scaled to size 24.88pt on input line 62.
 <pic/fav.jpg, id=30, 823.075pt x 446.66875pt>
 File: pic/fav.jpg Graphic file (type jpg)
 <use pic/fav.jpg>
-Package pdftex.def Info: pic/fav.jpg  used on input line 67.
+Package pdftex.def Info: pic/fav.jpg  used on input line 69.
 (pdftex.def)             Requested size: 176.40439pt x 95.73201pt.
  [1
 
@@ -1353,57 +1363,57 @@ Package pdftex.def Info: pic/fav.jpg  used on input line 67.
 a/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/newtx/ntx-ot1-tlf.enc} <./pic/f
 av.jpg>]
 LaTeX Font Info:    Trying to load font information for OT1+minntx on input lin
-e 95.
+e 97.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\ot1minntx.fd
 File: ot1minntx.fd 2022/01/20 v1.0 font definition file for OT1/minntx
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 95.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 97.
 
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 95.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 97.
 
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+ntxmia on input line 
-95.
+97.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxmia.fd
 File: untxmia.fd 2018/04/14 Fontinst v1.933 font definitions for U/ntxmia.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsym on input line 
-95.
+97.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxsym.fd
 File: untxsym.fd 2023/08/16 Fontinst v1.933 font definitions for U/ntxsym.
 )
 LaTeX Font Info:    Trying to load font information for U+ntxsyc on input line 
-95.
+97.
 
 (C:\Users\Milda\AppData\Local\Programs\MiKTeX\tex/latex/newtx\untxsyc.fd
 File: untxsyc.fd 2012/04/12 Fontinst v1.933 font definitions for U/ntxsyc.
 )
-Underfull \hbox (badness 10000) in paragraph at lines 87--99
+Underfull \hbox (badness 10000) in paragraph at lines 89--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--99
+Underfull \hbox (badness 10000) in paragraph at lines 89--101
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 87--99
+Underfull \hbox (badness 10000) in paragraph at lines 89--101
 
  []
 
 
-Overfull \hbox (9.7736pt too wide) in paragraph at lines 87--99
+Overfull \hbox (9.7736pt too wide) in paragraph at lines 89--101
 [] 
  []
 
@@ -1412,24 +1422,24 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.109 
+l.111 
        [1]
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 12.0pt on input line 124.
+(Font)              scaled to size 12.0pt on input line 126.
  [2] [3] (dp.toc)
 \tf@toc=\write8
 \openout8 = `dp.toc'.
 
  [4] (dp.acr) (dp.gls) [5] [6]
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
-(Font)              scaled to size 14.4pt on input line 194.
+(Font)              scaled to size 14.4pt on input line 196.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
-(Font)              scaled to size 14.4pt on input line 194.
+(Font)              scaled to size 14.4pt on input line 196.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/m/it' will be
-(Font)              scaled to size 12.0pt on input line 195.
+(Font)              scaled to size 12.0pt on input line 197.
  [7]
 ! You can't use `macro parameter character #' in horizontal mode.
-l.209 ...ko Python, C++, Java, PHP, Typescript, C#
+l.212 ...ko Python, C++, Java, PHP, Typescript, C#
                                                    nebo Bash. Je určen pro ...
 
 ? 
@@ -1440,7 +1450,13 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.237             \end{landscape}
+l.266             \end{landscape}
+                                 
+pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.266             \end{landscape}
                                  ] (dp.bbl
 
 ! LaTeX Error: Unicode character ̈ (U+0308)
@@ -1477,21 +1493,21 @@ Package rerunfilecheck Info: File `dp.out' has not changed.
 (rerunfilecheck)             Checksum: 427B999B09B93E51D992BCED1F84DB4F;825.
  ) 
 Here is how much of TeX's memory you used:
- 35001 strings out of 475247
- 672209 string characters out of 5757791
+ 35062 strings out of 475247
+ 673118 string characters out of 5757791
  1936785 words of memory out of 5000000
- 55817 multiletter control sequences out of 15000+600000
+ 55875 multiletter control sequences out of 15000+600000
  584309 words of font info for 88 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 95i,9n,93p,2349b,580s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 95i,11n,93p,2349b,578s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Milda/AppData/Local/Programs/MiKTeX/fonts/type1/public/txfonts/txtt
 .pfb><C:/Users/Milda/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/ztm
 b.pfb><C:/Users/Milda/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/zt
 mr.pfb><C:/Users/Milda/AppData/Local/Programs/MiKTeX/fonts/type1/public/newtx/z
 tmri.pfb>
-Output written on dp.pdf (11 pages, 170295 bytes).
+Output written on dp.pdf (11 pages, 171897 bytes).
 PDF statistics:
- 161 PDF objects out of 1000 (max. 8388607)
- 39 named destinations out of 1000 (max. 500000)
+ 162 PDF objects out of 1000 (max. 8388607)
+ 40 named destinations out of 1000 (max. 500000)
  66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

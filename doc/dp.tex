@@ -13,6 +13,8 @@
 \usepackage{multirow}
 \usepackage{amsmath}
 \usepackage{pdflscape}
+\usepackage{multirow}
+\usepackage{array}
 
 \geometry{
     a4paper,
@@ -200,6 +202,7 @@
 
             \subsubsection{Srovnání výsledků}
 
+
         \subsection{Modely}
             % TODO Tady asi nějaká předmluva k těm modelům a co za modely se vlastně používá 
 
@@ -214,8 +217,34 @@
 
             \subsubsection{Srovnání modelů}
 
+            \newpage
+
             \begin{landscape}
                 \centering
+                \begin{table}[H]
+                    \begin{tabular}{|p{6cm}|c|c|c|c|}
+                        \hline
+                        \textbf{Práce} & \textbf{Model} & \textbf{Benchmark} & \textbf{Pokrytí testy} & \textbf{Úspěšnost} \\
+                        \hline
+                        \multirow{3}{6cm}{An Empirical Evaluation of Using Large Language Models for Automated Unit Test Generation} & \textit{gpt-3.5-turbo} & \multirow{3}{*}{Sada NPM balíčků} & 70.2\% & 48\% \\
+                         & \textit{code-cushman-002} & & 68.2\% & 47.1\% \\
+                         & \textit{StarCoder} & & 54\% & 31.5\% \\
+                        \hline
+                        \multirow{6}{6cm}{Exploring the Effectiveness of Large Language
+Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & HumanEval & 69.1\% & 52.3\% \\
+                         & & SF110 & 0.1\% & 6.9\% \\
+                         & \multirow{2}{*}{\textit{CodeGen}} & HumanEval & 58.2\% & 23.9\% \\
+                         & & SF110 & 0.5\% & 30.2\% \\
+                         & \multirow{2}{*}{\textit{Codex (4k)}} & HumanEval & 87.7\% & 76.7\% \\
+                         & & SF110 & 1.8\% & 41.1\% \\
+                        \hline
+                        Java Unit Testing with AI: An AI-Driven Prototype for Unit Test Generation & \textit{gpt-3.5-turbo} & JUTAI - Zero-shot, temperature: \(0\) & 84.7\% & 71\% \\
+                        \hline
+                    \end{tabular}
+                    \centering
+                    \caption{Přehled a srovnání studií}
+                    \label{tab:paper_comp}
+                \end{table}
                 \begin{table}[H]
                     \begin{tabular}{|c|c|c|c|c|c|}
                         \hline

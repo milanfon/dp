@@ -38,11 +38,6 @@
 - Možnost také sestavit test dle specifikace
 - Aby běžný uživatel to mohl používat
 
-### Nástroj
-
-- Nástroj bych rád koncipoval jako LSP/Plugin pro IDE
-    - Bylo by to dobré, protože nad úroveň researche a srování, která provedeme bysme měli i nějaký hmatatelný výstup
-
 ## Struktura
 
 1. Research

@@ -1,5 +1,9 @@
 \begin{thebibliography}{1}
 
+\bibitem{parizek_symbolic_execution}
+P.~Parízek, ``Symbolic execution.'' Online.
+\newblock Lecture notes for Program Analysis and Verification course.
+
 \bibitem{IntelliTestInputGeneration2023}
 {Microsoft}, ``Dynamic symbolic execution - visual studio (windows),'' March
   2023.

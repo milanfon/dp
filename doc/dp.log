@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2023.1.8)  6 NOV 2023 17:08
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2023.1.8)  6 NOV 2023 17:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1577,16 +1577,16 @@ pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
 l.277             \end{landscape}
                                  ] (dp.bbl
 LaTeX Font Info:    Trying to load font information for OT1+ntxtt on input line
- 10.
+ 14.
 
 (/Users/milan/Library/Application Support/MiKTeX/texmfs/install/tex/latex/newtx
 /ot1ntxtt.fd
 File: ot1ntxtt.fd 2012/04/20 v3.1
 )
 LaTeX Font Info:    Font shape `OT1/ntxtt/m/n' will be
-(Font)              scaled to size 12.0pt on input line 10.
+(Font)              scaled to size 12.0pt on input line 14.
 
-Underfull \hbox (badness 10000) in paragraph at lines 9--13
+Underfull \hbox (badness 10000) in paragraph at lines 13--17
 \OT1/ntxtt/m/n/12 com / en-[]us / visualstudio / test / intellitest-[]manual / 
 test-[]generation ?
  []
@@ -1599,7 +1599,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.20 M.~Scha^^cc^^88
+l.24 M.~Scha^^cc^^88
                     fer, S.~Nadi, A.~Eghbali, and F.~Tip, ``An empirical eva...
 
 ? 
@@ -1610,10 +1610,10 @@ Package rerunfilecheck Info: File `dp.out' has not changed.
 (rerunfilecheck)             Checksum: 0D79EEB9BDE94C9C042854A524C2472E;1243.
  ) 
 Here is how much of TeX's memory you used:
- 35283 strings out of 476408
- 690004 string characters out of 2786733
+ 35285 strings out of 476408
+ 690063 string characters out of 2786733
  1872793 words of memory out of 3000000
- 54905 multiletter control sequences out of 15000+600000
+ 54906 multiletter control sequences out of 15000+600000
  538510 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  95i,11n,92p,2349b,576s stack positions out of 10000i,1000n,20000p,200000b,80000s
@@ -1628,9 +1628,9 @@ upport/MiKTeX/texmfs/install/fonts/type1/public/newtx/ztmb.pfb></Users/milan/Li
 brary/Application Support/MiKTeX/texmfs/install/fonts/type1/public/newtx/ztmr.p
 fb></Users/milan/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/
 public/newtx/ztmri.pfb>
-Output written on dp.pdf (12 pages, 185672 bytes).
+Output written on dp.pdf (12 pages, 186159 bytes).
 PDF statistics:
- 188 PDF objects out of 1000 (max. 8388607)
- 47 named destinations out of 1000 (max. 500000)
+ 190 PDF objects out of 1000 (max. 8388607)
+ 48 named destinations out of 1000 (max. 500000)
  82 words of extra memory for PDF output out of 10000 (max. 10000000)
 

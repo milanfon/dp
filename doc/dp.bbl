@@ -1,5 +1,21 @@
 \begin{thebibliography}{1}
 
+\bibitem{IntelliTestInputGeneration2023}
+{Microsoft}, ``Dynamic symbolic execution - visual studio (windows),'' March
+  2023.
+\newblock Accessed: 2023-10-10.
+
+\bibitem{microsoft2023testgen}
+{Microsoft}, ``Test generation - visual studio (windows).''
+  \url{https://learn.microsoft.com/en-us/visualstudio/test/intellitest-manual/test-generation?view=vs-2022},
+  3 2023.
+\newblock Accessed: 2023-10-10.
+
+\bibitem{FeedbackDirectedRT}
+C.~Pacheco, S.~K. Lahiri, M.~D. Ernst, and T.~Ball, ``Feedback-directed random
+  test generation,'' in {\em ICSE '07}, (Washington, DC, USA), IEEE Computer
+  Society, 2007.
+
 \bibitem{schafer2023empirical}
 M.~Schäfer, S.~Nadi, A.~Eghbali, and F.~Tip, ``An empirical evaluation of
   using large language models for automated unit test generation,'' {\em arXiv

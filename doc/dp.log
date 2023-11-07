@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2023.1.8)  6 NOV 2023 17:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2023.1.8)  7 NOV 2023 13:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1449,7 +1449,7 @@ LaTeX Font Info:    Font shape `OT1/ntxtlf/m/n' will be
 (Font)              scaled to size 24.88pt on input line 61.
 LaTeX Font Info:    Font shape `OT1/ntxtlf/b/n' will be
 (Font)              scaled to size 24.88pt on input line 62.
-<pic/fav.jpg, id=38, 823.075pt x 446.66875pt>
+<pic/fav.jpg, id=42, 823.075pt x 446.66875pt>
 File: pic/fav.jpg Graphic file (type jpg)
 <use pic/fav.jpg>
 Package pdftex.def Info: pic/fav.jpg  used on input line 69.
@@ -1557,24 +1557,24 @@ l.202 ... k selh^^c3^^a1n^^c3^^ad testu. \arcshort
 ? 
 [7] [8]
 ! You can't use `macro parameter character #' in horizontal mode.
-l.223 ...ko Python, C++, Java, PHP, Typescript, C#
+l.229 ...ko Python, C++, Java, PHP, Typescript, C#
                                                    nebo Bash. Je ur^^c4^^8de...
 
 ? 
-[9] [10
+[9] [10] [11
 
 
 pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.277             \end{landscape}
+l.283             \end{landscape}
                                  
 pdfTeX warning (ext4): destination with the same identifier (name{table.2}) has
  been already used, duplicate ignored
 <argument> ...shipout:D \box_use:N \l_shipout_box 
                                                   \__shipout_drop_firstpage_...
-l.277             \end{landscape}
+l.283             \end{landscape}
                                  ] (dp.bbl
 LaTeX Font Info:    Trying to load font information for OT1+ntxtt on input line
  14.
@@ -1599,24 +1599,27 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.24 M.~Scha^^cc^^88
+l.45 M.~Scha^^cc^^88
                     fer, S.~Nadi, A.~Eghbali, and F.~Tip, ``An empirical eva...
 
 ? 
-) [11
+) [12
 
 ] (dp.aux)
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
 Package rerunfilecheck Info: File `dp.out' has not changed.
-(rerunfilecheck)             Checksum: 0D79EEB9BDE94C9C042854A524C2472E;1243.
+(rerunfilecheck)             Checksum: 41029D1C5B2EE818F825825858DA4FC3;1392.
  ) 
 Here is how much of TeX's memory you used:
- 35285 strings out of 476408
- 690063 string characters out of 2786733
- 1872793 words of memory out of 3000000
- 54906 multiletter control sequences out of 15000+600000
+ 35294 strings out of 476408
+ 690213 string characters out of 2786733
+ 1873793 words of memory out of 3000000
+ 54910 multiletter control sequences out of 15000+600000
  538510 words of font info for 84 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 95i,11n,92p,2349b,576s stack positions out of 10000i,1000n,20000p,200000b,80000s
+ 95i,11n,92p,2349b,574s stack positions out of 10000i,1000n,20000p,200000b,80000s
 
 pdfTeX warning (dest): name{glo:put} has been referenced but does not exist, re
 placed by a fixed one
@@ -1628,9 +1631,9 @@ upport/MiKTeX/texmfs/install/fonts/type1/public/newtx/ztmb.pfb></Users/milan/Li
 brary/Application Support/MiKTeX/texmfs/install/fonts/type1/public/newtx/ztmr.p
 fb></Users/milan/Library/Application Support/MiKTeX/texmfs/install/fonts/type1/
 public/newtx/ztmri.pfb>
-Output written on dp.pdf (12 pages, 186159 bytes).
+Output written on dp.pdf (13 pages, 193061 bytes).
 PDF statistics:
- 190 PDF objects out of 1000 (max. 8388607)
- 48 named destinations out of 1000 (max. 500000)
- 82 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 207 PDF objects out of 1000 (max. 8388607)
+ 53 named destinations out of 1000 (max. 500000)
+ 90 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{parizek_symbolic_execution}
 P.~Parízek, ``Symbolic execution.'' Online.
@@ -14,6 +14,27 @@ P.~Parízek, ``Symbolic execution.'' Online.
   \url{https://learn.microsoft.com/en-us/visualstudio/test/intellitest-manual/test-generation?view=vs-2022},
   3 2023.
 \newblock Accessed: 2023-10-10.
+
+\bibitem{engler2006exe}
+D.~Engler and D.~Y. Chen, ``Exe: Automatically generating inputs of death,'' in
+  {\em Proceedings of the 13th ACM Conference on Computer and Communications
+  Security (CCS)}, (New York, NY, USA), pp.~322--335, ACM, 2006.
+
+\bibitem{sen2005cute}
+K.~Sen, D.~Marinov, and G.~Agha, ``Cute: A concolic unit testing engine for
+  c,'' in {\em ESEC/FSE-13: Proceedings of the 10th European Software
+  Engineering Conference held jointly with 13th ACM SIGSOFT International
+  Symposium on Foundations of Software Engineering}, (New York, NY, USA), ACM,
+  2005.
+\newblock Available at the University of Illinois at Urbana-Champaign.
+
+\bibitem{zhou2006safedrive}
+F.~Zhou, J.~Condit, Z.~Anderson, I.~Bagrak, R.~Ennals, M.~Harren, G.~Necula,
+  and E.~Brewer, ``Safedrive: Safe and recoverable extensions using
+  language-based techniques,'' in {\em Proceedings of the 7th Symposium on
+  Operating Systems Design and Implementation}, (Seattle, WA), pp.~45--60,
+  USENIX Association, 2006.
+\newblock Available at Bell Labs.
 
 \bibitem{FeedbackDirectedRT}
 C.~Pacheco, S.~K. Lahiri, M.~D. Ernst, and T.~Ball, ``Feedback-directed random

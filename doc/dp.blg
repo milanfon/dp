@@ -10,46 +10,46 @@ Warning--entry type for "IntelliTestInputGeneration2023" isn't style-file define
 Warning--entry type for "microsoft2023testgen" isn't style-file defined
 --line 24 of file refs.bib
 Warning--entry type for "testsmells" isn't style-file defined
---line 70 of file refs.bib
-You've used 9 entries,
+--line 104 of file refs.bib
+You've used 12 entries,
             1876 wiz_defined-function locations,
-            522 strings with 4928 characters,
-and the built_in function-call counts, 1459 in all, are:
-= -- 116
-> -- 85
+            544 strings with 5838 characters,
+and the built_in function-call counts, 2431 in all, are:
+= -- 207
+> -- 130
 < -- 0
-+ -- 33
-- -- 24
-* -- 95
-:= -- 238
-add.period$ -- 14
-call.type$ -- 9
-change.case$ -- 9
++ -- 49
+- -- 37
+* -- 171
+:= -- 375
+add.period$ -- 19
+call.type$ -- 12
+change.case$ -- 12
 chr.to.int$ -- 0
-cite$ -- 9
-duplicate$ -- 60
-empty$ -- 166
-format.name$ -- 24
-if$ -- 344
+cite$ -- 12
+duplicate$ -- 113
+empty$ -- 261
+format.name$ -- 37
+if$ -- 578
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 4
-newline$ -- 35
-num.names$ -- 8
-pop$ -- 52
+int.to.str$ -- 12
+missing$ -- 7
+newline$ -- 46
+num.names$ -- 11
+pop$ -- 66
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 20
+skip$ -- 49
 stack$ -- 0
-substring$ -- 0
-swap$ -- 4
+substring$ -- 56
+swap$ -- 21
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 8
-width$ -- 10
-write$ -- 82
+while$ -- 17
+width$ -- 14
+write$ -- 118
 (There were 3 warnings)

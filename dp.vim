@@ -14,11 +14,13 @@ else
   set shortmess=aoO
 endif
 badd +1 ~/Škola/DP
-badd +0 poznamky/pre.md
-badd +197 doc/dp.tex
+badd +16 poznamky/pre.md
+badd +208 doc/dp.tex
 badd +1174 ~/Škola/BP/bp.tex
-badd +0 doc/refs.bib
-badd +0 doc/gloss.tex
+badd +43 doc/refs.bib
+badd +1 doc/gloss.tex
+badd +0 poznamky/2.md
+badd +0 3.md
 argglobal
 %argdel
 $argadd ~/Škola/DP
@@ -27,8 +29,10 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit poznamky/pre.md
+edit poznamky/2.md
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -40,12 +44,52 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 16 - ((15 * winheight(0) + 39) / 78)
+let s:l = 43 - ((42 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 16
-normal! 021|
+keepjumps 43
+normal! 06|
+lcd ~/Škola/DP
+tabnext
+edit ~/Škola/DP/3.md
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 5 - ((4 * winheight(0) + 39) / 78)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 5
+normal! 022|
+lcd ~/Škola/DP
+tabnext
+edit ~/Škola/DP/poznamky/pre.md
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 40 - ((39 * winheight(0) + 39) / 78)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 40
+normal! 0
 lcd ~/Škola/DP
 tabnext
 edit ~/Škola/DP/doc/refs.bib
@@ -61,11 +105,11 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 6 - ((5 * winheight(0) + 39) / 78)
+let s:l = 56 - ((55 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 6
+keepjumps 56
 normal! 0
 lcd ~/Škola/DP
 tabnext
@@ -81,12 +125,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 194 - ((40 * winheight(0) + 39) / 78)
+let s:l = 191 - ((17 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 194
-normal! 0432|
+keepjumps 191
+normal! 071|
 lcd ~/Škola/DP
 tabnext
 edit ~/Škola/DP/doc/gloss.tex
@@ -102,12 +146,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 3 - ((2 * winheight(0) + 39) / 78)
+let s:l = 11 - ((10 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 3
-normal! 095|
+keepjumps 11
+normal! 046|
 lcd ~/Škola/DP
 tabnext
 edit ~/Škola/BP/bp.tex
@@ -129,7 +173,7 @@ normal! zt
 keepjumps 449
 normal! 0
 lcd ~/Škola/DP
-tabnext 3
+tabnext 2
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

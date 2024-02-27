@@ -1,0 +1,4 @@
+PWD /Users/milan/Škola/DP/doc
+INPUT /Users/milan/Library/Application Support/MiKTeX/texmfs/data/miktex/data/le/pdftex/pdflatex.fmt
+INPUT gloss.tex
+OUTPUT gloss.log

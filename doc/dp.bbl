@@ -1,5 +1,10 @@
 \begin{thebibliography}{10}
 
+\bibitem{fuzzing}
+M.~Sutton, A.~Greene, and P.~Amini, {\em Fuzzing: Brute Force Vulnerability
+  Discovery}.
+\newblock Addison-Wesley Professional, 2007.
+
 \bibitem{parizek_symbolic_execution}
 P.~Parízek, ``Symbolic execution.'' Online.
 \newblock Lecture notes for Program Analysis and Verification course.
@@ -7,13 +12,13 @@ P.~Parízek, ``Symbolic execution.'' Online.
 \bibitem{IntelliTestInputGeneration2023}
 {Microsoft}, ``Dynamic symbolic execution - visual studio (windows),'' March
   2023.
-\newblock Accessed: 2023-10-10.
+\newblock Čteno: 2023-10-10.
 
 \bibitem{microsoft2023testgen}
 {Microsoft}, ``Test generation - visual studio (windows).''
   \url{https://learn.microsoft.com/en-us/visualstudio/test/intellitest-manual/test-generation?view=vs-2022},
   3 2023.
-\newblock Accessed: 2023-10-10.
+\newblock Čteno: 2023-10-10.
 
 \bibitem{engler2006exe}
 D.~Engler and D.~Y. Chen, ``Exe: Automatically generating inputs of death,'' in
@@ -41,6 +46,22 @@ C.~Pacheco, S.~K. Lahiri, M.~D. Ernst, and T.~Ball, ``Feedback-directed random
   test generation,'' in {\em ICSE '07}, (Washington, DC, USA), IEEE Computer
   Society, 2007.
 
+\bibitem{CAMPOS2018207}
+J.~Campos, Y.~Ge, N.~Albunian, G.~Fraser, M.~Eler, and A.~Arcuri, ``An
+  empirical evaluation of evolutionary algorithms for unit test suite
+  generation,'' {\em Information and Software Technology}, vol.~104,
+  pp.~207--235, 2018.
+
+\bibitem{abs-2111-05003}
+S.~Lukasczyk, F.~Kroi{\ss}, and G.~Fraser, ``An empirical study of automated
+  unit test generation for python,'' {\em CoRR}, vol.~abs/2111.05003, 2021.
+
+\bibitem{Saes2018UnitTestGeneration}
+L.~Saes, ``Unit test generation using machine learning,'' Master's thesis,
+  Universiteit van Amsterdam, 2018.
+\newblock
+  \url{https://research.infosupport.com/wp-content/uploads/Unit-test-generation-using-machine-Master-Thesis-Laurence-Saes.pdf}.
+
 \bibitem{schafer2023empirical}
 M.~Schäfer, S.~Nadi, A.~Eghbali, and F.~Tip, ``An empirical evaluation of
   using large language models for automated unit test generation,'' {\em arXiv
@@ -59,6 +80,10 @@ M.~L. Siddiq, J.~C.~S. Santos, R.~H. Tanvir, N.~Ulfat, F.~A. Rifat, and V.~C.
 \bibitem{testsmells}
 ``Test smells.'' \url{https://testsmells.org/pages/testsmells.html}, 2021.
 \newblock Čteno: 23.10.2023.
+
+\bibitem{jutai}
+J.~S. Katrin~Kahur, ``Java unit testing with ai: An ai-driven prototype for
+  unit test generation,'' 2023.
 
 \bibitem{BigCode2023}
 B.~Project, ``Codeml openrail-m 0.1 license,'' 2023.

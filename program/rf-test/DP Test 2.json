@@ -1,0 +1,127 @@
+{
+    "title": "DP Test 2",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "https://www.rust-lang.org/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://www.rust-lang.org/",
+                    "title": "Rust Programming Language"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Install"
+                ],
+                [
+                    "nav li:nth-of-type(1) > a"
+                ],
+                [
+                    "xpath//html/body/nav/ul/li[1]/a"
+                ],
+                [
+                    "pierce/nav li:nth-of-type(1) > a"
+                ],
+                [
+                    "text/Install"
+                ]
+            ],
+            "offsetY": 15,
+            "offsetX": 34.8515625,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://www.rust-lang.org/tools/install",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Learn"
+                ],
+                [
+                    "nav li:nth-of-type(2) > a"
+                ],
+                [
+                    "xpath//html/body/nav/ul/li[2]/a"
+                ],
+                [
+                    "pierce/nav li:nth-of-type(2) > a"
+                ]
+            ],
+            "offsetY": 10,
+            "offsetX": 37.7421875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://www.rust-lang.org/learn",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/THE STANDARD LIBRARY"
+                ],
+                [
+                    "div > div:nth-of-type(1) div.pt3 > a"
+                ],
+                [
+                    "xpath///*[@id=\"learn-use\"]/div/div[1]/section/div[1]/a"
+                ],
+                [
+                    "pierce/div > div:nth-of-type(1) div.pt3 > a"
+                ],
+                [
+                    "text/The standard"
+                ]
+            ],
+            "offsetY": 11.7421875,
+            "offsetX": 325.5
+        },
+        {
+            "type": "navigate",
+            "url": "https://www.rust-lang.org/learn",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://www.rust-lang.org/learn",
+                    "title": "Learn Rust - Rust Programming Language"
+                }
+            ]
+        },
+        {
+            "type": "navigate",
+            "url": "https://www.rust-lang.org/tools/install",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://www.rust-lang.org/tools/install",
+                    "title": "Install Rust - Rust Programming Language"
+                }
+            ]
+        }
+    ]
+}

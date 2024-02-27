@@ -1,0 +1,82 @@
+{
+    "title": "DP Test 4",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "https://htmx.org/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://htmx.org/",
+                    "title": "</> htmx - high power tools for html"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "#nav div:nth-of-type(1) > a"
+                ],
+                [
+                    "xpath///*[@id=\"nav\"]/div[1]/div[1]/a"
+                ],
+                [
+                    "pierce/#nav div:nth-of-type(1) > a"
+                ]
+            ],
+            "offsetY": 12.25,
+            "offsetX": 18.2109375
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/triggers"
+                ],
+                [
+                    "li:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+                ],
+                [
+                    "xpath///*[@id=\"contents\"]/ul/li[3]/ul/li[1]/a"
+                ],
+                [
+                    "pierce/li:nth-of-type(3) > ul > li:nth-of-type(1) > a"
+                ]
+            ],
+            "offsetY": 12.203125,
+            "offsetX": 35.3046875
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/swapping"
+                ],
+                [
+                    "li:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+                ],
+                [
+                    "xpath///*[@id=\"contents\"]/ul/li[3]/ul/li[4]/a"
+                ],
+                [
+                    "pierce/li:nth-of-type(3) > ul > li:nth-of-type(4) > a"
+                ]
+            ],
+            "offsetY": 11.5,
+            "offsetX": 33.3046875
+        }
+    ]
+}

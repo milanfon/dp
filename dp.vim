@@ -3,7 +3,7 @@ let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-
 let v:this_session=expand("<sfile>:p")
 silent only
 silent tabonly
-cd ~/Škola/DP
+cd ~/Škola/DP/doc
 if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
@@ -13,17 +13,31 @@ if &shortmess =~ 'A'
 else
   set shortmess=aoO
 endif
-badd +1 ~/Škola/DP
-badd +16 poznamky/pre.md
-badd +208 doc/dp.tex
-badd +1174 ~/Škola/BP/bp.tex
-badd +43 doc/refs.bib
-badd +1 doc/gloss.tex
-badd +0 poznamky/2.md
-badd +0 3.md
+badd +16 ~/Škola/DP/poznamky/pre.md
+badd +233 dp.tex
+badd +33 ~/Škola/BP/bp.tex
+badd +170 refs.bib
+badd +1 gloss.tex
+badd +1 ~/Škola/DP/poznamky/2.md
+badd +1 ~/Škola/DP/3.md
+badd +1 ~/Škola/DP/poznamky/3.md
+badd +26 ~/Škola/DP/modely-test/gpt4/output-3.test.js
+badd +76 ~/Škola/DP/modely-test/starcoder/output-3.test.js
+badd +25 ~/Škola/DP/modely-test/codellama/output-3.test.js
+badd +52 ~/Škola/DP/modely-test/inputs/js.js
+badd +34 ~/Škola/DP/modely-test/inputs/js-c.js
+badd +1 ~/Škola/DP/modely-test/inputs/js-e.js
+badd +2 ~/Škola/DP/4.md
+badd +1 ~/.config/nvim/after
+badd +1 ~/.config/nvim/lua/milda/remap.lua
+badd +46 ~/.config/nvim/after/ftplugin/tex.lua
+badd +0 ~/Škola/DP/new-doc/manual.tex
+badd +1 ~/Škola/BP/gloss.tex
+badd +0 latexmkrc
+badd +2 ~/Škola/DP/poznamky/5.md
 argglobal
 %argdel
-$argadd ~/Škola/DP
+$argadd ~/Škola/DP/
 set stal=2
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
@@ -31,8 +45,10 @@ tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
 tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
+tabnew +setlocal\ bufhidden=wipe
 tabrewind
-edit poznamky/2.md
+edit ~/Škola/DP/poznamky/2.md
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -44,32 +60,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 43 - ((42 * winheight(0) + 39) / 78)
+let s:l = 39 - ((38 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 43
-normal! 06|
-lcd ~/Škola/DP
-tabnext
-edit ~/Škola/DP/3.md
-argglobal
-setlocal fdm=manual
-setlocal fde=0
-setlocal fmr={{{,}}}
-setlocal fdi=#
-setlocal fdl=0
-setlocal fml=1
-setlocal fdn=20
-setlocal fen
-silent! normal! zE
-let &fdl = &fdl
-let s:l = 5 - ((4 * winheight(0) + 39) / 78)
-if s:l < 1 | let s:l = 1 | endif
-keepjumps exe s:l
-normal! zt
-keepjumps 5
-normal! 022|
+keepjumps 39
+normal! 017|
 lcd ~/Škola/DP
 tabnext
 edit ~/Škola/DP/poznamky/pre.md
@@ -92,6 +88,47 @@ keepjumps 40
 normal! 0
 lcd ~/Škola/DP
 tabnext
+edit ~/Škola/DP/poznamky/3.md
+argglobal
+balt ~/Škola/DP/poznamky/pre.md
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 34 - ((33 * winheight(0) + 39) / 78)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 34
+normal! 08|
+lcd ~/Škola/DP
+tabnext
+edit ~/Škola/DP/4.md
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 16 - ((15 * winheight(0) + 39) / 78)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 16
+normal! 010|
+lcd ~/Škola/DP
+tabnext
 edit ~/Škola/DP/doc/refs.bib
 argglobal
 balt ~/Škola/DP/poznamky/pre.md
@@ -105,12 +142,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 56 - ((55 * winheight(0) + 39) / 78)
+let s:l = 143 - ((44 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 56
-normal! 0
+keepjumps 143
+normal! 028|
 lcd ~/Škola/DP
 tabnext
 edit ~/Škola/DP/doc/dp.tex
@@ -125,13 +162,12 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 191 - ((17 * winheight(0) + 39) / 78)
+let s:l = 270 - ((30 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 191
-normal! 071|
-lcd ~/Škola/DP
+keepjumps 270
+normal! 027|
 tabnext
 edit ~/Škola/DP/doc/gloss.tex
 argglobal
@@ -146,15 +182,15 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 11 - ((10 * winheight(0) + 39) / 78)
+let s:l = 22 - ((21 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 11
-normal! 046|
+keepjumps 22
+normal! 0455|
 lcd ~/Škola/DP
 tabnext
-edit ~/Škola/BP/bp.tex
+edit ~/Škola/DP/doc/latexmkrc
 argglobal
 setlocal fdm=manual
 setlocal fde=0
@@ -166,14 +202,34 @@ setlocal fdn=20
 setlocal fen
 silent! normal! zE
 let &fdl = &fdl
-let s:l = 449 - ((57 * winheight(0) + 39) / 78)
+let s:l = 4 - ((3 * winheight(0) + 39) / 78)
 if s:l < 1 | let s:l = 1 | endif
 keepjumps exe s:l
 normal! zt
-keepjumps 449
+keepjumps 4
 normal! 0
 lcd ~/Škola/DP
-tabnext 2
+tabnext
+edit ~/Škola/BP/gloss.tex
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 1 - ((0 * winheight(0) + 39) / 78)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 1
+normal! 0
+lcd ~/Škola/DP
+tabnext 4
 set stal=1
 if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
   silent exe 'bwipe ' . s:wipebuf

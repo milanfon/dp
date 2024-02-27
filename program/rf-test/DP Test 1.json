@@ -1,0 +1,76 @@
+{
+    "title": "DP Test 1",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "https://milanfon.cz/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://milanfon.cz/",
+                    "title": "Fórum - milanfon"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Diskuze[role=\"link\"]"
+                ],
+                [
+                    "li:nth-of-type(1) li:nth-of-type(1) > div.ipsDataItem_main a"
+                ],
+                [
+                    "xpath///*[@id=\"ipsLayout_mainArea\"]/section/ol/li[1]/ol/li[1]/div[2]/h4/a"
+                ],
+                [
+                    "pierce/li:nth-of-type(1) li:nth-of-type(1) > div.ipsDataItem_main a"
+                ]
+            ],
+            "offsetY": 6.6875,
+            "offsetX": 27.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://milanfon.cz/forum/7-diskuze/",
+                    "title": "Diskuze - milanfon"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "div:nth-of-type(2) > div > div:nth-of-type(2) li.ipsPagination_next > a"
+                ],
+                [
+                    "xpath///*[@id=\"elPagination_ddf12f9ac9a09d4902c14c869cbc7c3f_2738938\"]/li[9]/a"
+                ],
+                [
+                    "pierce/div:nth-of-type(2) > div > div:nth-of-type(2) li.ipsPagination_next > a"
+                ]
+            ],
+            "offsetY": 7.7109375,
+            "offsetX": 25.3359375,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://milanfon.cz/forum/7-diskuze/page/2/",
+                    "title": "Diskuze - Strana 2 - milanfon"
+                }
+            ]
+        }
+    ]
+}

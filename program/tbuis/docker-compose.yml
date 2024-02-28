@@ -1,0 +1,32 @@
+version: '3.8'
+
+services: 
+
+  db:
+    image: mariadb
+    container_name: tbuis-db
+    environment: 
+      MARIADB_ROOT_PASSWORD: testtest
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ./db:/docker-entrypoint-initdb.d/
+    networks:
+      - tbuis
+
+  tomcat:
+    build:
+      context: .
+      args:
+        WAR_FILE: ${WAR_FILE_PATH}
+    container_name: tbuis-tomcat
+    depends_on:
+      - db
+    ports:
+      - "4680:8080"
+    networks:
+      - tbuis
+
+networks: 
+  tbuis:
+    driver: bridge

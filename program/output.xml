@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.9.6 on darwin)" generated="2024-03-01T17:18:57.930745" rpa="false" schemaversion="5">
+<suite id="s1" name="TBUIS1" source="/Users/milan/Škola/DP/program/tbuis/../rf-test/TBUIS1.robot">
+<test id="s1-t1" name="Verify Student's View Title" line="11">
+<kw name="Open Browser To Login Page">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-03-01T17:18:57.983338" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/index.jsp'.</msg>
+<arg>${BASE_URL}/index.jsp</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-03-01T17:18:57.983161" elapsed="1.491525"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2024-03-01T17:18:59.475029" elapsed="0.461810"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=header.link.login</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-01T17:18:59.937090" elapsed="0.007774"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-01T17:18:59.945171" level="INFO">Clicking element 'id=header.link.login'.</msg>
+<arg>id=header.link.login</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-01T17:18:59.945017" elapsed="0.209001"/>
+</kw>
+<status status="PASS" start="2024-03-01T17:18:57.982622" elapsed="2.171549"/>
+</kw>
+<kw name="Login As Student">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=loginPage.userNameInput</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.154602" elapsed="0.007139"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-01T17:19:00.162158" level="INFO">Typing text 'brown' into text field 'id=loginPage.userNameInput'.</msg>
+<arg>id=loginPage.userNameInput</arg>
+<arg>${USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.161930" elapsed="0.098223"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-01T17:19:00.260516" level="INFO">Typing text 'pass' into text field 'id=loginPage.passwordInput'.</msg>
+<arg>id=loginPage.passwordInput</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.260318" elapsed="0.035510"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-01T17:19:00.296244" level="INFO">Clicking element 'id=loginPage.loginFormSubmit'.</msg>
+<arg>id=loginPage.loginFormSubmit</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.295975" elapsed="0.505864"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Student's View</arg>
+<arg>10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.801993" elapsed="0.005913"/>
+</kw>
+<status status="PASS" start="2024-03-01T17:19:00.154386" elapsed="0.653618"/>
+</kw>
+<kw name="Verify Student View Title">
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>id=stu.view.title</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.808474" elapsed="0.005374"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-03-01T17:19:00.825936" level="INFO">${pageTitle} = Stu view</msg>
+<var>${pageTitle}</var>
+<arg>id=stu.view.title</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.813995" elapsed="0.011979"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<msg time="2024-03-01T17:19:00.826395" level="FAIL">Stu view != Student's View</msg>
+<arg>${pageTitle}</arg>
+<arg>Student's View</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="FAIL" start="2024-03-01T17:19:00.826133" elapsed="0.000332">Stu view != Student's View</status>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-03-01T17:19:00.826624" elapsed="0.067935"/>
+</kw>
+<status status="FAIL" start="2024-03-01T17:19:00.808210" elapsed="0.086480">Stu view != Student's View</status>
+</kw>
+<status status="FAIL" start="2024-03-01T17:18:57.982312" elapsed="2.912594">Stu view != Student's View</status>
+</test>
+<doc>Scenario for verifying the "Student's View" title on a specific page.</doc>
+<status status="FAIL" start="2024-03-01T17:18:57.932021" elapsed="2.963166"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="TBUIS1">TBUIS1</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

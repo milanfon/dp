@@ -4,6 +4,7 @@ import time
 import robot
 import argparse
 import jinja2
+import re
 from openai import OpenAI
 
 DIRECTORY = "./tbuis/"
@@ -16,6 +17,7 @@ parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', action='store_true', help='Run the generation')
 parser.add_argument('-n', '--new', type=str, help='Create new input file (test)')
 parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
+parser.add_argument('--count', type=int, help='How many variations of the test gnerate?')
 parser.add_argument('--cmd', action='store_true', help='Output render to command line')
 args = parser.parse_args()
 
@@ -27,8 +29,19 @@ def save_test(text, name):
     if not os.path.exists(GEN_FOLDER):
         os.makedirs(GEN_FOLDER)
     base = os.path.splitext(name)[0]
-    new_name = f"{base}.robot"
+    pattern = re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
+    highest_num = 0
+    for file in os.listdir(GEN_FOLDER):
+        match = pattern.match(file)
+        if match:
+            num = int(match.group(1))
+            if num > highest_num:
+                highest_num = num
+
+    highest_num = highest_num + 1
+    new_name = f"{base}-{highest_num}.robot"
     test_path = os.path.join(GEN_FOLDER, new_name)
+
     with open(test_path, 'w') as file:
         file.write(text)
     print(f"Test saved to '{test_path}'")

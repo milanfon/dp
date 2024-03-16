@@ -4,17 +4,34 @@ import time
 import robot
 import argparse
 import jinja2
+from openai import OpenAI
 
 DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
 TEMPLATE_FILE = "./templates/template.txt"
+SYSTEM_PROMPT = "./templates/system.txt"
 GEN_FOLDER = "./generated"
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', action='store_true', help='Run the generation')
 parser.add_argument('-n', '--new', type=str, help='Create new input file (test)')
 parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
+parser.add_argument('--cmd', action='store_true', help='Output render to command line')
 args = parser.parse_args()
+
+def system_prompt():
+    with open(SYSTEM_PROMPT, 'r') as sp_file:
+        return sp_file.read()
+
+def save_test(text, name):
+    if not os.path.exists(GEN_FOLDER):
+        os.makedirs(GEN_FOLDER)
+    base = os.path.splitext(name)[0]
+    new_name = f"{base}.robot"
+    test_path = os.path.join(GEN_FOLDER, new_name)
+    with open(test_path, 'w') as file:
+        file.write(text)
+    print(f"Test saved to '{test_path}'")
 
 def new_input(input_name):
     if not os.path.exists(INPUT_FOLDER):
@@ -35,8 +52,26 @@ def render_template(input_name):
         input_name += '.txt'
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(INPUT_FOLDER))
     template = env.get_template(input_name)
-    rendered_text = template.render(bla="1010")
-    print(rendered_text)
+    rendered_text = template.render()
+    if args.cmd:
+        print(rendered_text)
+        return
+
+    client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
+
+    print("Test generation started...")
+    completion = client.chat.completions.create(
+      model="local-model", 
+      messages=[
+        {"role": "system", "content": system_prompt()},
+        {"role": "user", "content": rendered_text}
+      ],
+      temperature=0,
+    )
+
+    response = completion.choices[0].message.content
+
+    save_test(response, input_name)
 
 def run(): 
     # List variants of WAR files

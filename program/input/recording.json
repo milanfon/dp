@@ -1,0 +1,150 @@
+{
+    "title": "Recording 29/02/2024 at 16:31:05",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:4680/tbuis/index.jsp",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/index.jsp",
+                    "title": "University information system"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login"
+                ],
+                [
+                    "#header.link.login"
+                ],
+                [
+                    "xpath///[@id="header.link.login"]"
+                ],
+                [
+                    "pierce/#header.link.login"
+                ],
+                [
+                    "text/Login"
+                ]
+            ],
+            "offsetY": 25,
+            "offsetX": 20.671875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/login",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage.userNameInput"
+                ],
+                [
+                    "xpath///[@id="loginPage.userNameInput"]"
+                ],
+                [
+                    "pierce/#loginPage.userNameInput"
+                ]
+            ],
+            "offsetY": 12,
+            "offsetX": 286.5
+        },
+        {
+            "type": "change",
+            "value": "brown",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage.userNameInput"
+                ],
+                [
+                    "xpath///[@id="loginPage.userNameInput"]"
+                ],
+                [
+                    "pierce/#loginPage.userNameInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Tab"
+        },
+        {
+            "type": "keyUp",
+            "key": "Tab",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "pass",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage.passwordInput"
+                ],
+                [
+                    "xpath///[@id="loginPage.passwordInput"]"
+                ],
+                [
+                    "pierce/#loginPage.passwordInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login[role="button"]"
+                ],
+                [
+                    "#loginPage.loginFormSubmit"
+                ],
+                [
+                    "xpath///*[@id="loginPage.loginFormSubmit"]"
+                ],
+                [
+                    "pierce/#loginPage.loginFormSubmit"
+                ]
+            ],
+            "offsetY": 29,
+            "offsetX": 42.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/overview",
+                    "title": ""
+                }
+            ]
+        }
+    ]
+}

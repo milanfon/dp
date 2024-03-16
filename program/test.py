@@ -3,27 +3,40 @@ import subprocess
 import time
 import robot
 import argparse
+import jinja2
 
 DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
-SYSTEM_PROMPT = "./templates/system.txt"
+TEMPLATE_FILE = "./templates/template.txt"
+GEN_FOLDER = "./generated"
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', action='store_true', help='Run the generation')
-parser.add_argument('-i', '--input', type=str, help='Create new input file (test)')
+parser.add_argument('-n', '--new', type=str, help='Create new input file (test)')
+parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
 args = parser.parse_args()
 
 def new_input(input_name):
     if not os.path.exists(INPUT_FOLDER):
         os.makedirs(INPUT_FOLDER)
+    if not input_name.endswith('.txt'):
+        input_name += '.txt'
     input_file_path = os.path.join(INPUT_FOLDER, input_name)
     with open(input_file_path, 'w') as new_file:
-        if os.path.exists(SYSTEM_PROMPT):
-            with open(SYSTEM_PROMPT, 'r') as system_prompt:
-                new_file.write(system_prompt.read())
-            print(f"New input file '{input_file_path}' created!")
+        if os.path.exists(TEMPLATE_FILE):
+            with open(TEMPLATE_FILE, 'r') as template:
+                new_file.write(template.read())
+            print(f"New input file '{input_file_path}' created from template.")
         else:
-            print(f"System prompt '{SYSTEM_PROMPT}' not found!")
+            print(f"Template file '{TEMPLATE_FILE}' not found. Empty file created.")
+
+def render_template(input_name):
+    if not input_name.endswith('.txt'):
+        input_name += '.txt'
+    env = jinja2.Environment(loader=jinja2.FileSystemLoader(INPUT_FOLDER))
+    template = env.get_template(input_name)
+    rendered_text = template.render(bla="1010")
+    print(rendered_text)
 
 def run(): 
     # List variants of WAR files
@@ -53,5 +66,7 @@ def run():
 if __name__ == "__main__":
     if args.run:
         run()
+    if args.new:
+        new_input(args.new)
     if args.input:
-        new_input(args.input)
+        render_template(args.input)

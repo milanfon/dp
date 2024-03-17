@@ -70,9 +70,18 @@ def render_template(input_name):
         print(rendered_text)
         return
 
-    client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
-
     print("Test generation started...")
+
+    if args.count and args.count > 1:
+        for _ in range(args.count):
+            response = prompt_model(rendered_text)
+            save_test(response, input_name)
+    else:
+        response = prompt_model(rendered_text)
+        save_test(response, input_name)
+
+def prompt_model(rendered_text):
+    client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
     completion = client.chat.completions.create(
       model="local-model", 
       messages=[
@@ -81,10 +90,7 @@ def render_template(input_name):
       ],
       temperature=0,
     )
-
-    response = completion.choices[0].message.content
-
-    save_test(response, input_name)
+    return completion.choices[0].message.content
 
 def run(): 
     # List variants of WAR files

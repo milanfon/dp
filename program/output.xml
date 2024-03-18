@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.9.6 on darwin)" generated="2024-03-18T09:42:46.636562" rpa="false" schemaversion="5">
+<suite id="s1" name="First-10" source="/Users/milan/Škola/DP/program/generated/first-10.robot">
+<test id="s1-t1" name="Open Page And Validate Title" line="14">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:46.720566" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/index.jsp'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-03-18T09:42:46.720413" elapsed="2.250034"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:42:50.975491" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:48.971276" elapsed="2.005954"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:50.984320" level="INFO">Clicking element '//*[@id="header.link.login"]'.</msg>
+<arg>${LOGIN_BUTTON_XPATH}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-18T09:42:50.981941" elapsed="0.263224"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:42:53.246900" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:51.245571" elapsed="2.002270"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:53.250276" level="INFO">Clicking element '//*[@id="loginPage.userNameInput"]'.</msg>
+<arg>${USERNAME_INPUT_XPATH}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-18T09:42:53.249502" elapsed="0.043306"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:42:54.294356" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:53.293015" elapsed="1.002045"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:54.296521" level="INFO">Typing text 'brown' into text field '//*[@id="loginPage.userNameInput"]'.</msg>
+<arg>${USERNAME_INPUT_XPATH}</arg>
+<arg>brown</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-18T09:42:54.295690" elapsed="0.137181"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:42:55.434576" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:54.433144" elapsed="1.002004"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:55.437566" level="INFO">Sending key(s) ('TAB',) to //*[@id="loginPage.passwordInput"] element.</msg>
+<msg time="2024-03-18T09:42:55.722253" level="INFO">Pressing special key TAB to element.</msg>
+<msg time="2024-03-18T09:42:55.722408" level="INFO">Releasing special key TAB.</msg>
+<arg>${PASSWORD_INPUT_XPATH}</arg>
+<arg>TAB</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2024-03-18T09:42:55.436107" elapsed="0.296114"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:42:56.733797" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:55.732558" elapsed="1.001968"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:56.738300" level="INFO">Typing text 'pass' into text field '//*[@id="loginPage.passwordInput"]'.</msg>
+<arg>${PASSWORD_INPUT_XPATH}</arg>
+<arg>pass</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-18T09:42:56.735778" elapsed="0.069070"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:42:57.805981" level="INFO">Slept 1 second.</msg>
+<arg>1s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:56.805027" elapsed="1.001048"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:42:57.806518" level="INFO">Clicking element '//*[@id="loginPage.loginFormSubmit"]'.</msg>
+<arg>${SUBMIT_BUTTON_XPATH}</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-18T09:42:57.806276" elapsed="0.788698"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-03-18T09:43:03.597390" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-03-18T09:42:58.595344" elapsed="5.005178"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2024-03-18T09:43:03.636767" level="INFO">${title} = Stu view</msg>
+<var>${title}</var>
+<arg>${STUDENT_VIEW_TITLE_XPATH}</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-03-18T09:43:03.603954" elapsed="0.032853"/>
+</kw>
+<kw name="Should Be Equal As Strings" owner="BuiltIn">
+<msg time="2024-03-18T09:43:03.637411" level="FAIL">Stu view != Student's View</msg>
+<arg>${title}</arg>
+<arg>Student's View</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<status status="FAIL" start="2024-03-18T09:43:03.637065" elapsed="0.000450">Stu view != Student's View</status>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="NOT RUN" start="2024-03-18T09:43:03.637676" elapsed="0.000024"/>
+</kw>
+<status status="FAIL" start="2024-03-18T09:42:46.719873" elapsed="16.918015">Stu view != Student's View</status>
+</test>
+<status status="FAIL" start="2024-03-18T09:42:46.637432" elapsed="17.001110"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="0" fail="1" skip="0" id="s1" name="First-10">First-10</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

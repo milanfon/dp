@@ -19,6 +19,7 @@ parser.add_argument('-n', '--new', type=str, help='Create new input file (test)'
 parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
 parser.add_argument('--count', type=int, help='How many variations of the test gnerate?')
 parser.add_argument('--cmd', action='store_true', help='Output render to command line')
+parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
 args = parser.parse_args()
 
 def system_prompt():
@@ -81,6 +82,8 @@ def render_template(input_name):
         save_test(response, input_name)
 
 def prompt_model(rendered_text):
+    if args.manual_oai:
+        return manual_prompt(rendered_text)
     client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
     completion = client.chat.completions.create(
       model="local-model", 
@@ -91,6 +94,14 @@ def prompt_model(rendered_text):
       temperature=0,
     )
     return completion.choices[0].message.content
+
+def manual_prompt(rendered_text):
+    concantenated = f"{system_prompt()}\n\n{rendered_text}"
+    subprocess.run("pbcopy", text=True, input=concantenated) # MacOS only
+    print("Prompt copied to clipboard")
+    input("Copy the model output and press Enter key")
+    output = subprocess.check_output('pbpaste', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
+    return output
 
 def run(): 
     # List variants of WAR files

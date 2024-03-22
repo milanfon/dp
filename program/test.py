@@ -1,20 +1,24 @@
+from datetime import datetime
+from enum import Enum
 import os
 import subprocess
 import time
 import robot
+from robot.api import ExecutionResult
 import argparse
 import jinja2
 import re
 from openai import OpenAI
+import xml.etree.ElementTree as ElementTree
 
-DIRECTORY = "./tbuis/"
+CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
 TEMPLATE_FILE = "./templates/template.txt"
 SYSTEM_PROMPT = "./templates/system.txt"
 GEN_FOLDER = "./generated"
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
-parser.add_argument('-r', '--run', action='store_true', help='Run the generation')
+parser.add_argument('-r', '--run', type=str, help='Run the generation')
 parser.add_argument('-n', '--new', type=str, help='Create new input file (test)')
 parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
 parser.add_argument('--count', type=int, help='How many variations of the test gnerate?')
@@ -22,15 +26,22 @@ parser.add_argument('--cmd', action='store_true', help='Output render to command
 parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
 args = parser.parse_args()
 
+def get_file_pattern(base):
+    return re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
+
 def system_prompt():
     with open(SYSTEM_PROMPT, 'r') as sp_file:
         return sp_file.read()
+
+def parse_code_blocks(markdown_text):
+    pattern = re.compile(r'```(?:.*?)\n(.*?)```', re.DOTALL)
+    return pattern.findall(markdown_text)
 
 def save_test(text, name):
     if not os.path.exists(GEN_FOLDER):
         os.makedirs(GEN_FOLDER)
     base = os.path.splitext(name)[0]
-    pattern = re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
+    pattern = get_file_pattern(base)
     highest_num = 0
     for file in os.listdir(GEN_FOLDER):
         match = pattern.match(file)
@@ -103,30 +114,86 @@ def manual_prompt(rendered_text):
     output = subprocess.check_output('pbpaste', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
     return output
 
+def is_docker_running():
+    try:
+        subprocess.run(["docker", "info"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+        return True
+    except subprocess.CalledProcessError:
+        return False
+
+class TestStatus(Enum):
+    PASS = 1
+    FAIL = 2
+    ERROR = 3
+
+class TestResult():
+    def __init__(self, passed, failed, errors):
+        self.passed = passed
+        self.failed = failed
+        self.errors = errors
+        if errors > 0:
+            self.status = TestStatus.ERROR
+        elif failed > 0:
+            self.status = TestStatus.FAIL
+        else: 
+            self.status = TestStatus.PASS
+
+class Report():
+    def __init__(self):
+        self.name = datetime.now().strftime("%Y%m%d%H%M%S")
+        self.tests = []
+
+def process_results():
+    tree = ElementTree.parse("output.xml")
+    root = tree.getroot()
+    stats = root.find('.//statistics/total/stat')
+    if stats is not None:
+        passed = int(stats.get('pass'))
+        failed = int(stats.get('fail'))
+
+        errors = root.findall('.//errors/msg[@level="ERROR"]')
+        error_count = len(errors)
+        test_result = TestResult(passed, failed, error_count)
+    else:
+        print("Statistics not found!")
+        test_result = TestResult(0, 0, 1)
+
+    print(f"Test status {test_result.status}")
+
 def run(): 
+    if (not is_docker_running()):
+        print("Docker is not running!")
+        return
     # List variants of WAR files
-    file_list = [file for file in os.listdir(DIRECTORY) if file.startswith('defect-')]
+    file_list = [file for file in os.listdir(CONTAINER_DIRECTORY) if file.startswith('defect-')]
     file_list.sort()
 
     print(file_list)
 
     # Running Docker Compose
 
-    os.chdir(DIRECTORY)
+    #os.chdir(DIRECTORY)
     i = 0
     for file in file_list:
        print("Deploying: "+file)
        env = os.environ.copy() 
        env["WAR_FILE_PATH"] = "./"+file
-       subprocess.run(["docker-compose", "up", "-d", "--build"], env=env)
+       subprocess.run(["docker-compose", "-f", os.path.join(CONTAINER_DIRECTORY, "docker-compose.yml"), "up", "-d", "--build"], env=env)
+       print("Waiting 10s for container to load...")
        time.sleep(10)
-       robot.run("../rf-test/TBUIS1.robot")
+       pattern = get_file_pattern(args.run)
+       for file in os.listdir(GEN_FOLDER):
+           match = pattern.match(file)
+           if match:
+                print(f"Running test file: {file}")
+                robot.run(os.path.join(GEN_FOLDER, file))
+                process_results()
        subprocess.run(["docker-compose", "down"])
        if i == 2:
             break
        i += 1
 
-    subprocess.run(["docker-compose", "down", "--rmi", "all"])
+    subprocess.run(["docker-compose", "-f", os.path.join(CONTAINER_DIRECTORY, "docker-compose.yml"), "down", "--rmi", "all"])
 
 if __name__ == "__main__":
     if args.run:

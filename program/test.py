@@ -4,18 +4,19 @@ import os
 import subprocess
 import time
 import robot
-from robot.api import ExecutionResult
 import argparse
 import jinja2
 import re
 from openai import OpenAI
 import xml.etree.ElementTree as ElementTree
+from tabulate import tabulate
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
 TEMPLATE_FILE = "./templates/template.txt"
 SYSTEM_PROMPT = "./templates/system.txt"
 GEN_FOLDER = "./generated"
+REPORT_FOLDER = "./reports"
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', type=str, help='Run the generation')
@@ -126,6 +127,9 @@ class TestStatus(Enum):
     FAIL = 2
     ERROR = 3
 
+    def __str__(self) -> str:
+        return self.name
+
 class TestResult():
     def __init__(self, passed, failed, errors):
         self.passed = passed
@@ -141,24 +145,45 @@ class TestResult():
 class Report():
     def __init__(self):
         self.name = datetime.now().strftime("%Y%m%d%H%M%S")
-        self.tests = []
+        self.container_name = ""
+        self.tests = {}
+    
+    def set_container_name(self, name: str):
+        self.container_name = name
+        self.tests[self.container_name] = {}
 
-def process_results():
-    tree = ElementTree.parse("output.xml")
-    root = tree.getroot()
-    stats = root.find('.//statistics/total/stat')
-    if stats is not None:
-        passed = int(stats.get('pass'))
-        failed = int(stats.get('fail'))
+    def add(self, name, file):
+        tree = ElementTree.parse(file)
+        root = tree.getroot()
+        stats = root.find('.//statistics/total/stat')
+        if stats is not None:
+            passed = int(stats.get('pass'))
+            failed = int(stats.get('fail'))
 
-        errors = root.findall('.//errors/msg[@level="ERROR"]')
-        error_count = len(errors)
-        test_result = TestResult(passed, failed, error_count)
-    else:
-        print("Statistics not found!")
-        test_result = TestResult(0, 0, 1)
+            errors = root.findall('.//errors/msg[@level="ERROR"]')
+            error_count = len(errors)
+            test_result = TestResult(passed, failed, error_count)
+        else:
+            print("Statistics not found!")
+            test_result = TestResult(0, 0, 1)
 
-    print(f"Test status {test_result.status}")
+        self.tests[self.container_name][name] = test_result
+
+    def save(self):
+        report_text = f"Report name: {self.name}\n\n"
+        for container_name, _ in self.tests.items():
+            report_text += f"\nContainer name: {container_name}\n"
+            table_data = []
+            for name, test in self.tests[container_name].items():
+                table_data.append([name, test.status, test.passed, test.failed, test.errors])
+            headers = ["Name", "Status", "Passed", "Failed", "Errored"]
+            table = tabulate(table_data, headers, tablefmt="grid")
+            report_text += table
+        if not os.path.exists(REPORT_FOLDER):
+            os.makedirs(REPORT_FOLDER)
+        file = open(os.path.join(REPORT_FOLDER, self.name), "w")
+        file.write(report_text)
+        file.close()
 
 def run(): 
     if (not is_docker_running()):
@@ -173,8 +198,10 @@ def run():
     # Running Docker Compose
 
     #os.chdir(DIRECTORY)
+    report = Report()
     i = 0
     for file in file_list:
+       report.set_container_name(file)
        print("Deploying: "+file)
        env = os.environ.copy() 
        env["WAR_FILE_PATH"] = "./"+file
@@ -187,11 +214,14 @@ def run():
            if match:
                 print(f"Running test file: {file}")
                 robot.run(os.path.join(GEN_FOLDER, file))
-                process_results()
+                report.add(file, "output.xml")
        subprocess.run(["docker-compose", "down"])
        if i == 2:
             break
        i += 1
+
+    print("Saving report...")
+    report.save()
 
     subprocess.run(["docker-compose", "-f", os.path.join(CONTAINER_DIRECTORY, "docker-compose.yml"), "down", "--rmi", "all"])
 

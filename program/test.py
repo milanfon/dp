@@ -13,6 +13,7 @@ from tabulate import tabulate
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
+RESTORE_DB_FILE = "./templates/restore_db.robot"
 TEMPLATE_FILE = "./templates/template.txt"
 SYSTEM_PROMPT = "./templates/system.txt"
 GEN_FOLDER = "./generated"
@@ -25,6 +26,7 @@ parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
 parser.add_argument('--count', type=int, help='How many variations of the test gnerate?')
 parser.add_argument('--cmd', action='store_true', help='Output render to command line')
 parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
+parser.add_argument('--cont_count', type=int, default=3, help='Set number of containers to execute')
 args = parser.parse_args()
 
 def get_file_pattern(base):
@@ -96,14 +98,14 @@ def render_template(input_name):
 def prompt_model(rendered_text):
     if args.manual_oai:
         return manual_prompt(rendered_text)
-    client = OpenAI(base_url="http://localhost:1234/v1", api_key="not-needed")
+    client = OpenAI(base_url="http://10.0.5.137:1234/v1", api_key="not-needed")
     completion = client.chat.completions.create(
       model="local-model", 
       messages=[
         {"role": "system", "content": system_prompt()},
         {"role": "user", "content": rendered_text}
       ],
-      temperature=0,
+      temperature=0.2,
     )
     return completion.choices[0].message.content
 
@@ -200,6 +202,7 @@ def run():
     #os.chdir(DIRECTORY)
     report = Report()
     i = 0
+    t = 0
     for file in file_list:
        report.set_container_name(file)
        print("Deploying: "+file)
@@ -212,11 +215,15 @@ def run():
        for file in os.listdir(GEN_FOLDER):
            match = pattern.match(file)
            if match:
+                if t > 0:
+                   print("Restoring DB...")
+                   robot.run(RESTORE_DB_FILE)
                 print(f"Running test file: {file}")
                 robot.run(os.path.join(GEN_FOLDER, file))
                 report.add(file, "output.xml")
+                t += 1
        subprocess.run(["docker-compose", "down"])
-       if i == 2:
+       if i == args.cont_count:
             break
        i += 1
 

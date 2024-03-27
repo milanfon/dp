@@ -1,0 +1,5 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- Locate button with ID "stu.myExamDates.table.ParticipantsButton-0" and check if it has background color blue (##007bff)
+
+{% include 'recording-defect-1.json' %}

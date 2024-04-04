@@ -116,7 +116,7 @@ def prompt_model(rendered_text):
         {"role": "system", "content": system_prompt()},
         {"role": "user", "content": rendered_text}
       ],
-      temperature=0.2,
+      temperature=0.7,
       top_p=1,
       max_tokens=-1,
       stream=False

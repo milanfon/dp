@@ -1,2 +1,4 @@
 ./modely-test/node_modules/
 ./program/tbuis/
+./program/reports
+./program/.env

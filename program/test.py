@@ -25,6 +25,7 @@ load_dotenv()
 API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
 API_MODEL = os.getenv('API_MODEL')
+DEVICE = os.getenv('DEVICE')
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', type=str, help='Run the generation')
@@ -271,7 +272,7 @@ if __name__ == "__main__":
         compressor = PromptCompressor(
                 model_name="microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank",
                 use_llmlingua2=True,
-                device_map="mps"
+                device_map=DEVICE
             )
 
     if args.run:

@@ -1,4 +1,4 @@
-Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+Write Robot Framework scanario. Use Selenium Speed 2. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
 
 - Check if names "Benjamin Green", "Mia Orange", "Charlotte Purple" and "Isabella Yellow" are present on the page
 

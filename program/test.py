@@ -11,6 +11,7 @@ from openai import OpenAI
 import xml.etree.ElementTree as ElementTree
 from tabulate import tabulate
 from dotenv import load_dotenv
+from llmlingua import PromptCompressor
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
@@ -33,8 +34,8 @@ parser.add_argument('--count', type=int, help='How many variations of the test g
 parser.add_argument('--cmd', action='store_true', help='Output render to command line')
 parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
 parser.add_argument('--cont_count', type=int, help='Set number of containers to execute')
+parser.add_argument('--compress', action='store_true', help='Compress prompt')
 args = parser.parse_args()
-
 
 def get_file_pattern(base):
     return re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
@@ -91,6 +92,8 @@ def render_template(input_name):
     if args.cmd:
         print(rendered_text)
         return
+    if args.compress:
+        rendered_text = compress_prompt(rendered_text, 0.4)
 
     print("Test generation started...")
 
@@ -113,11 +116,12 @@ def prompt_model(rendered_text):
         {"role": "user", "content": rendered_text}
       ],
       temperature=0.2,
-      top_p=0.2,
-      max_tokens=2500,
+      top_p=1,
+      max_tokens=-1,
       stream=False
     )
-    return completion.choices[0].message.content
+    message = completion.choices[0].message.content
+    return extract_code_block(message)
 
 def manual_prompt(rendered_text):
     concantenated = f"{system_prompt()}\n\n{rendered_text}"
@@ -125,7 +129,27 @@ def manual_prompt(rendered_text):
     print("Prompt copied to clipboard")
     input("Copy the model output and press Enter key")
     output = subprocess.check_output('pbpaste', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
-    return output
+    return extract_code_block(output)
+
+def compress_prompt(prompt, rate):
+    print("Prompt compression started...")
+    results = compressor.compress_prompt_llmlingua2(
+                prompt,
+                rate=rate,
+                force_tokens=['\n', '.', '!', '?', ',', '\\'],
+                chunk_end_tokens=['.', '\n'],
+                return_word_label=True,
+                drop_consecutive=True
+            )
+    print(f"Compressed with rate {results['rate']}")
+    return results['compressed_prompt']
+
+def extract_code_block(md_text):
+    pattern = re.compile(r'```.*?\n(.*?)\n```', re.DOTALL)
+    match = pattern.search(md_text)
+    if match:
+        return match.group(1).strip()
+    return md_text
 
 def is_docker_running():
     try:
@@ -243,6 +267,13 @@ def run():
     subprocess.run(["docker-compose", "-f", os.path.join(CONTAINER_DIRECTORY, "docker-compose.yml"), "down", "--rmi", "all"])
 
 if __name__ == "__main__":
+    if args.compress:
+        compressor = PromptCompressor(
+                model_name="microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank",
+                use_llmlingua2=True,
+                device_map="mps"
+            )
+
     if args.run:
         run()
     if args.new:

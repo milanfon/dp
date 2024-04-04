@@ -1,0 +1,12 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- On page "Other Exam Dates" after clicking on the Register button, check if element with id "stu.otherExamDates.successAlert" appears
+- On page "My Exam Dates" check if element <td> with text "Programming in Java" is present
+
+{% include 'recording-spec-8-student.json' %}
+
+Then login as a teacher as shown in the recording below and check for this:
+
+- Element <td> with text "Mia Orange" has to be present
+
+{% include 'recording-spec-8-teacher.json' %}

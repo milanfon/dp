@@ -1,0 +1,190 @@
+{
+    "title": "spec 10 student",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:4680/tbuis/index.jsp",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/index.jsp",
+                    "title": "University information system"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login"
+                ],
+                [
+                    "#header\\.link\\.login"
+                ],
+                [
+                    "xpath///*[@id=\"header.link.login\"]"
+                ],
+                [
+                    "pierce/#header\\.link\\.login"
+                ],
+                [
+                    "text/Login"
+                ]
+            ],
+            "offsetY": 11,
+            "offsetX": 38.671875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/login",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "offsetY": 7,
+            "offsetX": 570.5
+        },
+        {
+            "type": "change",
+            "value": "orange",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "offsetY": 20,
+            "offsetX": 492.5
+        },
+        {
+            "type": "change",
+            "value": "pass",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login[role=\"button\"]"
+                ],
+                [
+                    "#loginPage\\.loginFormSubmit"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.loginFormSubmit\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.loginFormSubmit"
+                ]
+            ],
+            "offsetY": 10,
+            "offsetX": 54.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/overview",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Other Subjects"
+                ],
+                [
+                    "#stu\\.menu\\.otherSubjects"
+                ],
+                [
+                    "xpath///*[@id=\"stu.menu.otherSubjects\"]"
+                ],
+                [
+                    "pierce/#stu\\.menu\\.otherSubjects"
+                ],
+                [
+                    "text/Other Subjects"
+                ]
+            ],
+            "offsetY": 19,
+            "offsetX": 99.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/otherSubjects",
+                    "title": "Student's View"
+                }
+            ]
+        }
+    ]
+}

@@ -4,7 +4,20 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 - Check if element with id "header.title.userHome" has inner value of "Noah Brown"
 - Check if element with id "header.link.logout" is present
 - Check if element with query selector "#header.student-view-nav" does exist
-- Insert delay between each step
+- Check if text of element with id "stu.view.title" matches "Student's View"
+- Check if element with id "overview.personalInfoForm" is present
 
 {% include 'rec-spec-1-student.json' %}
 
+Then execute all steps in another recording and then do this: 
+
+- Check if element with id "header.link.login" is not present
+- Check if element with id "header.title.userHome" has inner value of "John Lazy"
+- Check if element with id "header.link.logout" is present
+- Check if element with query selector "#header.teacher-view-nav" does exist
+- Check if text of element with id "tea.view.title" matches "Teacher's View"
+- Check if element with id "overview.personalInfoForm" is present
+
+{% include 'rec-spec-1-teacher.json' %}
+
+Then try the same login as in the previous scenarios but once with username "bla" and password "pass" and then with username "lazy" and password "bla". In both cases check if element with id "loginPage.errorAlert" is visible or present.

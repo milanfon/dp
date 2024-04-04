@@ -1,0 +1,18 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- On page "My Subjects" before clicking the "Remove" button check if element all the other button with value "Remove" are disabled
+- On page "My Subjects" after clicking the "Remove" button check if element with id "tea.mySubjects.successAlert" has appeared
+- On page "My Exam Dates" check if element <th> with text "Operating Systems" is not present
+- On page "New Exam Dates" check if element <option> with text "Operating Systems" is not present
+- On page "Set Evaluation" check if element <option> with text containing string "Operating Systems" is not present
+- On page "Evaluation Table" check if element <option> with text "Operating Systems" is not present
+- On page "Other's Subjects" check if element <td> with text "Operating Systems" is present
+- On page "List of All Teachers" check if inside element <tr> with id "tea.listOfAllTeachers.table.teacherRow-5" there is not <td> element containig string "Operating Systems" 
+
+{% include 'recording-spec-10-teacher.json' %}
+
+Then log in as a student, execute steps from provided recording and check for: 
+
+- On page "Other Subjects" there is not text value containing string "Peter Strict" in the same <tr> as text string "Operating Systems"
+
+{% include 'recording-spec-10-student.json' %}

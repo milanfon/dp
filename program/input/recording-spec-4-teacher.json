@@ -1,0 +1,377 @@
+{
+    "title": "spec 4 teacher",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:4680/tbuis/index.jsp",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/index.jsp",
+                    "title": "University information system"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login"
+                ],
+                [
+                    "#header\\.link\\.login"
+                ],
+                [
+                    "xpath///*[@id=\"header.link.login\"]"
+                ],
+                [
+                    "pierce/#header\\.link\\.login"
+                ],
+                [
+                    "text/Login"
+                ]
+            ],
+            "offsetY": 15,
+            "offsetX": 36.671875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/login",
+                    "title": "Login Page"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "offsetY": 19,
+            "offsetX": 291.5
+        },
+        {
+            "type": "change",
+            "value": "pedant",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Tab"
+        },
+        {
+            "type": "keyUp",
+            "key": "Tab",
+            "target": "main"
+        },
+        {
+            "type": "change",
+            "value": "pass",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "keyDown",
+            "target": "main",
+            "key": "Enter",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/overview",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "keyUp",
+            "key": "Enter",
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/My Subjects"
+                ],
+                [
+                    "#tea\\.menu\\.mySubjects"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.mySubjects\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.mySubjects"
+                ],
+                [
+                    "text/My Subjects"
+                ]
+            ],
+            "offsetY": 24,
+            "offsetX": 200.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/mySubjects",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/My Exam Dates"
+                ],
+                [
+                    "#tea\\.menu\\.myExamDates"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.myExamDates\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.myExamDates"
+                ],
+                [
+                    "text/My Exam Dates"
+                ]
+            ],
+            "offsetY": 27,
+            "offsetX": 103.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/myExamDates",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Set Evaluation"
+                ],
+                [
+                    "#tea\\.menu\\.setEvaluation"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.setEvaluation\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.setEvaluation"
+                ],
+                [
+                    "text/Set Evaluation"
+                ]
+            ],
+            "offsetY": 27,
+            "offsetX": 84.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/setEvaluation",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Subject and date of exam:"
+                ],
+                [
+                    "#tea\\.setEvaluation\\.form\\.examTermDateSelect"
+                ],
+                [
+                    "xpath///*[@id=\"tea.setEvaluation.form.examTermDateSelect\"]"
+                ],
+                [
+                    "pierce/#tea\\.setEvaluation\\.form\\.examTermDateSelect"
+                ],
+                [
+                    "text/33"
+                ]
+            ],
+            "offsetY": 21.40625,
+            "offsetX": 209.8359375
+        },
+        {
+            "type": "change",
+            "value": "35",
+            "selectors": [
+                [
+                    "aria/Subject and date of exam:"
+                ],
+                [
+                    "#tea\\.setEvaluation\\.form\\.examTermDateSelect"
+                ],
+                [
+                    "xpath///*[@id=\"tea.setEvaluation.form.examTermDateSelect\"]"
+                ],
+                [
+                    "pierce/#tea\\.setEvaluation\\.form\\.examTermDateSelect"
+                ],
+                [
+                    "text/33"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Evaluation Table"
+                ],
+                [
+                    "#tea\\.menu\\.evaluationTable"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.evaluationTable\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.evaluationTable"
+                ],
+                [
+                    "text/Evaluation Table"
+                ]
+            ],
+            "offsetY": 16,
+            "offsetX": 155.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/evaluationTable",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Subject"
+                ],
+                [
+                    "#tea\\.evalTable\\.filter\\.subjectSelect"
+                ],
+                [
+                    "xpath///*[@id=\"tea.evalTable.filter.subjectSelect\"]"
+                ],
+                [
+                    "pierce/#tea\\.evalTable\\.filter\\.subjectSelect"
+                ],
+                [
+                    "text/-1"
+                ]
+            ],
+            "offsetY": 21.40625,
+            "offsetX": 76.890625
+        },
+        {
+            "type": "change",
+            "value": "3",
+            "selectors": [
+                [
+                    "aria/Subject"
+                ],
+                [
+                    "#tea\\.evalTable\\.filter\\.subjectSelect"
+                ],
+                [
+                    "xpath///*[@id=\"tea.evalTable.filter.subjectSelect\"]"
+                ],
+                [
+                    "pierce/#tea\\.evalTable\\.filter\\.subjectSelect"
+                ],
+                [
+                    "text/-1"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Filter[role=\"button\"]"
+                ],
+                [
+                    "#tea\\.evalTable\\.filter\\.submitButton"
+                ],
+                [
+                    "xpath///*[@id=\"tea.evalTable.filter.submitButton\"]"
+                ],
+                [
+                    "pierce/#tea\\.evalTable\\.filter\\.submitButton"
+                ]
+            ],
+            "offsetY": 20.40625,
+            "offsetX": 35.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/evaluationTable?filterSubjectId=3",
+                    "title": "Teacher's View"
+                }
+            ]
+        }
+    ]
+}

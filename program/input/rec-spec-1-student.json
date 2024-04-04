@@ -91,16 +91,6 @@
             "target": "main"
         },
         {
-            "type": "keyDown",
-            "target": "main",
-            "key": "Tab"
-        },
-        {
-            "type": "keyUp",
-            "key": "Tab",
-            "target": "main"
-        },
-        {
             "type": "change",
             "value": "pass",
             "selectors": [

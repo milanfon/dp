@@ -1,0 +1,9 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- Check if names "Benjamin Green", "Mia Orange", "Charlotte Purple" and "Isabella Yellow" are present on the page
+
+{% include 'recording-spec-11.json' %}
+
+- Then click at the button with id "closeModalButtonCross"
+- Click on button with id "tea.mySubjects.table.listOfStudentsButton-2"
+- Check if page contains the text "No students"

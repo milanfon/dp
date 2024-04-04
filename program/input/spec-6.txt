@@ -1,0 +1,13 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- On page "Other Subjects" after clicking on the Enroll button, check if element with id "stu.otherSubjects.successAlert" appears
+- On page "My Subjects" check if element <tr id="stu.mySubjects.enrolledTable.subjectRow-2"> with childs <td>Software Quality Assurance</td> and <td> Peter Strict </td>
+
+{% include 'recording-spec-6-student.json' %}
+
+Then login as a teacher as shown in the recording below and check for this:
+
+- Button with id "tea.mySubjects.table.listOfStudentsButton-3" has text "Students (2) "
+- After clicking on the button, <td> with text "William Maroon" appears
+
+{% include 'recording-spec-6-teacher.json' %}

@@ -1,0 +1,304 @@
+{
+    "title": "spec 17 teacher",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:4680/tbuis/index.jsp",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/index.jsp",
+                    "title": "University information system"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login"
+                ],
+                [
+                    "#header\\.link\\.login"
+                ],
+                [
+                    "xpath///*[@id=\"header.link.login\"]"
+                ],
+                [
+                    "pierce/#header\\.link\\.login"
+                ],
+                [
+                    "text/Login"
+                ]
+            ],
+            "offsetY": 32,
+            "offsetX": 39.671875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/login",
+                    "title": "Login Page"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "offsetY": 13,
+            "offsetX": 278.5
+        },
+        {
+            "type": "change",
+            "value": "pedant",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "offsetY": 12,
+            "offsetX": 230.5
+        },
+        {
+            "type": "change",
+            "value": "pass",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login[role=\"button\"]"
+                ],
+                [
+                    "#loginPage\\.loginFormSubmit"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.loginFormSubmit\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.loginFormSubmit"
+                ]
+            ],
+            "offsetY": 15,
+            "offsetX": 4.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/overview",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Others' Subjects"
+                ],
+                [
+                    "#tea\\.menu\\.otherSubjects"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.otherSubjects\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.otherSubjects"
+                ],
+                [
+                    "text/Others' Subjects"
+                ]
+            ],
+            "offsetY": 23,
+            "offsetX": 75.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/otherSubjects",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "#tea\\.otherSubjects\\.table\\.participateButton-3"
+                ],
+                [
+                    "xpath///*[@id=\"tea.otherSubjects.table.participateButton-3\"]"
+                ],
+                [
+                    "pierce/#tea\\.otherSubjects\\.table\\.participateButton-3"
+                ]
+            ],
+            "offsetY": 14.40625,
+            "offsetX": 18.6796875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/otherSubjects",
+                    "title": ""
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/My Exam Dates"
+                ],
+                [
+                    "#tea\\.menu\\.myExamDates"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.myExamDates\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.myExamDates"
+                ],
+                [
+                    "text/My Exam Dates"
+                ]
+            ],
+            "offsetY": 22,
+            "offsetX": 110.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/myExamDates",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/New Exam Dates"
+                ],
+                [
+                    "#tea\\.menu\\.newExamDates"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.newExamDates\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.newExamDates"
+                ],
+                [
+                    "text/New Exam Dates"
+                ]
+            ],
+            "offsetY": 24,
+            "offsetX": 82.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/newExamDates",
+                    "title": "Teacher's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/List of All Teachers"
+                ],
+                [
+                    "#tea\\.menu\\.listOfAllTeachers"
+                ],
+                [
+                    "xpath///*[@id=\"tea.menu.listOfAllTeachers\"]"
+                ],
+                [
+                    "pierce/#tea\\.menu\\.listOfAllTeachers"
+                ],
+                [
+                    "text/List of All Teachers"
+                ]
+            ],
+            "offsetY": 27,
+            "offsetX": 70.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/teacher-view/listOfAllTeachers",
+                    "title": ""
+                }
+            ]
+        }
+    ]
+}

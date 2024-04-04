@@ -1,0 +1,247 @@
+{
+    "title": "spec 8 student",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1501,
+            "height": 1104,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "http://localhost:4680/tbuis/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/",
+                    "title": "University information system"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login"
+                ],
+                [
+                    "#header\\.link\\.login"
+                ],
+                [
+                    "xpath///*[@id=\"header.link.login\"]"
+                ],
+                [
+                    "pierce/#header\\.link\\.login"
+                ],
+                [
+                    "text/Login"
+                ]
+            ],
+            "offsetY": 25,
+            "offsetX": 35.671875,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/login",
+                    "title": "Login Page"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "offsetY": 24,
+            "offsetX": 372.5
+        },
+        {
+            "type": "change",
+            "value": "green",
+            "selectors": [
+                [
+                    "aria/Username"
+                ],
+                [
+                    "#loginPage\\.userNameInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.userNameInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.userNameInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "offsetY": 19,
+            "offsetX": 338.5
+        },
+        {
+            "type": "change",
+            "value": "pass",
+            "selectors": [
+                [
+                    "aria/Password"
+                ],
+                [
+                    "#loginPage\\.passwordInput"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.passwordInput\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.passwordInput"
+                ]
+            ],
+            "target": "main"
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Login[role=\"button\"]"
+                ],
+                [
+                    "#loginPage\\.loginFormSubmit"
+                ],
+                [
+                    "xpath///*[@id=\"loginPage.loginFormSubmit\"]"
+                ],
+                [
+                    "pierce/#loginPage\\.loginFormSubmit"
+                ]
+            ],
+            "offsetY": 28,
+            "offsetX": 42.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/overview",
+                    "title": "Student's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Other Exam Dates"
+                ],
+                [
+                    "#stu\\.menu\\.otherExamDates"
+                ],
+                [
+                    "xpath///*[@id=\"stu.menu.otherExamDates\"]"
+                ],
+                [
+                    "pierce/#stu\\.menu\\.otherExamDates"
+                ],
+                [
+                    "text/Other Exam Dates"
+                ]
+            ],
+            "offsetY": 20,
+            "offsetX": 57.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/otherExamDates",
+                    "title": "Student's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/Register[role=\"button\"]"
+                ],
+                [
+                    "#stu\\.otherExamDates\\.table\\.registerButton-2-0"
+                ],
+                [
+                    "xpath///*[@id=\"stu.otherExamDates.table.registerButton-2-0\"]"
+                ],
+                [
+                    "pierce/#stu\\.otherExamDates\\.table\\.registerButton-2-0"
+                ]
+            ],
+            "offsetY": 13.40625,
+            "offsetX": 31.3125,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/otherExamDates",
+                    "title": "Student's View"
+                }
+            ]
+        },
+        {
+            "type": "click",
+            "target": "main",
+            "selectors": [
+                [
+                    "aria/My Exam Dates"
+                ],
+                [
+                    "#stu\\.menu\\.myExamDates"
+                ],
+                [
+                    "xpath///*[@id=\"stu.menu.myExamDates\"]"
+                ],
+                [
+                    "pierce/#stu\\.menu\\.myExamDates"
+                ],
+                [
+                    "text/My Exam Dates"
+                ]
+            ],
+            "offsetY": 17,
+            "offsetX": 162.5,
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "http://localhost:4680/tbuis/student-view/myExamDates",
+                    "title": "Student's View"
+                }
+            ]
+        }
+    ]
+}

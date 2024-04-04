@@ -10,6 +10,7 @@ import re
 from openai import OpenAI
 import xml.etree.ElementTree as ElementTree
 from tabulate import tabulate
+from dotenv import load_dotenv
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
@@ -19,6 +20,11 @@ SYSTEM_PROMPT = "./templates/system.txt"
 GEN_FOLDER = "./generated"
 REPORT_FOLDER = "./reports"
 
+load_dotenv()
+API_URL = os.getenv('API_URL')
+API_KEY = os.getenv('API_KEY')
+API_MODEL = os.getenv('API_MODEL')
+
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', type=str, help='Run the generation')
 parser.add_argument('-n', '--new', type=str, help='Create new input file (test)')
@@ -26,8 +32,9 @@ parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
 parser.add_argument('--count', type=int, help='How many variations of the test gnerate?')
 parser.add_argument('--cmd', action='store_true', help='Output render to command line')
 parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
-parser.add_argument('--cont_count', type=int, default=3, help='Set number of containers to execute')
+parser.add_argument('--cont_count', type=int, help='Set number of containers to execute')
 args = parser.parse_args()
+
 
 def get_file_pattern(base):
     return re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
@@ -98,14 +105,17 @@ def render_template(input_name):
 def prompt_model(rendered_text):
     if args.manual_oai:
         return manual_prompt(rendered_text)
-    client = OpenAI(base_url="http://10.0.5.137:1234/v1", api_key="not-needed")
+    client = OpenAI(base_url=API_URL, api_key=API_KEY)
     completion = client.chat.completions.create(
-      model="local-model", 
+      model=API_MODEL, 
       messages=[
         {"role": "system", "content": system_prompt()},
         {"role": "user", "content": rendered_text}
       ],
       temperature=0.2,
+      top_p=0.2,
+      max_tokens=2500,
+      stream=False
     )
     return completion.choices[0].message.content
 

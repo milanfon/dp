@@ -1,0 +1,13 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- After clicking the "tea.myExamDates.table.cancelButton-0-0" button, alert appears, so accept it. Then check if we are still on the "My Exam Dates" page and if element with id "tea.myExamDates.successAlert" is visible
+- On page "Set Evaluation" check if element with id "tea.setEvaluation.form.noRecords" is visible
+- On "Evaluation Table" page select the first <option> element and after clicking the "Filter" button, text "No exam dates for this subject" has to appear
+
+{% include 'recording-spec-12-teacher.json' %}
+
+Then log in as a student, execute all the steps from recording and check:
+
+- If text "Computation Structures" is not present
+
+{% include 'recording-spec-12-student.json' %}

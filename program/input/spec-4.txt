@@ -1,0 +1,17 @@
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- Check if element with id "stu.mySubjects.successAlert" is present
+- Check if element with id "stu.mySubjects.enrolledTable.Title" is present
+- Check if element of type <td> with text "Database Systems" is not present
+
+{% include 'recording-spec-4-student.json' %}
+
+Then login as a teacher as shown in the recording below and check for this:
+
+- On page "My Subjects" element with id "tea.mySubjects.table.listOfStudentsButton-1" has text of "Students (0) "
+- On page "My Exam Dates" element with id "tea.myExamDates.table.participantsButton-1-0" has text of "Participants (0/10) "
+- On page "Set Evaluation" after selecting the subject, element with id "tea.setEvaluation.form.noOneStudent" is displayed. When selecting the subject, the value in recording might not match the real one so please select the second option, not by value.
+- On page "Evaluation Table" after selecting the subject and clicking the filter button, there should be element of type <td> with text "No students on this exam date" present. When selecting the subject, the value in recording might not match the real one so please select the third option, not by value.
+
+
+{% include 'recording-spec-4-teacher.json' %}

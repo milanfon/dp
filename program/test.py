@@ -184,7 +184,7 @@ class TestResult():
 
 class Report():
     def __init__(self):
-        self.name = f"{datetime.now().strftime("%Y%m%d%H%M%S")}{"-" + args.name if args.name else ""}"
+        self.name = f"{datetime.now().strftime('%Y%m%d%H%M%S')}{'-' + args.name if args.name else ''}"
         self.container_name = ""
         self.tests = {}
         db_exists = os.path.exists(REPORT_DB)

@@ -12,6 +12,7 @@ import xml.etree.ElementTree as ElementTree
 from tabulate import tabulate
 from dotenv import load_dotenv
 from llmlingua import PromptCompressor
+import sqlite3
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
@@ -20,6 +21,7 @@ TEMPLATE_FILE = "./templates/template.txt"
 SYSTEM_PROMPT = "./templates/system.txt"
 GEN_FOLDER = "./generated"
 REPORT_FOLDER = "./reports"
+REPORT_DB = os.path.join(REPORT_FOLDER, "report_db.sqlite")
 
 load_dotenv()
 API_URL = os.getenv('API_URL')
@@ -36,6 +38,7 @@ parser.add_argument('--cmd', action='store_true', help='Output render to command
 parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
 parser.add_argument('--cont_count', type=int, help='Set number of containers to execute')
 parser.add_argument('--compress', action='store_true', help='Compress prompt')
+parser.add_argument('--name', type=str, help='Name of report')
 args = parser.parse_args()
 
 def get_file_pattern(base):
@@ -181,9 +184,13 @@ class TestResult():
 
 class Report():
     def __init__(self):
-        self.name = datetime.now().strftime("%Y%m%d%H%M%S")
+        self.name = f"{datetime.now().strftime("%Y%m%d%H%M%S")}{"-" + args.name if args.name else ""}"
         self.container_name = ""
         self.tests = {}
+        db_exists = os.path.exists(REPORT_DB)
+        self.conn = sqlite3.connect(REPORT_DB)
+        if not db_exists:
+            self.init_db()
     
     def set_container_name(self, name: str):
         self.container_name = name
@@ -206,6 +213,14 @@ class Report():
 
         self.tests[self.container_name][name] = test_result
 
+        insert_sql = '''
+            INSERT INTO runs (name, container, test_name, result, success, fail, error)
+            VALUES (?, ?, ?, ?, ?, ?, ?)
+        ''' 
+        cursor = self.conn.cursor()
+        cursor.execute(insert_sql, (self.name, self.container_name, name, str(test_result.status), test_result.passed, test_result.failed, test_result.errors))
+        self.conn.commit()
+
     def save(self):
         report_text = f"Report name: {self.name}\n\n"
         for container_name, _ in self.tests.items():
@@ -221,6 +236,26 @@ class Report():
         file = open(os.path.join(REPORT_FOLDER, self.name), "w")
         file.write(report_text)
         file.close()
+
+    def init_db(self):
+        print("Creating report database...")
+        create_table_sql = '''
+            CREATE TABLE IF NOT EXISTS runs (
+                id INTEGER PRIMARY KEY,
+                time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                name TEXT NOT NULL,
+                container TEXT NOT NULL,
+                test_name TEXT NOT NULL,
+                result TEXT NOT NULL,
+                success INTEGER,
+                fail INTEGER,
+                error INTEGER
+            );
+        '''
+        cursor = self.conn.cursor()
+        cursor.execute(create_table_sql)
+        self.conn.commit()
+        print("Table structure prepared.")
 
 def run(): 
     if (not is_docker_running()):
@@ -246,17 +281,19 @@ def run():
        subprocess.run(["docker-compose", "-f", os.path.join(CONTAINER_DIRECTORY, "docker-compose.yml"), "up", "-d", "--build"], env=env)
        print("Waiting 10s for container to load...")
        time.sleep(10)
-       pattern = get_file_pattern(args.run)
-       for file in os.listdir(GEN_FOLDER):
-           match = pattern.match(file)
-           if match:
-                if t > 0:
-                   print("Restoring DB...")
-                   robot.run(RESTORE_DB_FILE)
-                print(f"Running test file: {file}")
-                robot.run(os.path.join(GEN_FOLDER, file))
-                report.add(file, "output.xml")
-                t += 1
+       pattern = get_file_pattern(args.run)  # Ensure this returns a compiled regex pattern
+       for root, dirs, files in os.walk(GEN_FOLDER):
+           for filename in files:
+               relative_path = os.path.relpath(os.path.join(root, filename), GEN_FOLDER)
+               if pattern.match(relative_path):
+                   if t > 0:
+                       print("Restoring DB...")
+                       robot.run(RESTORE_DB_FILE)
+                   full_path = os.path.join(root, filename)
+                   print(f"Running test file: {full_path}")
+                   robot.run(full_path)
+                   report.add(relative_path, "output.xml")  # Assuming add() method is adjusted to handle paths
+                   t += 1
        subprocess.run(["docker-compose", "down"])
        if i == args.cont_count:
             break

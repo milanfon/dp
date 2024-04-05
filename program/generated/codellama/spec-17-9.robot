@@ -1,0 +1,29 @@
+*** Settings ***
+Library    SeleniumLibrary
+
+*** Variables ***
+${URL}    http://localhost:4680/tbuis/index.jsp
+
+*** Test Cases ***
+Teacher Scenario
+    [Setup]    Open Browser    ${URL}    Chrome
+    # Teacher steps
+    # ...
+    # ...
+    # After clicking the "Participate" button, check if we are still on the "Others' Subjects" page and if element with id "tea.otherSubjects.successAlert" is visible
+    # ...
+    # On page "My Exam Dates" text "Linear Algebra" is present and there is <tr> element with id "tea.myExamDates.table.noRecords-2" and text "No exam dates."
+    # ...
+    # On "New Exam Dates" page check if there is an element <option> with text "Linear Algebra"
+    # ...
+    # On "List of All Teachers" page check if there is an element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3] containing the text "Linear Algebra" and element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2] should have text matching "Alice Pedant"
+    # ...
+    # Student steps
+    # ...
+    # Element with path //*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2] has text matching "Linear Algebra"
+    # ...
+    # Element with path //*[@id="stu.otherSubjects.table.subjectRow-2"]/td[3] has text matching "Alice Pedant"
+    # ...
+    [Teardown]    Close Browser
+
+*** Keywords ***

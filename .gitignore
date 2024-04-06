@@ -2,3 +2,7 @@
 ./program/tbuis/
 ./program/reports/
 ./program/.env
+./program/log.html
+./program/output.xml
+./program/report.html
+./program/o-err.xml

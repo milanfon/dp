@@ -1,323 +1,229 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-04-06T08:06:18.283680" rpa="false" schemaversion="5">
-<suite id="s1" name="Spec-4-5" source="/home/test/dp/program/generated/openai-gpt4/spec-4-5.robot">
-<test id="s1-t1" name="Student Actions Verification" line="6">
+<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-04-06T08:50:59.412160" rpa="false" schemaversion="5">
+<suite id="s1" name="Spec-6-1" source="/home/test/dp/program/generated/openai-gpt4/spec-6-1.robot">
+<test id="s1-t1" name="Student Enrollment Process" line="9">
+<kw name="Open University Information System">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:18.308830" level="INFO">Opening browser 'chrome' to base url 'http://localhost:4680/tbuis/index.jsp'.</msg>
-<arg>http://localhost:4680/tbuis/index.jsp</arg>
-<arg>chrome</arg>
+<msg time="2024-04-06T08:50:59.437360" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/index.jsp'.</msg>
+<arg>${BASE_URL}/index.jsp</arg>
+<arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-06T08:06:18.308685" elapsed="0.834319"/>
+<status status="PASS" start="2024-04-06T08:50:59.437213" elapsed="0.753123"/>
 </kw>
 <kw name="Set Window Size" owner="SeleniumLibrary">
 <arg>1501</arg>
 <arg>1104</arg>
 <doc>Sets current windows size to given ``width`` and ``height``.</doc>
-<status status="PASS" start="2024-04-06T08:06:19.143290" elapsed="0.104280"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:19.248009" level="INFO">Clicking element 'xpath=//*[@id="header.link.login"]'.</msg>
-<arg>xpath=//*[@id="header.link.login"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:19.247823" elapsed="0.065279"/>
+<status status="PASS" start="2024-04-06T08:51:00.190543" elapsed="0.105442"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:21.313594" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-04-06T08:51:02.296723" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:19.313332" elapsed="2.000362"/>
+<status status="PASS" start="2024-04-06T08:51:00.296145" elapsed="2.000688"/>
 </kw>
+<status status="PASS" start="2024-04-06T08:50:59.436868" elapsed="2.860067"/>
+</kw>
+<kw name="Login As Student">
+<kw name="Click Login">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:21.314078" level="INFO">Clicking element 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
-<arg>xpath=//*[@id="loginPage.userNameInput"]</arg>
+<msg time="2024-04-06T08:51:02.297846" level="INFO">Clicking element 'xpath=//*[@id="header.link.login"]'.</msg>
+<arg>xpath=//*[@id="header.link.login"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:21.313911" elapsed="0.035923"/>
+<status status="PASS" start="2024-04-06T08:51:02.297619" elapsed="0.140815"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:22.351191" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
+<msg time="2024-04-06T08:51:04.438879" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:21.350079" elapsed="1.001335"/>
+<status status="PASS" start="2024-04-06T08:51:02.438611" elapsed="2.000388"/>
+</kw>
+<status status="PASS" start="2024-04-06T08:51:02.297436" elapsed="2.141667"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:22.352196" level="INFO">Typing text 'gray' into text field 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
+<msg time="2024-04-06T08:51:04.439398" level="INFO">Typing text 'maroon' into text field 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
 <arg>xpath=//*[@id="loginPage.userNameInput"]</arg>
-<arg>gray</arg>
+<arg>maroon</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:22.351864" elapsed="0.045848"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:23.398249" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:22.397935" elapsed="1.000444"/>
-</kw>
-<kw name="Press Keys" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:23.398964" level="INFO">Sending key(s) ('TAB',) to page.</msg>
-<msg time="2024-04-06T08:06:23.399038" level="INFO">Pressing special key TAB to browser.</msg>
-<msg time="2024-04-06T08:06:23.399064" level="INFO">Releasing special key TAB.</msg>
-<arg>None</arg>
-<arg>TAB</arg>
-<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
-<status status="PASS" start="2024-04-06T08:06:23.398626" elapsed="0.006530"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:24.406369" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:23.405428" elapsed="1.001143"/>
+<status status="PASS" start="2024-04-06T08:51:04.439222" elapsed="0.063002"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:24.407362" level="INFO">Typing text 'pass' into text field 'xpath=//*[@id="loginPage.passwordInput"]'.</msg>
+<msg time="2024-04-06T08:51:04.502568" level="INFO">Typing text 'pass' into text field 'xpath=//*[@id="loginPage.passwordInput"]'.</msg>
 <arg>xpath=//*[@id="loginPage.passwordInput"]</arg>
 <arg>pass</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:24.407029" elapsed="0.041249"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:25.448795" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:24.448498" elapsed="1.000410"/>
-</kw>
-<kw name="Press Keys" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:25.449379" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
-<msg time="2024-04-06T08:06:25.449430" level="INFO">Pressing special key ENTER to browser.</msg>
-<msg time="2024-04-06T08:06:25.449456" level="INFO">Releasing special key ENTER.</msg>
-<arg>None</arg>
-<arg>ENTER</arg>
-<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
-<status status="PASS" start="2024-04-06T08:06:25.449131" elapsed="0.115617"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:28.565364" level="INFO">Slept 3 seconds.</msg>
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:25.564982" elapsed="3.000586"/>
+<status status="PASS" start="2024-04-06T08:51:04.502399" elapsed="0.053259"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:28.566257" level="INFO">Clicking element 'xpath=//*[@id="stu.menu.mySubjects"]'.</msg>
-<arg>xpath=//*[@id="stu.menu.mySubjects"]</arg>
+<msg time="2024-04-06T08:51:04.556037" level="INFO">Clicking element 'xpath=//*[@id="loginPage.loginFormSubmit"]'.</msg>
+<arg>xpath=//*[@id="loginPage.loginFormSubmit"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:28.565969" elapsed="0.153275"/>
+<status status="PASS" start="2024-04-06T08:51:04.555832" elapsed="0.352282"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:30.720230" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-04-06T08:51:06.908922" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:28.719482" elapsed="2.000952"/>
+<status status="PASS" start="2024-04-06T08:51:04.908314" elapsed="2.000718"/>
 </kw>
+<status status="PASS" start="2024-04-06T08:51:02.297182" elapsed="4.611949"/>
+</kw>
+<kw name="Navigate To Other Subjects">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:30.721246" level="INFO">Clicking element 'xpath=//*[@id="stu.mySubjects.enrolledTable.unenrollSubjectButton-1"]'.</msg>
-<msg time="2024-04-06T08:06:30.815361" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-13.png"&gt;&lt;img src="selenium-screenshot-13.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-04-06T08:06:30.815470" level="FAIL">Element with locator 'xpath=//*[@id="stu.mySubjects.enrolledTable.unenrollSubjectButton-1"]' not found.</msg>
-<arg>xpath=//*[@id="stu.mySubjects.enrolledTable.unenrollSubjectButton-1"]</arg>
+<msg time="2024-04-06T08:51:06.909991" level="INFO">Clicking element 'xpath=//*[@id="stu.menu.otherSubjects"]'.</msg>
+<arg>xpath=//*[@id="stu.menu.otherSubjects"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="FAIL" start="2024-04-06T08:06:30.720883" elapsed="0.094698">Element with locator 'xpath=//*[@id="stu.mySubjects.enrolledTable.unenrollSubjectButton-1"]' not found.</status>
+<status status="PASS" start="2024-04-06T08:51:06.909721" elapsed="0.115426"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<arg>1s</arg>
+<msg time="2024-04-06T08:51:09.025715" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.815793" elapsed="0.000021"/>
+<status status="PASS" start="2024-04-06T08:51:07.025345" elapsed="2.000479"/>
 </kw>
+<status status="PASS" start="2024-04-06T08:51:06.909378" elapsed="2.116546"/>
+</kw>
+<kw name="Enroll In Subject">
 <kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="stu.mySubjects.unenrollSubjectModal.unenrollSubjectButton"]</arg>
+<msg time="2024-04-06T08:51:09.026563" level="INFO">Clicking element 'xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]'.</msg>
+<msg time="2024-04-06T08:51:09.159027" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-4.png"&gt;&lt;img src="selenium-screenshot-4.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-04-06T08:51:09.159140" level="FAIL">Element with locator 'xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]' not found.</msg>
+<arg>xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.815919" elapsed="0.000019"/>
+<status status="FAIL" start="2024-04-06T08:51:09.026427" elapsed="0.132827">Element with locator 'xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]' not found.</status>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.816037" elapsed="0.000026"/>
+<status status="NOT RUN" start="2024-04-06T08:51:09.159389" elapsed="0.000021"/>
 </kw>
-<kw name="Element Should Be Visible" owner="SeleniumLibrary">
-<arg>id=stu.mySubjects.successAlert</arg>
-<doc>Verifies that the element identified by ``locator`` is visible.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.816171" elapsed="0.000015"/>
+<status status="FAIL" start="2024-04-06T08:51:09.026160" elapsed="0.133311">Element with locator 'xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]' not found.</status>
 </kw>
-<kw name="Element Should Be Visible" owner="SeleniumLibrary">
-<arg>id=stu.mySubjects.enrolledTable.Title</arg>
-<doc>Verifies that the element identified by ``locator`` is visible.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.816287" elapsed="0.000023"/>
+<kw name="Verify Enrollment Success Alert">
+<status status="NOT RUN" start="2024-04-06T08:51:09.159626" elapsed="0.000030"/>
 </kw>
-<kw name="Page Should Not Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//td[text()="Database Systems"]</arg>
-<doc>Verifies that element ``locator`` is not found on the current page.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.816410" elapsed="0.000015"/>
+<kw name="Navigate To My Subjects">
+<status status="NOT RUN" start="2024-04-06T08:51:09.159762" elapsed="0.000026"/>
 </kw>
-<kw name="Close Browser" owner="SeleniumLibrary">
-<doc>Closes the current browser.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:30.816521" elapsed="0.000037"/>
+<kw name="Verify Enrollment In My Subjects">
+<status status="NOT RUN" start="2024-04-06T08:51:09.159912" elapsed="0.000017"/>
 </kw>
-<status status="FAIL" start="2024-04-06T08:06:18.308178" elapsed="12.508516">Element with locator 'xpath=//*[@id="stu.mySubjects.enrolledTable.unenrollSubjectButton-1"]' not found.</status>
+<kw name="Close Browser">
+<status status="NOT RUN" start="2024-04-06T08:51:09.160042" elapsed="0.000022"/>
+</kw>
+<status status="FAIL" start="2024-04-06T08:50:59.436593" elapsed="9.723630">Element with locator 'xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]' not found.</status>
 </test>
-<test id="s1-t2" name="Teacher Actions Verification" line="32">
+<test id="s1-t2" name="Teacher Verification Of Enrollment" line="19">
+<kw name="Open University Information System As Teacher">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:30.817262" level="INFO">Opening browser 'chrome' to base url 'http://localhost:4680/tbuis/index.jsp'.</msg>
-<arg>http://localhost:4680/tbuis/index.jsp</arg>
-<arg>chrome</arg>
+<msg time="2024-04-06T08:51:09.160984" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/index.jsp'.</msg>
+<arg>${BASE_URL}/index.jsp</arg>
+<arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-06T08:06:30.817122" elapsed="0.806937"/>
+<status status="PASS" start="2024-04-06T08:51:09.160834" elapsed="0.670192"/>
 </kw>
 <kw name="Set Window Size" owner="SeleniumLibrary">
 <arg>1501</arg>
 <arg>1104</arg>
 <doc>Sets current windows size to given ``width`` and ``height``.</doc>
-<status status="PASS" start="2024-04-06T08:06:31.624319" elapsed="0.104604"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:31.729379" level="INFO">Clicking element 'xpath=//*[@id="header.link.login"]'.</msg>
-<arg>xpath=//*[@id="header.link.login"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:31.729201" elapsed="0.064447"/>
+<status status="PASS" start="2024-04-06T08:51:09.831205" elapsed="0.107150"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:33.794137" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-04-06T08:51:11.939225" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:31.793873" elapsed="2.000363"/>
+<status status="PASS" start="2024-04-06T08:51:09.938523" elapsed="2.000811"/>
 </kw>
+<status status="PASS" start="2024-04-06T08:51:09.160667" elapsed="2.778768"/>
+</kw>
+<kw name="Login As Teacher">
+<kw name="Click Login">
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:33.794613" level="INFO">Clicking element 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
-<arg>xpath=//*[@id="loginPage.userNameInput"]</arg>
+<msg time="2024-04-06T08:51:11.940247" level="INFO">Clicking element 'xpath=//*[@id="header.link.login"]'.</msg>
+<arg>xpath=//*[@id="header.link.login"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:33.794451" elapsed="0.035699"/>
+<status status="PASS" start="2024-04-06T08:51:11.940077" elapsed="0.065418"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:34.830658" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
+<msg time="2024-04-06T08:51:14.006347" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:33.830371" elapsed="1.000395"/>
+<status status="PASS" start="2024-04-06T08:51:12.005663" elapsed="2.000807"/>
+</kw>
+<status status="PASS" start="2024-04-06T08:51:11.939922" elapsed="2.066654"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:34.831193" level="INFO">Typing text 'pedant' into text field 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
+<msg time="2024-04-06T08:51:14.006907" level="INFO">Typing text 'strict' into text field 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
 <arg>xpath=//*[@id="loginPage.userNameInput"]</arg>
-<arg>pedant</arg>
+<arg>strict</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:34.830981" elapsed="0.046010"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:35.877565" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:34.877216" elapsed="1.000461"/>
-</kw>
-<kw name="Press Keys" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:35.878357" level="INFO">Sending key(s) ('TAB',) to page.</msg>
-<msg time="2024-04-06T08:06:35.878423" level="INFO">Pressing special key TAB to browser.</msg>
-<msg time="2024-04-06T08:06:35.878456" level="INFO">Releasing special key TAB.</msg>
-<arg>None</arg>
-<arg>TAB</arg>
-<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
-<status status="PASS" start="2024-04-06T08:06:35.877950" elapsed="0.006693"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:36.886189" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:35.884971" elapsed="1.001419"/>
+<status status="PASS" start="2024-04-06T08:51:14.006744" elapsed="0.062893"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:36.886877" level="INFO">Typing text 'pass' into text field 'xpath=//*[@id="loginPage.passwordInput"]'.</msg>
+<msg time="2024-04-06T08:51:14.069973" level="INFO">Typing text 'pass' into text field 'xpath=//*[@id="loginPage.passwordInput"]'.</msg>
 <arg>xpath=//*[@id="loginPage.passwordInput"]</arg>
 <arg>pass</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:36.886710" elapsed="0.040774"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:37.928746" level="INFO">Slept 1 second.</msg>
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:36.927703" elapsed="1.001143"/>
-</kw>
-<kw name="Press Keys" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:37.929332" level="INFO">Sending key(s) ('ENTER',) to page.</msg>
-<msg time="2024-04-06T08:06:37.929390" level="INFO">Pressing special key ENTER to browser.</msg>
-<msg time="2024-04-06T08:06:37.929413" level="INFO">Releasing special key ENTER.</msg>
-<arg>None</arg>
-<arg>ENTER</arg>
-<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
-<status status="PASS" start="2024-04-06T08:06:37.929073" elapsed="0.114531"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:41.044200" level="INFO">Slept 3 seconds.</msg>
-<arg>3s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:38.043865" elapsed="3.000437"/>
+<status status="PASS" start="2024-04-06T08:51:14.069804" elapsed="0.053517"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:41.044693" level="INFO">Clicking element 'xpath=//*[@id="tea.menu.mySubjects"]'.</msg>
+<msg time="2024-04-06T08:51:14.123649" level="INFO">Clicking element 'xpath=//*[@id="loginPage.loginFormSubmit"]'.</msg>
+<arg>xpath=//*[@id="loginPage.loginFormSubmit"]</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-04-06T08:51:14.123489" elapsed="0.219201"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-04-06T08:51:16.344258" level="INFO">Slept 2 seconds.</msg>
+<arg>2s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-04-06T08:51:14.342868" elapsed="2.001596"/>
+</kw>
+<status status="PASS" start="2024-04-06T08:51:11.939683" elapsed="4.404965"/>
+</kw>
+<kw name="Verify Students In My Subjects">
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-04-06T08:51:16.345797" level="INFO">Clicking element 'xpath=//*[@id="tea.menu.mySubjects"]'.</msg>
 <arg>xpath=//*[@id="tea.menu.mySubjects"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T08:06:41.044523" elapsed="0.077934"/>
+<status status="PASS" start="2024-04-06T08:51:16.345561" elapsed="0.147453"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-04-06T08:06:43.123398" level="INFO">Slept 2 seconds.</msg>
+<msg time="2024-04-06T08:51:18.493927" level="INFO">Slept 2 seconds.</msg>
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-04-06T08:06:41.122682" elapsed="2.000918"/>
+<status status="PASS" start="2024-04-06T08:51:16.493190" elapsed="2.000941"/>
 </kw>
 <kw name="Element Should Contain" owner="SeleniumLibrary">
-<msg time="2024-04-06T08:06:43.218253" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-14.png"&gt;&lt;img src="selenium-screenshot-14.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-04-06T08:06:43.218398" level="FAIL">Element with locator 'id=tea.mySubjects.table.listOfStudentsButton-1' not found.</msg>
-<arg>id=tea.mySubjects.table.listOfStudentsButton-1</arg>
-<arg>Students (0)</arg>
+<msg time="2024-04-06T08:51:18.586704" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-5.png"&gt;&lt;img src="selenium-screenshot-5.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-04-06T08:51:18.586816" level="FAIL">Element with locator 'xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]' not found.</msg>
+<arg>xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]</arg>
+<arg>Students (2)</arg>
 <doc>Verifies that element ``locator`` contains text ``expected``.</doc>
-<status status="FAIL" start="2024-04-06T08:06:43.124025" elapsed="0.094492">Element with locator 'id=tea.mySubjects.table.listOfStudentsButton-1' not found.</status>
+<status status="FAIL" start="2024-04-06T08:51:18.494429" elapsed="0.092499">Element with locator 'xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]' not found.</status>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="tea.menu.myExamDates"]</arg>
+<arg>xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.218786" elapsed="0.000027"/>
+<status status="NOT RUN" start="2024-04-06T08:51:18.587069" elapsed="0.000020"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
 <arg>2s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.218917" elapsed="0.000016"/>
+<status status="NOT RUN" start="2024-04-06T08:51:18.587139" elapsed="0.000011"/>
 </kw>
-<kw name="Element Should Contain" owner="SeleniumLibrary">
-<arg>id=tea.myExamDates.table.participantsButton-1-0</arg>
-<arg>Participants (0/10)</arg>
-<doc>Verifies that element ``locator`` contains text ``expected``.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219036" elapsed="0.000023"/>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<arg>xpath=//td[contains(text(),"William Maroon")]</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="NOT RUN" start="2024-04-06T08:51:18.587198" elapsed="0.000012"/>
 </kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="tea.menu.setEvaluation"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219155" elapsed="0.000023"/>
+<status status="FAIL" start="2024-04-06T08:51:16.345078" elapsed="2.242191">Element with locator 'xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]' not found.</status>
 </kw>
-<kw name="Sleep" owner="BuiltIn">
-<arg>2s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219267" elapsed="0.000023"/>
+<kw name="Close Browser">
+<status status="NOT RUN" start="2024-04-06T08:51:18.587421" elapsed="0.000019"/>
 </kw>
-<kw name="Select From List By Index" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="tea.setEvaluation.form.examTermDateSelect"]</arg>
-<arg>1</arg>
-<doc>Selects options from selection list ``locator`` by ``indexes``.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219386" elapsed="0.000019"/>
-</kw>
-<kw name="Sleep" owner="BuiltIn">
-<arg>1s</arg>
-<doc>Pauses the test executed for the given time.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219493" elapsed="0.000018"/>
-</kw>
-<kw name="Element Should Be Visible" owner="SeleniumLibrary">
-<arg>id=tea.setEvaluation.form.noOneStudent</arg>
-<doc>Verifies that the element identified by ``locator`` is visible.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219629" elapsed="0.000016"/>
-</kw>
-<kw name="Close Browser" owner="SeleniumLibrary">
-<doc>Closes the current browser.</doc>
-<status status="NOT RUN" start="2024-04-06T08:06:43.219782" elapsed="0.000020"/>
-</kw>
-<status status="FAIL" start="2024-04-06T08:06:30.816908" elapsed="12.403029">Element with locator 'id=tea.mySubjects.table.listOfStudentsButton-1' not found.</status>
+<status status="FAIL" start="2024-04-06T08:51:09.160455" elapsed="9.427116">Element with locator 'xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]' not found.</status>
 </test>
-<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
-<doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" start="2024-04-06T08:06:43.220278" elapsed="0.115609"/>
-</kw>
-<status status="FAIL" start="2024-04-06T08:06:18.283937" elapsed="25.052024"/>
+<status status="FAIL" start="2024-04-06T08:50:59.412404" elapsed="19.175419"/>
 </suite>
 <statistics>
 <total>
@@ -326,7 +232,7 @@
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="2" skip="0" id="s1" name="Spec-4-5">Spec-4-5</stat>
+<stat pass="0" fail="2" skip="0" id="s1" name="Spec-6-1">Spec-6-1</stat>
 </suite>
 </statistics>
 <errors>

@@ -7,6 +7,7 @@
 3. UC.06 - Zapsání předmětu
     - Clone: 25
     - Clone: 26
+    - Clone: 28
 4. UC.08 - Registrace na zkoušku
     - Clone: 25
     - Clone: 26

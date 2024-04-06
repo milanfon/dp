@@ -8,7 +8,8 @@
 - Pip
 - Docker
 - Docker Compose
+- Chromedriver
+    - Např. chromium-chromedriver
 
 ### Dependencies
 
-- 

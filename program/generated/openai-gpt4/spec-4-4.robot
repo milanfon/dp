@@ -1,43 +1,49 @@
 *** Settings ***
+Documentation     Scenario for student actions followed by teacher actions in a university information system
 Library           SeleniumLibrary
-
-*** Variables ***
-${STUDENT_LOGIN_URL}    http://localhost:4680/tbuis/login
-${STUDENT_USERNAME}     gray
-${STUDENT_PASSWORD}     pass
-${TEACHER_LOGIN_URL}    http://localhost:4680/tbuis/login
-${TEACHER_USERNAME}     pedant
-${TEACHER_PASSWORD}     pass
+Suite Teardown    Close All Browsers
 
 *** Test Cases ***
 Student Scenario
-    Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
+    Open Browser    http://localhost:4680/tbuis/index.jsp    chrome
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
     Sleep    1s
-    Input Text    xpath=//*[@id="loginPage.userNameInput"]    ${STUDENT_USERNAME}
+    Click Element    xpath=//*[@id="loginPage.userNameInput"]
     Sleep    1s
-    Input Text    xpath=//*[@id="loginPage.passwordInput"]    ${STUDENT_PASSWORD}
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    gray
     Sleep    1s
-    Press Key    xpath=//*[@id="loginPage.passwordInput"]    \\13
+    Press Key    xpath=//*[@id="loginPage.userNameInput"]    TAB
+    Sleep    1s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    1s
+    Press Key    xpath=//*[@id="loginPage.passwordInput"]    ENTER
     Sleep    3s
     Click Element    xpath=//*[@id="stu.menu.mySubjects"]
     Sleep    2s
+    Click Element    xpath=//*[@id="stu.mySubjects.enrolledTable.unenrollSubjectButton-1"]
+    Sleep    1s
+    Click Element    xpath=//*[@id="stu.mySubjects.unenrollSubjectModal.unenrollSubjectButton"]
+    Sleep    2s
     Page Should Contain Element    id=stu.mySubjects.successAlert
     Page Should Contain Element    id=stu.mySubjects.enrolledTable.Title
-    Page Should Not Contain Element    xpath=//td[contains(text(),'Database Systems')]
+    Element Text Should Not Be    xpath=//td    Database Systems
     Close Browser
 
 Teacher Scenario
-    Open Browser    ${TEACHER_LOGIN_URL}    Chrome
+    Open Browser    http://localhost:4680/tbuis/index.jsp    chrome
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
     Sleep    1s
-    Input Text    xpath=//*[@id="loginPage.userNameInput"]    ${TEACHER_USERNAME}
+    Click Element    xpath=//*[@id="loginPage.userNameInput"]
     Sleep    1s
-    Input Text    xpath=//*[@id="loginPage.passwordInput"]    ${TEACHER_PASSWORD}
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    pedant
     Sleep    1s
-    Press Key    xpath=//*[@id="loginPage.passwordInput"]    \\13
+    Press Key    xpath=//*[@id="loginPage.userNameInput"]    TAB
+    Sleep    1s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    1s
+    Press Key    xpath=//*[@id="loginPage.passwordInput"]    ENTER
     Sleep    3s
     Click Element    xpath=//*[@id="tea.menu.mySubjects"]
     Sleep    2s

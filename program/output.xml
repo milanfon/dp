@@ -1,60 +1,124 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.12.2 on darwin)" generated="2024-04-07T16:24:02.251864" rpa="false" schemaversion="5">
-<suite id="s1" name="Spec-1-2" source="/Users/milan/Škola/DP/program/generated/openai-gpt4/spec-1-2.robot">
-<test id="s1-t1" name="Login As Student And Verify" line="13">
-<kw name="Open And Setup Browser">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<arg>${BASE_URL}</arg>
+<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-04-07T19:23:56.752846" rpa="false" schemaversion="5">
+<suite id="s1" name="Spec-8-14" source="/home/test/dp/program/generated/codellama/spec-8-14.robot">
+<test id="s1-t1" name="Spec 8 Student" line="9">
+<kw name="Open Browser" owner="SeleniumLibrary" type="SETUP">
+<msg time="2024-04-07T19:23:56.779356" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/'.</msg>
+<arg>${URL}</arg>
 <arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="FAIL" start="2024-04-07T16:24:02.271473" elapsed="0.000081">Execution terminated by signal</status>
+<status status="PASS" start="2024-04-07T19:23:56.779200" elapsed="0.745865"/>
 </kw>
-<kw name="Set Window Size" owner="SeleniumLibrary">
-<arg>1501</arg>
-<arg>1104</arg>
-<doc>Sets current windows size to given ``width`` and ``height``.</doc>
-<status status="NOT RUN" start="2024-04-07T16:24:02.271606" elapsed="0.000010"/>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-04-07T19:23:57.525636" level="INFO">Typing text 'green' into text field 'id=loginPage.userNameInput'.</msg>
+<msg time="2024-04-07T19:23:57.758043" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1492.png"&gt;&lt;img src="selenium-screenshot-1492.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-04-07T19:23:57.758151" level="FAIL">Element with locator 'id=loginPage.userNameInput' not found.</msg>
+<arg>id=loginPage.userNameInput</arg>
+<arg>green</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="FAIL" start="2024-04-07T19:23:57.525377" elapsed="0.232890">Element with locator 'id=loginPage.userNameInput' not found.</status>
 </kw>
-<status status="FAIL" start="2024-04-07T16:24:02.271185" elapsed="0.000473">Execution terminated by signal</status>
-</kw>
-<kw name="Navigate To Login Page And Login">
-<arg>brown</arg>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>id=loginPage.passwordInput</arg>
 <arg>pass</arg>
-<arg>${STUDENT_VIEW}</arg>
-<status status="NOT RUN" start="2024-04-07T16:24:02.271734" elapsed="0.000012"/>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.758485" elapsed="0.000027"/>
 </kw>
-<kw name="Verify Student View Elements">
-<status status="NOT RUN" start="2024-04-07T16:24:02.271805" elapsed="0.000010"/>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>id=loginPage.loginFormSubmit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.758611" elapsed="0.000016"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<arg>id=stu.menu.otherExamDates</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.758733" elapsed="0.000019"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>id=stu.otherExamDates.table.registerButton-2-0</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.758844" elapsed="0.000016"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<arg>id=stu.otherExamDates.successAlert</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.758962" elapsed="0.000024"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<arg>id=stu.menu.myExamDates</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.759093" elapsed="0.000030"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<arg>xpath=//td[text()='Programming in Java']</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:57.759223" elapsed="0.000018"/>
 </kw>
 <kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="PASS" start="2024-04-07T16:24:02.271891" elapsed="0.000043"/>
+<status status="PASS" start="2024-04-07T19:23:57.759466" elapsed="0.057494"/>
 </kw>
-<status status="FAIL" start="2024-04-07T16:24:02.271018" elapsed="0.000943">Execution terminated by signal</status>
+<status status="FAIL" start="2024-04-07T19:23:56.778717" elapsed="1.038404">Element with locator 'id=loginPage.userNameInput' not found.</status>
 </test>
-<test id="s1-t2" name="Login As Teacher And Verify" line="19">
-<tag>robot:exit</tag>
-<status status="FAIL" start="2024-04-07T16:24:02.272044" elapsed="0.000108">Test execution stopped due to a fatal error.</status>
+<test id="s1-t2" name="Spec 8 Teacher" line="21">
+<kw name="Open Browser" owner="SeleniumLibrary" type="SETUP">
+<msg time="2024-04-07T19:23:57.817983" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-04-07T19:23:57.817782" elapsed="0.731681"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-04-07T19:23:58.550088" level="INFO">Typing text 'strict' into text field 'id=loginPage.userNameInput'.</msg>
+<msg time="2024-04-07T19:23:58.772343" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1493.png"&gt;&lt;img src="selenium-screenshot-1493.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2024-04-07T19:23:58.772448" level="FAIL">Element with locator 'id=loginPage.userNameInput' not found.</msg>
+<arg>id=loginPage.userNameInput</arg>
+<arg>strict</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="FAIL" start="2024-04-07T19:23:58.549794" elapsed="0.222769">Element with locator 'id=loginPage.userNameInput' not found.</status>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>id=loginPage.passwordInput</arg>
+<arg>pass</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:58.772768" elapsed="0.000024"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>id=loginPage.loginFormSubmit</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:58.772902" elapsed="0.000025"/>
+</kw>
+<kw name="Click Link" owner="SeleniumLibrary">
+<arg>id=tea.menu.myExamDates</arg>
+<doc>Clicks a link identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:58.773031" elapsed="0.000017"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<arg>id=tea.myExamDates.table.participantsButton-1-0</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:58.773144" elapsed="0.000027"/>
+</kw>
+<kw name="Page Should Contain Element" owner="SeleniumLibrary">
+<arg>xpath=//td[text()='Mia Orange']</arg>
+<doc>Verifies that element ``locator`` is found on the current page.</doc>
+<status status="NOT RUN" start="2024-04-07T19:23:58.773284" elapsed="0.000020"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2024-04-07T19:23:58.773484" elapsed="0.056715"/>
+</kw>
+<status status="FAIL" start="2024-04-07T19:23:57.817475" elapsed="1.012865">Element with locator 'id=loginPage.userNameInput' not found.</status>
 </test>
-<test id="s1-t3" name="Invalid Login With Username Bla" line="25">
-<tag>robot:exit</tag>
-<status status="FAIL" start="2024-04-07T16:24:02.272223" elapsed="0.000095">Test execution stopped due to a fatal error.</status>
-</test>
-<test id="s1-t4" name="Invalid Login With Password Bla" line="31">
-<tag>robot:exit</tag>
-<status status="FAIL" start="2024-04-07T16:24:02.272386" elapsed="0.000093">Test execution stopped due to a fatal error.</status>
-</test>
-<status status="FAIL" start="2024-04-07T16:24:02.252070" elapsed="0.020510"/>
+<status status="FAIL" start="2024-04-07T19:23:56.753073" elapsed="2.077612"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="4" skip="0">All Tests</stat>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="0" fail="1" skip="0" info="combined" combined="NOT robot:exit">NOT robot:exit</stat>
 </tag>
 <suite>
-<stat pass="0" fail="4" skip="0" id="s1" name="Spec-1-2">Spec-1-2</stat>
+<stat pass="0" fail="2" skip="0" id="s1" name="Spec-8-14">Spec-8-14</stat>
 </suite>
 </statistics>
 <errors>

@@ -13,6 +13,8 @@ from tabulate import tabulate
 from dotenv import load_dotenv
 from llmlingua import PromptCompressor
 import sqlite3
+import configuration as config
+import glob
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
@@ -43,6 +45,10 @@ args = parser.parse_args()
 
 def get_file_pattern(base):
     return re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
+
+def get_files_matching_pattern(pattern, directory):
+    full_pattern = os.path.join(directory, pattern)
+    return glob.glob(full_pattern)
 
 def system_prompt():
     with open(SYSTEM_PROMPT, 'r') as sp_file:
@@ -262,7 +268,7 @@ def run():
         print("Docker is not running!")
         return
     # List variants of WAR files
-    file_list = [file for file in os.listdir(CONTAINER_DIRECTORY) if file.startswith('defect-')]
+    file_list = [file for file in os.listdir(CONTAINER_DIRECTORY) if file.startswith('defect-') and file in config.RUN_CONTAINERS]
     file_list.sort()
 
     print(file_list)
@@ -271,8 +277,7 @@ def run():
 
     #os.chdir(DIRECTORY)
     report = Report()
-    i = 0
-    t = 0
+    i, t = 0, 0
     for file in file_list:
        report.set_container_name(file)
        print("Deploying: "+file)
@@ -281,19 +286,18 @@ def run():
        subprocess.run(["docker-compose", "-f", os.path.join(CONTAINER_DIRECTORY, "docker-compose.yml"), "up", "-d", "--build"], env=env)
        print("Waiting 10s for container to load...")
        time.sleep(10)
-       pattern = get_file_pattern(args.run)  # Ensure this returns a compiled regex pattern
-       for root, dirs, files in os.walk(GEN_FOLDER):
-           for filename in files:
-               relative_path = os.path.relpath(os.path.join(root, filename), GEN_FOLDER)
-               if pattern.match(relative_path):
-                   if t > 0:
-                       print("Restoring DB...")
-                       robot.run(RESTORE_DB_FILE)
-                   full_path = os.path.join(root, filename)
-                   print(f"Running test file: {full_path}")
-                   robot.run(full_path)
-                   report.add(relative_path, "output.xml")  # Assuming add() method is adjusted to handle paths
-                   t += 1
+
+       matching_files = get_files_matching_pattern(args.run, GEN_FOLDER)
+
+       for full_path in matching_files:
+           if t > 0:
+               print("Restoring DB...")
+               robot.run(RESTORE_DB_FILE)
+           print(f"Running test file: {full_path}")
+           robot.run(full_path)
+           relative_path = os.path.relpath(full_path, GEN_FOLDER)
+           report.add(relative_path, "output.xml")
+           t += 1
        subprocess.run(["docker-compose", "down"])
        if i == args.cont_count:
             break

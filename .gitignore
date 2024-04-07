@@ -6,3 +6,4 @@
 ./program/output.xml
 ./program/report.html
 ./program/o-err.xml
+./program/__pycache__/

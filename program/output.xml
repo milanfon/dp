@@ -1,190 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-04-06T20:41:18.245725" rpa="false" schemaversion="5">
-<suite id="s1" name="Spec-17-1" source="/home/test/dp/program/generated/openai-gpt4/spec-17-1.robot">
-<test id="s1-t1" name="Teacher Participates In Others' Subject And Verifies" line="13">
+<robot generator="Robot 7.0 (Python 3.12.2 on darwin)" generated="2024-04-07T16:24:02.251864" rpa="false" schemaversion="5">
+<suite id="s1" name="Spec-1-2" source="/Users/milan/Škola/DP/program/generated/openai-gpt4/spec-1-2.robot">
+<test id="s1-t1" name="Login As Student And Verify" line="13">
+<kw name="Open And Setup Browser">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:18.272462" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/login'.</msg>
-<arg>${TEACHER_LOGIN_URL}</arg>
-<arg>Chrome</arg>
+<arg>${BASE_URL}</arg>
+<arg>${BROWSER}</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-06T20:41:18.272277" elapsed="0.775830"/>
+<status status="FAIL" start="2024-04-07T16:24:02.271473" elapsed="0.000081">Execution terminated by signal</status>
 </kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-04-06T20:41:19.048445" elapsed="0.103575"/>
+<kw name="Set Window Size" owner="SeleniumLibrary">
+<arg>1501</arg>
+<arg>1104</arg>
+<doc>Sets current windows size to given ``width`` and ``height``.</doc>
+<status status="NOT RUN" start="2024-04-07T16:24:02.271606" elapsed="0.000010"/>
 </kw>
-<kw name="Set Selenium Speed" owner="SeleniumLibrary">
-<arg>1 seconds</arg>
-<doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" start="2024-04-06T20:41:19.152262" elapsed="0.000186"/>
+<status status="FAIL" start="2024-04-07T16:24:02.271185" elapsed="0.000473">Execution terminated by signal</status>
 </kw>
-<kw name="Teacher Logs In And Participates">
-<kw name="Login">
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:19.153078" level="INFO">Clicking element 'xpath=//*[@id="header.link.login"]'.</msg>
-<arg>xpath=//*[@id="header.link.login"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:19.152966" elapsed="2.073935"/>
+<kw name="Navigate To Login Page And Login">
+<arg>brown</arg>
+<arg>pass</arg>
+<arg>${STUDENT_VIEW}</arg>
+<status status="NOT RUN" start="2024-04-07T16:24:02.271734" elapsed="0.000012"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:21.227330" level="INFO">Typing text 'pedant' into text field 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
-<arg>xpath=//*[@id="loginPage.userNameInput"]</arg>
-<arg>${username}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:21.227101" elapsed="3.069843"/>
+<kw name="Verify Student View Elements">
+<status status="NOT RUN" start="2024-04-07T16:24:02.271805" elapsed="0.000010"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:24.297889" level="INFO">Typing text 'pass' into text field 'xpath=//*[@id="loginPage.passwordInput"]'.</msg>
-<arg>xpath=//*[@id="loginPage.passwordInput"]</arg>
-<arg>${PASSWORD}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:24.297379" elapsed="3.060905"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:27.358826" level="INFO">Clicking element 'xpath=//*[@id="loginPage.loginFormSubmit"]'.</msg>
-<arg>xpath=//*[@id="loginPage.loginFormSubmit"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:27.358503" elapsed="2.409514"/>
-</kw>
-<arg>${USERNAME_TEACHER}</arg>
-<status status="PASS" start="2024-04-06T20:41:19.152816" elapsed="10.615347"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:29.768472" level="INFO">Clicking element 'xpath=//*[@id="tea.menu.otherSubjects"]'.</msg>
-<arg>xpath=//*[@id="tea.menu.otherSubjects"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:29.768292" elapsed="2.212492"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:31.981169" level="INFO">Clicking element 'xpath=//*[@id="tea.otherSubjects.table.participateButton-3"]'.</msg>
-<arg>xpath=//*[@id="tea.otherSubjects.table.participateButton-3"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:31.980982" elapsed="2.225650"/>
-</kw>
-<status status="PASS" start="2024-04-06T20:41:19.152619" elapsed="15.054275"/>
-</kw>
-<kw name="Verify Participation Success On Others' Subjects Page">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>id=tea.otherSubjects.successAlert</arg>
-<arg>5s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2024-04-06T20:41:34.207660" elapsed="2.021763"/>
-</kw>
-<status status="PASS" start="2024-04-06T20:41:34.207291" elapsed="2.022280"/>
-</kw>
-<kw name="Verify Linear Algebra Not Present In My Exam Dates">
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:36.230197" level="INFO">Clicking element 'xpath=//*[@id="tea.menu.myExamDates"]'.</msg>
-<arg>xpath=//*[@id="tea.menu.myExamDates"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:36.230066" elapsed="2.248902"/>
-</kw>
-<kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:41.843388" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-7.png"&gt;&lt;img src="selenium-screenshot-7.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-04-06T20:41:41.843536" level="FAIL">Page should have contained element 'xpath=//th[text()="Linear Algebra"]' but did not.</msg>
-<arg>xpath=//th[text()="Linear Algebra"]</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="FAIL" start="2024-04-06T20:41:38.479214" elapsed="3.364451">Page should have contained element 'xpath=//th[text()="Linear Algebra"]' but did not.</status>
-</kw>
-<status status="FAIL" start="2024-04-06T20:41:36.229833" elapsed="5.613961">Page should have contained element 'xpath=//th[text()="Linear Algebra"]' but did not.</status>
-</kw>
-<kw name="Verify Linear Algebra Option In New Exam Dates">
-<status status="NOT RUN" start="2024-04-06T20:41:41.844027" elapsed="0.000026"/>
-</kw>
-<kw name="Verify Linear Algebra Details In List Of All Teachers">
-<status status="NOT RUN" start="2024-04-06T20:41:41.844175" elapsed="0.000017"/>
-</kw>
-<kw name="Close Browser" owner="SeleniumLibrary">
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
 <doc>Closes the current browser.</doc>
-<status status="NOT RUN" start="2024-04-06T20:41:41.844275" elapsed="0.000014"/>
+<status status="PASS" start="2024-04-07T16:24:02.271891" elapsed="0.000043"/>
 </kw>
-<status status="FAIL" start="2024-04-06T20:41:18.271687" elapsed="23.572711">Page should have contained element 'xpath=//th[text()="Linear Algebra"]' but did not.</status>
+<status status="FAIL" start="2024-04-07T16:24:02.271018" elapsed="0.000943">Execution terminated by signal</status>
 </test>
-<test id="s1-t2" name="Student Verifies Linear Algebra and Alice Pedant" line="24">
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:41.845064" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/login'.</msg>
-<arg>${STUDENT_LOGIN_URL}</arg>
-<arg>Chrome</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-06T20:41:41.844879" elapsed="1.735472"/>
-</kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2024-04-06T20:41:43.580656" elapsed="1.105524"/>
-</kw>
-<kw name="Set Selenium Speed" owner="SeleniumLibrary">
-<arg>1 seconds</arg>
-<doc>Sets the delay that is waited after each Selenium command.</doc>
-<status status="PASS" start="2024-04-06T20:41:44.686712" elapsed="0.000367"/>
-</kw>
-<kw name="Student Logs In And Verifies">
-<kw name="Login">
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:44.688014" level="INFO">Clicking element 'xpath=//*[@id="header.link.login"]'.</msg>
-<arg>xpath=//*[@id="header.link.login"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:44.687862" elapsed="2.067396"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:46.755745" level="INFO">Typing text 'yellow' into text field 'xpath=//*[@id="loginPage.userNameInput"]'.</msg>
-<arg>xpath=//*[@id="loginPage.userNameInput"]</arg>
-<arg>${username}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:46.755494" elapsed="3.070935"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:49.826926" level="INFO">Typing text 'pass' into text field 'xpath=//*[@id="loginPage.passwordInput"]'.</msg>
-<arg>xpath=//*[@id="loginPage.passwordInput"]</arg>
-<arg>${PASSWORD}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:49.826673" elapsed="3.059634"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:52.886967" level="INFO">Clicking element 'xpath=//*[@id="loginPage.loginFormSubmit"]'.</msg>
-<arg>xpath=//*[@id="loginPage.loginFormSubmit"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:52.886774" elapsed="2.204829"/>
-</kw>
-<arg>${USERNAME_STUDENT}</arg>
-<status status="PASS" start="2024-04-06T20:41:44.687656" elapsed="10.404097"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:41:55.092084" level="INFO">Clicking element 'xpath=//*[@id="stu.menu.otherSubjects"]'.</msg>
-<arg>xpath=//*[@id="stu.menu.otherSubjects"]</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-04-06T20:41:55.091882" elapsed="2.127520"/>
-</kw>
-<kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<msg time="2024-04-06T20:42:00.618210" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-8.png"&gt;&lt;img src="selenium-screenshot-8.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-04-06T20:42:00.618345" level="FAIL">Page should have contained element 'xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2][contains(text(), "Linear Algebra")]' but did not.</msg>
-<arg>xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2][contains(text(), "Linear Algebra")]</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="FAIL" start="2024-04-06T20:41:57.219658" elapsed="3.398803">Page should have contained element 'xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2][contains(text(), "Linear Algebra")]' but did not.</status>
-</kw>
-<kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[3][contains(text(), "Alice Pedant")]</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="NOT RUN" start="2024-04-06T20:42:00.618614" elapsed="0.000021"/>
-</kw>
-<status status="FAIL" start="2024-04-06T20:41:44.687334" elapsed="15.931367">Page should have contained element 'xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2][contains(text(), "Linear Algebra")]' but did not.</status>
-</kw>
-<kw name="Close Browser" owner="SeleniumLibrary">
-<doc>Closes the current browser.</doc>
-<status status="NOT RUN" start="2024-04-06T20:42:00.618837" elapsed="0.000024"/>
-</kw>
-<status status="FAIL" start="2024-04-06T20:41:41.844602" elapsed="18.774401">Page should have contained element 'xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2][contains(text(), "Linear Algebra")]' but did not.</status>
+<test id="s1-t2" name="Login As Teacher And Verify" line="19">
+<tag>robot:exit</tag>
+<status status="FAIL" start="2024-04-07T16:24:02.272044" elapsed="0.000108">Test execution stopped due to a fatal error.</status>
 </test>
-<doc>Validates functionality for a teacher and a student regarding subject participation and visibility.</doc>
-<status status="FAIL" start="2024-04-06T20:41:18.245968" elapsed="42.373235"/>
+<test id="s1-t3" name="Invalid Login With Username Bla" line="25">
+<tag>robot:exit</tag>
+<status status="FAIL" start="2024-04-07T16:24:02.272223" elapsed="0.000095">Test execution stopped due to a fatal error.</status>
+</test>
+<test id="s1-t4" name="Invalid Login With Password Bla" line="31">
+<tag>robot:exit</tag>
+<status status="FAIL" start="2024-04-07T16:24:02.272386" elapsed="0.000093">Test execution stopped due to a fatal error.</status>
+</test>
+<status status="FAIL" start="2024-04-07T16:24:02.252070" elapsed="0.020510"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="2" skip="0">All Tests</stat>
+<stat pass="0" fail="4" skip="0">All Tests</stat>
 </total>
 <tag>
+<stat pass="0" fail="1" skip="0" info="combined" combined="NOT robot:exit">NOT robot:exit</stat>
 </tag>
 <suite>
-<stat pass="0" fail="2" skip="0" id="s1" name="Spec-17-1">Spec-17-1</stat>
+<stat pass="0" fail="4" skip="0" id="s1" name="Spec-1-2">Spec-1-2</stat>
 </suite>
 </statistics>
 <errors>

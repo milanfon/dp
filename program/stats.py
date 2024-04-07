@@ -1,7 +1,9 @@
 import sqlite3
 import numpy as np
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
 import seaborn as sns
+import re
 
 db_path = '../results/codellama-run.sqlite'
 
@@ -33,16 +35,20 @@ def process_data(rows):
 def generate_heatmap(data):
     # Convert data into 2D array
     containers = sorted(data.keys())
-    tests = sorted({test for container_data in data.values() for test in container_data.keys()})
+
+    test_sort_key = lambda test: int(re.search(r'-(\d+)$', test).group(1)) if re.search(r'-(\d+)$', test) else 0
+    tests = sorted({test for container_data in data.values() for test in container_data.keys()}, key=test_sort_key)
     heatmap_data = np.zeros((len(containers), len(tests)))
     
     for i, container in enumerate(containers):
         for j, test in enumerate(tests):
             heatmap_data[i, j] = data[container].get(test, 0)
     
+    cMap = mcolors.LinearSegmentedColormap.from_list("", ["red", "orange", "green"])
+
     # Generate heatmap
     plt.figure(figsize=(10, 8))
-    sns.heatmap(heatmap_data, annot=True, fmt="g", cmap="YlGnBu", xticklabels=tests, yticklabels=containers)
+    sns.heatmap(heatmap_data, annot=True, fmt="g", cmap="rocket_r", xticklabels=tests, yticklabels=containers, vmin=0, vmax=10)
     plt.title('Test PASS Count Heatmap')
     plt.xlabel('Test Name')
     plt.ylabel('Container')

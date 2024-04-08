@@ -1,126 +1,610 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-04-07T19:23:56.752846" rpa="false" schemaversion="5">
-<suite id="s1" name="Spec-8-14" source="/home/test/dp/program/generated/codellama/spec-8-14.robot">
-<test id="s1-t1" name="Spec 8 Student" line="9">
-<kw name="Open Browser" owner="SeleniumLibrary" type="SETUP">
-<msg time="2024-04-07T19:23:56.779356" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/'.</msg>
+<robot generator="Robot 7.0 (Python 3.10.12 on linux)" generated="2024-04-08T21:43:51.422752" rpa="false" schemaversion="5">
+<suite id="s1" name="Spec-17-2" source="/home/test/dp/program/generated/wizardcoder-python/spec-17-2.robot">
+<test id="s1-t1" name="Teacher Test" line="14">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<kw name="Open Browser">
+<msg time="2024-04-08T21:43:52.141612" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.141368" elapsed="0.000272">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142057" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.141124" elapsed="0.000967">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142209" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140995" elapsed="0.001230">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142327" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140857" elapsed="0.001484">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142437" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140733" elapsed="0.001717">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142544" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140603" elapsed="0.001954">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142653" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140476" elapsed="0.002190">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142759" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140348" elapsed="0.002425">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142866" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140217" elapsed="0.002664">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.142973" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.140046" elapsed="0.002940">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143076" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.139907" elapsed="0.003182">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143179" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.139770" elapsed="0.003422">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143291" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.139631" elapsed="0.003679">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143455" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.139481" elapsed="0.003994">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143581" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.139317" elapsed="0.004279">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143692" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.139082" elapsed="0.004624">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143798" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138953" elapsed="0.004892">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.143939" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138826" elapsed="0.005127">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144043" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138676" elapsed="0.005379">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144143" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138550" elapsed="0.005605">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144242" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138423" elapsed="0.005832">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144340" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138297" elapsed="0.006056">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144497" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138170" elapsed="0.006341">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144599" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.138042" elapsed="0.006570">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144698" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137914" elapsed="0.006797">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144796" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137780" elapsed="0.007029">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144892" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137629" elapsed="0.007276">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.144989" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137505" elapsed="0.007496">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145081" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137377" elapsed="0.007716">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145173" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137245" elapsed="0.007939">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145263" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.137116" elapsed="0.008159">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145353" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136989" elapsed="0.008375">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145442" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136858" elapsed="0.008596">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145531" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136723" elapsed="0.008820">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145620" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136560" elapsed="0.009072">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145709" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136418" elapsed="0.009302">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145797" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136285" elapsed="0.009524">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145887" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136146" elapsed="0.009753">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.145976" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.136006" elapsed="0.009981">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146063" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.135866" elapsed="0.010209">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146156" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.135729" elapsed="0.010438">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146256" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.135586" elapsed="0.010682">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146343" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.135424" elapsed="0.010930">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146426" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.135204" elapsed="0.011234">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146513" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.135068" elapsed="0.011457">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146597" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.134926" elapsed="0.011681">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146677" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.134763" elapsed="0.011925">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146755" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.134561" elapsed="0.012205">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146835" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.134425" elapsed="0.012421">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146917" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.134288" elapsed="0.012640">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.146996" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.134151" elapsed="0.012857">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147077" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133985" elapsed="0.013103">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147218" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133847" elapsed="0.013384">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147303" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133700" elapsed="0.013614">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147385" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133535" elapsed="0.013861">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147464" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133311" elapsed="0.014165">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147544" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133156" elapsed="0.014399">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147622" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.133028" elapsed="0.014605">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147700" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132890" elapsed="0.014821">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147776" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132720" elapsed="0.015067">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147853" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132590" elapsed="0.015274">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.147929" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132458" elapsed="0.015482">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148005" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132321" elapsed="0.015695">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148082" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132189" elapsed="0.015905">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148158" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.132050" elapsed="0.016119">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148231" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.131901" elapsed="0.016341">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148321" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:52.131702" elapsed="0.016631">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148399" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.453610" elapsed="0.694801">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148477" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.453444" elapsed="0.695045">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148588" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.453240" elapsed="0.695368">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148696" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.453096" elapsed="0.695615">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148786" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.452930" elapsed="0.695870">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148873" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.452731" elapsed="0.696155">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.148954" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.452590" elapsed="0.696378">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149035" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.452432" elapsed="0.696616">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149113" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.452283" elapsed="0.696842">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149187" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.451538" elapsed="0.697661">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149264" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.451368" elapsed="0.697909">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149341" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.451165" elapsed="0.698187">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149427" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.451030" elapsed="0.698422">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149543" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.450891" elapsed="0.698667">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149705" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.450756" elapsed="0.698964">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149789" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.450621" elapsed="0.699182">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149868" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.450479" elapsed="0.699401">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.149939" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.450327" elapsed="0.699624">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150008" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.450124" elapsed="0.699896">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150083" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.449947" elapsed="0.700148">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150154" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.449738" elapsed="0.700427">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150223" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.449599" elapsed="0.700635">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150287" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.449451" elapsed="0.700847">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150352" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.449282" elapsed="0.701095">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150437" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.449085" elapsed="0.701364">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150503" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.448941" elapsed="0.701573">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150568" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.448753" elapsed="0.701826">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150634" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.448605" elapsed="0.702041">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150700" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.448435" elapsed="0.702276">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150763" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.448221" elapsed="0.702553">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150825" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.448056" elapsed="0.702780">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.150887" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
+<arg>${url}</arg>
+<arg>browser=${browser}</arg>
+<status status="FAIL" start="2024-04-08T21:43:51.447853" elapsed="0.703045">Maximum limit of started keywords and control structures exceeded.</status>
+</kw>
+<msg time="2024-04-08T21:43:52.151001" level="FAIL">Maximum limit of started keywords and control structures exceeded.</msg>
 <arg>${URL}</arg>
 <arg>${BROWSER}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-07T19:23:56.779200" elapsed="0.745865"/>
+<status status="FAIL" start="2024-04-08T21:43:51.447586" elapsed="0.703435">Maximum limit of started keywords and control structures exceeded.</status>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-07T19:23:57.525636" level="INFO">Typing text 'green' into text field 'id=loginPage.userNameInput'.</msg>
-<msg time="2024-04-07T19:23:57.758043" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1492.png"&gt;&lt;img src="selenium-screenshot-1492.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-04-07T19:23:57.758151" level="FAIL">Element with locator 'id=loginPage.userNameInput' not found.</msg>
-<arg>id=loginPage.userNameInput</arg>
-<arg>green</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="FAIL" start="2024-04-07T19:23:57.525377" elapsed="0.232890">Element with locator 'id=loginPage.userNameInput' not found.</status>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<arg>id=loginPage.passwordInput</arg>
-<arg>pass</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.758485" elapsed="0.000027"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<arg>id=loginPage.loginFormSubmit</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.758611" elapsed="0.000016"/>
-</kw>
-<kw name="Click Link" owner="SeleniumLibrary">
-<arg>id=stu.menu.otherExamDates</arg>
-<doc>Clicks a link identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.758733" elapsed="0.000019"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<arg>id=stu.otherExamDates.table.registerButton-2-0</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.758844" elapsed="0.000016"/>
-</kw>
-<kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<arg>id=stu.otherExamDates.successAlert</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.758962" elapsed="0.000024"/>
-</kw>
-<kw name="Click Link" owner="SeleniumLibrary">
-<arg>id=stu.menu.myExamDates</arg>
-<doc>Clicks a link identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.759093" elapsed="0.000030"/>
-</kw>
-<kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//td[text()='Programming in Java']</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:57.759223" elapsed="0.000018"/>
-</kw>
-<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
-<doc>Closes the current browser.</doc>
-<status status="PASS" start="2024-04-07T19:23:57.759466" elapsed="0.057494"/>
-</kw>
-<status status="FAIL" start="2024-04-07T19:23:56.778717" elapsed="1.038404">Element with locator 'id=loginPage.userNameInput' not found.</status>
-</test>
-<test id="s1-t2" name="Spec 8 Teacher" line="21">
-<kw name="Open Browser" owner="SeleniumLibrary" type="SETUP">
-<msg time="2024-04-07T19:23:57.817983" level="INFO">Opening browser 'Chrome' to base url 'http://localhost:4680/tbuis/'.</msg>
-<arg>${URL}</arg>
-<arg>${BROWSER}</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-04-07T19:23:57.817782" elapsed="0.731681"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-04-07T19:23:58.550088" level="INFO">Typing text 'strict' into text field 'id=loginPage.userNameInput'.</msg>
-<msg time="2024-04-07T19:23:58.772343" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-1493.png"&gt;&lt;img src="selenium-screenshot-1493.png" width="800px"&gt;&lt;/a&gt;</msg>
-<msg time="2024-04-07T19:23:58.772448" level="FAIL">Element with locator 'id=loginPage.userNameInput' not found.</msg>
-<arg>id=loginPage.userNameInput</arg>
-<arg>strict</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="FAIL" start="2024-04-07T19:23:58.549794" elapsed="0.222769">Element with locator 'id=loginPage.userNameInput' not found.</status>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<arg>id=loginPage.passwordInput</arg>
-<arg>pass</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:58.772768" elapsed="0.000024"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<arg>id=loginPage.loginFormSubmit</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:58.772902" elapsed="0.000025"/>
-</kw>
-<kw name="Click Link" owner="SeleniumLibrary">
-<arg>id=tea.menu.myExamDates</arg>
-<doc>Clicks a link identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:58.773031" elapsed="0.000017"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<arg>id=tea.myExamDates.table.participantsButton-1-0</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:58.773144" elapsed="0.000027"/>
-</kw>
-<kw name="Page Should Contain Element" owner="SeleniumLibrary">
-<arg>xpath=//td[text()='Mia Orange']</arg>
-<doc>Verifies that element ``locator`` is found on the current page.</doc>
-<status status="NOT RUN" start="2024-04-07T19:23:58.773284" elapsed="0.000020"/>
-</kw>
-<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
-<doc>Closes the current browser.</doc>
-<status status="PASS" start="2024-04-07T19:23:58.773484" elapsed="0.056715"/>
-</kw>
-<status status="FAIL" start="2024-04-07T19:23:57.817475" elapsed="1.012865">Element with locator 'id=loginPage.userNameInput' not found.</status>
-</test>
-<status status="FAIL" start="2024-04-07T19:23:56.753073" elapsed="2.077612"/>
-</suite>
-<statistics>
-<total>
-<stat pass="0" fail="2" skip="0">All Tests</stat>
-</total>
-<tag>
-</tag>
-<suite>
-<stat pass="0" fail="2" skip="0" id="s1" name="Spec-8-14">Spec-8-14</stat>
-</suite>
-</statistics>
 <errors>
+<msg time="2024-04-08T21:43:52.151198" level="ERROR">Maximum limit of started keywords and control structures exceeded.
+
+Try --help for usage information.</msg>
 </errors>
 </robot>

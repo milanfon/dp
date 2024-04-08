@@ -1,0 +1,1 @@
+To write Robot Framework scenario, you'll need to install SeleniumLibrary and create a new file with .robot extension, for example, `my_scenario.robot`.

@@ -43,8 +43,6 @@ def generate_heatmap(data):
     for i, container in enumerate(containers):
         for j, test in enumerate(tests):
             heatmap_data[i, j] = data[container].get(test, 0)
-    
-    cMap = mcolors.LinearSegmentedColormap.from_list("", ["red", "orange", "green"])
 
     # Generate heatmap
     plt.figure(figsize=(10, 8))
@@ -52,7 +50,7 @@ def generate_heatmap(data):
     plt.title('Test PASS Count Heatmap')
     plt.xlabel('Test Name')
     plt.ylabel('Container')
-    plt.xticks(rotation=45, ha="right")
+    plt.xticks(rotation=90, ha="right")
     plt.tight_layout()
     plt.show()
 

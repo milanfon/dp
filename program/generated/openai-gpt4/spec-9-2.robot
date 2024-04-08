@@ -4,7 +4,7 @@ Suite Setup    Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
 Suite Teardown    Close Browser
 
 *** Test Cases ***
-Check Participants In My Exam Dates
+Verify Participants Modal And Student Names
     Set Window Size    1501    1104
     Go To    http://localhost:4680/tbuis/index.jsp
     Sleep    1s

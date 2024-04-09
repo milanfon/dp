@@ -5,7 +5,7 @@ Library    SeleniumLibrary
 ${BROWSER}    Chrome
 
 *** Test Cases ***
-Open Teacher's View For Other Subjects And Perform Checks
+Verify Teacher Actions On Various Pages
     Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
@@ -36,10 +36,10 @@ Open Teacher's View For Other Subjects And Perform Checks
     Click Element    xpath=//*[@id="tea.menu.listOfAllTeachers"]
     Sleep    2s
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3]    Linear Algebra
-    Element Should Match    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2]    Alice Pedant
+    Element Text Should Match    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2]    Alice Pedant
     Close Browser
 
-Login As Student And Check Subjects Information
+Verify Student Sees Correct Subject And Teacher
     Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]

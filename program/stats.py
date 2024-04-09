@@ -62,7 +62,7 @@ def generate_heatmap(data, ignores):
     plt.title('Test correct result heatmap')
     plt.xlabel('Test Name')
     plt.ylabel('Container')
-    plt.xticks(rotation=90, ha="right")
+    plt.xticks(rotation=90, ha="center")
     plt.tight_layout()
 
     plt.subplots_adjust(bottom=0.2)

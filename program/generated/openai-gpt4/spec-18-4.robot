@@ -1,12 +1,9 @@
 *** Settings ***
 Library    SeleniumLibrary
 
-*** Variables ***
-${BROWSER}    Chrome
-
 *** Test Cases ***
-Verify Teacher Information And Subjects
-    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+Open University Information System And Validate Data
+    Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
     Sleep    2s
@@ -27,10 +24,15 @@ Verify Teacher Information And Subjects
     Page Should Contain    Peter Strict
 
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-0"]/td[3]    Numerical Methods
+    Sleep    1s
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-1"]/td[3]    Database Systems, Fundamentals of Computer Networks, Introduction to Algorithms, Mobile Applications, Web Programming
-    Element Should Not Contain Text    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-2"]/td[3]    .
+    Sleep    1s
+    Element Should Not Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-2"]/td[3]    .
+    Sleep    1s
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3]    Computer System Engineering, Database Systems, Operating Systems, Programming Techniques
+    Sleep    1s
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-4"]/td[3]    Computation Structures
+    Sleep    1s
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-5"]/td[3]    Operating Systems, Programming in Java, Software Engineering, Software Quality Assurance
-    
+    Sleep    1s
     Close Browser

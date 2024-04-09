@@ -1,13 +1,12 @@
 *** Settings ***
-Documentation     Scenario to navigate and verify specific elements presence.
-Library           SeleniumLibrary
+Library    SeleniumLibrary
 
 *** Variables ***
-${BROWSER}        Chrome
+${BROWSER}    Chrome
 ${SELENIUM_SPEED}    2
 
 *** Test Cases ***
-Open University Information System And Verify Names
+Open And Check Names Scenario
     Set Selenium Speed    ${SELENIUM_SPEED}
     Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
     Set Window Size    1501    1104

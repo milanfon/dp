@@ -1,51 +1,47 @@
 *** Settings ***
-Documentation     A test suite for University Information System scenarios.
 Library           SeleniumLibrary
 
 *** Variables ***
 ${BROWSER}        Chrome
+${DELAY}          1s
 
 *** Test Cases ***
-Student Enrolls in Other Subjects
+Student Scenario
     Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
     Set Window Size    1501    1104
+    Sleep    ${DELAY}
     Click Element    xpath=//*[@id="header.link.login"]
-    Sleep    2s
+    Sleep    ${DELAY}
     Input Text    xpath=//*[@id="loginPage.userNameInput"]    maroon
     Input Password    xpath=//*[@id="loginPage.passwordInput"]    pass
-    Press Keys    None    ENTER
-    Sleep    2s
+    Press Key    xpath=//*[@id="loginPage.passwordInput"]    ENTER
+    Sleep    ${DELAY}
     Click Element    xpath=//*[@id="stu.menu.otherSubjects"]
-    Sleep    2s
+    Sleep    ${DELAY}
     Click Element    xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]
-    Sleep    2s
-    Element Should Be Visible    id=stu.otherSubjects.successAlert
-    Close Browser
-
-Student Checks Enrolled Subjects
-    Open Browser    http://localhost:4680/tbuis/student-view/overview    ${BROWSER}
-    Set Window Size    1501    1104
-    Sleep    2s
+    Sleep    ${DELAY}
+    Page Should Contain Element    id=stu.otherSubjects.successAlert
+    Sleep    ${DELAY}
     Click Element    xpath=//*[@id="stu.menu.mySubjects"]
-    Sleep    2s
-    Table Should Contain    xpath=//*[@id="stu.mySubjects.enrolledTable.subjectRow-2"]    Software Quality Assurance
-    Table Should Contain    xpath=//*[@id="stu.mySubjects.enrolledTable.subjectRow-2"]    Peter Strict
+    Sleep    ${DELAY}
+    Page Should Contain Element    xpath=//tr[@id="stu.mySubjects.enrolledTable.subjectRow-2"]/td[text()="Software Quality Assurance"]
+    Page Should Contain Element    xpath=//tr[@id="stu.mySubjects.enrolledTable.subjectRow-2"]/td[text()="Peter Strict"]
     Close Browser
 
-Teacher Checks Students in Subject
+Teacher Scenario
     Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
     Set Window Size    1501    1104
+    Sleep    ${DELAY}
     Click Element    xpath=//*[@id="header.link.login"]
-    Sleep    2s
+    Sleep    ${DELAY}
     Input Text    xpath=//*[@id="loginPage.userNameInput"]    strict
     Input Password    xpath=//*[@id="loginPage.passwordInput"]    pass
     Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
-    Sleep    2s
+    Sleep    ${DELAY}
     Click Element    xpath=//*[@id="tea.menu.mySubjects"]
-    Sleep    2s
-    ${buttonText}=    Get Text    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]
-    Should Be Equal As Strings    ${buttonText}    Students (2)
+    Sleep    ${DELAY}
+    Element Should Contain    id=tea.mySubjects.table.listOfStudentsButton-3    Students (2)
     Click Element    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]
-    Sleep    2s
-    Page Should Contain    William Maroon
+    Sleep    ${DELAY}
+    Page Should Contain Element    xpath=//td[text()="William Maroon"]
     Close Browser

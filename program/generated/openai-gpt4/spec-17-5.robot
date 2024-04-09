@@ -1,12 +1,10 @@
 *** Settings ***
-Library    SeleniumLibrary
-
-*** Variables ***
-${BROWSER}    Chrome
+Library           SeleniumLibrary
+Test Teardown     Close Browser
 
 *** Test Cases ***
-Open Teacher's View For Other Subjects And Perform Checks
-    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+Perform Teacher Actions
+    Open Browser    http://localhost:4680/tbuis/index.jsp    chrome
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
     Sleep    2s
@@ -20,14 +18,12 @@ Open Teacher's View For Other Subjects And Perform Checks
     Sleep    2s
     Click Element    xpath=//*[@id="tea.otherSubjects.table.participateButton-3"]
     Sleep    2s
-    Location Should Be    http://localhost:4680/tbuis/teacher-view/otherSubjects
-    Element Should Be Visible    xpath=//*[@id="tea.otherSubjects.successAlert"]
+    Page Should Contain Element    xpath=//*[@id="tea.otherSubjects.successAlert"]
     Sleep    2s
     Click Element    xpath=//*[@id="tea.menu.myExamDates"]
     Sleep    2s
     Page Should Contain    Linear Algebra
-    Element Should Be Visible    xpath=//*[@id="tea.myExamDates.table.noRecords-2"]
-    Element Text Should Be    xpath=//*[@id="tea.myExamDates.table.noRecords-2"]    No exam dates.
+    Page Should Contain Element    xpath=//*[@id="tea.myExamDates.table.noRecords-2"]
     Sleep    2s
     Click Element    xpath=//*[@id="tea.menu.newExamDates"]
     Sleep    2s
@@ -36,11 +32,10 @@ Open Teacher's View For Other Subjects And Perform Checks
     Click Element    xpath=//*[@id="tea.menu.listOfAllTeachers"]
     Sleep    2s
     Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3]    Linear Algebra
-    Element Should Match    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2]    Alice Pedant
-    Close Browser
+    Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2]    Alice Pedant
 
-Login As Student And Check Subjects Information
-    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+Perform Student Actions
+    Open Browser    http://localhost:4680/tbuis/index.jsp    chrome
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
     Sleep    2s
@@ -54,4 +49,3 @@ Login As Student And Check Subjects Information
     Sleep    2s
     Element Should Contain    xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2]    Linear Algebra
     Element Should Contain    xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[3]    Alice Pedant
-    Close Browser

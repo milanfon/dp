@@ -5,7 +5,7 @@ Library    SeleniumLibrary
 ${BROWSER}    Chrome
 
 *** Test Cases ***
-Verify Teacher Information And Subjects
+Check Teacher Names And Subjects
     Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
     Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]

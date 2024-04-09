@@ -14,10 +14,10 @@ Student Enrolls In Subject And Checks Success
     [Documentation]     Student navigates to a subject and enrolls, then checks for success message.
     Set Browser Viewport Size    1501    1104
     Go To Page    http://localhost:4680/tbuis/index.jsp
-    Click Element    xpath=//*[@id="header.link.login"]
-    Input Text    xpath=//*[@id="loginPage.userNameInput"]    maroon
+    Click Element With Delay    xpath=//*[@id="header.link.login"]
+    Input Text With Delay    xpath=//*[@id="loginPage.userNameInput"]    maroon
     Press Key    xpath=//*[@id="loginPage.userNameInput"]    TAB
-    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Input Text With Delay    xpath=//*[@id="loginPage.passwordInput"]    pass
     Press Key    xpath=//*[@id="loginPage.passwordInput"]    ENTER
     Wait Until Page Contains    Student's View    ${DELAY}
     Go To Other Subjects And Enroll
@@ -25,7 +25,7 @@ Student Enrolls In Subject And Checks Success
 
 Go To My Subjects And Check Enrollment
     [Documentation]     Navigates to My Subjects page and checks for specific enrollment details.
-    Click Element    xpath=//*[@id="stu.menu.mySubjects"]
+    Click Element With Delay    xpath=//*[@id="stu.menu.mySubjects"]
     Sleep    ${DELAY}
     Page Should Contain Element    xpath=//tr[@id="stu.mySubjects.enrolledTable.subjectRow-2"]/td[text()="Software Quality Assurance"]
     Page Should Contain Element    xpath=//tr[@id="stu.mySubjects.enrolledTable.subjectRow-2"]/td[text()=" Peter Strict "]
@@ -47,12 +47,12 @@ Go To Page
     Go To    ${url}
     Sleep    ${DELAY}
 
-Click Element
+Click Element With Delay
     [Arguments]    ${locator}
     Click Element    ${locator}
     Sleep    ${DELAY}
 
-Input Text
+Input Text With Delay
     [Arguments]    ${locator}    ${text}
     Input Text    ${locator}    ${text}
     Sleep    ${DELAY}
@@ -63,25 +63,25 @@ Press Key
     Sleep    ${DELAY}
 
 Go To Other Subjects And Enroll
-    Click Element    xpath=//*[@id="stu.menu.otherSubjects"]
+    Click Element With Delay    xpath=//*[@id="stu.menu.otherSubjects"]
     Sleep    ${DELAY}
-    Click Element    xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]
+    Click Element With Delay    xpath=//*[@id="stu.otherSubjects.table.enrollButton-10"]
     Sleep    ${DELAY}
 
 Check Enrollment Success
     Page Should Contain Element    id=stu.otherSubjects.successAlert
 
 Login As Teacher
-    Click Element    xpath=//*[@id="header.link.login"]
-    Input Text    xpath=//*[@id="loginPage.userNameInput"]    strict
-    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
-    Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+    Click Element With Delay    xpath=//*[@id="header.link.login"]
+    Input Text With Delay    xpath=//*[@id="loginPage.userNameInput"]    strict
+    Input Text With Delay    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Click Element With Delay    xpath=//*[@id="loginPage.loginFormSubmit"]
     Sleep    ${DELAY}
 
 Check Students Count And Names
-    Click Element    xpath=//*[@id="tea.menu.mySubjects"]
+    Click Element With Delay    xpath=//*[@id="tea.menu.mySubjects"]
     Sleep    ${DELAY}
     Element Should Contain    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]    Students (2)
-    Click Element    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]
+    Click Element With Delay    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-3"]
     Sleep    ${DELAY}
     Page Should Contain Element    xpath=//td[text()="William Maroon"]

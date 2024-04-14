@@ -4,3 +4,10 @@ $ENV{'TEXFONTMAPS'}='texmf/fonts/map/dvips/GTAmerica//:' . $ENV{'TEXFONTMAPS'};
 $ENV{'TFMFONTS'}='texmf/fonts/tfm/lcdftools/GTAmerica//:' . $ENV{'TFMFONTS'};
 $ENV{'VFFONTS'}='texmf/fonts/vf/lcdftools/GTAmerica//:' . $ENV{'VFFONTS'};
 $ENV{'ENCFONTS'}='texmf/fonts/enc/dvips/GTAmerica//:' . $ENV{'ENCFONTS'};
+
+add_cus_dep('glo', 'gls', 0, 'makeglo2gls');
+sub makeglo2gls {
+    system("makeglossaries $_[0]");
+}
+
+$pdflatex=q/xelatex -synctex=1 %O %S/

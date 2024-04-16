@@ -1,4 +1,4 @@
-Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+Write Robot Framework scenario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
 
 - Check if element with id "header.link.login" is not present
 - Check if element with id "header.title.userHome" has inner value of "Noah Brown"

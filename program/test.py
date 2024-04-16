@@ -29,6 +29,7 @@ load_dotenv()
 API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
 API_MODEL = os.getenv('API_MODEL')
+MAX_TOKENS = os.getenv('MAX_TOKENS')
 DEVICE = os.getenv('DEVICE')
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
@@ -127,7 +128,7 @@ def prompt_model(rendered_text):
       ],
       temperature=0.7,
       top_p=1,
-      max_tokens=-1,
+      max_tokens=int(MAX_TOKENS),
       stream=False
     )
     message = completion.choices[0].message.content

@@ -150,33 +150,15 @@ TDB - Co jsou unit testy, LLM, a jejich předpoklady, GUI testování
     % TODO Tady asi nějaká předmluva k těm modelům a co za modely se vlastně používá 
     Na \GLS{llm} modelech nás konkrétně zajímá schopnost pozorumět progamovacím jazykům a ty poté také generovat na výstupu. Důležité pro nás také je, zda daný model je proprietární či otevřený a pod jakou licencí, tedy zda by byl vhodný pro naši práci. V případě analýzy zdrojového kódu může být také klíčovou vlastností délka kontextu daného modelu. Tyto vlastnosti jsou také zaneseny do tabulky \ref{tab:code_models_comp}.
 
-    Jedním z často používaných modelů v předchozích pracích je \textit{StarCoder} a \textit{StarCoderBase}, diskutovaný již v sekci \ref{sec:previouswork}. \textit{Base} verze je schopna generovat kód pro více jak 80 programovacích jazyků. Model je navržen pro širokou škálu aplikací obsahující \textit{generování}, \textit{modifikaci}, \textit{doplňování} a \textit{vysvětlování} kódu. Jeho distribuce je volná a licence \textbf{CodeML OpenRAIL-M 0.1} \cite{BigCode2023} umožňuje ho využívat pro množštví aplikací včetně komerčních nebo edukačních. Jeho uživatel však má povinnost uvádět, že výsledný kód byl vygenerován modelem. Licence má své restrikce z obavy tvůrců, protože by model mohl někoho při nepsrávném použití ohrozit. Tyto restrikce se aplikují na na všechny derivace projektů pod touto licencí. Zároveň není kompatibilní s Open-Source licencí právě kvůli těmto restrikcím.
-    % TODO Tady nechápu ty restrikce
+    \paragraph{StarCoder} Jedním z často používaných modelů v předchozích pracích je \textit{StarCoder} a \textit{StarCoderBase}, diskutovaný již v sekci \ref{sec:previouswork}. \textit{Base} verze je schopna generovat kód pro více jak 80 programovacích jazyků. Model je navržen pro širokou škálu aplikací obsahující \textit{generování}, \textit{modifikaci}, \textit{doplňování} a \textit{vysvětlování} kódu. Jeho distribuce je volná a licence \textbf{CodeML OpenRAIL-M 0.1} \cite{BigCode2023} umožňuje ho využívat pro množštví aplikací včetně komerčních nebo edukačních. Jeho uživatel však má povinnost uvádět, že výsledný kód byl vygenerován modelem. Licence má své restrikce z obavy tvůrců, protože by model mohl někoho při nepsrávném použití ohrozit. Tyto restrikce se aplikují na na všechny derivace projektů pod touto licencí. Zároveň není kompatibilní s Open-Source licencí právě kvůli těmto restrikcím.
 
-    Nedávno vydaným modelem je \textit{Code Llama} od společnosti Meta. Jedná se o evoluci jejich jazykového modelu \textit{Llama} specializovaný však čistě na úlohy kódování. Je postaven na platformě \textit{Llama 2} a existuje ve třech variantách: \textit{základní Code Llama}, \textit{Code Llama - Python} a \textit{Code Llama - Instruct}. Model podporuje více programovacích jazyků, včetně jazyků jako Python, C++, Java, PHP, Typescript, C# nebo Bash. Je určen pro úlohy, jako je generování kódu, doplňování kódu a ladění. Code Llama je zdarma pro výzkumné i komerční použití a je uvolněn pod licencí MIT. Uživatelé však musí dodržovat  zásady přijatelného použití, ve kterých je uvedeno, že model nelze použít k vytvoření služby, která by konkurovala vlastním službám společnosti Meta. 
+    Model StarCoder se také dočkal novější verze \textit{StarCoder2}, který nepřímo navazuje na model \textit{StarCoderBase}. Je naučen na archivu GitHub repoziářů archivovaných v rámci organizace \textit{Software Heritage}, čítajících přes 600 programovacích jazyků a dalších pečlivě vybraných dat jako například \textit{pull requesty}. Mimo toho také trénovací data obsahují staženou dokumentaci k vybraným projektům. Model se vyjímá tím, že se snaží udržet malou velikost. Je nabízen ve verzích s \textit{3, 7} a \textit{15} miliardy parametrů, i přesto však dle jejich úvodní studie \cite{lozhkov2024starcoder} nabízí na sadě populárních programovacích jazyků shodné či lepší výsledky oproti modelu \textit{CodeLlama} s 34 miliardy parametrů. Výhodou tohoto modelu nepochybně je, že ho lze spustit na spoustě dnešních počítačů s plným offloaded na grafickou kartu.
 
-    Velmi populárním nástrojem pro generování kódu za pomocí \gls{llm} je \href{https://github.com/features/copilot}{GitHub Copilot}, který je postaven na modelu \textit{codex} od OpenAI. Původní model však byl přestal být zákazníkům nabízen a namísto něj OpenAI doporučuje ke generování kódu využívat chat verze modelů GPT-3.5 a GPT-4. Na architektuře GPT-4 je také postavený nástupce služby Copilot, \href{https://github.com/features/preview/copilot-x}{Copilot X}. Zmíněné modely chat GPT-3.5 a GPT-4 jsou primárně určeny pro generování textu formou chatu. Zvládají však zároveň i dobře generovat kód a jsou vhodné i úlohu generování jednotkových testů. Narozdíl od předchozích modelů však nejsou volně distribuovány a jsou poskytovány pouze jako služba společností OpenAI skrze API nebo je lze hostovat v rámci služby Azure společnosti Microsoft, která zajišťuje větší integritu dat. Jedná se tedy o uzavřený model a jeho uživatelé musí souhlasit s jeho podmínkami použití.
+    \paragraph{CodeLlama} Nedávno vydaným modelem je \textit{Code Llama} od společnosti Meta. Jedná se o evoluci jejich jazykového modelu \textit{Llama} specializovaný však čistě na úlohy kódování. Je postaven na platformě \textit{Llama 2} a existuje ve třech variantách: \textit{základní Code Llama}, \textit{Code Llama - Python} a \textit{Code Llama - Instruct}. Model podporuje více programovacích jazyků, včetně jazyků jako Python, C++, Java, PHP, Typescript, C# nebo Bash. Je určen pro úlohy, jako je generování kódu, doplňování kódu a ladění. Code Llama je zdarma pro výzkumné i komerční použití a je uvolněn pod licencí MIT. Uživatelé však musí dodržovat  zásady přijatelného použití, ve kterých je uvedeno, že model nelze použít k vytvoření služby, která by konkurovala vlastním službám společnosti Meta. 
+
+    \paragraph{Copilot} Velmi populárním nástrojem pro generování kódu za pomocí \gls{llm} je \href{https://github.com/features/copilot}{GitHub Copilot}, který je postaven na modelu \textit{codex} od OpenAI. Původní model však byl přestal být zákazníkům nabízen a namísto něj OpenAI doporučuje ke generování kódu využívat chat verze modelů GPT-3.5 a GPT-4. Na architektuře GPT-4 je také postavený nástupce služby Copilot, \href{https://github.com/features/preview/copilot-x}{Copilot X}. Zmíněné modely chat GPT-3.5 a GPT-4 jsou primárně určeny pro generování textu formou chatu. Zvládají však zároveň i dobře generovat kód a jsou vhodné i úlohu generování jednotkových testů. Narozdíl od předchozích modelů však nejsou volně distribuovány a jsou poskytovány pouze jako služba společností OpenAI skrze API nebo je lze hostovat v rámci služby Azure společnosti Microsoft, která zajišťuje větší integritu dat. Jedná se tedy o uzavřený model a jeho uživatelé musí souhlasit s jeho podmínkami použití.
 
     %TODO Existují i další modely, co by bylo super přidat
-
-        \subsubsection{Srovnání modelů}
-        Z diskutovaných modelů jsme 3 z nich (\textit{CodeLlama, StarCoderBase a GPT-4}) podrobili vlastnímu testu, kdy jako testovací sada byli využity 4 JavaScript funkce a to ve 3 různých verzích. V první verzi se jednalo o \emph{white box} skript, tedy že modelu byl poskytnut celý obsah funkcí. Dále byli modelům dány pouze \emph{specifikace} funkcí bez jejich těla a poslední verzí je \emph{white box kód s vloženými chybami}. Správná a chybová verze kódu také byla využita pro zhodnocení vygenerovaných funkcí.
-
-        \begin{table}[h]
-            \centering
-            \begin{tabular}{|l|l|l|l|l|l|l|}
-            \hline
-                \textbf{Model} & \multicolumn{2}{c|}{\textbf{CodeLlama}} & \multicolumn{2}{c|}{\textbf{GPT-4}} & \multicolumn{2}{c|}{\textbf{StarCoderBase}} \\ \hline
-            Kód           & Správný              & Chybový            & Správný                   & Chybový & Správný                   & Chybový \\ \hline \hline
-                Specifikace            & 4/4        & 3/4           & 4/4 & 3/4                    & 3/4 & 2/4 \\ \hline
-                White box        & 4/4        & 3/4            & 4/4 & 3/4                    & 3/4 & 3/4 \\ \hline
-                Err white box    & 4/4        & 3/4            & 4/4 & 3/4                    & 3/4 & 3/4 \\ \hline
-            \end{tabular}
-            \caption{Srovnání výsledků generování jednotkových testů za pomocí vybraných modelů.}
-            \label{tab:custom_benchmark}
-        \end{table}
-
-        Výsledky těchto testů lze nalézt v tabulce \ref{tab:custom_benchmark}. Zatímco u správného kódu bylo hodnoceno, kolik funkcí prošlo testy, tak u funkcí s vloženými chybami se počítá, kolik z nich testy neprošlo. Model \textit{CodeLlama} byl schopný odhalit chybu ve všech funkcích až na jednu. Všechny správné funkce prošli. Je zde však nutné dodat, že generování je velmi pomalé a výstup velice jednoduchý. Nebyl zde náznak o netriviální assert, ovšem pokud se model bude správně promptovat, lze jeho vygenerovaný test dobře využít. \textit{GPT-4} poté měl stejnou úspěšnost jako předchozí model, ovšem i zde byl problém s netriviální asercí. Jednotlivé errory jsou však dobře otestované a výhodou je, že model je rychlý a není tedy v případě nevhodně vygenrovaného testu ho ziterovat a vylepšit na bázi zpětné vazby (\emph{multi-shot}). Při tomto přístupu je poté schopen i netriviálních asercí. Je však potřeba tento model dobře promptovat a výstup může být složitější pro parsování. Model \textit{StarCoderBase} dle výsledků má nejméně úspěšných testů. Ovšem když zanalyzujeme výstupní kód (testy), dojdeme k zajímavému zjištění. Tento model dokázal odchytit i netriviální chyby přímo ze specifikace a zároveň se mu povedlo obejít nepřesnosti ve specifikaci, tedy neúspěšné testy na správném kódu byli stále v rámci specifikace, jen ne ve smyslu, jak byla speficikace zamýšlena. Subjetivně řečeno, \textit{StarCoderBase} dělá správné úsudky a i kód je velice obsáhlý. S přihlédnutím na jeho otevřenost a licenci se jeví jako vhodný model právě pro naši práci.
 
         \newpage
 
@@ -225,9 +207,21 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
                 \label{tab:code_models_comp}
             \end{table} 
         \end{landscape}
+    
+    \section{Testovací programy}
+
+    Dopsat o testovacích programech - Používáme TBUIS
 
 
-\chapter{Bla}
+\chapter{Generování testů}
+
+    \section{Bla}
+
+\chapter{Spuštění testů}
+
+\chapter{Vyhodnocení výsledků}
+
+\chapter{Závěr}
 
 % _____________________________________________________________________________
 %

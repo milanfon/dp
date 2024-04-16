@@ -10,4 +10,4 @@ sub makeglo2gls {
     system("makeglossaries $_[0]");
 }
 
-$pdflatex=q/xelatex -synctex=1 %O %S/
+#$pdflatex=q/xelatex -synctex=1 %O %S/

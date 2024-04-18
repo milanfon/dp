@@ -105,8 +105,15 @@
 
 
 \chapter{Úvod}
-TDB - Co jsou unit testy, LLM, a jejich předpoklady, GUI testování
+    TDB - Co jsou unit testy, LLM, a jejich předpoklady, GUI testování
 
+    Něco na úvod
+    
+    \section{Testy}
+
+    \section{Jazykové modely}
+
+    \section{Co testujeme}
 
 
 \chapter{Rešerše}
@@ -208,16 +215,38 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
             \end{table} 
         \end{landscape}
     
-    \section{Testovací programy}
+    \section{Testovací program} \label{sec:test_program}
 
-    Dopsat o testovacích programech - Používáme TBUIS
+    Pro účely této práce jsme se rozhodli vydat cestou \acrshort{gui} testů, konkrétně webových stránek / webové aplikace. Mezi požadavky na testovanou aplikaci a její výběr bylo mimo možnosti vytvořit pro ní automatiovaně sadu testů, také možnost zavedení (\emph{injekce}) chyb do aplikace, díky kterým bude možno ověřit nejen fakt, že vygenerované testy jsou schopné detekovat \textit{korektní} chování softwaru, ale také úspěšně detekovat \textit{chyby}. Volitelnou podmínkou také byla existence již existujících testů vytvořených lidským programátorem, se kterými by bylo možné strojově generované testy porovnat.
+    
+    Těmto požadavkům vyhovuje jeden z předešlých univerzitních projektů nazvaný \textbf{TbUIS} (\textit{Testbed University Information System}), na který vytvořili Matyáš a Šmaus pod vedením doc. Herouta. \cite{Matyas2018} \cite{Smaus2019} Aplikace představuje \textit{maketu} univerzitního informačního systému, avšak i tak implementuje většinu functionality, kterou bysme od podobného systému čekali a nabízí pohled jak ze strany \textit{studenta} tak ze strany \textit{vyučujícího} (viz obr. \ref{fig:tbuis}). Funkce tohoto systému vycházejí ze sady \textit{use casů}, které popisuje web \footnote{Aplikaci lze nalézt na adrese: \url{https://projects.kiv.zcu.cz/tbuis/web/}} aplikace. Výhodou tohoto systému primárně je, že nabízí nejen plně funkční a otestovanou variantu, ale také \(27\) dalších poruchových klonů, vždy porušující alespoň jeden \textit{use case} a s ním potenciálně spojený test.
 
+    Projekt dále také obsahuje i sadu jak \textit{funkčních} testů primárně pro backend vytvořených Poubovou tak také \textit{akceptačních} testů držejících se pevně specifikací, vytvořených Vaisem. \cite{Poubova2019} \cite{Vais2020} Tyto testy využívají nejen pevné znalosti jednotlivých uživatelských scénářů, ale také jsou parametrizovány pomocí všech dostupných dat k aplikaci (\textit{např. uživatelská jména, předměty, zkoušky, atd.}) k vyhodnocení chování softwaru v co nejvíce případech. Právě \textit{akceptační} testy využívají námi zvolený \textbf{RobotFramework} pro testování a tedy vytvořené scénáře bude možné do určité míry přirovnat a případně zhodnotit jejich kvalitu. 
+
+    \begin{figure}
+        \includegraphics[width=0.8\textwidth]{pic/tbuis.png}
+        \centering
+        \caption{Prostředí systému TbUIS z pohledu studenta.}
+        \label{fig:tbuis}
+    \end{figure}
 
 \chapter{Generování testů}
 
-    \section{Bla}
+    \section{Výběr scénářů}
+
+    \section{Nahrávání scénářů}
+
+    \section{Výběr požadavků}
+
+    \section{Dotazování LLM}
+
+        \subsection{Prostředí pro spuštění}
+
+        \subsection{Dotazy}
 
 \chapter{Spuštění testů}
+
+    \section{Spuštění testovacího programu a jeho orchestrace}
 
 \chapter{Vyhodnocení výsledků}
 

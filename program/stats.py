@@ -6,7 +6,7 @@ import re
 from configuration import POSITIVE_FAILS
 from collections import Counter
 
-db_path = '../results/codellama-run.sqlite'
+db_path = '../results/mistral-large.sqlite'
 
 def fetch_data():
     conn = sqlite3.connect(db_path)

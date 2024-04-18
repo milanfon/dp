@@ -15,6 +15,7 @@ from llmlingua import PromptCompressor
 import sqlite3
 import configuration as config
 import glob
+import anthropic
 
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
@@ -30,6 +31,7 @@ API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
 API_MODEL = os.getenv('API_MODEL')
 DEVICE = os.getenv('DEVICE')
+MAX_TOKENS = os.getenv('MAX_TOKENS')
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
 parser.add_argument('-r', '--run', type=str, help='Run the generation')
@@ -119,18 +121,21 @@ def prompt_model(rendered_text):
     if args.manual_oai:
         return manual_prompt(rendered_text)
     client = OpenAI(base_url=API_URL, api_key=API_KEY)
+    #client = anthropic.Anthropic(api_key=API_KEY)
     completion = client.chat.completions.create(
       model=API_MODEL, 
+      #system=system_prompt(),
       messages=[
         {"role": "system", "content": system_prompt()},
         {"role": "user", "content": rendered_text}
       ],
       temperature=0.7,
       top_p=1,
-      max_tokens=-1,
+      max_tokens=int(MAX_TOKENS),
       stream=False
     )
     message = completion.choices[0].message.content
+    #message = completion.content[0].text
     return extract_code_block(message)
 
 def manual_prompt(rendered_text):

@@ -114,8 +114,11 @@
 
     \section{Jazykové modely}
 
-    \section{Co testujeme}
+    \section{Motivace}
 
+        \section{Co a jak testujeme}
+
+        \section{Navrhované řešení}
 
 \chapter{Rešerše}
 
@@ -322,7 +325,20 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 
     \section{Nahrávání scénářů}
 
+    Dle \emph{specifikace} z předchozího bodu, vytvoří uživatel LLM generačního nástroje nahrávku jednotlivých kroků, které má test provést. V případě, že specifikace udává více uživatelských pohledů (\textit{student / učitel}), nahraje uživatel tyto pohledy jednotlivě. Současný projekt pracuje s nahrávacím nástrojem v rámci vývojářských nástrojů webového prohlížeče \textit{Google Chrome} (pro vývoj byla využita verze \(124\)). Tento nástroj je stále experimentální funkce, takže nelze vyloučit možnost, že v následujícíh verzích již nemusí být dostupný. Díky této funkci lze nahrávat uživatelské vstupy a interakce s jednotlivými prvky v rámci webových stránek. Mimo jiné také umožňuje přidávat \textit{asserty}, avšak tyto možnosti jsou nedostatečné a tedy v rámci této práce se omezíme pouze na údaje o interakci s prvky. Nahrávání zobrazeno na obr. \ref{fig:chrome_recording}. Nástroj je schopen vyexportovat výstup nahrávání v řadě formátů. Zde jsme zvolily JSON formát, který popisuje jednotlivé akce dle objektů. Nahrané scénáře uživatel vhodně pojmenuje a uloží do složky \verb|input| programu, který je součástí tohoto projektu. Vytvořený program pro generování testů za pomocí LLM se stará o veškerou orchestraci generování i spouštění testů a také vytovření \emph{šablon} pro testy, ze kterých se generují. Součástí těchto \emph{šablon} je právě i uživatelova nahrávka.
+
+    \begin{figure}
+        \includegraphics[width=0.8\textwidth]{pic/recording.png}
+        \centering
+        \caption{Nahrávání scénáře za pomocí nástroje v Google Chrome}
+        \label{fig:chrome_recording}
+    \end{figure}
+
     \section{Výběr požadavků}
+
+        \subsection{Vytvoření nového testu}
+
+        \subsection{Vyplnění požadavků}
 
     \section{Dotazování LLM}
 
@@ -335,6 +351,8 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
     \section{Spuštění testovacího programu a jeho orchestrace}
 
 \chapter{Vyhodnocení výsledků}
+
+\chapter{Budoucí vylepšení}
 
 \chapter{Závěr}
 

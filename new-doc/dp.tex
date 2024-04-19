@@ -36,6 +36,7 @@
 \usepackage[acronym]{glossaries}
 \usepackage{pdflscape}
 \usepackage{multirow}
+\usepackage{float}
 
 % Slovník
 \makeglossaries
@@ -233,6 +234,52 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 \chapter{Generování testů}
 
     \section{Výběr scénářů}
+
+    Pro vygenerování testů za pomocí LLM bylo nejdříve nutné vybrat ze sady \textit{use caseů}\footnote{Seznam dostupný na adrese: \url{https://projects.kiv.zcu.cz/tbuis/web/page/uis#use-cases}} scénáře vhodné pro demonstraci nejen správné funkčnosti, ale také s možností ověření nesprávného chování na poruchových klonech (diskutováno v sekci \ref{sec:test_program}). Požadavek tedy byl, aby každý z vybraných scénářů vycházející z \textit{use casu} měl alespoň jeden poruchový klon, případně více. Vybráno bylo \(10\) scénářů, testovaných celkově na \(14\) variantách programu.
+
+    % Testy nejsou úplně přesně dle use casů, ale upravené tak, aby šli provést jako single run a neměli závislosti
+
+    \begin{table}
+        \begin{tabular}{|c|p{7cm}|c|}
+            \hline
+            \textbf{Specifikace} & \textbf{Popis} & \textbf{Porucha na klonech} \\
+            \hline
+            \(1\) & \textit{Přihlášení do aplikace} \newline Student i učitel se přihlásí do aplikace přihlašovacími údaji, dostupnými v databázi systému. Dále se zkontroluje, zda systém pro účet s neexistujícím uživatelským jménem nebo neplatným heslem vypíše chybovou hlášku. &  \(02\) \\
+            \hline
+            \(4\) & \textit{Odepsání předmětu} \newline Student se přihlásí, odepíše předmět v patřičné sekci systému. Předmět by následně měl zmizet v ostatních sekcích a to jak v pohledu studenta tak učitele. & \(04, 19, 25, 26, 28\) \\
+            \hline
+            \(6\) & \textit{Zapsání předmětu} \newline Student se přihlásí, zapíše předmět v patřičné sekci, který se následně zobarazí i v ostatních částech systému. Z učitelského pohledu by se student měl zobrazit na seznamu studentů daného předmětu. & \(25, 26, 28\) \\
+            \hline
+            \(8\) & \textit{Registrace na zkoušku} \newline Student se přihlásí do systémů a zapíše se na jeden z možných zkouškových termínů. Tento termín by se měl přesunout mezi již zapsané termíny. V učitelském pohledu bude student na seznamu zapsaných na konkrétní zkoušku a také by mělo být možno studenta ohodnotit. & \(22, 25, 26, 28\) \\
+            \hline
+            \(9\) & \textit{Zobrazení spolužáků u zkoušky} \newline Student se přihlásí a u zkoušky si může rozkliknout seznam všech účastníků. & \(\) \\
+            \hline
+            \(10\) & \textit{Zrušení předmětu} \newline Učitel po přihlášení klikne na tlačítko \textit{Remove} u předmětu, od jehož výuky se chce odhlásit. Ten se přestane zobrazovat ve všech ostatních sekcích systému z jeho pohledu, až na jeho znovuzapsání. Student by u předmětu neměl najít jméno daného učitele, který se odhlásil. & \(26, 28\) \\
+            \hline
+            \(11\) & \textit{Zobrazení studentů u předmětu} \newline Učitel se přihlásí do systému a u předmětu je schopen si zobrazit seznam zapsaných studentů. & \(26, 28\) \\
+            \hline
+        \end{tabular}
+        \centering
+        \label{tab:specs_1}
+        \caption{Specifikace pro generované testy - část 1}
+    \end{table}
+
+    \begin{table}
+        \begin{tabular}{|c|p{7cm}|c|}
+            \hline
+            \textbf{Specifikace} & \textbf{Popis} & \textbf{Porucha na klonech} \\
+            \hline
+            \(12\) & \textit{Zrušení zkoušky} \newline Učitel se přihlásí a v sekci jeho přidělených zkoušek odstraní konkrétní termín. Tento termín by nyní neměl být vidět jak v učitelském tak studentském pohledu do systému. & \(20, 21, 23, 26, 28\) \\
+            \hline
+            \(17\) & \textit{Přihlášení se k výuce předmětu} \newline Učitel se přihlásí do systému a v seznamu předmětů se přihlásí k výuce daného předmětu. Ten by se poté měl zobrazit ve zbytku systému v rámci patřičných sekcí. Zároveň studenti by nyní měli u předmětu vidět jméno tohoto vyučujícího. & \(18, 24, 25, 26, 27, 28\) \\
+            \hline
+            \(18\) & \textit{Zobrazení seznamu učitelů a předmětů, které vyučují} \newline Přihlášený učitel je schopen si zobrazit seznam všeech učitelů. & \(27, 28\) \\
+            \hline
+        \end{tabular}
+        \centering
+        \label{tab:specs_2}
+        \caption{Specifikace pro generované testy - část 2}
+    \end{table}
 
     \section{Nahrávání scénářů}
 

@@ -281,6 +281,45 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
         \caption{Specifikace pro generované testy - část 2}
     \end{table}
 
+    \begin{table}
+        \begin{tabular}{|c|c|}
+            \hline
+            \textbf{Číslo klonu} & \textbf{Porucha} \\
+            \hline
+            \(00\) & Bez defektu \\
+            \hline
+            \(02\) & Překlep v nadpisu \\
+            \hline
+            \(04\) & Návrat na špatnou stránkau\\
+            \hline
+            \(18\) & Chybějící sloupec v tabulce \\
+            \hline
+            \(19\) & Náhodně chybějící tlačítko \\
+            \hline
+            \(20\) & Nefunkční tlačítko \\
+            \hline
+            \(21\) & Změna se nepropíše do UI \\
+            \hline
+            \(22\) & Nefunkční tlačítko \\
+            \hline
+            \(23\) & Smazání se nepropíše do DB \\
+            \hline
+            \(24\) & Přidání se nepropíše do DB \\
+            \hline
+            \(25\) & Tabulka studentů prázdná \\
+            \hline
+            \(26\) & Tabulka učitelů prázdná \\
+            \hline
+            \(27\) & Nesprávný výběr z DB \\
+            \hline
+            \(28\) & Mix chyb (včetně interní chyby systému) \\
+            \hline
+        \end{tabular}
+        \centering
+        \label{tab:clones}
+        \caption{Seznam poruchových klonů využitých pro testování.}
+    \end{table}
+
     \section{Nahrávání scénářů}
 
     \section{Výběr požadavků}

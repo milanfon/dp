@@ -30,6 +30,7 @@ load_dotenv()
 API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
 API_MODEL = os.getenv('API_MODEL')
+MAX_TOKENS = os.getenv('MAX_TOKENS')
 DEVICE = os.getenv('DEVICE')
 MAX_TOKENS = os.getenv('MAX_TOKENS')
 

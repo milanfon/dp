@@ -5,8 +5,9 @@ import seaborn as sns
 import re
 from configuration import POSITIVE_FAILS
 from collections import Counter
+import sys
 
-db_path = '../results/mistral-large.sqlite'
+db_path = sys.argv[1]
 
 def fetch_data():
     conn = sqlite3.connect(db_path)

@@ -417,6 +417,7 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                     \hline
                     GPT-4 & gpt-4-32k & API  \\
                     \hline
+                    % TODO Dopsat modely
                 \end{tabular}
                 \centering
                 \caption{Použité LLM modely}
@@ -424,6 +425,11 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
             \end{table}
 
             \subsubsection{Prostředí pro lokální modely}
+
+            Pro \emph{lokální} modely a jejich spuštění byl využit software \textit{LM Studio}, který je postaven nad \textit{C++} knihovnou \verb|llama.cpp|. Ta umožňuje jednoduché spuštění \Gls{llm} modelů ve formátu \textit{GGUF}. 
+
+            % TODO nějaký popis GGUF
+            % TODO obr LM Studia
 
         \subsection{Dotazy}
 

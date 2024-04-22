@@ -118,7 +118,7 @@
 
     \section{Motivace}
 
-\chapter{Rešerše}
+\chapter{Rešerše} \label{sec:research}
 
     \section{Provedená práce v problematice} \label{sec:previouswork}
         \subsection{Předchozí automatizovaná řešení}
@@ -400,12 +400,30 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 
                 \subsection{Vyplnění požadavků}
 
-            Do šablony je vložen základní prompt společně s požadavky, které uživatel může vyplnit (viz ukázka \ref{lst:template}). Pod požadavky je defaultně vložena nahrávka \verb|recording.json|. Tuto hodnotu nahradí uživatel za název souboru vložené nahrávky. Formát šablony jakožto vstupu pro prompt testu byl zvolen pro jednodušší parametrizaci. Šablona využívá jazyk \emph{Jinja2}. V rámci vytvořených šablon v této práci byly tyto parametrizační vlastnosti využity například pro vytvoření pohledu \textit{studenta} a \textit{učitele}. Místo, které je v šabloně označeno jako \verb|\\TODO| slouží pro napsání požadavků testu. Od uživatele se čeká, že tyto požadavky vypíše v odrážkách, čemuž odpovídá i formát \emph{promptu}. Ukázka vyplněných požadavků pro konkrétní test je součástí výpisu \ref{lst:spec18}, který ukazuje vypsané vlastnosti pro specifikaci 18.
+            Do šablony je vložen základní prompt společně s požadavky, které uživatel může vyplnit (viz ukázka \ref{lst:template}). Pod požadavky je defaultně vložena nahrávka \verb|recording.json|. Tuto hodnotu nahradí uživatel za název souboru vložené nahrávky. Formát šablony jakožto vstupu pro prompt testu byl zvolen pro jednodušší parametrizaci. Šablona využívá jazyk \emph{Jinja2}. V rámci vytvořených šablon v této práci byly tyto parametrizační vlastnosti využity například pro vytvoření pohledu \textit{studenta} a \textit{učitele}. Místo, které je v šabloně označeno jako \verb|\\TODO| slouží pro napsání požadavků testu. Od uživatele se čeká, že tyto požadavky vypíše v odrážkách, čemuž odpovídá i formát \emph{promptu}. Ukázka vyplněných požadavků pro konkrétní test je součástí výpisu \ref{lst:spec18}, který ukazuje vypsané vlastnosti pro specifikaci 18, jak bylo popsáno v sekci \ref{sec:scenarios}.
 
 
     \section{Dotazování LLM}
 
-        \subsection{Prostředí pro spuštění}
+        \subsection{Modely a jejich spuštění}
+            %Co za modely bylo zvoleno, jejich druhy, atd.
+            
+            Jak již bylo řečeno v kapitole \ref{sec:research}, velké jazykové modely existují jak v prorietární formě, které jsou dostupné pouze přes API poskytovatele nebo webové rozhraní, ale také se dají najít modely dostupné v \textit{public} či \textit{open source} formě dále referovány jako \emph{otevřené} modely). V rámci tohoto projektu byly využity obě varianty, tedy \emph{proprietární} modely srkze API poskytovatele a otevřené lokálně nebo také srze API u některého z poskytovatelů a to z důvodu vysokých hardwarových nároků některých modelů.Konkrétní seznam použitých modelů v práci včetně typu přístupu k nim lze nalézt v tabulce \ref{tab:used_models}. Pro dotazování vzdálených modelů využívá většina koncových bodů API od OpenAI, tedy jsou kompatibilní s jejich knihovnou pro různé jazyky. Některé společnosti však pro své modely využívají vlastní definici API, mezi ně se řadí například \textit{Anthropic} nebo \textit{Google}. V projektu tedy využíváme pro veškteré kompatibilní modely (resp. jejich běhová prostředí) knihovnu pro OpenAI API, se kterým jsou kompatibilní, a pro zbytek jejich vlastní knihovny.
+
+            \begin{table}
+                \begin{tabular}{|c|c|c|}
+                    \hline
+                    \textbf{Model} & \textbf{Použitá verze} & \textbf{Runtime} \\
+                    \hline
+                    GPT-4 & gpt-4-32k & API  \\
+                    \hline
+                \end{tabular}
+                \centering
+                \caption{Použité LLM modely}
+                \label{tab:used_models}
+            \end{table}
+
+            \subsubsection{Prostředí pro lokální modely}
 
         \subsection{Dotazy}
 

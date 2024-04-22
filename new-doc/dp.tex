@@ -238,7 +238,7 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 
 \chapter{Generování testů}
 
-    \section{Výběr scénářů}
+    \section{Výběr scénářů} \label{sec:scenarios}
 
     Pro vygenerování testů za pomocí LLM bylo nejdříve nutné vybrat ze sady \textit{use caseů}\footnote{Seznam dostupný na adrese: \url{https://projects.kiv.zcu.cz/tbuis/web/page/uis#use-cases}} scénáře vhodné pro demonstraci nejen správné funkčnosti, ale také s možností ověření nesprávného chování na poruchových klonech (diskutováno v sekci \ref{sec:test_program}). Požadavek tedy byl, aby většina z vybraných scénářů vycházející z \textit{use casu} měl alespoň jeden poruchový klon, případně více. Vybráno bylo \(10\) scénářů, testovaných celkově na \(14\) variantách programu. Seznam vytvořených specifikací pro automatické generování testů se nachází v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}. Scénáře budou dále také referovány jako \textit{specifikace}. Každá specifikace má \textit{číslo}, které odpovídá číslu \textit{use casu}, ze kterého vychází (např. specifikace \(04\) vychází z use casu \textit{UC.04}). Zde je nutné poznamenat, že ne všechny specifikace vychází pevně z jejich use casů, ale byli upravené tak, aby šli provést v jednom chodu bez nutných závislostí (\textit{jako například namísto podmínky přihlášeného uživatele se uživatel vždy musí na začátku či během testu přihlásit do systému}). Popis specifikací v tabulce je pouze orientační a pro bližší upřesnění jednotlivých kroků, které se mají provést referujte web projektu. V tomto seznamu se také u každé specifikace nachází výčet klonů, na kterých lze očekávat poruchu. Celkový seznam klonů, a kterých se budou všechny vytvořené testy spouštět lze nalézt v tabulce \ref{tab:clones}. Podobně jako v případě specifikací, čísla klonů odpovídají číslům, jak jsou uvedena na oficiálním webu\footnote{Seznam poruchových klonů společně s možností stažení: \url{https://projects.kiv.zcu.cz/tbuis/web/page/download}} projektu společně s vysvětlením jednolivých chyb varianty. Pro přehlednost jsme bezchybnou variantu označili číslem \(00\).
 
@@ -359,7 +359,9 @@ milan   1328 Mar 31 09:28 spec-4.txt
                 \item Vygenerování testu dle šablony
                 \item Spuštění sady testů
             \end{enumerate}
-            Právě první režim je v současném kroce důležitý. Jednotlivé režimy programu jsou spuštěny za pomocí argumentů (argumenty jednotlivých režimů ukázané ve výpisu \ref{con:modes}). V případě \textit{vytvoření} nového testu se za argument přidává název šalony testu. Tento název musí být unikání. Po potvrzení příkazu se ve vstupní složce vytvoří nová šablona pro test, kteoru uživatel může upravit. Celý příkaz je ukázaný ve výpisu \ref{con:new}. Vytvořenou šablonu uživatel zobrazí a upraví v \textit{textovém editoru}.
+            Právě první režim je v současném kroce důležitý. Jednotlivé režimy programu jsou spuštěny za pomocí argumentů (argumenty jednotlivých režimů ukázané ve výpisu \ref{con:modes}). V případě \textit{vytvoření} nového testu se za argument přidává název šalony testu. Tento název musí být unikání a využívá se později ve zbytku programu jakožto identifikátor daného testu. Po potvrzení příkazu se ve vstupní složce vytvoří nová šablona pro test se zvoleným názvem a příponou \verb|.txt|. Tuto šablonu může uživatel může dále upravit. Celý příkaz je ukázaný ve výpisu \ref{con:new}. Vytvořenou šablonu uživatel zobrazí a upraví v \textit{textovém editoru}.
+
+            \vfill
 
             \begin{console}{Hlavní režimy programu \label{con:modes}}
 `\uxprompt`python3 test.py -n   #Nový test
@@ -379,9 +381,24 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 {% include 'recording.json' %}
                 \end{code}
 
-            Do šablony je vložen základní prompt společně s požadavky, které uživatel může vyplnit (viz ukázka \ref{lst:template}). Pod požadavky je defaultně vložena nahrávka \verb|recording.json|. Tuto hodnotu nahradí uživatel za název souboru vložené nahrávky. Formát šablony jakožto vstupu pro prompt testu byl zvolen pro jednodušší parametrizaci. Šablona využívá jazyk \emph{Jinja2}. V rámci vytvořených šablon v této práci byly tyto parametrizační vlastnosti využity například pro vytvoření pohledu \textit{studenta} a \textit{učitele}. Místo, které je v šabloně označeno jako \verb|\\TODO| slouží pro napsání požadavků testu. Od uživatele se čeká, že tyto požadavky vypíše v odrážkách, čemuž odpovídá i formát \emph{promptu}.
+                \begin{code}{text}{Vyplněná šablona testu pro specifikaci 18 \label{lst:spec18}}
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
 
-        \subsection{Vyplnění požadavků}
+- Check if there are these names present on the page: Julia Easyrider, Olivia Keen, John Lazy, Alice Pedant, Thomas Scatterbrained, Peter Strict
+- Check if element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-0"]/td[3] has text matching "Numerical Methods"
+- Check if element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-1"]/td[3] has text matching "Database Systems, Fundamentals of Computer Networks, Introduction to Algorithms, Mobile Applications, Web Programming"
+- Check if element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-2"]/td[3] should not contain text
+- Check if element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3] has text matching "Computer System Engineering, Database Systems, Operating Systems, Programming Techniques"
+- Check if element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-4"]/td[3] has text matching "Computation Structures"
+- Check if element with path //*[@id="tea.listOfAllTeachers.table.teacherRow-5"]/td[3] has text matching "Operating Systems, Programming in Java, Software Engineering, Software Quality Assurance"
+
+{% include 'recording-spec-18.json' %}
+                \end{code}
+
+                \subsection{Vyplnění požadavků}
+
+            Do šablony je vložen základní prompt společně s požadavky, které uživatel může vyplnit (viz ukázka \ref{lst:template}). Pod požadavky je defaultně vložena nahrávka \verb|recording.json|. Tuto hodnotu nahradí uživatel za název souboru vložené nahrávky. Formát šablony jakožto vstupu pro prompt testu byl zvolen pro jednodušší parametrizaci. Šablona využívá jazyk \emph{Jinja2}. V rámci vytvořených šablon v této práci byly tyto parametrizační vlastnosti využity například pro vytvoření pohledu \textit{studenta} a \textit{učitele}. Místo, které je v šabloně označeno jako \verb|\\TODO| slouží pro napsání požadavků testu. Od uživatele se čeká, že tyto požadavky vypíše v odrážkách, čemuž odpovídá i formát \emph{promptu}. Ukázka vyplněných požadavků pro konkrétní test je součástí výpisu \ref{lst:spec18}, který ukazuje vypsané vlastnosti pro specifikaci 18.
+
 
     \section{Dotazování LLM}
 

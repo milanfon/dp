@@ -439,7 +439,7 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                 \label{tab:used_models}
             \end{table}
 
-            \subsubsection{Prostředí pro lokální modely}
+            \subsubsection{Prostředí pro lokální modely} \label{sec:local_env}
 
             Pro \emph{lokální} modely a jejich spuštění byl využit software \textit{LM Studio}, který je postaven nad \textit{C++} knihovnou \verb|llama.cpp|. Ta umožňuje jednoduché spuštění \Gls{llm} modelů ve formátu \acrfull{gguf}. Jedná se o \textit{binární} formát souborů určený pro rychlé načítání a ukládání modelů využíváných pro účely interferenčních úloh. Jeho návrh umožňuje snadnou úpravu při zachování zpětné kompatibility. \cite{ggerganov_gguf} \cite{huggingface_gguf} Modely mohou být vyvíjené za pomoci různých frameworků (např. \textit{PyTorch}) a poté převedeny do \acrshort{gguf} formátu pro použití v rámci \acrshort{ggml} knihovny, která umožňuje efektivní spuštění modelů na CPU a GPU. Knihovna také umožňuje \emph{kvantizaci}, tedy techniku využívanou ke snížení paměťových nároků \acrshort{ml} úloh. Zahrnuje reprezentaci vah a aktivací za pomoci datakových typů s nižší přesností (např. \textit{int8}) oproti obvyklým 32 bitovým číslům (např. \textit{float32}), ve kterých bývají reprezentována originální data modelu. Jejím cílem je snížit počet bitů, což vede k nižší velikosti modelu a to k nižším HW nárokům a s tím spojených vlastností (\textit{snížená energetická spotřeba, nižší latence, ...}). Kvantizace má však i nežádoucí dopady a to \textit{ztrátu přesnosti} nebo případně \textit{výkonu} modelu. \cite{huggingface_quantization} \Acrshort{gguf} tedy tvoří jednotný formát, ve kterém se spousta otevřených \Gls{llm} modelů (případně jejich konverzí) distribuuje. Jednou z platforem pro jejich distribuci je například \href{https://huggingface.co}{HuggingFace}.
 
@@ -451,7 +451,6 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                 \item \textit{Začátek a konec} - Model si pamatuje první prompt (případně i systémový) a zbylé tokeny na konci konverzace.
                 \item \textit{Zastavení} - Při dosažení počtu tokenů v rámci konverzace rovnající se \(x\), je generování odpovědi zastaveno.
             \end{enumerate}
-
             Proměnnou \(x\) je zde myšlena celková délka kontextu, kterou \textit{model} nebo \textit{runtime} podporuje. V případě \textit{runtimu} v rámci \textit{LM Studio} (resp. \verb|llama.cpp|) může uživatel délku kontextu zvolit až do délky \(16 384\) \gls{token}ů. Pokud však tato délka bude větší, jak podporovaný kontext samotným modelem, délka kontextu, který model má v paměti, bude dán hodnotou z modelu. Například modely vycházející z architektury \textit{Llama-2} disponují kontextem \(4096\) \gls{token}ů, jak bylo diskutováno v sekci \ref{sec:research_models}. Pokud tedy runtime bude nastaven s větším kontextovým oknem, bude rozhodující právě tato hodnota modelu.
 
             \subsubsection{Testovací sestava a nastavení}
@@ -481,9 +480,16 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                 \label{tab:pc_components}
             \end{table}
 
-            Pro spouštění lokálních modelů byla využita PC sestava, jejíž komponenty jsou popsané v tabulce \ref{tab:pc_components}. Runtime programu \textit{LM Studio}, popsaného v minulé sekci, byl nastaven, aby využíval \(12\) z \(16\) dostupných CPU vláken. GPU akcelerace fungovala v režimu \textit{OpenCL}. Počet GPU vrstev se však liší model od modelu. Pro správnou funkčnost je potřeba udržet celý model v paměti RAM, tedy v případě naší sestavy jsme mohli pracovat s modely pouze cca do 60GB, s tím, že do VRAM grafické karty lze nahrát pouze vrstvy o celkové velikosti přibližně 20GB. Na GPU tedy byl akcelerován jen takový počet vrtev, který z jejich celkového počtu odpovídal této velikosti.
+            Pro spouštění lokálních modelů byla využita PC sestava, jejíž komponenty jsou popsané v tabulce \ref{tab:pc_components}. Runtime programu \textit{LM Studio}, popsaného v minulé sekci, byl nastaven, aby využíval \(12\) z \(16\) dostupných CPU vláken. GPU akcelerace fungovala v režimu \textit{OpenCL}. Počet GPU vrstev se však liší model od modelu. Pro správnou funkčnost je potřeba udržet celý model v paměti RAM, tedy v případě naší sestavy jsme mohli pracovat s modely pouze cca do 60GB, s tím, že do VRAM grafické karty lze nahrát pouze vrstvy o celkové velikosti přibližně 20GB. Na GPU tedy byl akcelerován jen takový počet vrtev, který z jejich celkového počtu odpovídal této velikosti. Délka \textit{kontextového okna} byla nastavena na \(8 192\) \gls{token}ů, avšak pro některé modely je tato délka zkrácena samotným modelem (viz sekce \ref{sec:local_env}). Jednotlivé hyperparametry byly poté nastaveny jako:
+            \begin{enumerate}
+                \item \textbf{\gls{temperature}}: \(0.7\)
+                \item \textbf{Top P}: \(1\)
+                \item \textbf{Maximum vygenerovaných tokenů}: \(3000\)
+            \end{enumerate}
+            Zbytek \emph{hyperparametrů} zůstal na defaultních hodnotách daného modelu, který byl testovaný. Toto nastavení bylo využito jak pro \textit{lokální} modely tak pro \textit{API} dotazy na poskytovatele proprietáních či jiných vzdáleně spuštěných modelů. Použité hodnoty těchto parametrů vycházejí z prvotních testovacích experimentů, kdy se osvědčili jako vhodné pro generování jednotkových testů, protože by měli zaručovat \textit{nižší determiničnost} výsledku a jeho \textit{vyšší přesnost}.
 
         \subsection{Dotazy}
+        Tady run -i %TODO dopsat
 
 \chapter{Spuštění testů}
 

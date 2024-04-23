@@ -354,7 +354,7 @@ milan   1328 Mar 31 09:28 spec-4.txt
 
     \section{Výběr požadavků}
 
-        \subsection{Vytvoření nového testu}
+        \subsection{Vytvoření nového testu} \label{sec:test_creation}
 
             Primárním programem celé práce je soubor \verb|test.py|, který se nalézá v kořenové složce programu (\verb|/program|) a má konrétně 3 pracovní režimy:
             \begin{enumerate}
@@ -489,7 +489,20 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
             Zbytek \emph{hyperparametrů} zůstal na defaultních hodnotách daného modelu, který byl testovaný. Toto nastavení bylo využito jak pro \textit{lokální} modely tak pro \textit{API} dotazy na poskytovatele proprietáních či jiných vzdáleně spuštěných modelů. Použité hodnoty těchto parametrů vycházejí z prvotních testovacích experimentů, kdy se osvědčili jako vhodné pro generování jednotkových testů, protože by měli zaručovat \textit{nižší determiničnost} výsledku a jeho \textit{vyšší přesnost}.
 
         \subsection{Dotazy}
-        Tady run -i %TODO dopsat
+        Samotné vygenerování testů za pomoci dotazování \Gls{llm} je řešeno skrze \textit{generující} režim programu, jako je ukázáno ve výpisu \ref{con:modes}. Tento režim jako argument vyžaduje \textit{název šablony}, která funguje jako \textit{prompt} pro model a byla vytvořena v předchozím kroku (viz sekce \ref{sec:test_creation}). Tento režim poporuje i více nepovinných argumentů jako:
+        \begin{itemize}
+            \item \verb|count| - Počet variací testů, které se mají vygenerovat. Celé číslo. Defaultní hodnota \(1\).
+            \item \verb|manual| - Zkopírovat prompt do schránky pro manuální vložení do rozhraní modelu. Vlajka. Vhodné pro debug.
+            \item \verb|cmd| - Vypsat prompt do standardního výstupu. Vlajka.
+            \item \verb|compress| - Vlajka vyjadřující použití promptové komprese.
+        \end{itemize}
+        Ukázkové volání lze vidět v ukázce \ref{con:generation}. Program je schopen vygenerovat pro jeden test více variant na bázi stejného promptu (vytváření nových dotazů na \Gls{llm}). 
+        % TODO Schéma práce s promptem
+
+        \setuxprompt{milan}{dp/program}
+        \begin{console}{Ukázka volání generace testu dle šablony \label{con:generation}}
+`\uxprompt`python3 test.py -i spec-4 --count 10
+        \end{console}
 
 \chapter{Spuštění testů}
 

@@ -155,7 +155,7 @@
     Výsledky diskutovaných studií v předchozím bodě jsme srovnali v tabulce \ref{tab:paper_comp}. V rámci první práce dosahuje nejlepších výsledků model \textit{gpt-3.5-turbo}, který dosáhl 70\% pokrytí kódu testy a 48\% úspěšnosti testů. U druhé studie má tento model na testovací sadě \textit{HumanEval} velice podobný výsledek, ovšem model \textit{Codex} dosáhl lepších výsledků. Může však také jít o rozdíl způsobený programovacím jazykem. Zatímco v práci \cite{schafer2023empirical} se využívá jako benchmark sada balíčků jazyka \textit{JavaScript}, který kvůli absenci explicitního typování, může být obtížnější pro strojové testování oproti jazyku Java, který je využit ve zbylých 2 pracích. \cite{jutai} také využívá Javu a s modelem \textit{gpt-3.5-turbo} dosahuje podobného pokrytí kódu a úspěšnosti jako \textit{Codex} v práci \cite{siddiq2023exploring}.
 
 
-    \subsection{Modely}
+    \subsection{Modely} \label{sec:research_models}
     % TODO Tady asi nějaká předmluva k těm modelům a co za modely se vlastně používá 
     Na \GLS{llm} modelech nás konkrétně zajímá schopnost pozorumět progamovacím jazykům a ty poté také generovat na výstupu. Důležité pro nás také je, zda daný model je proprietární či otevřený a pod jakou licencí, tedy zda by byl vhodný pro naši práci. V případě analýzy zdrojového kódu může být také klíčovou vlastností délka kontextu daného modelu. Tyto vlastnosti jsou také zaneseny do tabulky \ref{tab:code_models_comp}.
 
@@ -445,9 +445,43 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 
             % TODO obr LM Studia
 
-            \textit{LM Studio} umožňuje spuštění právě modelů ve formátu \acrshort{gguf}, včetně jejich stažení z repozitářů a funkcemi s tím spojených (například \textit{vypsání seznamu kvantizací, spojení rozdělených modelů, atd.}). Jeho primární funkcí je spouštět lokální \Gls{llm} modely jako \textit{chat} nebo \textit{lokální server} nabízející API kompatibilní s definicí dle OpenAI. Pro každý druh modelů (jako \textit{Llama, Mistral, Command R, ...}) také obsahuje předdefinované nastavení, které si uživatel může upravit. Mezi tímto nastavením jsou hyperparametry jako \textit{\gls{temperature}, Min P, Top P, délka \gls{context}u, maximálního počtu vygenerovaných \gls{token}ů a dalších}. Mimo toho obsahuje i nastavení pro hardware jako \textit{počet vláken CPU, počet GPU vrstev, GPU framework} a podobně.
+            \textit{LM Studio} umožňuje spuštění právě modelů ve formátu \acrshort{gguf}, včetně jejich stažení z repozitářů a funkcemi s tím spojených (například \textit{vypsání seznamu kvantizací, spojení rozdělených modelů, atd.}). Jeho primární funkcí je spouštět lokální \Gls{llm} modely jako \textit{chat} nebo \textit{lokální server} nabízející API kompatibilní s definicí dle OpenAI. Pro každý druh modelů (jako \textit{Llama, Mistral, Command R, ...}) také obsahuje předdefinované nastavení, které si uživatel může upravit. Mezi tímto nastavením jsou hyperparametry jako \textit{\gls{temperature}, Min P, Top P, délka \gls{context}u, maximálního počtu vygenerovaných \gls{token}ů a dalších}. Mimo toho obsahuje i nastavení pro hardware jako \textit{počet vláken CPU, počet GPU vrstev, GPU framework} a podobně. \textit{Vrstvou} je zde myšlena vrstva neutronů, která provádí určit výpočty a zpracování vstupních dat. Vrstvy mohou být ku příkladu \textit{vstupní, skryté, výstupní}. Klíčovou vlastností nastavitelnou v rámci runtimu tohoto softwaru je možnost nastavit chování \gls{context}ového okna. Mezi možnosti se řadí: 
+            \begin{enumerate}
+                \item \textit{Klouzavé okno} - Model si pamatuje posledních \(x\) tokenů z konverzace, které využívá ke generování výstupu a predikci.
+                \item \textit{Začátek a konec} - Model si pamatuje první prompt (případně i systémový) a zbylé tokeny na konci konverzace.
+                \item \textit{Zastavení} - Při dosažení počtu tokenů v rámci konverzace rovnající se \(x\), je generování odpovědi zastaveno.
+            \end{enumerate}
+
+            Proměnnou \(x\) je zde myšlena celková délka kontextu, kterou \textit{model} nebo \textit{runtime} podporuje. V případě \textit{runtimu} v rámci \textit{LM Studio} (resp. \verb|llama.cpp|) může uživatel délku kontextu zvolit až do délky \(16 384\) \gls{token}ů. Pokud však tato délka bude větší, jak podporovaný kontext samotným modelem, délka kontextu, který model má v paměti, bude dán hodnotou z modelu. Například modely vycházející z architektury \textit{Llama-2} disponují kontextem \(4096\) \gls{token}ů, jak bylo diskutováno v sekci \ref{sec:research_models}. Pokud tedy runtime bude nastaven s větším kontextovým oknem, bude rozhodující právě tato hodnota modelu.
 
             \subsubsection{Testovací sestava a nastavení}
+
+            \begin{table}
+                \begin{tabular}{|c|c|}
+                    \hline
+                    \textbf{Typ} & \textbf{Komponenta} \\
+                    \hline
+                    CPU & AMD Ryzen 8700F \\
+                    \hline
+                    Základní deska & Asus B650-PLUS TUF \\
+                    \hline
+                    CPU Chlazení & BOX \\
+                    \hline
+                    RAM & Kingston FURY Renegade DDR5 64GB 6400 MHz (4x16GB) \\
+                    \hline
+                    VGA & Radeon RX 7900 XT 20GB Asus TUF \\
+                    \hline
+                    PSU & ADATA XPG CYBERCORE 1300W \\
+                    \hline
+                    Case & BeQuiet! Dark Base Pro 901 \\
+                    \hline
+                \end{tabular}
+                \centering
+                \caption{Seznam komponent testovací PC sestavy}
+                \label{tab:pc_components}
+            \end{table}
+
+            Pro spouštění lokálních modelů byla využita PC sestava, jejíž komponenty jsou popsané v tabulce \ref{tab:pc_components}. Runtime programu \textit{LM Studio}, popsaného v minulé sekci, byl nastaven, aby využíval \(12\) z \(16\) dostupných CPU vláken. GPU akcelerace fungovala v režimu \textit{OpenCL}. Počet GPU vrstev se však liší model od modelu. Pro správnou funkčnost je potřeba udržet celý model v paměti RAM, tedy v případě naší sestavy jsme mohli pracovat s modely pouze cca do 60GB, s tím, že do VRAM grafické karty lze nahrát pouze vrstvy o celkové velikosti přibližně 20GB. Na GPU tedy byl akcelerován jen takový počet vrtev, který z jejich celkového počtu odpovídal této velikosti.
 
         \subsection{Dotazy}
 

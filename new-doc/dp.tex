@@ -426,9 +426,8 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 
             \subsubsection{Prostředí pro lokální modely}
 
-            Pro \emph{lokální} modely a jejich spuštění byl využit software \textit{LM Studio}, který je postaven nad \textit{C++} knihovnou \verb|llama.cpp|. Ta umožňuje jednoduché spuštění \Gls{llm} modelů ve formátu \textit{GGUF}. 
+            Pro \emph{lokální} modely a jejich spuštění byl využit software \textit{LM Studio}, který je postaven nad \textit{C++} knihovnou \verb|llama.cpp|. Ta umožňuje jednoduché spuštění \Gls{llm} modelů ve formátu \acrfull{gguf}. Jedná se o \textit{binární} formát souborů určený pro rychlé načítání a ukládání modelů využíváných pro účely interferenčních úloh. Jeho návrh umožňuje snadnou úpravu při zachování zpětné kompatibility. \cite{ggerganov_gguf} \cite{huggingface_gguf} Modely mohou být vyvíjené za pomoci různých frameworků (např. \textit{PyTorch}) a poté převedeny do \acrshort{gguf} formátu pro použití v rámci \acrshort{ggml} knihovny, která umožňuje efektivní spuštění modelů na CPU a GPU. Knihovna také umožňuje \emph{kvantizaci}, tedy techniku využívanou ke snížení paměťových nároků \acrshort{ml} úloh. Zahrnuje reprezentaci vah a aktivací za pomoci datakových typů s nižší přesností (např. \textit{int8}) oproti obvyklým 32 bitovým číslům (např. \textit{float32}), ve kterých bývají reprezentována originální data modelu. Jejím cílem je snížit počet bitů, což vede k nižší velikosti modelu a to k nižším HW nárokům a s tím spojených vlastností (\textit{snížená energetická spotřeba, nižší latence, ...}). Kvantizace má však i nežádoucí dopady a to \textit{ztrátu přesnosti} nebo případně \textit{výkonu} modelu. \cite{huggingface_quantization}
 
-            % TODO nějaký popis GGUF
             % TODO obr LM Studia
 
         \subsection{Dotazy}

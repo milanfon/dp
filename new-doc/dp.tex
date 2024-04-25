@@ -583,9 +583,18 @@ Adjust the locators (xpath) as necessary to match the exact structure and identi
 
         Vyfiltrovaný výstupní text modelu je poté zapsán do souboru ve výstupní složce nazvané \verb|generated|, nacházející se v kořenové složce programu. Test je uložen s názvem ve formátu \verb|{nazev-vstupu}-{cislo-varianty}.robot| jakožto \textit{RobotFramework} soubor. První část tohoto názvu souhlasí s názvem \textit{promptové šablony}, pro kterou uživatel vytváří testy. Druhá část poté čísluje vygenerované varianty. Pokud již ve výstupní složce existuje vygenerovaný test pro danou specifikaci, program nové variantě přiřadí číslo o \(1\) vyšší, tedy pokračuje v číselné řadě. Názvy vygenerovaných testů jsou postupně vypisovány do konzole. Od uživatele je očekáváno, že vygenerované testy ve výstupní složce zkontroluje a ověří, že obsahují validní (\textit{např. obsahuje text, připomínající RobotFramework test}). Je zde totiž stále možnost, že model nevygenerovat žádný kód a vypsat pouze text nebo \textit{filtrace} neproběhla validně. Tento krok by v ideálním případě bylo možné automatizovat za pomocí \textit{analyzátoru} pro \textit{RobotFramework}, který se nachází v rámci \Gls{lsp} pro \textit{RobotFramework} \verb|rebotframework-lsp| nachází. Bohužel však neumí validovat zápis pro knihovnu \verb|SeleniumLibrary|, která je v rámci systémového promptu vyžadována a očekávána, že bude přítomná ve vygenerovaném testu.
 
+        %TODO možná pak někde vysvětlit, co to ta SeleniumLibrary je a jak vlastně funguje testování v Robot Frameworku
+
 \chapter{Spuštění testů}
 
-    \section{Spuštění testovacího programu a jeho orchestrace}
+    \section{Spuštění testovaného programu a jeho orchestrace}
+
+    %TODO tady nějaké citace
+    Testovaný program \textit{TbUIS} (popsaný v sekci \ref{sec:test_program}) je distribuován jakožto \verb|.WAR| soubory, tedy komprimovaný webový archiv jazyka Java, spustitelný jakožto \gls{servlet}. Z dokumentace projektu a předchozích diplomových prací vyplývá, že pro nasatení je určený aplikační server \textit{Tomcat} verze \(7\) až \(9\). S vyššími verzemi není aplikace kompatibilní. Každá varianta aplikace (\textit{poruchové klony}) je distribuována jako samostatný \textit{WAR} soubor. Pro spuštění konkrétní varinaty a spuštění vygenerovaných testů na této variantě bylo nutné vytvořit \textit{automatizované nasazení} aplikace \textit{TbUIS}. Pro nasazení je nutné brát v úvahu nejen samotnou webovou aplikaci, ale i její závislost, kterou je \textit{databáze} MySQL, která musí být inicializována dodaným skriptem.
+
+    Pro účely \textit{automatizovaného nasazení} byla zvolena technologie \textit{Docker}, tedy \textit{kontejnerové} řešení s možností vytvářet obrazy a kompozice. Právě kompozice je vhodným nástrojem pro jednoduché \textit{lokální} nasazení aplikace \textit{TbUIS}, protože potřebujeme 2 samostatné kontejnery; první s \textit{aplikačním servervem} a druhý s \textit{databází}.
+
+    %TODO někam pak vypsat prerekvizity pro spuštění programu
 
 \chapter{Vyhodnocení výsledků}
 

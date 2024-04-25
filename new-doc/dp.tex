@@ -590,9 +590,21 @@ Adjust the locators (xpath) as necessary to match the exact structure and identi
     \section{Spuštění testovaného programu a jeho orchestrace}
 
     %TODO tady nějaké citace
-    Testovaný program \textit{TbUIS} (popsaný v sekci \ref{sec:test_program}) je distribuován jakožto \verb|.WAR| soubory, tedy komprimovaný webový archiv jazyka Java, spustitelný jakožto \gls{servlet}. Z dokumentace projektu a předchozích diplomových prací vyplývá, že pro nasatení je určený aplikační server \textit{Tomcat} verze \(7\) až \(9\). S vyššími verzemi není aplikace kompatibilní. Každá varianta aplikace (\textit{poruchové klony}) je distribuována jako samostatný \textit{WAR} soubor. Pro spuštění konkrétní varinaty a spuštění vygenerovaných testů na této variantě bylo nutné vytvořit \textit{automatizované nasazení} aplikace \textit{TbUIS}. Pro nasazení je nutné brát v úvahu nejen samotnou webovou aplikaci, ale i její závislost, kterou je \textit{databáze} MySQL, která musí být inicializována dodaným skriptem.
+    Testovaný program \textit{TbUIS} (popsaný v sekci \ref{sec:test_program}) je distribuován jakožto \verb|.WAR| soubory, tedy komprimovaný webový archiv jazyka Java, spustitelný jakožto \gls{servlet}. Z dokumentace projektu a předchozích diplomových prací vyplývá, že pro nasatení je určený aplikační server \textit{Tomcat} verze \(7\) až \(9\). S vyššími verzemi není aplikace kompatibilní. Každá varianta aplikace (\textit{poruchové klony}) je distribuována jako samostatný \textit{WAR} soubor. Pro spuštění konkrétní varinaty a spuštění vygenerovaných testů na této variantě bylo nutné vytvořit \textit{automatizované nasazení} aplikace \textit{TbUIS}. Pro nasazení je nutné brát v úvahu nejen samotnou webovou aplikaci, ale i její závislost, kterou je \textit{databáze} MySQL (resp. MariaDB), která musí být inicializována dodaným skriptem.
 
     Pro účely \textit{automatizovaného nasazení} byla zvolena technologie \textit{Docker}, tedy \textit{kontejnerové} řešení s možností vytvářet obrazy a kompozice. Právě kompozice je vhodným nástrojem pro jednoduché \textit{lokální} nasazení aplikace \textit{TbUIS}, protože potřebujeme 2 samostatné kontejnery; první s \textit{aplikačním servervem} a druhý s \textit{databází}.
+
+    Před samotnou integrací je nutné v každé z variant aplikace (\textit{WAR} soubory) změnit \textit{adresu} databáze. Docker kompozice umoňují přidělit jednotlivým kontejnerům názvy, za pomocí kterých lze v rámci interní DNS tyto kontejnery adresovat. V rámci archivů bylo nutné modifikovat adresu v souborech \textit{WEB-INF/classes/META-INF/persistence.xml} a \textit{WEB-INF/classes/applicationContext.xml}. Pro zjednodušení vlastního nasazení jsou modifikované webové archivy součástí repozitáře této práce. Pro kontejner \textit{databáze} byl zvolen název \verb|tbuis-db|. Veškeré potřebné soubory pro spuštění testovaného programu se nachází ve složce \verb|tbuis| v rámci programové složky.
+
+    K vytvoření \textit{kompozice} je potřeba mít také obrazy, ze kterých se budou vytvářet kontejnery. Zatímco pro databázi stačí \textit{MariaDB} kontejner z veřejného repozitáře, tak pro aplikační server je potřeba vytořit vlastní obraz, který bude vycházet z obrazu pro \textit{Tomcat} aplikační server, ale vždy do něj budou nahrána data jiné varianty aplikace. Pro vytoření obrazu byl do složky přidán \textit{Dockerfile} sloužící k jeho sestavení. Obsah tohoto souboru lze vidět v ukázce \ref{lst:dockerfile}. Skript přebírá cestu k \textit{WAR} souboru za pomocí argumentu a ten poté vkládá do obrazu na předem definovanou cestu a s definovaným názvem. V rámci Tomcat kontejneru slouží právě složka \verb|webapps| pro servlety a jejich název udává cestu, které v rámci HTTP dotazů jsou dostupné. Pro zvolený název \verb|tbuis| tedy odpovídá cesta \verb|/tbuis|.
+
+    \begin{code}{dockerfile}{Dockerfile pro sestavení obrazu varianty aplikačního serveru. \label{lst:dockerfile}}
+FROM tomcat:9.0
+ARG WAR_FILE
+COPY ${WAR_FILE} /usr/local/tomcat/webapps/tbuis.war
+    \end{code}
+
+    Obraz z \textit{Dockerfile} lze vytvořit samostatně, ale také lze jeho sestavení zavolat při vytváření kompozice. To se provádí za pomocí nástroje \textit{Docker Compose}.
 
     %TODO někam pak vypsat prerekvizity pro spuštění programu
 

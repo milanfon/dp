@@ -592,7 +592,7 @@ Adjust the locators (xpath) as necessary to match the exact structure and identi
     %TODO tady nějaké citace
     Testovaný program \textit{TbUIS} (popsaný v sekci \ref{sec:test_program}) je distribuován jakožto \verb|.WAR| soubory, tedy komprimovaný webový archiv jazyka Java, spustitelný jakožto \gls{servlet}. Z dokumentace projektu a předchozích diplomových prací vyplývá, že pro nasatení je určený aplikační server \textit{Tomcat} verze \(7\) až \(9\). S vyššími verzemi není aplikace kompatibilní. Každá varianta aplikace (\textit{poruchové klony}) je distribuována jako samostatný \textit{WAR} soubor. Pro spuštění konkrétní varinaty a spuštění vygenerovaných testů na této variantě bylo nutné vytvořit \textit{automatizované nasazení} aplikace \textit{TbUIS}. Pro nasazení je nutné brát v úvahu nejen samotnou webovou aplikaci, ale i její závislost, kterou je \textit{databáze} MySQL (resp. MariaDB), která musí být inicializována dodaným skriptem.
 
-    \subsection{Vytvoření kompozice}
+    \subsection{Vytvoření kompozice} \label{sec:composition}
     Pro účely \textit{automatizovaného nasazení} byla zvolena technologie \textit{Docker}, tedy \textit{kontejnerové} řešení s možností vytvářet obrazy a kompozice. Právě kompozice je vhodným nástrojem pro jednoduché \textit{lokální} nasazení aplikace \textit{TbUIS}, protože potřebujeme 2 samostatné kontejnery; první s \textit{aplikačním servervem} a druhý s \textit{databází}.
 
     Před samotnou integrací je nutné v každé z variant aplikace (\textit{WAR} soubory) změnit \textit{adresu} databáze. Docker kompozice umoňují přidělit jednotlivým kontejnerům názvy, za pomocí kterých lze v rámci interní DNS tyto kontejnery adresovat. V rámci archivů bylo nutné modifikovat adresu v souborech \textit{WEB-INF/classes/META-INF/persistence.xml} a \textit{WEB-INF/classes/applicationContext.xml}. Pro zjednodušení vlastního nasazení jsou modifikované webové archivy součástí repozitáře této práce. Pro kontejner \textit{databáze} byl zvolen název \verb|tbuis-db|. Veškeré potřebné soubory pro spuštění testovaného programu se nachází ve složce \verb|tbuis| v rámci programové složky.
@@ -642,11 +642,11 @@ networks:
     driver: bridge
     \end{code}
 
-    Pro vytvoření a spuštění této kompozice je potřeba zavolat příkaz z ukázky \ref{lst:compose_up_command}, kde příkaz \verb|up| vyjadřuje právě \textit{vytvoření} kompozice. Pro povolení sestavení obrazu v rámci vytváření kompozice, je také potřeba přidat argument \verb|--build|. Aby se kontejnery spustili na pozadí a ne v terminálu, je také vyžadován argument \verb|-d|. Zároveň z důvodu, abychom nástroj \verb|docker-compose| nemuseli volat pouze ze složky, ve které se kompoziční soubor nachází, lze také přidat argument \verb|-f| a hodnotou cesty ke konfiguračnímu souboru. V případě nutnosti \textit{smazat} kompozici, je také možnost zavolat příkaz \verb|docker-compose down| (viz ukázka \ref{lst:compose_down_command}). Protože při vytváření kompozic byli sestaveny i obrazy, které mohou na počítači zbírat nemalé místo, je také k příkazu přidán argument \verb|--rmi all|, který mimo kotejnerů vytvořených kompozicí smaže i nevyužívané obrazy.
+    Pro vytvoření a spuštění této kompozice je potřeba zavolat příkaz z ukázky \ref{lst:compose_up_command}, kde příkaz \verb|up| vyjadřuje právě \textit{vytvoření} kompozice. Pro povolení sestavení obrazu v rámci vytváření kompozice, je také potřeba přidat argument \verb|--build|. Aby se kontejnery spustili na pozadí a ne v terminálu, je také vyžadován argument \verb|-d|. Zároveň z důvodu, abychom nástroj \verb|docker-compose| nemuseli volat pouze ze složky, ve které se kompoziční soubor nachází, lze také přidat argument \verb|-f| a hodnotou cesty ke konfiguračnímu souboru. Před příkazem je také vyexportována proměnná prostředí \verb|WAR_FILE_PATH|, která určuje variantu serverletu, který bude nasazen do webové aplikace. Jedná se o cestu relativní vůči \textit{docker compose} souboru. V případě nutnosti \textit{smazat} kompozici, je také možnost zavolat příkaz \verb|docker-compose down| (viz ukázka \ref{lst:compose_down_command}). Protože při vytváření kompozic byli sestaveny i obrazy, které mohou na počítači zbírat nemalé místo, je také k příkazu přidán argument \verb|--rmi all|, který mimo kotejnerů vytvořených kompozicí smaže i nevyužívané obrazy.
 
     \setuxprompt{milan}{dp/program}
     \begin{console}{Vytvoření Docker kompozice z připravené konfigurace \label{lst:compose_up_command}}
-`\uxprompt`docker-compose -f tbuis/docker-compose.yml up -d --build
+`\uxprompt`WAR_FILE_PATH=./defect-00_free.war docker-compose -f tbuis/docker-compose.yml up -d --build
     \end{console}
 
     \begin{console}{Smazání Docker kompozice společně s vytvořenými obrazy \label{lst:compose_down_command}}
@@ -654,6 +654,19 @@ networks:
     \end{console}
 
     \subsection{Orchestrace a automatizace nasazení}
+
+    Výše vypsané příkazy automatizují nasazení jedné z variant webové aplikace. Namísto jejich manuálního volání však bude tento úkon provádět orchestrační program \verb|test.py| v režimu \verb|-r| (\textit{run}). Příklad takového volání se nachází v ukázce \ref{lst:run_mode}. Samotná orchestrace spuštění vygenerovaných testů spočívá v tom, že program nasadí jednu z požadovaných variant aplikace, poté postupně spustí jednotlivé testy vyhovující zadanému kritériu v rámci hodnoty pro argument režimu \verb|-r|. Po dokončení všech testů je načtena další z požadovaných verzí aplikace pro nasazení a otestování. Zvolené testy jsou tedy spuštěny na všech vybraných variantách. Po dokončení testování je poté vytvořená kompozice společně se všemi vytvořenými a staženými obrazy smazána. K těmto úkonům je využit právě nástroj \textit{Docker} a \textit{Docker Compose}, popsané v sekci \ref{sec:composition}.
+
+    \begin{console}{Spuštění orchestračního programu v režimu spouštění testů \label{lst:run_mode}}
+`\uxprompt`python3 test.py -r "codellama/spec-*" --name "codellama-runs"
+    \end{console}
+
+    %TODO Obrázek orchestrace
+    \begin{figure}
+        \caption{Znázornění orchestrace spouštění testů}
+        \label{fig:orchestration}
+    \end{figure}
+    %TODO tady taky vysvělit argumenty pro run
 
     %TODO někam pak vypsat prerekvizity pro spuštění programu
 

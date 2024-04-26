@@ -604,7 +604,44 @@ ARG WAR_FILE
 COPY ${WAR_FILE} /usr/local/tomcat/webapps/tbuis.war
     \end{code}
 
-    Obraz z \textit{Dockerfile} lze vytvořit samostatně, ale také lze jeho sestavení zavolat při vytváření kompozice. To se provádí za pomocí nástroje \textit{Docker Compose}.
+    Obraz z \textit{Dockerfile} lze vytvořit samostatně, ale také lze jeho sestavení zavolat při vytváření kompozice. To se provádí za pomocí nástroje \textit{Docker Compose}. Defaultní název souboru, který příkaz pro vytváření kompozice \verb|docker-compose| využívá je \verb|docker-compose.yml|. Takovýto defaultní soubor je vytvořen v podsložce programu \verb|tbuis|. Jak přípony souboru vyplývá, jedná se o textový soubor ve formátu \textit{YAML}. V rámci něj definujeme dvojici služeb potřebných pro nasazení aplikace. Službou v kompozici je myšlen kontejner. Při vytváření služby lze definovat i její \textit{proměnné prostředí}, \textit{porty} a jejich předávání, \textit{připojené} složky, \textit{sítě} a další vlastnosti běžně nastavované pro kontejner. Pro \textit{databázi} je potřeba předat port \(3306\), ale také připojit složku s inicializačními skripty (v našem případě dostupná ve stejné složce jako kompoziční soubor). V ní se nachází soubor \verb|init-db.sql|, který obsahuje příkazy pro vytvoření databáze s daným názvem a uživatele, za kterého se aplikační server připojuje. U služby aplikačního serveru je potřeba sestavit obraz. Pro toto sestavení využíváme vytvořený Dockerfile, nacházející se ve stejné složce. Také je potřeba předat argument s cestou pro \textit{WAR} soubor, který bude do serveru nahraný. Pro přístup do webového rozhraní aplikace z venčí kompozice byl zvolen port \(4680\) předaný z defaultního portu \(8080\), který aplikace používá. Tento port bude sloužit vygenerovaným testům pro přístup. V případě potřeby může uživatel tento port změnit dle svých požadavků. Oba kontejnery jsou také připojeny do stejné \textit{virtuální sítě}, který zajišťuje komunikaci mezi nimi. 
+
+    \begin{code}{dockerfile}{Docker Compose soubor pro sestavení kompozice \label{lst:docker-compose}}
+version: '3.8'
+
+services: 
+
+  db:
+    image: mariadb
+    container_name: tbuis-db
+    environment: 
+      MARIADB_ROOT_PASSWORD: testtest
+    ports:
+      - "3306:3306"
+    volumes: 
+      - ./db:/docker-entrypoint-initdb.d/
+    networks:
+      - tbuis
+
+  tomcat:
+    build:
+      context: .
+      args:
+        WAR_FILE: ${WAR_FILE_PATH}
+    container_name: tbuis-tomcat
+    depends_on:
+      - db
+    ports:
+      - "4680:8080"
+    networks:
+      - tbuis
+
+networks: 
+  tbuis:
+    driver: bridge
+    \end{code}
+
+    %TODO Spuštění docker compose
 
     %TODO někam pak vypsat prerekvizity pro spuštění programu
 

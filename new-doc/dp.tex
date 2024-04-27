@@ -653,7 +653,7 @@ networks:
 `\uxprompt`docker-compose -f tbuis/docker-compose.yml down --rmi all
     \end{console}
 
-    \subsection{Orchestrace a automatizace nasazení}
+    \subsection{Orchestrace a automatizace nasazení} \label{sec:orchestration}
 
     Výše vypsané příkazy automatizují nasazení jedné z variant webové aplikace. Namísto jejich manuálního volání však bude tento úkon provádět orchestrační program \verb|test.py| v režimu \verb|-r| (\textit{run}). Příklad takového volání se nachází v ukázce \ref{lst:run_mode}. Samotná orchestrace spuštění vygenerovaných testů spočívá v tom, že program nasadí jednu z požadovaných variant aplikace, poté postupně spustí jednotlivé testy vyhovující zadanému kritériu v rámci hodnoty pro argument režimu \verb|-r|. Po dokončení všech testů je načtena další z požadovaných verzí aplikace pro nasazení a otestování. Zvolené testy jsou tedy spuštěny na všech vybraných variantách (orchestrace nastíněna v obr. \ref{fig:orchestration}). Po dokončení testování je poté vytvořená kompozice společně se všemi jejími sestavenými a staženými obrazy smazána. K těmto úkonům je využit právě nástroj \textit{Docker} a \textit{Docker Compose}, popsané v sekci \ref{sec:composition}. Mezi jednotlivými testy spouštěnými na jedné z variant aplikace je také potřebna provést \textit{obnovení databáze}, protože některé z testovacích scénářů databázi modifikují (viz tabulky \ref{tab:specs_1} a \ref{tab:specs_2}). Pro toto obnovení nabízí aplikace \textit{HTTP} endpoint nebo tlačítko na úvodní stránce. Pro zjednodušení byl mezi statické soubory přidán RobotFramework scénář, který na toto tlačítko na úvodní stránce klikne.
 
@@ -726,8 +726,22 @@ POSITIVE_FAILS = {
     \end{code}
     
     \section{Ukládání výsledků}
+    Při spuštění testu vyváří \textit{RobotFramework} hned několik výstupních souborů, mezi kterými je i \textit{report} jakožto soubor \verb|output.xml|. V rámci něj se nacházejí veškteré klíčové informace o běhu scénáře. Konkrétně jde o \textit{log} provedených úkonů, \textit{výsledky} jednotlivých testovacích případů a také případné \textit{errory}. Protože tento výstup obsahuje spoustu redundantních informací, je v rámci programu přeparsován a uložen na 2 samostatná místa. Z původního výstupu jsou parsovány hodnoty: \textit{počet úspěšných}, \textit{neúspěšných} a \textit{chybových} testovacích případů pro každý ze spuštěných testovacích scénářů. Pro ten je vždy také vyhodnocen koncový stav (\textit{FAIL, PASS} nebo \textit{ERROR}). Protože \textit{RobotFramework} nerozlišuje mezi testem, který \emph{selhal} a testem, který neměl spustit nebo při jeho běhu došlo k chybě nesouvisející se scénářem, bylo potřena toto rozlišení implementovat na bázi přítomných \textit{errorů} v rámci výstupního souboru. 
 
-    %TODO ukládání výsledků 
+    Pro označení výsledku testu (dále také jako \emph{report}) je využito \textit{časové razítko} doby spuštění série testů ve formátu \verb|YYYYMMDDhhmmss| společně s vybraným názvem v rámci argumentu (popsáno v předchozí sekci \ref{sec:orchestration}) oddělěných znakem "-". V případě, že samostatný název běhu testů není uživatelem vybrán, zůstává pro plné označení reportu pouze časové razítko.
+
+    Prvním z míst pro uložení výsledků je textový soubor uložený ve podsložce \verb|reports| v rámci kořenové složky programu. V rámci tohoto souboru jsou vykresleny textové tabulky, vykreslené pro každou nasazenou variantu aplikace (varianty jsou v rámci programu také označovány jako kontejnery, protože odpovídají kontejneru Dockeru). V rámci tabulky jsou pro každý spuštěný test vypsány výsledky jednotlivých sledovaných údajů a koncový výsledek testu. Ukázka tabulky je vyzobrazena na obr. \ref{fig:report_table}. Název tabulky odpovídá právě testovanému kontejneru (resp. varianty testu). Soubor report je pojmenovaný jeho celým názvem, jak bylo popsáno v předchozím odstavci.
+
+    Ačkoliv tabulková reprezentace výsledků v textové podobě je jednoduchá pro uživatele a jeho čtení, tak již není vhodná pro strojové čtení a zpracování, proto jako druhá možnost pro uložení výsledů byla zvolena \textit{SQLite} databáze, resp. soubor \verb|report_db.sqlite| umístěný ve stejné podložce \verb|reports| jako textové reporty. Tento druh formátu byl zvolen z důvodu jeho jednoduchosti a široké podpoře napříč programovacími jazyky. V rámci této databáze je vytvořena tabulka "runs", která obsahuje řádky s hodnotami výsledků jednotlivých testovacích scénářů, podobně jako v případě tabulek textového reportu. Narozdíl od nich se zde pro veškeré údaje využívá jedna tabulka a mezi jednotlivými běhy jde rozlišit primárně dle jejich názvu.
+   
+    \begin{figure}
+        \includegraphics[width=0.8\textwidth]{pic/report_table.png}
+        \centering
+        \caption{Ukázka textové tabulky výsledků}
+        \label{fig:report_table}
+    \end{figure}
+
+    %TODO Přidat ukázku ze SQLite db
 
     %TODO někam pak vypsat prerekvizity pro spuštění programu
 

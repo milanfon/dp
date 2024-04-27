@@ -655,7 +655,7 @@ networks:
 
     \subsection{Orchestrace a automatizace nasazení}
 
-    Výše vypsané příkazy automatizují nasazení jedné z variant webové aplikace. Namísto jejich manuálního volání však bude tento úkon provádět orchestrační program \verb|test.py| v režimu \verb|-r| (\textit{run}). Příklad takového volání se nachází v ukázce \ref{lst:run_mode}. Samotná orchestrace spuštění vygenerovaných testů spočívá v tom, že program nasadí jednu z požadovaných variant aplikace, poté postupně spustí jednotlivé testy vyhovující zadanému kritériu v rámci hodnoty pro argument režimu \verb|-r|. Po dokončení všech testů je načtena další z požadovaných verzí aplikace pro nasazení a otestování. Zvolené testy jsou tedy spuštěny na všech vybraných variantách (orchestrace nastíněna v obr. \ref{fig:orchestration}). Po dokončení testování je poté vytvořená kompozice společně se všemi jejími sestavenými a staženými obrazy smazána. K těmto úkonům je využit právě nástroj \textit{Docker} a \textit{Docker Compose}, popsané v sekci \ref{sec:composition}.
+    Výše vypsané příkazy automatizují nasazení jedné z variant webové aplikace. Namísto jejich manuálního volání však bude tento úkon provádět orchestrační program \verb|test.py| v režimu \verb|-r| (\textit{run}). Příklad takového volání se nachází v ukázce \ref{lst:run_mode}. Samotná orchestrace spuštění vygenerovaných testů spočívá v tom, že program nasadí jednu z požadovaných variant aplikace, poté postupně spustí jednotlivé testy vyhovující zadanému kritériu v rámci hodnoty pro argument režimu \verb|-r|. Po dokončení všech testů je načtena další z požadovaných verzí aplikace pro nasazení a otestování. Zvolené testy jsou tedy spuštěny na všech vybraných variantách (orchestrace nastíněna v obr. \ref{fig:orchestration}). Po dokončení testování je poté vytvořená kompozice společně se všemi jejími sestavenými a staženými obrazy smazána. K těmto úkonům je využit právě nástroj \textit{Docker} a \textit{Docker Compose}, popsané v sekci \ref{sec:composition}. Mezi jednotlivými testy spouštěnými na jedné z variant aplikace je také potřebna provést \textit{obnovení databáze}, protože některé z testovacích scénářů databázi modifikují (viz tabulky \ref{tab:specs_1} a \ref{tab:specs_2}). Pro toto obnovení nabízí aplikace \textit{HTTP} endpoint nebo tlačítko na úvodní stránce. Pro zjednodušení byl mezi statické soubory přidán RobotFramework scénář, který na toto tlačítko na úvodní stránce klikne.
 
     \begin{console}{Spuštění orchestračního programu v režimu spouštění testů \label{lst:run_mode}}
 `\uxprompt`python3 test.py -r "codellama/spec-*" --name "codellama-runs"
@@ -726,11 +726,24 @@ POSITIVE_FAILS = {
     \end{code}
     
     \section{Ukládání výsledků}
-    %TODO ukládání výsledků (asi vlastní section)
+
+    %TODO ukládání výsledků 
 
     %TODO někam pak vypsat prerekvizity pro spuštění programu
 
 \chapter{Vyhodnocení výsledků}
+
+    \section{Parametry pro spuštění}
+
+    %TODO Využité parametry, modely, nastavení, testy, atd.
+    
+    \section{Metodologie vyhodnocení}
+
+    \section{Výsledky pro jendotlivé modely}
+    
+        \subsection{OpenAI}
+
+        \subsection{Anthropic}
 
 \chapter{Budoucí vylepšení}
 

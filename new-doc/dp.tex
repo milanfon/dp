@@ -655,7 +655,7 @@ networks:
 
     \subsection{Orchestrace a automatizace nasazení}
 
-    Výše vypsané příkazy automatizují nasazení jedné z variant webové aplikace. Namísto jejich manuálního volání však bude tento úkon provádět orchestrační program \verb|test.py| v režimu \verb|-r| (\textit{run}). Příklad takového volání se nachází v ukázce \ref{lst:run_mode}. Samotná orchestrace spuštění vygenerovaných testů spočívá v tom, že program nasadí jednu z požadovaných variant aplikace, poté postupně spustí jednotlivé testy vyhovující zadanému kritériu v rámci hodnoty pro argument režimu \verb|-r|. Po dokončení všech testů je načtena další z požadovaných verzí aplikace pro nasazení a otestování. Zvolené testy jsou tedy spuštěny na všech vybraných variantách. Po dokončení testování je poté vytvořená kompozice společně se všemi vytvořenými a staženými obrazy smazána. K těmto úkonům je využit právě nástroj \textit{Docker} a \textit{Docker Compose}, popsané v sekci \ref{sec:composition}.
+    Výše vypsané příkazy automatizují nasazení jedné z variant webové aplikace. Namísto jejich manuálního volání však bude tento úkon provádět orchestrační program \verb|test.py| v režimu \verb|-r| (\textit{run}). Příklad takového volání se nachází v ukázce \ref{lst:run_mode}. Samotná orchestrace spuštění vygenerovaných testů spočívá v tom, že program nasadí jednu z požadovaných variant aplikace, poté postupně spustí jednotlivé testy vyhovující zadanému kritériu v rámci hodnoty pro argument režimu \verb|-r|. Po dokončení všech testů je načtena další z požadovaných verzí aplikace pro nasazení a otestování. Zvolené testy jsou tedy spuštěny na všech vybraných variantách (orchestrace nastíněna v obr. \ref{fig:orchestration}). Po dokončení testování je poté vytvořená kompozice společně se všemi jejími sestavenými a staženými obrazy smazána. K těmto úkonům je využit právě nástroj \textit{Docker} a \textit{Docker Compose}, popsané v sekci \ref{sec:composition}.
 
     \begin{console}{Spuštění orchestračního programu v režimu spouštění testů \label{lst:run_mode}}
 `\uxprompt`python3 test.py -r "codellama/spec-*" --name "codellama-runs"
@@ -663,6 +663,35 @@ networks:
 
     %TODO Obrázek orchestrace
     \begin{figure}
+        \begin{tikzpicture}[node distance=2cm]
+            \node (start) [startstop] {START};
+            \node (loadConfig) [io, below of=start] {LOAD CONFIG};
+            \node (decision1) [decision, aspect=2, below of=loadConfig, yshift=-1cm] {ARE ALL VARIANTS COMPLETE?};
+            \node (end) [startstop, right of=decision1, xshift=5cm] {END};
+            \node (deployVariant) [process, below of=decision1, yshift=-1.5cm] {DEPLOY VARIANT};
+            \node (waitDeploy) [process, below of=deployVariant] {WAIT UNTIL DEPLOYED};
+            \node (decision2) [decision, aspect=1.5, below of=waitDeploy, yshift=-1cm] {ARE ALL TESTS COMPLETE?};
+            \node (runTest) [process, below of=decision2, yshift=-1.5cm] {RUN TEST};
+            \node (saveReport) [io, below of=runTest] {SAVE REPORT};
+            \node (resetDB) [process, below of=saveReport] {RESET DB};
+            \coordinate [left of=decision1, xshift=-2cm] (ld1);
+            \coordinate [left of=decision2, xshift=-2cm] (ld2);
+            \coordinate [right of=resetDB, xshift=2cm] (rdb);
+            \coordinate [right of=decision2, xshift=2cm] (rd2);
+
+            \draw [arrow] (start) -- (loadConfig);
+            \draw [arrow] (loadConfig) -- (decision1);
+            \draw [arrow] (decision1) -- node[anchor=east] {no} (deployVariant);
+            \draw [arrow] (deployVariant) -- (waitDeploy);
+            \draw [arrow] (waitDeploy) -- (decision2);
+            \draw [arrow] (decision2) -- node[anchor=east] {no} (runTest);
+            \draw [arrow] (runTest) -- (saveReport);
+            \draw [arrow] (saveReport) -- (resetDB);
+            \draw [arrow] (decision1.east) -- node[anchor=south] {yes} (end);
+            \draw [arrow] (decision2.west) -- node[anchor=south] {yes} (ld2) -- (ld1) -- (decision1.west);
+            \draw [arrow] (resetDB) -- (rdb) -- (rd2) -- (decision2.east);
+        \end{tikzpicture}
+        \centering
         \caption{Znázornění orchestrace spouštění testů}
         \label{fig:orchestration}
     \end{figure}

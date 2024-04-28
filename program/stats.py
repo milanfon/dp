@@ -6,8 +6,14 @@ import re
 from configuration import POSITIVE_FAILS
 from collections import Counter
 import sys
+import argparse
 
-db_path = sys.argv[1]
+parser = argparse.ArgumentParser(description="Statics and plotting")
+parser.add_argument('first_arg', type=str, help='Path to DB file')
+parser.add_argument('-e', '--export', type=str, help='Export to PDF')
+args = parser.parse_args()
+
+db_path = args.first_arg
 
 def fetch_data():
     conn = sqlite3.connect(db_path)
@@ -67,12 +73,15 @@ def generate_heatmap(data, ignores):
     plt.xticks(rotation=90, ha="center")
     plt.tight_layout()
 
-    plt.subplots_adjust(bottom=0.2)
+    plt.subplots_adjust(bottom=0.3)
 
     ax = plt.gca()
     ax.tick_params(axis='x', pad=30)
     table = plt.table(cellText=[ignores_sorted],rowLabels=["Test variants ignored"], loc='bottom', cellLoc='center')
     table.scale(1,2)
+
+    if args.export:
+        plt.savefig(args.e, bbox_inches='tight')
 
     plt.show()
 

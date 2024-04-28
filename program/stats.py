@@ -11,6 +11,7 @@ import argparse
 parser = argparse.ArgumentParser(description="Statics and plotting")
 parser.add_argument('first_arg', type=str, help='Path to DB file')
 parser.add_argument('-e', '--export', type=str, help='Export to PDF')
+parser.add_argument('-t', '--title', type=str, default='Test correct result heatmap', help='Plot title')
 args = parser.parse_args()
 
 db_path = args.first_arg
@@ -48,7 +49,6 @@ def process_data(rows):
                 data[container][test_base_name] += 1
     ignored_tests = map(lambda t: "-".join(t.split("-")[0:-1]), false_negatives)
     ignored = Counter(ignored_tests)
-    print(ignored)
     return data, ignored
 
 def generate_heatmap(data, ignores):
@@ -67,7 +67,7 @@ def generate_heatmap(data, ignores):
     # Generate heatmap
     plt.subplots(figsize=(10, 10))
     sns.heatmap(heatmap_data, annot=True, fmt="g", cmap="rocket_r", xticklabels=tests, yticklabels=containers, vmin=0, vmax=10)
-    plt.title('Test correct result heatmap')
+    plt.title(args.title)
     plt.xlabel('Test Name')
     plt.ylabel('Container')
     plt.xticks(rotation=90, ha="center")
@@ -81,7 +81,8 @@ def generate_heatmap(data, ignores):
     table.scale(1,2)
 
     if args.export:
-        plt.savefig(args.e, bbox_inches='tight')
+        plt.savefig(args.export, bbox_inches='tight')
+        print(f"Plot exported as {args.export}")
 
     plt.show()
 

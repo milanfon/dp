@@ -257,8 +257,6 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 
     Pro vygenerování testů za pomocí LLM bylo nejdříve nutné vybrat ze sady \textit{use caseů}\footnote{Seznam dostupný na adrese: \url{https://projects.kiv.zcu.cz/tbuis/web/page/uis#use-cases}} scénáře vhodné pro demonstraci nejen správné funkčnosti, ale také s možností ověření nesprávného chování na poruchových klonech (diskutováno v sekci \ref{sec:test_program}). Požadavek tedy byl, aby většina z vybraných scénářů vycházející z \textit{use casu} měl alespoň jeden poruchový klon, případně více. Vybráno bylo \(10\) scénářů, testovaných celkově na \(14\) variantách programu. Seznam vytvořených specifikací pro automatické generování testů se nachází v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}. Scénáře budou dále také referovány jako \textit{specifikace}. Každá specifikace má \textit{číslo}, které odpovídá číslu \textit{use casu}, ze kterého vychází (např. specifikace \(04\) vychází z use casu \textit{UC.04}). Zde je nutné poznamenat, že ne všechny specifikace vychází pevně z jejich use casů, ale byli upravené tak, aby šli provést v jednom chodu bez nutných závislostí (\textit{jako například namísto podmínky přihlášeného uživatele se uživatel vždy musí na začátku či během testu přihlásit do systému}). Popis specifikací v tabulce je pouze orientační a pro bližší upřesnění jednotlivých kroků, které se mají provést referujte web projektu. V tomto seznamu se také u každé specifikace nachází výčet klonů, na kterých lze očekávat poruchu. Celkový seznam klonů, a kterých se budou všechny vytvořené testy spouštět lze nalézt v tabulce \ref{tab:clones}. Podobně jako v případě specifikací, čísla klonů odpovídají číslům, jak jsou uvedena na oficiálním webu\footnote{Seznam poruchových klonů společně s možností stažení: \url{https://projects.kiv.zcu.cz/tbuis/web/page/download}} projektu společně s vysvětlením jednolivých chyb varianty. Pro přehlednost jsme bezchybnou variantu označili číslem \(00\).
 
-    \vfill
-
     \begin{table}
         \begin{tabular}{|c|p{7cm}|c|}
             \hline
@@ -468,7 +466,7 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
             Pro spuštěnou instanci modelu lze také nastavit \textit{systémový prompt}. Jedná se o první zprávu, která se modelu předává a měla by obsahovat pokyny pro model definující jeho chování, roli a další relevatní informace, které mohou zlepšit přesnost jeho výsledků nebo mu umožnit lépe pochopit kontext. Tento prompt je běžně vložen pouze na začátku konerzace a poté uložen do paměti modelu. Ukázku takového systémového promptu lze vidět ve výpisu \ref{lst:system_prompt_example}. Tento konkrétní příklad pochází právě ze softwaru \textit{LM Studio}.
 
             \begin{code}{text}{Příklad systémového promptu \label{lst:system_prompt_example}}
-                You're an intelligent programming assistant. Output code only, no text around.
+You're an intelligent programming assistant. Output code only, no text around.
             \end{code}
 
             \subsubsection{Testovací sestava a nastavení}
@@ -503,6 +501,7 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                 \item \textbf{\gls{temperature}}: \(0.7\)
                 \item \textbf{Top P}: \(1\)
                 \item \textbf{Maximum vygenerovaných tokenů}: \(3000\)
+                \item \textbf{režim kontextového okna}: klouzavé okno
             \end{enumerate}
             Zbytek \emph{hyperparametrů} zůstal na defaultních hodnotách daného modelu, který byl testovaný. Toto nastavení bylo využito jak pro \textit{lokální} modely tak pro \textit{API} dotazy na poskytovatele proprietáních či jiných vzdáleně spuštěných modelů. Použité hodnoty těchto parametrů vycházejí z prvotních testovacích experimentů, kdy se osvědčili jako vhodné pro generování jednotkových testů, protože by měli zaručovat \textit{nižší determiničnost} výsledku a jeho \textit{vyšší přesnost}.
 
@@ -514,7 +513,17 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
             \item \verb|cmd| - Vypsat prompt do standardního výstupu. Vlajka.
             \item \verb|compress| - Vlajka vyjadřující použití promptové komprese.
         \end{itemize}
-        Ukázkové volání lze vidět v ukázce \ref{con:generation}. Program je schopen vygenerovat pro jeden test více variant na bázi stejného promptu (vytváření nových dotazů na \Gls{llm}). Detailní popis algoritmu je nastíněn v obrázku \ref{fig:llm_query_algo}. \textit{Šablona}, kterou uživatel vytvořil je použita pro \emph{render} finálního promptu za pomocí šablonovacího jazyka \textit{Jinja}. Tato metoda byla zvolena z důvodu \textit{jednoduché a předhledné modifikace} vstupů (zde nazvaých jako \textit{šablon} nebo \textit{uživatelských specifikací}), \textit{možnosti nezávislého vložení nahrávky} a také především případné \textit{parametrizace} vstupu, díky které by mohla jít měnit \textit{uživatelská jména}, \textit{názvy prvků} a další možné údaje v šabloně vhodné pro parametrizaci. 
+
+        Mimo argumentů je \textit{generování testů} také konfigurováno \textit{proměnnými prostředí}, které pokud nejsou definovány, program se snaží načíst soubor \verb|.env| (pokud je přítomný), který tyto proměnné obsahuje. Konfigurace generování za pomocí těchto proměnných byla zvolena, protože se většinou nepřidávají do \Acrshort{vcs} nebo je jejich přidání ošetřeno, protože obsahují citlivá data, která by měla zůstat pouze na stroji uživatele. Mezi základní proměnné prostřední patří:
+        \begin{itemize}
+            \item \verb|API_URL| - Adresa URL, na kterou program dělá API dotazy.
+            \item \verb|API_KEY| - Klíč pro přístup ke vzdálenému API (pro lokální modely stačí zadat libovolnou hodnotu nebo nedefinovat).
+            \item \verb|API_MODEL| - Název modelu, na kterém programu bude v rámci API požadovat vygenerování výstupu (hodnota dána dokumentací daného API).
+            \item \verb|MAX_TOKENS| - Maximální počet tokenů, které má model vygenerovat. V závislosti na dokumentaci API je potřeba nastavit hodnotu v určiném rozsahu.
+        \end{itemize}
+        Mimo parametrů pro generování může \verb|.env| soubor obsahovat i další parametry (resp. proměnné) určené pro jiné operace programu. Ukázková podoba tohoto souboru je zobrazena ve výpisu \ref{lst:dot_env}. Soubor je umístěn v kořenové složce programu.
+
+        Ukázkové volání programu v režimu generace testů lze vidět v ukázce \ref{con:generation}. Program je schopen vygenerovat pro jeden test více variant na bázi stejného promptu (vytváření nových dotazů na \Gls{llm}). Detailní popis algoritmu je nastíněn v obrázku \ref{fig:llm_query_algo}. \textit{Šablona}, kterou uživatel vytvořil je použita pro \emph{render} finálního promptu za pomocí šablonovacího jazyka \textit{Jinja}. Tato metoda byla zvolena z důvodu \textit{jednoduché a předhledné modifikace} vstupů (zde nazvaých jako \textit{šablon} nebo \textit{uživatelských specifikací}), \textit{možnosti nezávislého vložení nahrávky} a také především případné \textit{parametrizace} vstupu, díky které by mohla jít měnit \textit{uživatelská jména}, \textit{názvy prvků} a další možné údaje v šabloně vhodné pro parametrizaci. 
 
         \begin{figure}
             \begin{tikzpicture}[node distance=2cm]
@@ -554,6 +563,15 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 
         \begin{code}{text}{Použitý systémový prompt \label{lst:system_prompt_used}}
 You're an intelligent programming assistant. You write Robot Framework scenarios and scripts using the Selenium Library. Insert delays between steps. Output code only, no text around. Use Chrome as browser. Locate elements using XPath. Close browser between scenarios.
+        \end{code}
+
+        \begin{code}{shell}{Ukázka ".env" souboru \label{lst:dot_env}}
+API_URL="https://api.mistral.ai/v1"
+API_KEY="Zca6nB87qmijn4"
+API_MODEL="mistral-large-latest"
+
+MAX_TOKENS=3000
+DEVICE="mps"
         \end{code}
 
         I přes důraz na nutnost pouze \textit{programového} výstupu v rámci systémového promptu, mají modely tendeci tuto podmínku ignorovat a generovat text okolo kódu. Protože jsou modely naučené tak, aby jejich výstup byl text v \textbf{Markdown} formátu, obsahují i značky se začátkem kódového bloku a značením jazyka, ale také prvky jako odrážky, apod. Tyto prvky se pak objevují i ve výstupech, kde je požadován pouze \textit{čistý text} (jako například v ukázce \ref{lst:text_around}). V našem případě je toto chování nevhodné, protože vyžadujeme na výstupu pouze \textit{kód testu}. Díky struktuře \textit{Markdown} formátování však lze lze kód z tohoto výstupu jednoduše vyparsovat. Toto parsování má právě na starosti funkce \textit{filtrování výstupu} ve schematu \ref{fig:llm_query_algo}. V rámci programu byla implementována tak, že ze vstupního textu vyjme kód v prvním nalezeném kódovém bloku, označeného pomocí znaků \verb|```|. Pokud blok nenajde, vrátí původní text bez změny (předpokládá, že model se držel systémového promptu). V případě více kódových bloků přítomných ve výstupu, kdy požadovaný kód nebude v prvním z bloků, dojde k nesprávnému parsování, avšak jedná se o očekávaný případ, protože detekce správného kódu je \texti{netriviální} a zároveň \textit{subjektivní} problematika.
@@ -761,8 +779,6 @@ POSITIVE_FAILS = {
     Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byli přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek).Tento program a použité metody jsou popsány v následující sekci.
 
     %TODO Asi ukázka ls command výstupní složky
-
-    %TODO Chybí popsat .env
     
     \section{Metodologie vyhodnocení}
 

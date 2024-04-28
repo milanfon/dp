@@ -40,8 +40,9 @@ def process_data(rows):
                 data[container][test_base_name] += 1
             elif result == 'PASS':
                 data[container][test_base_name] += 1
-    ignored_tests = map(lambda t: "-".join(t.split("-")[0:2]), false_negatives)
+    ignored_tests = map(lambda t: "-".join(t.split("-")[0:-1]), false_negatives)
     ignored = Counter(ignored_tests)
+    print(ignored)
     return data, ignored
 
 def generate_heatmap(data, ignores):

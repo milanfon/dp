@@ -247,7 +247,11 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
         \section{Navrhované řešení}
 
 
-\chapter{Generování testů}
+\chapter{Generování testů} \label{sec:test_generation}
+
+    \section{Prerekvizity pro generování spuštění testů}
+    %TODO Dopsat
+    %TODO Je toto vhodné místo pro prerekvizity i když nesouvisí čistě jen s generováním testů?
 
     \section{Výběr scénářů} \label{sec:scenarios}
 
@@ -732,7 +736,7 @@ POSITIVE_FAILS = {
 
     Prvním z míst pro uložení výsledků je textový soubor uložený ve podsložce \verb|reports| v rámci kořenové složky programu. V rámci tohoto souboru jsou vykresleny textové tabulky, vykreslené pro každou nasazenou variantu aplikace (varianty jsou v rámci programu také označovány jako kontejnery, protože odpovídají kontejneru Dockeru). V rámci tabulky jsou pro každý spuštěný test vypsány výsledky jednotlivých sledovaných údajů a koncový výsledek testu. Ukázka tabulky je vyzobrazena na obr. \ref{fig:report_table}. Název tabulky odpovídá právě testovanému kontejneru (resp. varianty testu). Soubor report je pojmenovaný jeho celým názvem, jak bylo popsáno v předchozím odstavci.
 
-    Ačkoliv tabulková reprezentace výsledků v textové podobě je jednoduchá pro uživatele a jeho čtení, tak již není vhodná pro strojové čtení a zpracování, proto jako druhá možnost pro uložení výsledů byla zvolena \textit{SQLite} databáze, resp. soubor \verb|report_db.sqlite| umístěný ve stejné podložce \verb|reports| jako textové reporty. Tento druh formátu byl zvolen z důvodu jeho jednoduchosti a široké podpoře napříč programovacími jazyky. V rámci této databáze je vytvořena tabulka "runs", která obsahuje řádky s hodnotami výsledků jednotlivých testovacích scénářů, podobně jako v případě tabulek textového reportu. Narozdíl od nich se zde pro veškeré údaje využívá jedna tabulka a mezi jednotlivými běhy jde rozlišit primárně dle jejich názvu.
+    Ačkoliv tabulková reprezentace výsledků v textové podobě je jednoduchá pro uživatele a jeho čtení, tak již není vhodná pro strojové čtení a zpracování, proto jako druhá možnost pro uložení výsledů byla zvolena \textit{SQLite} databáze, resp. soubor \verb|report_db.sqlite| umístěný ve stejné podložce \verb|reports| jako textové reporty. Tento druh formátu byl zvolen z důvodu jeho jednoduchosti a široké podpoře napříč programovacími jazyky. V rámci této databáze je vytvořena tabulka "runs", která obsahuje řádky s hodnotami výsledků jednotlivých testovacích scénářů, podobně jako v případě tabulek textového reportu. Narozdíl od nich se zde pro veškeré údaje využívá jedna tabulka a mezi jednotlivými běhy jde rozlišit primárně dle jejich názvu. Ukázka tabulky je vyzobrazena na obr. \ref{fig:sqlite_report}. V rámci malé lokální databáze je poté možné data efektivně vyhledávat, filtrovat a nadále s nimi pracovat.
    
     \begin{figure}
         \includegraphics[width=0.8\textwidth]{pic/report_table.png}
@@ -741,7 +745,12 @@ POSITIVE_FAILS = {
         \label{fig:report_table}
     \end{figure}
 
-    %TODO Přidat ukázku ze SQLite db
+    \begin{figure}
+        %TODO Přidat ukázku ze SQLite db
+        \centering
+        \caption{Ukázka textové tabulky výsledků}
+        \label{fig:sqlite_report}
+    \end{figure}
 
     %TODO někam pak vypsat prerekvizity pro spuštění programu
 
@@ -749,17 +758,25 @@ POSITIVE_FAILS = {
 
     \section{Parametry pro spuštění}
 
+    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány.
+
+    %TODO Asi ukázka ls command výstupní složky
+
     %TODO Využité parametry, modely, nastavení, testy, atd.
     
     \section{Metodologie vyhodnocení}
 
-    \section{Výsledky pro jendotlivé modely}
+    \section{Výsledky pro jednotlivé modely}
     
         \subsection{OpenAI}
 
         \subsection{Anthropic}
 
+    \section{Cena a časová náročnost generování}
+    %TODO Je tohle dobré mít tady?
+
 \chapter{Budoucí vylepšení}
+    %TODO Jak snížit cenu - kratší prompty, komprese, atd.
 
 \chapter{Závěr}
 

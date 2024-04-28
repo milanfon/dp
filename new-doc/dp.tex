@@ -748,7 +748,7 @@ POSITIVE_FAILS = {
     \begin{figure}
         %TODO Přidat ukázku ze SQLite db
         \centering
-        \caption{Ukázka textové tabulky výsledků}
+        \caption{Ukázka databázové tabulky výsledků}
         \label{fig:sqlite_report}
     \end{figure}
 
@@ -758,13 +758,15 @@ POSITIVE_FAILS = {
 
     \section{Parametry pro spuštění}
 
-    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány.
+    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byli přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek).Tento program a použité metody jsou popsány v následující sekci.
 
     %TODO Asi ukázka ls command výstupní složky
 
-    %TODO Využité parametry, modely, nastavení, testy, atd.
+    %TODO Chybí popsat .env
     
     \section{Metodologie vyhodnocení}
+
+    %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
 
     \section{Výsledky pro jednotlivé modely}
     

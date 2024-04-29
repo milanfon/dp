@@ -226,7 +226,7 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
     
     \section{Testovací program} \label{sec:test_program}
 
-    Pro účely této práce jsme se rozhodli vydat cestou \acrshort{gui} testů, konkrétně webových stránek / webové aplikace. Mezi požadavky na testovanou aplikaci a její výběr bylo mimo možnosti vytvořit pro ní automatiovaně sadu testů, také možnost zavedení (\emph{injekce}) chyb do aplikace, díky kterým bude možno ověřit nejen fakt, že vygenerované testy jsou schopné detekovat \textit{korektní} chování softwaru, ale také úspěšně detekovat \textit{chyby}. Volitelnou podmínkou také byla existence již existujících testů vytvořených lidským programátorem, se kterými by bylo možné strojově generované testy porovnat.
+    Pro účely této práce jsme se rozhodli vydat cestou \acrshort{gui} testů, konkrétně webových stránek / webové aplikace. Mezi požadavky na testovanou aplikaci a její výběr bylo mimo možnosti vytvořit pro ní automatiovanou sadu testů, také možnost zavedení (\emph{injekce}) chyb do aplikace, díky kterým bude možno ověřit nejen fakt, že vygenerované testy jsou schopné detekovat \textit{korektní} chování softwaru, ale také úspěšně detekovat \textit{chyby}. Volitelnou podmínkou také byla existence již existujících testů vytvořených lidským programátorem, se kterými by bylo možné strojově generované testy porovnat.
     
     Těmto požadavkům vyhovuje jeden z předešlých univerzitních projektů nazvaný \textbf{TbUIS} (\textit{Testbed University Information System}), na který vytvořili Matyáš a Šmaus pod vedením doc. Herouta. \cite{Matyas2018} \cite{Smaus2019} Aplikace představuje \textit{maketu} univerzitního informačního systému, avšak i tak implementuje většinu functionality, kterou bysme od podobného systému čekali a nabízí pohled jak ze strany \textit{studenta} tak ze strany \textit{vyučujícího} (viz obr. \ref{fig:tbuis}). Funkce tohoto systému vycházejí ze sady \textit{use casů}, které popisuje web \footnote{Aplikaci lze nalézt na adrese: \url{https://projects.kiv.zcu.cz/tbuis/web/}} aplikace. Výhodou tohoto systému primárně je, že nabízí nejen plně funkční a otestovanou variantu, ale také \(27\) dalších poruchových klonů, vždy porušující alespoň jeden \textit{use case} a s ním potenciálně spojený test.
 
@@ -773,13 +773,30 @@ POSITIVE_FAILS = {
 
 \chapter{Vyhodnocení výsledků}
 
-    \section{Parametry pro spuštění}
+    \section{Parametry pro spuštění} \label{sec:run_parameters}
 
-    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byli přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek).Tento program a použité metody jsou popsány v následující sekci.
+    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byli přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek). Tento program a použité metody jsou popsány v následující sekci.
 
     %TODO Asi ukázka ls command výstupní složky
     
     \section{Metodologie vyhodnocení}
+        
+        \subsection{Vyhodnocovací program}
+
+        Pro vyhodnocení výsledů byl do programové složky vytvořen program \verb|stats.py|, který jako první argument vyžaduje cestu s \verb|.sqlite| výstupnímu reportu hlavního programu v režimu běhu (viz sekce \ref{sec:orchestration}). Tento report si uživatel může libovolně přesouvat v souborovém systému. Reporty vygenerované v rámci tohoto projektu a využité pro hodnocení modelů byli uloženy do podsložky \verb|results| kořenové složky repozitáře. Program má i další argumenty, které jsou jeho klíčovou součástí:
+        \begin{itemize}
+            \item \verb|-t [nadpis]| - Nastaví nadpis nad tabulkou (název modelu).
+            \item \verb|-e [nazev_souboru]| - Vyexportuje soubor do PDF. Hodnotou je název výstupního PDF souboru (s příponou).
+        \end{itemize}
+        Pro každý test je vyhodnoceno, kolik z jeho vygenerovaných variant pro každou variantu testovacího programu skončilo s \textit{očekávaným výsledkem}. Tím je zde myšleno, že test prošel úspěšně na variantách aplikace, kde se nevyskytuje chyba a je tak očekáván bezchybný průchod, a že test selhal v na takových variantách, kde je definováno specifikací (diskutováno v sekci \ref{sec:run_parameters}), že by selhat měl. Chybový test je vždy považován za \textit{neočekávaný výsledek}. Při takto naivním přístupu by však jako \emph{očekávané} byly označovány i testy (resp. jejich vygenerované varianty) chybující i v případě nasazených variant aplikace bez konkrétní testované chyby (tedy falešná negativa). Z důvodu, aby takové testy nezkreslovali výsledky, bylo přistoupeno ke kroku jejich vyfiltrování a následnému ignorování při vyhodnocování výsledků.
+
+        %TODO Jak odhalit falešná negativa
+
+        %TODO Volání stats programu
+
+        \subsection{Legenda grafů}
+
+        %TODO Kam jsem uložil výsledky
 
     %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
 

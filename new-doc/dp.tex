@@ -825,7 +825,7 @@ POSITIVE_FAILS = {
 
             %TODO Možná další testy a chybové varianty
 
-            Naopak model \textbf{GPT-4 Turbo} dokázal v některých případech, kde model GPT-4 selhával, vygenerovat validní testy, avšak pro 3 testové specifikace nevygeneroval ani jeden test, který by prošel filtračním kritériem (viz obr. \ref{fig:res:gpt-4-turbo}). Jde konkrétně o testy \(6\), \(10\) a \(12\). U testů dle specifikace \(6\) dochází k nesprávnému indexování sloupce tabulky, kdy druhý prvek \verb|<td>| v rámci řádku \verb|<tr>| získává za pomocí dotazovacího jazyka XPath indexem 1, kdežto druhý prvek má v rámci tohoto jazyka index 2. Tuto chybu lze vidět v datazu ukázky \ref{lst:gpt-4-turbo:spec-6-4} na řádcích 23 a 24. 
+            Naopak model \textbf{GPT-4 Turbo} dokázal v některých případech, kde model GPT-4 selhával, vygenerovat validní testy, avšak pro 3 testové specifikace nevygeneroval ani jeden test, který by prošel filtračním kritériem (viz obr. \ref{fig:res:gpt-4-turbo}). Jde konkrétně o testy \(6\), \(10\) a \(12\). U testů dle specifikace \(6\) dochází k nesprávnému indexování sloupce tabulky, kdy druhý prvek \verb|<td>| v rámci řádku \verb|<tr>| získává za pomocí dotazovacího jazyka XPath indexem 1, kdežto druhý prvek má v rámci tohoto jazyka index 2. Tuto chybu lze vidět v datazu ukázky \ref{lst:gpt-4-turbo:spec-6-4} na řádcích 23 a 24. V případě testu \(10\) dochází k nesprávné interpretaci specifikace (resp. \emph{promptu}), která říká, že všechna tlačítka na dané stránce mimo tlačítka stisknutého v nahrávce musí být \textit{deaktivovaná} (HTML argument \verb|disabled| s hodnotou "true"). GPT-4 Turbo vyhledává tato tlačítka nekorektně jako např. dceřiné prvky tlačítka stisknutého v nahrávce (v ukázce \ref{lst:gpt-4-turbo:spec-10-10}), zatímco správný odhad provedl model GPT-4 (v příkladu \ref{lst:gpt-4:spec-10}), který usoudil, že všechna tlačítka budou mít stejný základ identifikátoru \verb|id| a pouze tlačítko se shodným identifikátorem z nahrávky bude \textit{aktivní}.
 
             \begin{code}{python}{Ukázka z vygenerovaného testu "openai-gpt4-turbo/spec-6-4.robot" (zbytek kódu vynechán). \label{lst:gpt-4-turbo:spec-6-4}}
 ...
@@ -855,6 +855,32 @@ Student Enrollment and Verification
     Close Browser
 ...
             \end{code}
+
+            \begin{code}{python}{Klíčové slovo z testu "openai-gpt4-turbo/spec-10-10.robot". \label{lst:gpt-4-turbo:spec-10-10}}
+...
+Validate My Subjects Page
+    ${disabled_buttons}=    Get Element Count    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"][@disabled='disabled']
+    Should Be Equal As Integers    ${disabled_buttons}    1
+    Click Element    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"]
+    Sleep    1s
+    Element Should Be Visible    xpath=//*[@id="tea.mySubjects.successAlert"]
+...
+            \end{code}
+
+            \begin{code}{python}{Příklad správné implementace specifikace 10 dle modelu GPT-4. \label{lst:gpt-4:spec-10}}
+Navigate To My Subjects And Verify
+    Click Element    xpath=//*[@id="tea.menu.mySubjects"]
+    Sleep    1s
+    ${remove_buttons}=    Get WebElements    xpath=//button[contains(@id, 'unregisterSubjectButton') and not(@id='tea.mySubjects.table.unregisterSubjectButton-0')]
+    FOR    ${button}    IN    @{remove_buttons}
+    Element Should Be Disabled    ${button}
+    END
+    Click Element    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"]
+    Sleep    1s
+    Element Should Be Visible    xpath=//*[@id="tea.mySubjects.successAlert"]
+            \end{code}
+
+            %TODO Tady popsat zbytek problémů GPT-4 Turbo. Začít s 12, pak 8 a 17.
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-4-turbo-results.pdf}

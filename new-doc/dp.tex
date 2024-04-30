@@ -790,11 +790,11 @@ POSITIVE_FAILS = {
         \end{itemize}
         Pro každý test je vyhodnoceno, kolik z jeho vygenerovaných variant pro každou variantu testovacího programu skončilo s \textit{očekávaným výsledkem}. Tím je zde myšleno, že test prošel úspěšně na variantách aplikace, kde se nevyskytuje chyba a je tak očekáván bezchybný průchod, a že test selhal v na takových variantách, kde je definováno specifikací (diskutováno v sekci \ref{sec:run_parameters}), že by selhat měl. Chybový test je vždy považován za \textit{neočekávaný výsledek}. Při takto naivním přístupu by však jako \emph{očekávané} byly označovány i testy (resp. jejich vygenerované varianty) chybující i v případě nasazených variant aplikace bez konkrétní testované chyby (tedy falešná negativa). Z důvodu, aby takové testy nezkreslovali výsledky, bylo přistoupeno ke kroku jejich vyfiltrování a následnému ignorování při vyhodnocování výsledků.
 
-        %TODO Jak odhalit falešná negativa
+        Pro odhalení falešných negativ budeme využívat předpokladu výsledku na \emph{neporuchové} variantě aplikace, že varianta testu skončí úspěšně. V případě, kdy dojde k jejímu selhání nebo skončí chybou, je taková testová varinta ignorována při vyhodnocení výsledků testů na všech poruchových kontejnerech, protože se předpokládá, že takový test není schopen správně odhadit chybu aplikace, protože by chybový stav hlásil vždy. Počet ignorovaných variant od každého testu je zobrazen ve spodní řádce tabulky výsledků (více v následující sekci \ref{sec:plot_legend}).
 
         %TODO Volání stats programu
 
-        \subsection{Legenda grafů}
+        \subsection{Legenda grafů} \label{sec:plot_legend}
 
         %TODO Kam jsem uložil výsledky
 

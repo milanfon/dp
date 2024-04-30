@@ -781,9 +781,9 @@ POSITIVE_FAILS = {
     
     \section{Metodologie vyhodnocení}
         
-        \subsection{Vyhodnocovací program}
+        \subsection{Vyhodnocovací program} \label{sec:evaluation}
 
-        Pro vyhodnocení výsledů byl do programové složky vytvořen program \verb|stats.py|, který jako první argument vyžaduje cestu s \verb|.sqlite| výstupnímu reportu hlavního programu v režimu běhu (viz sekce \ref{sec:orchestration}). Tento report si uživatel může libovolně přesouvat v souborovém systému. Reporty vygenerované v rámci tohoto projektu a využité pro hodnocení modelů byli uloženy do podsložky \verb|results| kořenové složky repozitáře. Program má i další argumenty, které jsou jeho klíčovou součástí:
+        Pro vyhodnocení výsledů byl do programové složky vytvořen program \verb|stats.py|, který jako první argument vyžaduje cestu s \verb|.sqlite| výstupnímu reportu hlavního programu v režimu běhu (viz sekce \ref{sec:orchestration}). Ukázkové volání programu je zobrazeno v ukázce \ref{lst:stats_call}. Tento report si uživatel může libovolně přesouvat v souborovém systému. Reporty vygenerované v rámci tohoto projektu a využité pro hodnocení modelů byli uloženy do podsložky \verb|results| kořenové složky repozitáře. Program má i další argumenty, které jsou jeho klíčovou součástí:
         \begin{itemize}
             \item \verb|-t [nadpis]| - Nastaví nadpis nad tabulkou (název modelu).
             \item \verb|-e [nazev_souboru]| - Vyexportuje soubor do PDF. Hodnotou je název výstupního PDF souboru (s příponou).
@@ -792,11 +792,13 @@ POSITIVE_FAILS = {
 
         Pro odhalení falešných negativ budeme využívat předpokladu výsledku na \emph{neporuchové} variantě aplikace, že varianta testu skončí úspěšně. V případě, kdy dojde k jejímu selhání nebo skončí chybou, je taková testová varinta ignorována při vyhodnocení výsledků testů na všech poruchových kontejnerech, protože se předpokládá, že takový test není schopen správně odhadit chybu aplikace, protože by chybový stav hlásil vždy. Počet ignorovaných variant od každého testu je zobrazen ve spodní řádce tabulky výsledků (více v následující sekci \ref{sec:plot_legend}).
 
-        %TODO Volání stats programu
+        \begin{console}{Volání programu pro vyhodnocení dat. \label{lst:stats_call}}
+`\uxprompt`python3 stats.py ../results/claude-3-opus-run.sqlite -t "Claude 3 Opus" -e claude-results.pdf
+        \end{console}
 
-        \subsection{Legenda grafů} \label{sec:plot_legend}
+        \subsection{Legenda tabulek} \label{sec:plot_legend}
 
-        %TODO Kam jsem uložil výsledky
+        Výstupem vyhodnocení výsledků je tabulka (jako příklad poslouží výstup v obr. \ref{fig:res:gpt-4}), jejíž řádky reprezentují testované \textit{varianty aplikace} (v tabulce označované jako \emph{container}) a jednotlivé sloupce představují konkrétní test (dle specifikace), který byl spouštěn. Jednotlivé buňky poté obsahují informaci o počtu variant daného testu, které vyhovují předpokládanému výsledku pro danou variantu aplikace. Tyto hodnoty jsou po vyfiltrování, které se vždy děje dle první řádky od shora (v našem označení jde o variantu \verb|defect-00_free.war|). Tento přístup byl popsán v předchozí sekci \ref{sec:evaluation}. Ve spodním řádku tabulky je také vyznačeno, kolik variant daného testu bylo \emph{ignorováno}. Celá tabulka zároveň funguje jako \textit{tepelná mapa} a je tedy nejen číselně, ale i barevně vyznačeno, jaký test má pro kterou variantu aplikace nejvyšší míru úspěšnosti (shody s předpokládaným výsledkem). Barevná škála a její odpovídají hodnoty se nachází po pravé straně tabulky.
 
     %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
 

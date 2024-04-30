@@ -812,7 +812,14 @@ POSITIVE_FAILS = {
                 \label{fig:res:gpt-4}
             \end{figure}
 
-            Model GPT-4 od společnosti OpenAI dokázal pro většinu \textit{testových případů} vygenerovat minimálně \emph{jeden} test podávající pro všechny testované varianty aplikace očekávaný výsledek. Výsledky zobrazené v obr. \ref{fig:res:gpt-4}. Jediný test, pro který \textit{GPT-4} model nebyl scopen vygenerovat ani jednu variantu testu, která by neselhala, tedy každá z těchto variant vždy hlásila neúspěšný test.
+            Model GPT-4 od společnosti OpenAI dokázal pro většinu \textit{testových případů} vygenerovat minimálně \emph{jeden} test podávající pro všechny testované varianty aplikace očekávaný výsledek. Výsledky zobrazené v obr. \ref{fig:res:gpt-4}. Jediný test, pro který \textit{GPT-4} model nebyl scopen vygenerovat ani jednu variantu testu, která by neselhala, tedy každá z těchto variant vždy hlásila neúspěšný test. V rámci těchto variant testu dle specifikace 4 (viz \ref{tab:specs_1}), která popisuje odhlášení studenta ze zkoušky a následnou kontrolu učitelem, zda je seznam studentů, přihlášených na zkoušce, prázdný. Primárním problémem zde byla identifikace prvků, které mají být stisknuty nebo detekována jejich hodnota. V případě studenta častokrát nedochází k úspěšnému odhlášení ze zkoušky, což vede i k následnému selhání \textit{test casu} ze strany učitele. Na této straně zase docházelo k nesprávnému výběru předmětu z rozbalovacího seznamu. Například v obr. \ref{fig:wrong_subject_select}, kde správně má být zvolený předmět "Database Systems".
+
+            \begin{figure}
+                \includegraphics[width=0.8\textwidth]{pic/wrong_subject_select.png}
+                \centering
+                \caption{Nesprávně vybraný předmět z rozbalovacího seznamu.}
+                \label{fig:wrong_subject_select}
+            \end{figure}
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-4-turbo-results.pdf}

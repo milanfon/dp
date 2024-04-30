@@ -1,38 +1,42 @@
 *** Settings ***
 Library    SeleniumLibrary
-
+Suite Setup    Set Selenium Speed    2 seconds
 
 *** Variables ***
 ${BROWSER}    Chrome
-${DELAY}     2s
-${BEN_NAME}    Benjamin Green
-${MIA_NAME}    Mia Orange
-${CHAR_NAME}    Charlotte Purple
-${ISA_NAME}    Isabella Yellow
-${URL}    http://localhost:4680/tbuis/index.jsp
-${BUTTON_XPATH}    //*[@id="header.link.login"]
-${USER_XPATH}    //*[@id="loginPage.userNameInput"]
-${PASS_XPATH}    //*[@id="loginPage.passwordInput"]
-${LOGIN_BUTTON_XPATH}    //*[@id="loginPage.loginFormSubmit"]
-${MY_SUBJECTS_XPATH}    //*[@id="tea.menu.mySubjects"]
-${STUDENTS_BUTTON_XPATH}    //*[@id="tea.mySubjects.table.listOfStudentsButton-0"]
-${CLOSE_BUTTON_XPATH}    //*[@id="closeModalButtonCross"]
-
 
 *** Test Cases ***
-Test Page
-    Open Browser    ${URL}    ${BROWSER}
-    Wait Until Page Contains    University information system
-    Input Text    ${USER_XPATH}    pedant
-    Input Text    ${PASS_XPATH}    pass
-    Click Element    ${BUTTON_XPATH}
-    Wait Until Page Contains    ${BEN_NAME}
-    Wait Until Page Contains    ${MIA_NAME}
-    Wait Until Page Contains    ${CHAR_NAME}
-    Click Element    ${MY_SUBJECTS_XPATH}
-    Click Element    ${STUDENTS_BUTTON_XPATH}
-    Wait Until Page Contains    ${BUTTON_XPATH}
-    Click Element    ${CLOSE_BUTTON_XPATH}
-    Click Element    ${STUDENTS_BUTTON_XPATH}
-    Wait Until Page Contains    No students
+Verify Student Names And Check Modal
+    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+    Maximize Browser Window
+    Login    pedant    pass
+    Navigate To My Subjects And List Students
+    Check Student Names Present
+    Close Student List Modal
+    Check No Students In Other Subject
     [Teardown]    Close Browser
+
+*** Keywords ***
+Login
+    [Arguments]    ${username}    ${password}
+    Click Element    xpath=//*[@id="header.link.login"]
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    ${username}
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    ${password}
+    Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+
+Navigate To My Subjects And List Students
+    Click Element    xpath=//*[@id="tea.menu.mySubjects"]
+    Click Element    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-0"]
+
+Check Student Names Present
+    Page Should Contain    Benjamin Green
+    Page Should Contain    Mia Orange
+    Page Should Contain    Charlotte Purple
+    Page Should Contain    Isabella Yellow
+
+Close Student List Modal
+    Click Element    xpath=//*[@id="closeModalButtonCross"]
+
+Check No Students In Other Subject
+    Click Element    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-2"]
+    Page Should Contain    No students

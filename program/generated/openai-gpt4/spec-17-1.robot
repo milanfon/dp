@@ -1,64 +1,57 @@
 *** Settings ***
-Documentation     Validates functionality for a teacher and a student regarding subject participation and visibility.
-Library           SeleniumLibrary
+Library    SeleniumLibrary
 
 *** Variables ***
-${TEACHER_LOGIN_URL}    http://localhost:4680/tbuis/login
-${STUDENT_LOGIN_URL}    http://localhost:4680/tbuis/login
-${USERNAME_TEACHER}     pedant
-${PASSWORD}             pass
-${USERNAME_STUDENT}     yellow
+${BROWSER}    Chrome
 
 *** Test Cases ***
-Teacher Participates In Others' Subject And Verifies
-    Open Browser    ${TEACHER_LOGIN_URL}    Chrome
-    Maximize Browser Window
-    Set Selenium Speed    1 seconds
-    Teacher Logs In And Participates
-    Verify Participation Success On Others' Subjects Page
-    Verify Linear Algebra Not Present In My Exam Dates
-    Verify Linear Algebra Option In New Exam Dates
-    Verify Linear Algebra Details In List Of All Teachers
-    Close Browser
-
-Student Verifies Linear Algebra and Alice Pedant
-    Open Browser    ${STUDENT_LOGIN_URL}    Chrome
-    Maximize Browser Window
-    Set Selenium Speed    1 seconds
-    Student Logs In And Verifies
-    Close Browser
-
-*** Keywords ***
-Teacher Logs In And Participates
-    Login    ${USERNAME_TEACHER}
-    Click Element    xpath=//*[@id="tea.menu.otherSubjects"]
-    Click Element    xpath=//*[@id="tea.otherSubjects.table.participateButton-3"]
-
-Verify Participation Success On Others' Subjects Page
-    Wait Until Element Is Visible    id=tea.otherSubjects.successAlert    5s
-
-Verify Linear Algebra Not Present In My Exam Dates
-    Click Element    xpath=//*[@id="tea.menu.myExamDates"]
-    Page Should Contain Element    xpath=//th[text()="Linear Algebra"]
-
-Verify Linear Algebra Option In New Exam Dates
-    Click Element    xpath=//*[@id="tea.menu.newExamDates"]
-    Page Should Contain Element    xpath=//option[text()="Linear Algebra"]
-
-Verify Linear Algebra Details In List Of All Teachers
-    Click Element    xpath=//*[@id="tea.menu.listOfAllTeachers"]
-    Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3]    Linear Algebra
-    Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2]    Alice Pedant
-
-Student Logs In And Verifies
-    Login    ${USERNAME_STUDENT}
-    Click Element    xpath=//*[@id="stu.menu.otherSubjects"]
-    Page Should Contain Element    xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2][contains(text(), "Linear Algebra")]
-    Page Should Contain Element    xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[3][contains(text(), "Alice Pedant")]
-
-Login
-    [Arguments]    ${username}
+Open Teacher's View For Other Subjects And Perform Checks
+    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+    Set Window Size    1501    1104
     Click Element    xpath=//*[@id="header.link.login"]
-    Input Text    xpath=//*[@id="loginPage.userNameInput"]    ${username}
-    Input Text    xpath=//*[@id="loginPage.passwordInput"]    ${PASSWORD}
+    Sleep    2s
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    pedant
+    Sleep    2s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    2s
     Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.menu.otherSubjects"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.otherSubjects.table.participateButton-3"]
+    Sleep    2s
+    Location Should Be    http://localhost:4680/tbuis/teacher-view/otherSubjects
+    Element Should Be Visible    xpath=//*[@id="tea.otherSubjects.successAlert"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.menu.myExamDates"]
+    Sleep    2s
+    Page Should Contain    Linear Algebra
+    Element Should Be Visible    xpath=//*[@id="tea.myExamDates.table.noRecords-2"]
+    Element Text Should Be    xpath=//*[@id="tea.myExamDates.table.noRecords-2"]    No exam dates.
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.menu.newExamDates"]
+    Sleep    2s
+    Element Should Contain    xpath=//option    Linear Algebra
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.menu.listOfAllTeachers"]
+    Sleep    2s
+    Element Should Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3]    Linear Algebra
+    Element Should Match    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[2]    Alice Pedant
+    Close Browser
+
+Login As Student And Check Subjects Information
+    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+    Set Window Size    1501    1104
+    Click Element    xpath=//*[@id="header.link.login"]
+    Sleep    2s
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    yellow
+    Sleep    2s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    2s
+    Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="stu.menu.otherSubjects"]
+    Sleep    2s
+    Element Should Contain    xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[2]    Linear Algebra
+    Element Should Contain    xpath=//*[@id="stu.otherSubjects.table.subjectRow-2"]/td[3]    Alice Pedant
+    Close Browser

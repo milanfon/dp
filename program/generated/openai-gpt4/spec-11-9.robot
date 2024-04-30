@@ -1,22 +1,38 @@
 *** Settings ***
-Library         SeleniumLibrary
+Library    SeleniumLibrary
 
+*** Variables ***
+${BROWSER}    Chrome
+${SELENIUM_SPEED}    2
 
 *** Test Cases ***
-Check students
-    Open browser    http://localhost:4680/tbuis/index.jsp    Chrome
-    Input text    xpath://*[@id="loginPage.userNameInput"]    pedant
-    Input text    xpath://*[@id="loginPage.passwordInput"]    pass
-    Click element    xpath://*[@id="loginPage.loginFormSubmit"]
-    Click element    xpath://*[@id="tea.menu.mySubjects"]
-    Click element    xpath://*[@id="tea.mySubjects.table.listOfStudentsButton-0"]
-    Click element    xpath://*[@id="closeModalButtonCross"]
-    Click element    xpath://*[@id="tea.mySubjects.table.listOfStudentsButton-2"]
-    ${students}=    Get element count    xpath://*[@id="tea.students.table.table"]/tbody/tr
-    should be equal as numbers    ${students}    4
-    ${names}=    Get text    xpath://*[@id="tea.students.table.table"]/tbody/tr/td[contains(., 'Benjamin')]
-    ${names}=    Get text    xpath://*[@id="tea.students.table.table"]/tbody/tr/td[contains(., 'Mia')]
-    ${names}=    Get text    xpath://*[@id="tea.students.table.table"]/tbody/tr/td[contains(., 'Charlotte')]
-    ${names}=    Get text    xpath://*[@id="tea.students.table.table"]/tbody/tr/td[contains(., 'Isabella')]
-    should be true    ${names} == 'Benjamin Green'    ${names} == 'Mia Orange'    ${names} == 'Charlotte Purple'    ${names} == 'Isabella Yellow'
-    Close browser
+Open Page And Verify Names
+    Set Selenium Speed    ${SELENIUM_SPEED}
+    Open Browser    http://localhost:4680/tbuis/index.jsp    ${BROWSER}
+    Set Window Size    1501    1104
+    Click Element    xpath=//*[@id="header.link.login"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="loginPage.userNameInput"]
+    Sleep    2s
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    pedant
+    Sleep    2s
+    Click Element    xpath=//*[@id="loginPage.passwordInput"]
+    Sleep    2s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    2s
+    Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.menu.mySubjects"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-0"]
+    Sleep    2s
+    Page Should Contain    Benjamin Green
+    Page Should Contain    Mia Orange
+    Page Should Contain    Charlotte Purple
+    Page Should Contain    Isabella Yellow
+    Click Element    xpath=//*[@id="closeModalButtonCross"]
+    Sleep    2s
+    Click Element    xpath=//*[@id="tea.mySubjects.table.listOfStudentsButton-2"]
+    Sleep    2s
+    Page Should Contain    No students
+    Close Browser

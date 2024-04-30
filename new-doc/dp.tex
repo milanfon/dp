@@ -821,6 +821,8 @@ POSITIVE_FAILS = {
                 \label{fig:wrong_subject_select}
             \end{figure}
 
+            V případě testu dle specifikace \(1\) dochází u varianty aplikace \(02\) (dle tab. \ref{tab:clones}) k absenci detekce nadpisu a jeho obsahu. Z tohoto důvodu vychází tato dvojice vygenerovaných testů s kladným výsledkem, i přesto že nasazená varianta aplikace obsahuje chybu v nadpisu, tedy namísto hodnoty "Sudent's View" přítomná pouze hodnota "Stu View". U testu \(10\) jedna ze dvou validních variant neodpovídá předpokládanému výsledku. Tato konkrétní varianta končí v neúspěšném stavu u varinaty webu \(25\), protože server vrací chybový kód 500 a nejedná se tedy o chybu testu. V rámci varinaty \(27\) naopak web vypisuje práznou tabulku učitelů, kdy test vyhledává pole v tabulce a porovnává jeho hodnotu. V tomto případě však nedokáže ono pole lokalizovat. Tento konkrétní test (konkrétně jde o soubor \verb|openai-gpt4/spec-10-3.robot|) tedy není chybný, ale v jednom případě se jedná o chybu testované aplikace a v druhém případě jde o nedostatečnou granularitu specifikace testu a pouze v závislosti na její reprezentaci jde varianta \(27\) aplikace také považovat za chybovou. Obě nevyfiltrované varianty testu \(10\) mohou být považovány za validní na všech varintách testovaného webu.
+
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-4-turbo-results.pdf}
                 \caption{Výsledky pro model GPT-4 Turbo}

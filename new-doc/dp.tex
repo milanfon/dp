@@ -891,7 +891,7 @@ Navigate To My Subjects And Verify
 
             V případě specifikace \(17\) žádný z 6 testů určených jako validní, nedokázal ojevit chybu na kontejneru \(24\) a neselhal. Zde se učitel zapíše k výuce nového předmětu, což mu dá hlášku o úspěšném zapsání, avšak do databáze se tento fakt nezapíše a na ostatních stránkách se uživatel nenachází v seznamu učitelů pro daný předmět.
 
-            %TODO Tady popsat zbytek problémů GPT-4 Turbo. Začít s 12, pak 8 a 17.
+            Model \textbf{GPT-3.5 Turbo} dokázal vygenerovat valdní testy pouze pro testy \(11\) a \(18\), v celkově třech varintách (obr. \ref{fig:res:gpt-35-turbo}). Tyto varinaty testů však dokázali odhadit veškeré zavedené chyby. Zbytek vygenerovaných variant pro veškeré testy obsahoval selhával na využitém klíčovém slově \verb|Set Viewport|, kterým test má dle modelu nastavovat velikost okna webového prohlížeče. Správným klíčovým slovem pro toto použití je \verb|Set Window Size|.
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-3.5-turbo-results.pdf}

@@ -901,13 +901,49 @@ Navigate To My Subjects And Verify
 
         \subsection{Anthropic}
 
-            Testovaný model \textbf{Claude 3 Opus} od společnosti Anthropic byl schopen pro každý test vygenerovat nejméně jednu variantu, která je schopna odhladit každou chybu vloženou do systému (obr. \ref{fig:res:claude-3-opus}).
+            Testovaný model \textbf{Claude 3 Opus} od společnosti Anthropic byl schopen pro každý test vygenerovat nejméně jednu variantu, která je schopna odhladit každou chybu vloženou do systému (obr. \ref{fig:res:claude-3-opus}). Mezi nejméně úspěšné testy se zde řadí varianty dle specifikace \(12\) a \(17\). Časté chyby variant jsou například nesprávné adresování prvků za pomocí \textit{XPath} dotazovacího jazyka, kde namísto počátku selektoru \verb|//|, který vyhledává daný prvek kdekoliv v dokumentu, resp. v poskytnutém kořenovém prvku, využívá nesprávný selektor \verb|///| (příklad \ref{lst:invalid_xpath}). Správné použití lze vidět v ukázce \ref{lst:gpt-4:spec-10}. Pozn: Pro oddělení názvu argumentu a jeho hodnoty lze v rámci \textit{RobotFramework} využít jak znak \verb|:| tak \verb|=|, které lze vidět v obou verzích využívané napříč ukázkami.
+
+            \begin{code}{python}{Ukázka nesprávného adresování XPath. \label{lst:invalid_xpath}}
+Teacher Scenario
+    Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
+    Set Window Size    1501    1104
+    Click Element    xpath:///*[@id="header.link.login"]
+    Wait Until Page Contains Element    xpath:///*[@id="loginPage.userNameInput"]
+    Input Text    xpath:///*[@id="loginPage.userNameInput"]    scatterbrained
+    Input Password    xpath:///*[@id="loginPage.passwordInput"]    pass
+    Click Button    xpath:///*[@id="loginPage.loginFormSubmit"]
+    Wait Until Page Contains Element    xpath:///*[@id="tea.menu.myExamDates"]
+    Click Element    xpath:///*[@id="tea.menu.myExamDates"]
+    Wait Until Page Contains Element    xpath:///*[@id="tea.myExamDates.table.cancelButton-0-0"]
+            \end{code}
+
+            Dalším problémem také bylo vybírání prvku z rozbalovací nabídky za pomocí hodnoty \varb|value| prvku \verb|option|, které se však při každé inicializaci DB mění a tedy nelze se na tyto hodnoty spolehnout. Z tohoto důvodu bylo do instrukcí pro prompt specificky přidáno, aby model vybíral položku v těchto seznamech za pomocí obsahu prvku \verb|option|. Chybová zpráva o nenalezeném prvku je zobrazena v ukázce \ref{lst:value_fail}. V některých testech se také objevil defekt, kdy model namísto názvu knihovny \verb|SeleniumLibrary| použil název \verb|Selenium2Library|, což vede k \textit{erroru} testu. Podobně jako u modelu GPT-4 i zde se objevuje nesprávná indexace prvků v rámcí XPath. Některé z testů také obsahovali neplatná klíčová slova jako \verb|Page Should Be| nebo \verb|Element Text Should Match|.
+
+            \begin{console}{Ukázka selhání testu po nenalezeném prvku s danou hodnotou. \label{lst:value_fail}}
+`\uxprompt`python3 -m robot ../generated/anthropic-claude-3-opus/spec-12-2.robot
+=======================================
+Spec-12-2
+=======================================
+Teacher Scenario                | FAIL |
+NoSuchElementException: Message: Cannot locate option with value: 1202; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/...
+---------------------------------------
+Student Scenario                | PASS |
+---------------------------------------
+Spec-12-2                       | FAIL |
+2 tests, 1 passed, 1 failed
+=======================================
+Output:  /Users/milan/Škola/DP/program/tbuis/output.xml
+Log:     /Users/milan/Škola/DP/program/tbuis/log.html
+Report:  /Users/milan/Škola/DP/program/tbuis/report.html
+            \end{console}
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/claude-3-opus-results.pdf}
                 \caption{Výsledky pro model Claude 3 Opus}
                 \label{fig:res:claude-3-opus}
             \end{figure}
+
+            Pro specifikaci \(4\) jsou indikovány 2 z validních testů jako varianty, nesplňující předpoklad. Chyba tohoto nasazeného klonu \(19\), na kterém se však tato nedokonalost projevuje, spočívá v náhodně mizejícím tlačítku při odepsání předmětu, avšak toto tlačítko je při každém načtení stránky jiné a tedy nemusí se jednat přesně o tlačítko vyžadované pro odhlášení konkrétního předmětu, který vyžaduje přiložená nahrávka promptu. V tomto případě se tedy jedná o správný výsledek, protože jak úspěšný tak neúspěšný výstup testu zde mohou být validní a záleží jen na tom, jak test selže. 
 
         \subsection{Meta}
 

@@ -880,13 +880,18 @@ Navigate To My Subjects And Verify
     Element Should Be Visible    xpath=//*[@id="tea.mySubjects.successAlert"]
             \end{code}
 
-            %TODO Tady popsat zbytek problémů GPT-4 Turbo. Začít s 12, pak 8 a 17.
-
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-4-turbo-results.pdf}
                 \caption{Výsledky pro model GPT-4 Turbo}
                 \label{fig:res:gpt-4-turbo}
             \end{figure}
+
+            V testu \(12\) se objevuje požadavek odsouhlasit vyskakovací upozornění (\textit{alert}). Ten výstup modelu GPT-4 Turbo nesprávně odsouhlasuje za pomocí klíčového slova \verb|Accept Alert|, kdežto správné klíčové slovo je \verb|Handle Alert|\footnote{Dle dokumentace, dostupné na adrese: \url{https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html#Handle\%20Alert}} jako jde vidět například v testu \verb|openai-gpt4/spec-12-10|. Ze 7 validních varint testu \(8\) selhaly veškeré na poruchových klonech \(23\), \(24\) a na klonu \(27\) pouze \(5\) z nich skončilo očekávaným výsledkem. Zde je nutné připomenou, že ani na jednom ze zmíněných klonů (dle tab. \ref{tab:specs_1}) by neměl test skončit neúspěšně.
+            %TODO Tady je to divný - přetestovat
+
+            V případě specifikace \(17\) žádný z 6 testů určených jako validní, nedokázal ojevit chybu na kontejneru \(24\) a neselhal. Zde se učitel zapíše k výuce nového předmětu, což mu dá hlášku o úspěšném zapsání, avšak do databáze se tento fakt nezapíše a na ostatních stránkách se uživatel nenachází v seznamu učitelů pro daný předmět.
+
+            %TODO Tady popsat zbytek problémů GPT-4 Turbo. Začít s 12, pak 8 a 17.
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-3.5-turbo-results.pdf}

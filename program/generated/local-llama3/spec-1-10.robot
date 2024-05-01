@@ -7,7 +7,7 @@ ${BROWSER}  Chrome
 *** Test Cases ***
 Scenario 1
   Open Browser  ${BROWSER}  http://localhost:4680/tbuis/index.jsp
-  Set Browser Implicit Wait  10
+  Set Window Size  1501  1104
   Click Element  xpath://*[@id="header.link.login"]
   Input Text  xpath://*[@id="loginPage.userNameInput"]  brown
   Input Text  xpath://*[@id="loginPage.passwordInput"]  pass
@@ -23,7 +23,7 @@ Scenario 1
 
 Scenario 2
   Open Browser  ${BROWSER}  http://localhost:4680/tbuis/index.jsp
-  Set Browser Implicit Wait  10
+  Set Window Size  1501  1104
   Click Element  xpath://*[@id="header.link.login"]
   Input Text  xpath://*[@id="loginPage.userNameInput"]  lazy
   Input Text  xpath://*[@id="loginPage.passwordInput"]  pass
@@ -39,7 +39,7 @@ Scenario 2
 
 Scenario 3
   Open Browser  ${BROWSER}  http://localhost:4680/tbuis/index.jsp
-  Set Browser Implicit Wait  10
+  Set Window Size  1501  1104
   Click Element  xpath://*[@id="header.link.login"]
   Input Text  xpath://*[@id="loginPage.userNameInput"]  bla
   Input Text  xpath://*[@id="loginPage.passwordInput"]  pass
@@ -50,7 +50,7 @@ Scenario 3
 
 Scenario 4
   Open Browser  ${BROWSER}  http://localhost:4680/tbuis/index.jsp
-  Set Browser Implicit Wait  10
+  Set Window Size  1501  1104
   Click Element  xpath://*[@id="header.link.login"]
   Input Text  xpath://*[@id="loginPage.userNameInput"]  lazy
   Input Text  xpath://*[@id="loginPage.passwordInput"]  bla

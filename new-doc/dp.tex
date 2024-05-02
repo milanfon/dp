@@ -804,7 +804,7 @@ POSITIVE_FAILS = {
 
     \section{Výsledky pro jednotlivé modely}
     
-        \subsection{OpenAI}
+        \subsection{OpenAI} \label{sec:res:openai}
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gpt-4-results.pdf}
@@ -947,11 +947,45 @@ Report:  /Users/milan/Škola/DP/program/tbuis/report.html
 
         \subsection{Meta}
 
-            Tady Codellama a Llama 3.
+            \textbf{Codellama Instruct 34B} byl jedním z modelů testovaných \textit{lokálně}, ale bohužel pro polovinu testových případů nebyl schopen vygenerovat žádný validní test a pro druhou polovinu pouze jeden či dva použitelné testy, častokrát neshopné odhalit vloženou chybu (obr. \ref{fig:res:codellama}). Pro první test model v několika z nevalidních variant vyhalucinoval test připomínající ověření uživatelského rozhraní před samotným přihlášením (viz test \verb|codellama/spec-1-2.robot|). Zároveň ve dvou testech, označených za validní, nezkontrolovat hodnotu nadpisu podobně jako modely v sekci \ref{sec:res:openai}. Oba tyto testy také nejsou kompletní, protože neobsahují všechny 4 scénáře, které by měli obsahovat (různé přihlašovací údaje), ale pouze jeden nebo dva. Při manuálním srovnání se tedy ani jedna z vygenerovaných variant testu \(1\) nedá považovat za správnou. V některých z variant testů se také model rozhodl pro identifikaci prvku využít jeho "aria" atribut, který v rámci knihovny \textit{SeleniumLibrary} není podporovaný jako selektor, resp. byla by potřeba využít CSS selektor. V případě varint testu \(4\) naopak nebyla dodržena pomalejší rychlost testování (resp. vkládání pauz), které je promptem vyžadováno a tedy ověření přítomnosti prvku selhává, protože ještě není načtení a ani nebyla zvolena žádná alternativní metoda, která by na jeho načtení vyčkala. Pro generování varint testu \(6\) docházelo ke stejnému problému jako v případě modelu \textit{GPT-4 Turbo} a to nesprávné indexaci v rámci \textit{XPath}. V neplatných variantách testu \(8\), \(9\) a dalších se objevuje stejný problém jako v případě testu \(1\), tedy chybějící časování kroků. V jednom z testů (\verb|codellama/spec-8-9.robot|) také chyběl import knihovny. Stejně jako v případě modelu GPT-3.5 Turbo docházelo (alespoň při testu \(9\)) k nesprávnému nastavení velikosti okna neexistujícím klíčovým slovem.
+
+            \begin{figure}
+                \includegraphics[width=\textwidth]{pic/codellama-34b-results.pdf}
+                \caption{Výsledky pro lokální model Codellama Instruct 34B}
+                \label{fig:res:codellama}
+            \end{figure}
+
+            V případě testu \(10\) jediná varianta, značená jako "validní" ve skutečnosti obsahuje pouze příkaz pro otevření \textit{přihlšovací URL} a zbytek souboru jsou pouze komentáře (ukázka ve výpisu \ref{lst:codellama-comments}). I ostatní varianty dle této specifikace obsahují prázdné či nesmyslné testy. To stejné se vztahuje i na test \(11\), kde častokrát chybí klíčové části kôdu (např. \textit{login}). Výstupy pro specifikaci 12 obsahují stejné chyby jako předešlé testy. Vygenerované varianty testu \(17\) obsahují dvě varianty procházející filrem, avšak jen jedna z nich je po prozkoumání platný test. Druhá varianta obsahuje pouze otevření dané URL a tedy není schopna odhalit problémy, jak také napovídají výsledky na poruchových klonech. Platný test však z neznámých důvodů na poruchové varianté \(18\) neselhává. U posledního testu \(18\) vyšla 1 platná varianta, ale podobně jako v předchozích případech ani ta není kompletní a obsahuje pouze zobrazení tabulky, nikoli už její kontrolu.
+
+            \begin{code}{python}{Ukázka chybně vygenerovaného testu "codellama/spec-10-7.robot". \label{lst:codellama-comments}}
+*** Settings ***
+Library           SeleniumLibrary
+
+*** Variables ***
+${URL}            http://localhost:4680/tbuis/index.jsp
+
+*** Test Cases ***
+Teacher Test
+    Open Browser    ${URL}    Chrome
+    # Teacher steps go here
+    # Teacher's steps from the provided JSON have been replaced with comments due to the character limit
+    # Assert elements are present/not present
+    # Assert element with id "tea.mySubjects.successAlert" has appeared
+    # Assert elements are disabled
+    # Close Browser
+            \end{code}
+
+            No a tady teď napíšeme o tom Llama 3 modelu.
+
+            \begin{figure}
+                \includegraphics[width=\textwidth]{pic/llama-3-results.pdf}
+                \caption{Výsledky pro lokální model Llama 3}
+                \label{fig:res:llama3}
+            \end{figure}
 
         \subsection{Google}
 
-            \begin{figure}
+            \begi{Googlre}
                 \includegraphics[width=\textwidth]{pic/gemini-results.pdf}
                 \caption{Výsledky pro model Google Gemini 1.5 Pro}
                 \label{fig:res:gemini}

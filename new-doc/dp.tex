@@ -975,7 +975,7 @@ Teacher Test
     # Close Browser
             \end{code}
 
-            No a tady teď napíšeme o tom Llama 3 modelu.
+            Model \textbf{Llama 3} ve verzi se 70 miliardy parametrů vygeneroval funkční nebo splňující filry pouze 2 varianty testu a to pro specifikaci 10. Oba testy (a to konkrétně \verb|llama3/spec-10-3| a \verb|llama3/spec-10-6|) se i po manuálním přezkoumání zdají být validní, avšak nesplňují přesně požadavky promptu na časování mezi jednotlivými kroky. Mezi časté chyby tohoto modelu se řadí například \textit{špatné pořadí argumentů pro otevření webového prohlížeče}, kdy pro klíčové slovo \verb|Open Browser| uvedl jako první argument URL a jako druhý název prohlížeče, kdežto správné pořadí argumentů je opačně. Dále byla existence prvků ověřována klíčovým slovem \verb|Element Should Exists|, které však neexistuje a správně by měla být kontrolována použitím klíčového slova \verb|Page Should Contain Element|. V některých případech také nedošlo k načtení \textit{přihlašovací URL} mezi jednotlivými scénáři či k uzavření prohlížeče bez jeho následného otevření v následujícím scénáři. Frekventovaně se ve výsledcích objevuje i nesprávné použití selektoru, kdy model využije selektor včetně \textit{třídy} pouze jako \textit{ID} (příklad v ukázce \ref{lst:wrong_selector}). Podobně jako v předchozích modelech i zde byl pro nastavení velikosti okna četně použit nesprávný příkaz \verb|Set Viewport|. U některých vygenerovaných varint lze spozorovat využití příkazu \verb|:FOR| pro smyčku, který však již v rámci \textit{RobotFramework} není podporovaný a byl nahrazen novějším zápisem. Ve zbytku varint neplatných testů se poté znovu objevují chyby jako \textit{neexistující klíčová slova} nebo \textit{nesprávné otevření prohlížeče}. Některé z chyb popsané u předchozích modelů byly opakovány.
 
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/llama-3-results.pdf}
@@ -983,9 +983,19 @@ Teacher Test
                 \label{fig:res:llama3}
             \end{figure}
 
+            \begin{code}{python}{nesprávnpoužití selektoru. \label{lst:wrong_selector}}
+...
+Scenario 2: Teacher Login
+    ...
+    Element Should Be Visible    xpath://*[@id="header.teacher-view-nav"]
+    ...
+            \end{code}
+
+            %TODO Tady pak asi bude ten WizzardCoder Python
+
         \subsection{Google}
 
-            \begi{Googlre}
+            \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gemini-results.pdf}
                 \caption{Výsledky pro model Google Gemini 1.5 Pro}
                 \label{fig:res:gemini}

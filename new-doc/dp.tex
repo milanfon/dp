@@ -899,7 +899,7 @@ Navigate To My Subjects And Verify
                 \label{fig:res:gpt-35-turbo}
             \end{figure}
 
-        \subsection{Anthropic}
+        \subsection{Anthropic} \label{sec:res:anthropic}
 
             Testovaný model \textbf{Claude 3 Opus} od společnosti Anthropic byl schopen pro každý test vygenerovat nejméně jednu variantu, která je schopna odhladit každou chybu vloženou do systému (obr. \ref{fig:res:claude-3-opus}). Mezi nejméně úspěšné testy se zde řadí varianty dle specifikace \(12\) a \(17\). Časté chyby variant jsou například nesprávné adresování prvků za pomocí \textit{XPath} dotazovacího jazyka, kde namísto počátku selektoru \verb|//|, který vyhledává daný prvek kdekoliv v dokumentu, resp. v poskytnutém kořenovém prvku, využívá nesprávný selektor \verb|///| (příklad \ref{lst:invalid_xpath}). Správné použití lze vidět v ukázce \ref{lst:gpt-4:spec-10}. Pozn: Pro oddělení názvu argumentu a jeho hodnoty lze v rámci \textit{RobotFramework} využít jak znak \verb|:| tak \verb|=|, které lze vidět v obou verzích využívané napříč ukázkami.
 
@@ -945,7 +945,7 @@ Report:  /Users/milan/Škola/DP/program/tbuis/report.html
 
             Pro specifikaci \(4\) jsou indikovány 2 z validních testů jako varianty, nesplňující předpoklad. Chyba tohoto nasazeného klonu \(19\), na kterém se však tato nedokonalost projevuje, spočívá v náhodně mizejícím tlačítku při odepsání předmětu, avšak toto tlačítko je při každém načtení stránky jiné a tedy nemusí se jednat přesně o tlačítko vyžadované pro odhlášení konkrétního předmětu, který vyžaduje přiložená nahrávka promptu. V tomto případě se tedy jedná o správný výsledek, protože jak úspěšný tak neúspěšný výstup testu zde mohou být validní a záleží jen na tom, jak test selže. Stejně jako v případě modelu GPT-4 i zde validní testy dle specifikace \(10\) selhávají na kontejneru \(27\), protože celá tabulka není vykreslena a selektory využívající její přítomnosti pro nalezení hledaného řetězce selhávají. 
 
-        \subsection{Meta}
+        \subsection{Meta} \label{sec:res:meta}
 
             \textbf{Codellama Instruct 34B} byl jedním z modelů testovaných \textit{lokálně}, ale bohužel pro polovinu testových případů nebyl schopen vygenerovat žádný validní test a pro druhou polovinu pouze jeden či dva použitelné testy, častokrát neshopné odhalit vloženou chybu (obr. \ref{fig:res:codellama}). Pro první test model v několika z nevalidních variant vyhalucinoval test připomínající ověření uživatelského rozhraní před samotným přihlášením (viz test \verb|codellama/spec-1-2.robot|). Zároveň ve dvou testech, označených za validní, nezkontrolovat hodnotu nadpisu podobně jako modely v sekci \ref{sec:res:openai}. Oba tyto testy také nejsou kompletní, protože neobsahují všechny 4 scénáře, které by měli obsahovat (různé přihlašovací údaje), ale pouze jeden nebo dva. Při manuálním srovnání se tedy ani jedna z vygenerovaných variant testu \(1\) nedá považovat za správnou. V některých z variant testů se také model rozhodl pro identifikaci prvku využít jeho "aria" atribut, který v rámci knihovny \textit{SeleniumLibrary} není podporovaný jako selektor, resp. byla by potřeba využít CSS selektor. V případě varint testu \(4\) naopak nebyla dodržena pomalejší rychlost testování (resp. vkládání pauz), které je promptem vyžadováno a tedy ověření přítomnosti prvku selhává, protože ještě není načtení a ani nebyla zvolena žádná alternativní metoda, která by na jeho načtení vyčkala. Pro generování varint testu \(6\) docházelo ke stejnému problému jako v případě modelu \textit{GPT-4 Turbo} a to nesprávné indexaci v rámci \textit{XPath}. V neplatných variantách testu \(8\), \(9\) a dalších se objevuje stejný problém jako v případě testu \(1\), tedy chybějící časování kroků. V jednom z testů (\verb|codellama/spec-8-9.robot|) také chyběl import knihovny. Stejně jako v případě modelu GPT-3.5 Turbo docházelo (alespoň při testu \(9\)) k nesprávnému nastavení velikosti okna neexistujícím klíčovým slovem.
 
@@ -995,11 +995,49 @@ Scenario 2: Teacher Login
 
         \subsection{Google}
 
+            Uspokojivé výsledky také poskytl model \textit{Gemini 1.5 Pro} od společnosti Google. Ten byl schopen pro každý test (vyjma specifikace \(12\) a \(6\)) vygenerovat minimálně jednu variantu testu, schopnou odhalit veškeré chyby aplikace, jak lze vyčíst z obr. \ref{fig:res:gemini}. Jedním z problémů objevůjící se např ve 2 z nevalidních variant testu 1 je nesprávné escapování znaků, kdy namísto jednoho escape indikátoru "\\" byli použity 2 (např. v ukázce \ref{lst:wrong_escaping} na řádce 16). V druhé chybné varintě model definoval více vlastních klíčových slov se stejným názvem. V některých případech také došlo k nesprávnému umístění asserce nebo nesprávnému pojmenovaní proměnné nevyhovující podmínkám názvu v rámci \textit{RobotFramework} (např. v ukázce \ref{lst:wrong_variable} na řádce 5) či k jejímu úplnému nedefinování. Dalším problémem také je vytváření přiřazení, která nejsou v rámci promptu definovaná. Stejně tak je u některých volání klíčových slov opomenut argument. Stejně jako v případě modelu \textit{Llama 3} zde v některých selhávajících testech na bezchybné variantě aplikace dochází k chybám jako \textit{chybějící znovuotevření webového prohlížeče} nebo \textit{využití již nepodporovaného zápisu FOR cyklu} nebo jeho neukončení. Z chyb, které také šlo pozozovat u jiných modelů se zde opakuje \textit{nesprávné přiřazení hodnoty cesty XPath v argumentu} (viz \ref{sec:res:anthropic}), \textit{posunutá indexace prvku v rámci cesty}, \textit{nesprávné určení cesty k prvku}, \textit{výběr z nabídky dle ID namísto pořadí} či \textit{využití nevhodného klíčového slova pro odsouhlasení upozornění}.
+
             \begin{figure}
                 \includegraphics[width=\textwidth]{pic/gemini-results.pdf}
                 \caption{Výsledky pro model Google Gemini 1.5 Pro}
                 \label{fig:res:gemini}
             \end{figure}
+
+            V případě testu 4 selhávají 2 varianty (resp. procházejí, protože selhání je očekáváno) ze stejného důvodu jako v případě předchozích modelů, protože chyba je založena čistě na pseudonáhodě a nemusí se projevut vždy, takže veškeré z variant lze považovat za obecně platné. Stejně jako v případě modelu \textit{Codellama} 2 z platných testů pro specifikaci 17 na poruchovém klonu 18 neselhávají. Naopak varianta 1 testu 10 selhává na neplatném importu knihovny, ale samotné testové scénáře jsou platné a prochází.
+            
+            \begin{code}{python}{Ukázka nesprávného escapování znaků. \label{lst:wrong_escaping}}
+...               
+*** Test Cases ***
+Student View Login
+    Open Browser    ${INDEX URL}    chrome
+    Maximize Browser Window
+    Sleep    2s
+    Click Element    xpath://*[@id="header.link.login"]
+    Sleep    2s
+    Login    brown    pass
+    Element Should Not Be Visible    xpath://*[@id="header.link.login"]
+    Sleep    1s
+    Element Text Should Be    xpath://*[@id="header.title.userHome"]    Noah Brown
+    Sleep    1s
+    Element Should Be Visible    xpath://*[@id="header.link.logout"]
+    Sleep    1s
+    Page Should Contain Element    css=#header\\.student-view-nav
+    Sleep    1s
+    Element Text Should Be    xpath://*[@id="stu.view.title"]    Student's View
+    Sleep    1s
+    Page Should Contain Element    xpath://*[@id="overview.personalInfoForm"]
+    Sleep    1s
+    Close Browser
+...
+            \end{code}
+
+            \begin{code}{robotframework}{Ukázka nesprávného pojmenovaní proměnné. Zbytek kódu vynechán. \label{lst:wrong_variable}}
+*** Variables ***
+${URL}            http://localhost:4680/tbuis/index.jsp
+${LOGIN PAGE}    http://localhost:4680/tbuis/login
+${OVERVIEW PAGE}  http://localhost:4680/tbuis/student-view/overview
+${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates
+            \end{code}
 
         \subsection{Mistral}
 

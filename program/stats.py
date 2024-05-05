@@ -1,5 +1,5 @@
-import sqlite3
-import numpy as np
+import sqlite3 
+import numpy as np 
 import matplotlib.pyplot as plt
 import seaborn as sns
 import re
@@ -40,7 +40,7 @@ def process_data(rows):
             data[container] = {}
         if test_base_name not in data[container]:
             data[container][test_base_name] = 0
-        if container == 'defect-00_free.war' and result == 'FAIL':
+        if container == 'defect-00_free.war' and (result == 'FAIL' or result == 'ERROR'):
             false_negatives.add(test_name)
         if result == correct_result:
             if test_name not in false_negatives:

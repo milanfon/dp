@@ -1047,7 +1047,28 @@ ${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates
 
         \subsection{Mistral}
 
-        Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 22B}, nyní ve verzi \textit{0.2}.
+        Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 22B}, nyní ve verzi \textit{0.2}. I přes jeho nižší počet parametrů je však schopen vygenerovat více validních testů než větší modely jako například \textit{GPT-3.5 Turbo} nebo \textit{Llama 3} dle výsledků v obr. \ref{fig:res:mistral-22b}. I přes tento fakt však model nebyl schopen vytvořit ani jednu variantu odpovídají požadavkům pro testy: 1, 4, 9 a 11. Primárními problémy zde byly:
+        \begin{itemize}
+            \item \emph{Neplatná deklarace proměnných} - Byl použit neplatný zápis pro deklaraci i následné použití proměnných (např. v ukázce \ref{lst:mistral:variables}).
+            \item Využití klíčového slova \verb|Set Viewport| jako předchozí modely.
+            \item Snaha o přímou interpretaci \textit{JSON} nahrávky.
+            \item Používání neexistujícíh klíčových slov a nastavení.
+            \item Nesprávné načtení knihovny.
+        \end{itemize}
+
+        \begin{code}{robot}{Ukázka neplatné deklarace proměnných. \label{lst:mistral:variables}}
+...
+*** Variables ***
+username1 = "brown"
+password1 = "pass"
+username2 = "bla"
+password2 = "pass"
+username3 = "lazy"
+password3 = "bla"
+...
+        \end{code}
+
+        \noindent Nejvíce validních variant testu byl model schopen vygenerovat pro specifikaci 6.
 
         \begin{figure}
             \includegraphics[width=\textwidth]{pic/mistral-v0.2-res.pdf}

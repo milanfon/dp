@@ -1074,7 +1074,32 @@ password3 = "bla"
             \label{fig:res:mistral-22b}
         \end{figure}
 
-        Tato společnost nabízí i větší a proprietární model \textbf{Mistral Large}
+        \noindent Tato společnost nabízí i větší a proprietární model \textbf{Mistral Large}, který již byl schopen alespoň pro polovinu testových případů vygenerovat platný test. Konkrétně pro testy 4, 6, 10, 12 a 18 nebyla vygenerována žádná z těchto variant a ve všech chybových testech se objevovali následující chyby:
+        \begin{itemize}
+            \item \emph{Neplatné přiřazení hodnoty XPath} - Stejný problém jako se objevoval např. v případě modelu Llama 3 (\ref{sec:res:meta}) nebo Claude 3 Opus (\ref{sec:res:anthropic}). Mezi argumentem a cestou chybí znak \verb|=| nebo \verb|:| a namísto nich se u cesty objevuje trojité \verb|/|.
+            \item Neprovedení vstupu na \emph{přihlašovací obrazovku}. Tlačítko pro \emph{login} nebylo stisknuto a tedy prvky pro vyplnění přihlašovacího jména a hesla nebyly nalezeny.
+            \item Využití neplatného \emph{XPath zápisu} (viz ukázka \ref{lst:mistral:wrong_xpath}). "xpath://*/[@id='loginPage.loginFormSubmit']" není v rámci XPath validní zápis a pro nalezení takovéhoto prvku by měl být využit zápis "xpath://*[@id='loginPage.loginFormSubmit']", tedy bez lomítka po \verb|*|.
+            \item Nevyužití zástupného znaku pro klávesu \textit{Tab}. Tato klávesa může být využita pro přepnutí mezi textovým vstupem pro uživatelské jméno a heslo (není však nutná, protože RobotFramework vkládá hodnotu přímo do vstupního prvku). Protože model ke stisku klávesy využívá dnes zastaralé klíčové slovo \verb|Press Key| je v rámci něj potřeba využít pro tuto klávesu zástupný znak, jinak dojde k vypsání textové hodnoty \verb|TAB|, což se děje v některých vygenerovaných testech. Pokud by bylo využito klíčové slovo \verb|Press Keys|, k této chybě by nedošlo.
+            \item Starý zápis pro \verb|FOR| smyčku (viz \ref{sec:res:meta}).
+            \item Nesprávné \emph{klíčové slovo} pro kontrolu obsahu prvku. V ukázce \ref{lst:mistral:incorrect_keyword} lze vidět použití klíčového slova \verb|Page Should Contain Element|, které je platné, avšak podporuje jen první z argumentů a to cestu prvku, jehož existenci v rámci DOM stromu ověřuje. Model se však skrze něj snaží kontrolovat i textový obsah prvku. Takovouto funkci skutečně RobotFramework (resp. SeleniumLibrary) nabízí, ale pod klíčovým slovem \verb|Element Should Contain|.
+        \end{itemize}
+
+        \begin{code}{robot}{Ukázka neplatného XPath zápisu. \label{lst:mistral:wrong_xpath}}
+Input Text    xpath://*/[@id="loginPage.userNameInput"]    maroon
+Input Password    xpath://*/[@id="loginPage.passwordInput"]    pass
+Click Button    xpath://*/[@id="loginPage.loginFormSubmit"]
+        \end{code}
+
+        \begin{code}{robot}{Ukázka využití nesprávného klíčového slova. \label{lst:mistral:incorrect_keyword}}
+Page Should Contain Element    xpath://*[@id="tea.listOfAllTeachers.table.teacherRow-0"]/td[3]    Numerical Methods
+Page Should Contain Element    xpath://*[@id="tea.listOfAllTeachers.table.teacherRow-1"]/td[3]    Database Systems, Fundamentals of Computer Networks, Introduction to Algorithms, Mobile Applications, Web Programming
+Page Should Not Contain Element    xpath://*[@id="tea.listOfAllTeachers.table.teacherRow-2"]/td[3]
+Page Should Contain Element    xpath://*[@id="tea.listOfAllTeachers.table.teacherRow-3"]/td[3]    Computer System Engineering, Database Systems, Operating Systems, Programming Techniques
+Page Should Contain Element    xpath://*[@id="tea.listOfAllTeachers.table.teacherRow-4"]/td[3]    Computation Structures
+Page Should Contain Element    xpath://*[@id="tea.listOfAllTeachers.table.teacherRow-5"]/td[3]    Operating Systems, Programming in Java, Software Engineering, Software Quality Assurance
+        \end{code}
+
+        \noindent Z testů, které prošli kritérii pro ověření validity nedokázaly odhalit vložené chyby 4 z nich a to 3 pro test 1 a 1 pro test dle specifikace 17.
 
         \begin{figure}
             \includegraphics[width=\textwidth]{pic/mistral-large-results.pdf}

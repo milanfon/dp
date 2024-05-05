@@ -1047,7 +1047,7 @@ ${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates
 
         \subsection{Mistral}
 
-        Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 22B}, nyní ve verzi \textit{0.2}. I přes jeho nižší počet parametrů je však schopen vygenerovat více validních testů než větší modely jako například \textit{GPT-3.5 Turbo} nebo \textit{Llama 3} dle výsledků v obr. \ref{fig:res:mistral-22b}. I přes tento fakt však model nebyl schopen vytvořit ani jednu variantu odpovídají požadavkům pro testy: 1, 4, 9 a 11. Primárními problémy zde byly:
+        Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 22B}, nyní ve verzi \textit{0.2}. Tento model však nebyl schopen vygenerovat ani jeden validní test dle výsledků v obr. \ref{fig:res:mistral-22b}. Primárními problémy zde byly:
         \begin{itemize}
             \item \emph{Neplatná deklarace proměnných} - Byl použit neplatný zápis pro deklaraci i následné použití proměnných (např. v ukázce \ref{lst:mistral:variables}).
             \item Využití klíčového slova \verb|Set Viewport| jako předchozí modely.
@@ -1068,13 +1068,13 @@ password3 = "bla"
 ...
         \end{code}
 
-        \noindent Nejvíce validních variant testu byl model schopen vygenerovat pro specifikaci 6.
-
         \begin{figure}
             \includegraphics[width=\textwidth]{pic/mistral-v0.2-res.pdf}
             \caption{Výsledky pro model Mistral 22B v0.2}
             \label{fig:res:mistral-22b}
         \end{figure}
+
+        Tato společnost nabízí i větší a proprietární model \textbf{Mistral Large}
 
         \begin{figure}
             \includegraphics[width=\textwidth]{pic/mistral-large-results.pdf}

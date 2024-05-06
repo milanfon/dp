@@ -38,6 +38,9 @@
 \usepackage{multirow}
 \usepackage{float}
 \usepackage{tikz}
+\usepackage{csquotes}
+
+\MakeOuterQuote{"}
 
 \lstset{style=FASThesisLstStyle, numberblanklines=false, tabsize=5, keywordstyle=\color{red}}
 \usetikzlibrary{shapes.geometric, arrows}
@@ -989,7 +992,7 @@ Teacher Test
                 \label{fig:res:llama3}
             \end{figure}
 
-            \begin{code}{python}{nesprávnpoužití selektoru. \label{lst:wrong_selector}}
+            \begin{code}{python}{Nesprávné použití selektoru. \label{lst:wrong_selector}}
 ...
 Scenario 2: Teacher Login
     ...
@@ -997,7 +1000,35 @@ Scenario 2: Teacher Login
     ...
             \end{code}
 
-            %TODO Tady pak asi bude ten WizzardCoder Python
+            Více vyladěným modelem vycházejí z modelu Codellama je \textbf{WizardCoder Python 34B}, který je konkrétně optimalizovaný pro jazyk Python a jeho generování. Zvolený byl, protože RobotFramework nad Pythonem pracuje, může volat jeho skripty a je tedy pravděpodobnost, že mezi sadou ladících dat budou právě i testy využívající RobotFramework. Podobně jako původní Codellama model zde není vygenerovaná žádná validní varianta pro 11 ze všech 12 testů. Pro jediný test 18 dokázal model vygenerovan jednu platnou variantu, odpovídající všem požadavkům. Specificky se v neplatných variantách nacházeli následující chyby:
+            \begin{itemize}
+                \item Opomenuté vložení \textit{přihlašovacích údajů} - Tento krok byl přeskočen a testy selhávají na neuskutečněném zobrazení (případně zmizení) prvků (viz ukázka \ref{lst:wizardcoder:no_login}). Případně model pouze nevygeneroval příkaz pro vstup na přihlašovací stránku ze úvodní obrazovky.
+                \item Přetěžování \textit{klíčových slov} - Pro vlastní definice klíčových slov zvolil model stejný název jako pro klíčová slova z knihovny a tedy dochází ke kolizi. V krajním případě může dojít i k rekuzi, kterou RobotFramework nedokáže řešit a test selže na počtu definovaných klíčových slov.
+                \item Využití \verb|aria| atributů pro lokaci prvku (diskutováno výše pro model Codellama).
+                \item Použití nedefinované proměnné.
+                \item Zastaralý zápis \verb|FOR| smyčky.
+                \item Zobrazení špatné URL adresy. Namísto cesty \verb|/tbuis| použita pouze kořenová cesta.
+                \item Plně chybějící nebo neplatný obsah testu.
+            \end{itemize}
+
+            \begin{code}{robot}{Ukázka opomenutého vložení přihlašovacích údajů. \label{lst:wizardcoder:no_login}}
+*** Test Cases ***
+Scenario 1
+    Open Browser    ${URL}    ${BROWSER}
+    Wait Until Element Is Not Visible    id:header.link.login
+    Wait Until Element Contains    id:header.title.userHome    Noah Brown
+    Wait Until Element Is Visible    id:header.link.logout
+    Wait Until Element Exists    xpath://*[@id='header.student-view-nav']
+    Wait Until Element Contains    id:stu.view.title    Student's View
+    Wait Until Element Exists    id:overview.personalInfoForm
+    Close Browser
+            \end{code}
+
+            \begin{figure}
+                \includegraphics[width=\textwidth]{pic/wizardcoder-res.pdf}
+                \caption{Výsledky pro lokální model WizardCoder Python 34B}
+                \label{fig:res:wizardcoder}
+            \end{figure}
 
         \subsection{Google}
 

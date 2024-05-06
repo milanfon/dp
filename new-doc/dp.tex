@@ -1074,7 +1074,7 @@ password3 = "bla"
             \label{fig:res:mistral-22b}
         \end{figure}
 
-        \noindent Tato společnost nabízí i větší a proprietární model \textbf{Mistral Large}, který již byl schopen alespoň pro polovinu testových případů vygenerovat platný test. Konkrétně pro testy 4, 6, 10, 12, 17 a 18 nebyla vygenerována žádná z těchto variant a ve všech chybových testech se objevovali následující chyby:
+        \noindent Tato společnost nabízí i větší a proprietární model \textbf{Mistral Large}, který již byl schopen alespoň pro polovinu testových případů vygenerovat platný test. Konkrétně pro testy 4, 6, 10, 12, 17 a 18 nebyla vygenerována žádná z těchto variant (viz obr. \ref{fig:res:mistral-large}) a ve všech chybových testech se objevovali následující chyby:
         \begin{itemize}
             \item \emph{Neplatné přiřazení hodnoty XPath} - Stejný problém jako se objevoval např. v případě modelu Llama 3 (\ref{sec:res:meta}) nebo Claude 3 Opus (\ref{sec:res:anthropic}). Mezi argumentem a cestou chybí znak \verb|=| nebo \verb|:| a namísto nich se u cesty objevuje trojité \verb|/|.
             \item Neprovedení vstupu na \emph{přihlašovací obrazovku}. Tlačítko pro \emph{login} nebylo stisknuto a tedy prvky pro vyplnění přihlašovacího jména a hesla nebyly nalezeny.

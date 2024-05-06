@@ -1078,7 +1078,7 @@ password3 = "bla"
         \begin{itemize}
             \item \emph{Neplatné přiřazení hodnoty XPath} - Stejný problém jako se objevoval např. v případě modelu Llama 3 (\ref{sec:res:meta}) nebo Claude 3 Opus (\ref{sec:res:anthropic}). Mezi argumentem a cestou chybí znak \verb|=| nebo \verb|:| a namísto nich se u cesty objevuje trojité \verb|/|.
             \item Neprovedení vstupu na \emph{přihlašovací obrazovku}. Tlačítko pro \emph{login} nebylo stisknuto a tedy prvky pro vyplnění přihlašovacího jména a hesla nebyly nalezeny.
-            \item Využití neplatného \emph{XPath zápisu} (viz ukázka \ref{lst:mistral:wrong_xpath}). "xpath://*/[@id='loginPage.loginFormSubmit']" není v rámci XPath validní zápis a pro nalezení takovéhoto prvku by měl být využit zápis "xpath://*[@id='loginPage.loginFormSubmit']", tedy bez lomítka po \verb|*|.
+            \item Využití neplatného \emph{XPath zápisu} (viz ukázka \ref{lst:mistral:wrong_xpath}). Zápis "xpath://*/[attr]" není v rámci XPath validní zápis a pro nalezení takovéhoto prvku by měl být využit zápis "xpath://*[attr]", tedy bez lomítka po \verb|*|.
             \item Nevyužití zástupného znaku pro klávesu \textit{Tab}. Tato klávesa může být využita pro přepnutí mezi textovým vstupem pro uživatelské jméno a heslo (není však nutná, protože RobotFramework vkládá hodnotu přímo do vstupního prvku). Protože model ke stisku klávesy využívá dnes zastaralé klíčové slovo \verb|Press Key| je v rámci něj potřeba využít pro tuto klávesu zástupný znak, jinak dojde k vypsání textové hodnoty \verb|TAB|, což se děje v některých vygenerovaných testech. Pokud by bylo využito klíčové slovo \verb|Press Keys|, k této chybě by nedošlo.
             \item Starý zápis pro \verb|FOR| smyčku (viz \ref{sec:res:meta}).
             \item Nesprávné \emph{klíčové slovo} pro kontrolu obsahu prvku. V ukázce \ref{lst:mistral:incorrect_keyword} lze vidět použití klíčového slova \verb|Page Should Contain Element|, které je platné, avšak podporuje jen první z argumentů a to cestu prvku, jehož existenci v rámci DOM stromu ověřuje. Model se však skrze něj snaží kontrolovat i textový obsah prvku. Takovouto funkci skutečně RobotFramework (resp. SeleniumLibrary) nabízí, ale pod klíčovým slovem \verb|Element Should Contain|.
@@ -1118,7 +1118,7 @@ Page Should Contain Element    id=overview.personalInfoForm
         \end{figure}
 
     \section{Kvalita výsledků}
-    %TODO Tady asi jako zkusit code coverage a tak no
+    %TODO Tady asi jako zkusit code coverage a asi bych udělal srovnání s lidskými testy
 
     \section{Cena a časová náročnost generování}
     %TODO Je tohle dobré mít tady?

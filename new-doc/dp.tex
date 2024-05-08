@@ -50,6 +50,7 @@
 \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
 \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
+\tikzstyle{block} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black]
 
 % Slovník
 \makeglossaries
@@ -247,7 +248,7 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 \chapter{Návrh}
 
         \section{Výběr cíle a metody testů} \label{sec:goals}
-        V rámci této práce se chceme zaměřit nejen na možnost generování softwarových testů za pomocí \Gls{llm} a jeho proveditelnosti, ale také na jejich schopnost odhalit možné problémy, které se mohou objevit a jsou proti specifikaci daného testu nebo mimo ni. Toho chceme docílit nejen vygenerováním testů a srovnáním jejich vlastností a výsledků s testy napsanými člověkem, ale také narozdíl od v současnosti dostupných prací na podobné téma máme v plánu sputit testy nejen na validním kódu testovaného softwaru (aplikace), ale také zkusit do zdrojového kódu injektovat chyby a ověřit, zda výstupy testů z \Gls{llm} jsou schopné tyto chyby detekovat a také analyzovat tyto výstupy a jejich případné nedostatky. Předpokladem zde je, že testy predikované modelem budou více verbózní a pravděpodobně komplexnější než lidsky napsané testy, avšak funkcionalita (resp. její ověření na testované aplikaci) by měla v nejlepším případě být jak mezi \textit{strojovými} tak \textit{lidsky napsanými} testy shodná. Jeden rozdíl, který v základu volíme je, že naše \textit{strojové} testy jsou parametrizovány v rámci promptu a nepředpokladá se od nich (ani nevyžaduje) možnost načítat paramery za chodu jako mohou mít \textit{lidsky napsané} testy. Za parametry se mohou považovat například vstupní hodnoty, které testy využívají, případně hodnoty asertů (například v kombinaci se sadou vstupních parametrů) a podobně.
+        V rámci této práce se chceme zaměřit nejen na možnost generování softwarových testů za pomocí \Gls{llm} a jeho proveditelnosti, ale také na jejich schopnost odhalit možné problémy, které se mohou objevit a jsou proti specifikaci daného testu nebo mimo ni. Toho chceme docílit nejen vygenerováním testů a srovnáním jejich vlastností a výsledků s testy napsanými člověkem, ale také narozdíl od v současnosti dostupných prací na podobné téma máme v plánu sputit testy nejen na validním kódu testovaného softwaru (aplikace), ale také zkusit do zdrojového kódu injektovat chyby a ověřit, zda výstupy testů z \Gls{llm} jsou schopné tyto chyby detekovat a také analyzovat tyto výstupy a jejich případné nedostatky. Předpokladem zde je, že testy predikované modelem budou více verbózní a pravděpodobně komplexnější než lidsky napsané testy, avšak funkcionalita (resp. její ověření na testované aplikaci) by měla v nejlepším případě být jak mezi \textit{strojovými} tak \textit{lidsky napsanými} testy shodná. Jeden rozdíl, který v základu volíme je, že naše \textit{strojové} testy jsou parametrizovány v rámci promptu a nepředpokladá se od nich (ani nevyžaduje) možnost načítat paramery za chodu jako mohou mít \textit{lidsky napsané} testy. Za parametry se mohou považovat například vstupní hodnoty, které testy využívají, případně hodnoty assertů (například v kombinaci se sadou vstupních parametrů) a podobně.
 
         Jako druh testů jsme zde zvolili GUI testování webových stránek (resp. aplikace) s využitím nástroje \textit{RobotFramework} a knihovny \textit{SeleniumLibrary}. Nejedná se tedy o klasický případ \textit{jednotkových} testů, ale stále má podobný rozsah, i když se dá říci, že vygenerované testy již mají přesah do integrační fáze. Zvolený druh testování byl vybrán i z důvodu, protože díky němu může tato práce navazovat na předchozí univerzitní projekt \textit{TbUIS}, popsaný v sekci \ref{sec:test_program}, který přesně vyhovuje našemu požadavku pro \emph{injekci chyb} a vznikl přesně pro tyto případy \gls{benchmark}ingu softwarových testů. Robot Framework je rozhraní postavené nad Pythonem, využívající vlastní jazyk pro zápis testů, který využívá příkazy v podobě tzv. \textit{klíčových slov}, které poskytují buďto poskytnuté knihovky nebo je lze definovat i v rámci testového souboru. Umožňuje také importovat a spuštět klasické Python moduly či podle nich definovat objekty. Jednotlivé testovací \textit{scénáře} se poté definují jako \uv{Test Cases}. Jak pro \textit{klíčová slova} tak \textit{scénáře} či \textit{nastavení} je potřeba tuto sekci kódu oddělit, jak lze vidět v příkladu \ref{lst:robot_example}. Lze také importovat např. klíčová slova či testovací data z externích skriptů jako je ukázáno na řádce 3. Podobně jako v běžných programovacích jazycích lze u klíčových slov definovat \emph{argumenty}. Stejně tak jsou podporovány proměnné, které mohou být deklarovány např. jako konstanty (viz řádka 5) nebo použity přímo v kódu pro uložení výstupu klíčového slova (řádka 16 ukázky). Jednotlivé výrazy jsou od sebe odděleny \textit{tabulátorem}, případně jiným podporovaným znakem.
         
@@ -280,7 +281,39 @@ Open Browser
 
         \section{Navrhované řešení}
 
-        %TODO Obrázek a popsat pipeline
+        Řešení by v návrhu mělo fungovat jako softwarová \emph{pipeline}, tedy řetězec úkonů, které na sebe v rámci automatizovaného pracovního postupu musí navazovat, aby docílili určitého výsledku, za který v tomto případě považujeme \textit{otestovaný software}, zatímco jednotlivé vygenerované testy a jejich varinaty se berou jako mezivýsledky. Celý návrh pipeline je zobrazen na obr. \ref{fig:pipeline}. Kompletní proces začíná tím, že uživatel vytvoří s pomocí nástroje záznam prostupu webovou stránkou, tedy dokument, který obsahuje, na které prvky kliká či s nimi jinak interaguje a v jakém pořadí či časovém intervalu. Zároveň je od uživatele očekáváno, že označí nebo si poznamená prvky (např. dle jejich identifikátoru) od kterých je očekávána nějaká hodnota nebo chování (assert). Poté uživatel za pomocí orchestračního programu vytvoří nový test, nebo spíše šablonu podle které ho bude model generovat. Vyvořená šablona bude uživatelem doplněna o záznam (přesněji \textit{odkaz na něj}) a také doplněna o podmínky pro testovaní, které byli během záznamu poznamenány nebo vycházejí ze specifikace, dle které je testovací sénář (nebo přesněji test) tvořen. Doplněná šablona poté tvoří \emph{prompt} pro model.
+
+        Po přesném specifikování podoby testu lze přistoupit k jeho \emph{generování}, při kterém se \Gls{llm} model dotazuje vytvořeným \emph{promptem} a je očekáváno vygenerování \(x\) tokenů, které lze považovat za vytvořeý test, případně při detekci nevhodných tokenů lze přistoupit k případné validaci či filtrování. Samozřejmostí také je, že uživateli je do vytvořeného testu umožněno nahlédnout a při viditelné chybě generovaného kódu i připustit manuální zásah a úpravu (nebude využito v této práci, jde jen o diskutovanou možnost). Samotné vytvoření testu a jeho generování je možné opakovat pro každý potřebný scénář či testový případ, který uživatel potřebuje vytvořit, než nastane další krok.
+
+        Tímto dalším krokem je již samotné \emph{spuštění testů}, kterému však musí předcházet \emph{nasazení testované aplikace} a to v různých variantách. V rámci tohoto procesu bude vždy nasazena jedna varianta aplikace, poté spuštěny veškeré požadované testy, uloženy výsledky a program přejde k další variantě testovaného programu. Zmíněné kroky je také možno parametrizovat dle požadavků uživatele. Na konci pipeline by měl uživatel být schopen vyhodnotit výsledky a to jak programaticky tak manuálně.
+
+       %TODO Obrázek a popsat pipeline
+
+        \begin{figure}
+            \begin{tikzpicture}[node distance=2cm, auto]
+                    \node (start) [block, fill=red!30] {Record and tag};
+                    \node (in1) [block, below of=start, fill=blue!30] {Create test};
+                    \node (pro1) [block, below of=in1, fill=gray!50] {Edit prompt};
+                    \node (pro2) [block, below of=pro1, fill=gray!50] {Generate};
+                    \node (out1) [block, below of=pro2, fill=gray!50] {View};
+                    \node (pro3) [block, below of=out1, fill=gray!50] {Manual Edit};
+                    \node (dec1) [block, below of=pro3, fil=orange] {Validate test};
+                    \node (pro4) [block, below of=dec1, fill=blue!30] {Deploy servers and run tests};
+                    \node (stop) [block, below of=pro4, fill=green!50] {Evaluate results};
+
+                    \draw [arrow] (start) -- (in1);
+                    \draw [arrow] (in1) -- (pro1);
+                    \draw [arrow] (pro1) -- (pro2);
+                    \draw [arrow] (pro2) -- (out1);
+                    \draw [arrow] (out1) -- (pro3);
+                    \draw [arrow] (pro3) -- (dec1);
+                    \draw [arrow] (dec1) -- (pro4);
+                    \draw [arrow] (pro4) -- (stop);
+            \end{tikzpicture}
+            \centering
+            \caption{Návrh pipeline projektu.}
+            \label{fig:pipeline}
+        \end{figure}
 
 \chapter{Generování testů} \label{sec:test_generation}
 

@@ -287,8 +287,6 @@ Open Browser
 
         Tímto dalším krokem je již samotné \emph{spuštění testů}, kterému však musí předcházet \emph{nasazení testované aplikace} a to v různých variantách. V rámci tohoto procesu bude vždy nasazena jedna varianta aplikace, poté spuštěny veškeré požadované testy, uloženy výsledky a program přejde k další variantě testovaného programu. Zmíněné kroky je také možno parametrizovat dle požadavků uživatele. Na konci pipeline by měl uživatel být schopen vyhodnotit výsledky a to jak programaticky tak manuálně.
 
-       %TODO Obrázek a popsat pipeline
-
         \begin{figure}
             \begin{tikzpicture}[node distance=2cm, auto]
                     \node (start) [block, fill=red!30] {Record and tag};
@@ -318,8 +316,27 @@ Open Browser
 \chapter{Generování testů} \label{sec:test_generation}
 
     \section{Prerekvizity pro generování a spuštění testů}
+
+    Pro spuštění projektových programů jsou vyžadovány následující softwarové a hardwarvé prerekvizity:
+    \begin{itemize}
+        \item\textbf{Spuštění testů}
+           \begin{itemize}
+                \item \textbf{Operační systém} - Program je navržený pro \uv{UNIX-like} operační systémy (Linux, MacOS), které jsou pro jeho spuštění vyžadovány. V případě operačního systému Windows je doporučeno využít technologii \textbf{WSL2}.
+                \item \textbf{Docker Desktop} (včetně Docker Compose).
+                \item \textbf{Python 3.11} nebo vyšší (z důvodu kompatibility některých frameworků).
+                \item \textbf{Robot Framework} společně s knihovnou \textit{SeleniumLibrary} jako Python moduly.
+                \item V případě, že se společně s Robot Framework nenainstaluje, je také potřeba přidat Chrome nebo Chromium driver.
+                \item Přítomný display server (nelze spouštět na čistě CLI systémech).
+           \end{itemize} 
+       \item\textbf{Lokální spouštění LLM} (generování testů)
+           \begin{itemize}
+                \item \textbf{Operační systém} - Libovolný.
+                \item \textbf{Hardware} - CPU s podporou AVX2 instrukční sady, minimum 16GB RAM, v případě běhu na VGA doporučeno alespoň 6GB VRAM.
+                \item Nainstalovaný software \textbf{LM Studio}.
+           \end{itemize}
+    \end{itemize}
+
     %TODO Dopsat
-    %TODO Je toto vhodné místo pro prerekvizity i když nesouvisí čistě jen s generováním testů?
     %TODO Linux, Docker, Python, RF a verze
 
     \section{Výběr scénářů} \label{sec:scenarios}

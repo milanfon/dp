@@ -244,7 +244,8 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 
 \chapter{Návrh}
 
-        \section{Co a jak testujeme}
+        \section{Výběr cíle a metody testů}
+        V rámci této práce se chceme zaměřit nejen na možnost generování softwarových testů za pomocí \Gls{llm} a jeho proveditelnosti, ale také na jejich schopnost odhalit možné problémy, které se mohou objevit a jsou proti specifikaci daného testu nebo mimo ni. Toho chceme docílit nejen vygenerováním testů a srovnáním jejich vlastností a výsledků s testy napsanými člověkem, ale také narozdíl od v současnosti dostupných prací na podobné téma máme v plánu sputit testy nejen na validním kódu testovaného softwaru (aplikace), ale také zkusit do zdrojového kódu injektovat chyby a ověřit, zda výstupy testů z \Gls{llm} jsou schopné tyto chyby detekovat a také analyzovat tyto výstupy a jejich případné nedostatky. Předpokladem zde je, že testy predikované modelem budou více verbózní a pravděpodobně komplexnější než lidsky napsané testy, avšak funkcionalita (resp. její ověření na testované aplikaci) by měla v nejlepším případě být jak mezi \textit{strojovými} tak \textit{lidsky napsanými} testy shodná. Jeden rozdíl, který v základu volíme je, že naše \textit{strojové} testy jsou parametrizovány v rámci promptu a nepředpokladá se od nich (ani nevyžaduje) možnost načítat paramery za chodu jako mohou mít \textit{lidsky napsané} testy. Za parametry se mohou považovat například vstupní hodnoty, které testy využívají, případně hodnoty asertů (například v kombinaci se sadou vstupních parametrů) a podobně.
 
         \section{Navrhované řešení}
 
@@ -254,6 +255,7 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
     \section{Prerekvizity pro generování spuštění testů}
     %TODO Dopsat
     %TODO Je toto vhodné místo pro prerekvizity i když nesouvisí čistě jen s generováním testů?
+    %TODO Linux, Docker, Python, RF a verze
 
     \section{Výběr scénářů} \label{sec:scenarios}
 
@@ -964,7 +966,7 @@ Report:  /Users/milan/Škola/DP/program/tbuis/report.html
                 \label{fig:res:codellama}
             \end{figure}
 
-            V případě testu \(10\) jediná varianta, značená jako "validní" ve skutečnosti obsahuje pouze příkaz pro otevření \textit{přihlšovací URL} a zbytek souboru jsou pouze komentáře (ukázka ve výpisu \ref{lst:codellama-comments}). I ostatní varianty dle této specifikace obsahují prázdné či nesmyslné testy. To stejné se vztahuje i na test \(11\), kde častokrát chybí klíčové části kôdu (např. \textit{login}). Výstupy pro specifikaci 12 obsahují stejné chyby jako předešlé testy. Vygenerované varianty testu \(17\) obsahují dvě varianty procházející filrem, avšak jen jedna z nich je po prozkoumání platný test. Druhá varianta obsahuje pouze otevření dané URL a tedy není schopna odhalit problémy, jak také napovídají výsledky na poruchových klonech. Platný test však z neznámých důvodů na poruchové varianté \(18\) neselhává. U posledního testu \(18\) vyšla 1 platná varianta, ale podobně jako v předchozích případech ani ta není kompletní a obsahuje pouze zobrazení tabulky, nikoli už její kontrolu.
+            V případě testu \(10\) jediná varianta, značená jako \uv{validní} ve skutečnosti obsahuje pouze příkaz pro otevření \textit{přihlšovací URL} a zbytek souboru jsou pouze komentáře (ukázka ve výpisu \ref{lst:codellama-comments}). I ostatní varianty dle této specifikace obsahují prázdné či nesmyslné testy. To stejné se vztahuje i na test \(11\), kde častokrát chybí klíčové části kôdu (např. \textit{login}). Výstupy pro specifikaci 12 obsahují stejné chyby jako předešlé testy. Vygenerované varianty testu \(17\) obsahují dvě varianty procházející filrem, avšak jen jedna z nich je po prozkoumání platný test. Druhá varianta obsahuje pouze otevření dané URL a tedy není schopna odhalit problémy, jak také napovídají výsledky na poruchových klonech. Platný test však z neznámých důvodů na poruchové varianté \(18\) neselhává. U posledního testu \(18\) vyšla 1 platná varianta, ale podobně jako v předchozích případech ani ta není kompletní a obsahuje pouze zobrazení tabulky, nikoli už její kontrolu.
 
             \begin{code}{python}{Ukázka chybně vygenerovaného testu "codellama/spec-10-7.robot". \label{lst:codellama-comments}}
 *** Settings ***
@@ -997,8 +999,7 @@ Teacher Test
 Scenario 2: Teacher Login
     ...
     Element Should Be Visible    xpath://*[@id="header.teacher-view-nav"]
-    ...
-            \end{code}
+    ...            \end{code}
 
             Více vyladěným modelem vycházejí z modelu Codellama je \textbf{WizardCoder Python 34B}, který je konkrétně optimalizovaný pro jazyk Python a jeho generování. Zvolený byl, protože RobotFramework nad Pythonem pracuje, může volat jeho skripty a je tedy pravděpodobnost, že mezi sadou ladících dat budou právě i testy využívající RobotFramework. Podobně jako původní Codellama model zde není vygenerovaná žádná validní varianta pro 11 ze všech 12 testů. Pro jediný test 18 dokázal model vygenerovan jednu platnou variantu, odpovídající všem požadavkům. Specificky se v neplatných variantách nacházeli následující chyby:
             \begin{itemize}
@@ -1010,7 +1011,7 @@ Scenario 2: Teacher Login
                 \item Zobrazení špatné URL adresy. Namísto cesty \verb|/tbuis| použita pouze kořenová cesta.
                 \item Plně chybějící nebo neplatný obsah testu.
             \end{itemize}
-            \noindent Jediný platný test však byl schopen projít pouze na neporuchových variantách aplikace a nebyl schopen odhladit chyby zanesené 
+            \noindent Jediný platný test však byl schopen projít pouze na neporuchových variantách aplikace a nebyl schopen odhladit chyby zanesené klony 27 a 28.
 
             \begin{code}{robot}{Ukázka opomenutého vložení přihlašovacích údajů. \label{lst:wizardcoder:no_login}}
 *** Test Cases ***

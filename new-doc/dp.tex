@@ -125,6 +125,8 @@
     
     \section{Testy}
 
+    %TODO Asi i RF a jak funguje
+
     \section{Jazykové modely}
 
     \section{Motivace}
@@ -244,15 +246,45 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 
 \chapter{Návrh}
 
-        \section{Výběr cíle a metody testů}
+        \section{Výběr cíle a metody testů} \label{sec:goals}
         V rámci této práce se chceme zaměřit nejen na možnost generování softwarových testů za pomocí \Gls{llm} a jeho proveditelnosti, ale také na jejich schopnost odhalit možné problémy, které se mohou objevit a jsou proti specifikaci daného testu nebo mimo ni. Toho chceme docílit nejen vygenerováním testů a srovnáním jejich vlastností a výsledků s testy napsanými člověkem, ale také narozdíl od v současnosti dostupných prací na podobné téma máme v plánu sputit testy nejen na validním kódu testovaného softwaru (aplikace), ale také zkusit do zdrojového kódu injektovat chyby a ověřit, zda výstupy testů z \Gls{llm} jsou schopné tyto chyby detekovat a také analyzovat tyto výstupy a jejich případné nedostatky. Předpokladem zde je, že testy predikované modelem budou více verbózní a pravděpodobně komplexnější než lidsky napsané testy, avšak funkcionalita (resp. její ověření na testované aplikaci) by měla v nejlepším případě být jak mezi \textit{strojovými} tak \textit{lidsky napsanými} testy shodná. Jeden rozdíl, který v základu volíme je, že naše \textit{strojové} testy jsou parametrizovány v rámci promptu a nepředpokladá se od nich (ani nevyžaduje) možnost načítat paramery za chodu jako mohou mít \textit{lidsky napsané} testy. Za parametry se mohou považovat například vstupní hodnoty, které testy využívají, případně hodnoty asertů (například v kombinaci se sadou vstupních parametrů) a podobně.
+
+        Jako druh testů jsme zde zvolili GUI testování webových stránek (resp. aplikace) s využitím nástroje \textit{RobotFramework} a knihovny \textit{SeleniumLibrary}. Nejedná se tedy o klasický případ \textit{jednotkových} testů, ale stále má podobný rozsah, i když se dá říci, že vygenerované testy již mají přesah do integrační fáze. Zvolený druh testování byl vybrán i z důvodu, protože díky němu může tato práce navazovat na předchozí univerzitní projekt \textit{TbUIS}, popsaný v sekci \ref{sec:test_program}, který přesně vyhovuje našemu požadavku pro \emph{injekci chyb} a vznikl přesně pro tyto případy \gls{benchmark}ingu softwarových testů. Robot Framework je rozhraní postavené nad Pythonem, využívající vlastní jazyk pro zápis testů, který využívá příkazy v podobě tzv. \textit{klíčových slov}, které poskytují buďto poskytnuté knihovky nebo je lze definovat i v rámci testového souboru. Umožňuje také importovat a spuštět klasické Python moduly či podle nich definovat objekty. Jednotlivé testovací \textit{scénáře} se poté definují jako \uv{Test Cases}. Jak pro \textit{klíčová slova} tak \textit{scénáře} či \textit{nastavení} je potřeba tuto sekci kódu oddělit, jak lze vidět v příkladu \ref{lst:robot_example}. Lze také importovat např. klíčová slova či testovací data z externích skriptů jako je ukázáno na řádce 3. Podobně jako v běžných programovacích jazycích lze u klíčových slov definovat \emph{argumenty}. Stejně tak jsou podporovány proměnné, které mohou být deklarovány např. jako konstanty (viz řádka 5) nebo použity přímo v kódu pro uložení výstupu klíčového slova (řádka 16 ukázky). Jednotlivé výrazy jsou od sebe odděleny \textit{tabulátorem}, případně jiným podporovaným znakem.
+        
+        \begin{code}{robot}{Příklad struktury RobotFramework testu. \label{lst:robot_example}}
+*** Settings ***
+Library    SeleniumLibrary
+Resource   keywords.resource
+
+*** Variables ***
+${URL}    https://example.com
+${BROWSER}    Chrome
+
+*** Test Cases ***
+Open Website and Check for Text
+    [Setup]    Open Browser    ${URL}    ${BROWSER}
+    Page Should Contain    Welcome to Example Domain
+    [Teardown]    Close Browser
+
+Check User Name
+    ${name}=    Get User Name
+    Should Be Equal    ${name}    ${exp_full_name}
+
+*** Keywords ***
+Open Browser
+    [Arguments]    ${url}    ${browser}
+    Open Browser    ${url}    ${browser}
+    Maximize Browser Window\end{code}
+
+        Výsledným cílem práce je tedy předpokládán nástroj pro vygenerování jednotkových testů využívající Robot Framework na bázi uživatelské specifikace. Tento nástroj by také měl být schopen otestovat vygenerované testy dle daných specifikací na požadovaných variantách testované aplikace, mezi kterými budou klony u kterých je i není očekávané selhání testu. Tyto výsledky budou na konci vyhodnoceny pro různé \Gls{llm} modely a bude určeno, které z modelů dokáží generovat testy s co nejvyšší úspěšností detekce chyb a také je možno takovýto přístup využít v navazujících pracích, které by popisovanou generaci testů využívali.
 
         \section{Navrhované řešení}
 
+        %TODO Obrázek a popsat pipeline
 
 \chapter{Generování testů} \label{sec:test_generation}
 
-    \section{Prerekvizity pro generování spuštění testů}
+    \section{Prerekvizity pro generování a spuštění testů}
     %TODO Dopsat
     %TODO Je toto vhodné místo pro prerekvizity i když nesouvisí čistě jen s generováním testů?
     %TODO Linux, Docker, Python, RF a verze
@@ -344,7 +376,7 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
 
     \section{Nahrávání scénářů}
 
-    Dle \emph{specifikace} z předchozího bodu, vytvoří uživatel LLM generačního nástroje nahrávku jednotlivých kroků, které má test provést. V případě, že specifikace udává více uživatelských pohledů (\textit{student / učitel}), nahraje uživatel tyto pohledy jednotlivě. Současný projekt pracuje s nahrávacím nástrojem v rámci vývojářských nástrojů webového prohlížeče \textit{Google Chrome} (pro vývoj byla využita verze \(124\)). Tento nástroj je stále experimentální funkce, takže nelze vyloučit možnost, že v následujícíh verzích již nemusí být dostupný. Díky této funkci lze nahrávat uživatelské vstupy a interakce s jednotlivými prvky v rámci webových stránek. Mimo jiné také umožňuje přidávat \textit{asserty}, avšak tyto možnosti jsou nedostatečné a tedy v rámci této práce se omezíme pouze na údaje o interakci s prvky. Nahrávání zobrazeno na obr. \ref{fig:chrome_recording}. Nástroj je schopen vyexportovat výstup nahrávání v řadě formátů. Zde jsme zvolily JSON formát, který popisuje jednotlivé akce dle objektů. Nahrané scénáře uživatel vhodně pojmenuje a uloží do složky \verb|input| programu, který je součástí tohoto projektu. Vytvořený program pro generování testů za pomocí LLM se stará o veškerou orchestraci generování i spouštění testů a také vytovření \emph{šablon} pro testy, ze kterých se generují. Součástí těchto \emph{šablon} je právě i uživatelova nahrávka. Ukázkovou strukturu \verb|input| složky lze vidět ve výpisu \ref{con:input}, kde se nachází \emph{šablona} pro \textit{specifikace} \(1\) a \(4\). Význam \emph{šablon} je diskutován v následující sekci.
+    Dle \emph{specifikace} z předchozího bodu, vytvoří uživatel LLM generačního nástroje nahrávku jednotlivých kroků, které má test provést. V případě, že specifikace udává více uživatelských pohledů (\textit{student / učitel}), nahraje uživatel tyto pohledy jednotlivě. Současný projekt pracuje s nahrávacím nástrojem v rámci vývojářských nástrojů webového prohlížeče \textit{Google Chrome} (pro vývoj byla využita verze \(124\)). Tento nástroj je stále experimentální funkce, takže nelze vyloučit možnost, že v následujícíh verzích již nemusí být dostupný. Díky této funkci lze nahrávat uživatelské vstupy a interakce s jednotlivými prvky v rámci webových stránek. Mimo jiné také umožňuje přidávat \textit{asserty}, avšak tyto možnosti jsou nedostatečné a tedy v rámci této práce se omezíme pouze na údaje o interakci s prvky. Nahrávání zobrazeno na obr. \ref{fig:chrome_recording}. Nástroj je schopen vyexportovat výstup nahrávání v řadě formátů. Zde jsme zvolili JSON formát, který popisuje jednotlivé akce dle objektů. Nahrané scénáře uživatel vhodně pojmenuje a uloží do složky \verb|input| programu, který je součástí tohoto projektu. Vytvořený program pro generování testů za pomocí LLM se stará o veškerou orchestraci generování i spouštění testů a také vytovření \emph{šablon} pro testy, ze kterých se generují. Součástí těchto \emph{šablon} je právě i uživatelova nahrávka. Ukázkovou strukturu \verb|input| složky lze vidět ve výpisu \ref{con:input}, kde se nachází \emph{šablona} pro \textit{specifikace} \(1\) a \(4\). Význam \emph{šablon} je diskutován v následující sekci.
 
     \begin{figure}
         \includegraphics[width=0.8\textwidth]{pic/recording.png}

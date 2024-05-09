@@ -823,7 +823,7 @@ networks:
 `\uxprompt`python3 test.py -r "openai-gpt-4/spec-{1,4,6}-*" --cont_count 2 --name "gpt-4 test runs"
     \end{console}
 
-    Další argumenty pro \textit{spouštěcí} řežim jsou již \emph{nepovinné}, avšak alespoň argument \verb|--name| je doporučený. Pomocí toho argumentu lze nastavit jméno aktuálního běhu testů, pomocí kterého lze poté jednoduše identifikovat s ním související výsledky. Samotné výsledky, jejich ukládání a struktura jsou vysvětleny v následující sekci kapitoly. Pro hodnotu tohoto argumentu je také doporučené využít uvozovky (ukázkové volání jak v příkladu \ref{lst:run_mode} a \ref{lst:run_mode_2}). Pro zkušební běhy testů lze také využít argument \verb|--cont_count|, jehož hodnota omezí počet volaných variant aplikace, dostupných z \textit{konfigurace} (číselná hodnota vyšší než \(0\)).
+    Další argumenty pro \textit{spouštěcí} řežim jsou již \emph{nepovinné}, avšak alespoň argument \verb|--name| je doporučený. Tímto argumentem lze nastavit jméno aktuálního běhu testů, kterým lze poté jednoduše identifikovat s ním související výsledky. Samotné výsledky, jejich ukládání a struktura jsou vysvětleny v následující sekci kapitoly. Pro hodnotu tohoto argumentu je také doporučené využít uvozovky (ukázkové volání jak v příkladu \ref{lst:run_mode} a \ref{lst:run_mode_2}). Pro zkušební běhy testů lze také využít argument \verb|--cont_count|, jehož hodnota omezí počet volaných variant aplikace, dostupných z \textit{konfigurace} (číselná hodnota vyšší než \(0\)).
 
     Samotný běh aplikace, testů a jejich případného vyhodnocení neovlivňují pouze \emph{argumenty}, ale také komplexnější \emph{konfigurace}, která se nachází v rámci konfiguračního souboru \verb|configuration.py|. Jednotlivé varinaty aplikace, které se budou spouštět v rámci běhu lze zvolit tak, že se názvy jejich \textit{WAR} souborů ze složky \verb|tbuis| přidají do pole \verb|RUN_CONTAINERS| v rámci konfigurace. 
 
@@ -847,7 +847,7 @@ POSITIVE_FAILS = {
     \end{code}
     
     \section{Ukládání výsledků}
-    Při spuštění testu vyváří \textit{RobotFramework} hned několik výstupních souborů, mezi kterými je i \textit{report} jakožto soubor \verb|output.xml|. V rámci něj se nacházejí veškteré klíčové informace o běhu scénáře. Konkrétně jde o \textit{log} provedených úkonů, \textit{výsledky} jednotlivých testovacích případů a také případné \textit{errory}. Protože tento výstup obsahuje spoustu redundantních informací, je v rámci programu přeparsován a uložen na 2 samostatná místa. Z původního výstupu jsou parsovány hodnoty: \textit{počet úspěšných}, \textit{neúspěšných} a \textit{chybových} testovacích případů pro každý ze spuštěných testovacích scénářů. Pro ten je vždy také vyhodnocen koncový stav (\textit{FAIL, PASS} nebo \textit{ERROR}). Protože \textit{RobotFramework} nerozlišuje mezi testem, který \emph{selhal} a testem, který neměl spustit nebo při jeho běhu došlo k chybě nesouvisející se scénářem, bylo potřena toto rozlišení implementovat na bázi přítomných \textit{errorů} v rámci výstupního souboru. 
+    Při spuštění testu vyváří \textit{RobotFramework} hned několik výstupních souborů, mezi kterými je i \textit{report} jakožto soubor \verb|output.xml|. V rámci něj se nacházejí veškteré klíčové informace o běhu scénáře. Konkrétně jde o \textit{log} provedených úkonů, \textit{výsledky} jednotlivých testovacích případů a také případné \textit{errory}. Protože tento výstup obsahuje spoustu redundantních informací, je v rámci programu zpracován a uložen na 2 samostatná místa. Z původního výstupu jsou vyjmuty hodnoty: \textit{počet úspěšných}, \textit{neúspěšných} a \textit{chybových} testovacích případů pro každý ze spuštěných testovacích scénářů. Pro ten je vždy také vyhodnocen koncový stav (\textit{FAIL, PASS} nebo \textit{ERROR}). Protože \textit{RobotFramework} nerozlišuje mezi testem, který \emph{selhal} a testem, který neměl spustit nebo při jeho běhu došlo k chybě nesouvisející se scénářem, bylo potřena toto rozlišení implementovat na bázi přítomných \textit{errorů} v rámci výstupního souboru. 
 
     Pro označení výsledku testu (dále také jako \emph{report}) je využito \textit{časové razítko} doby spuštění série testů ve formátu \verb|YYYYMMDDhhmmss| společně s vybraným názvem v rámci argumentu (popsáno v předchozí sekci \ref{sec:orchestration}) oddělěných znakem "-". V případě, že samostatný název běhu testů není uživatelem vybrán, zůstává pro plné označení reportu pouze časové razítko.
 
@@ -871,9 +871,11 @@ POSITIVE_FAILS = {
 
 \chapter{Vyhodnocení výsledků}
 
+    V rámci této kapitoly jsou \emph{analyzovány} výsledky testů, které byly pro účely této práce \textit{vygenerované a spuštěné} skrze metody popsané v předchozích kapitolách. Popsána je zde kompletní metodologie, která pro vyhodnocení výsledků byla využita a také jsou popsané tabulky výsledků. V rámci analýzy se budeme zaměřovat primárně na kvalitativní stránku vygenerovaného zdrojového kódu testů. V závěru kapitoly je také rychlé srovnání s lisky psanými testy, které jsou k testované aplikaci k dispozici a je diskutována i náročnost generování na zdroje (\textit{finance, čas, energie}).
+
     \section{Parametry pro spuštění} \label{sec:run_parameters}
 
-    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byli přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek). Tento program a použité metody jsou popsány v následující sekci.
+    Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byly přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek). Tento program a použité metody jsou popsány v následující sekci.
 
     \begin{console}
 `\uxprompt`ls -l generated
@@ -891,10 +893,12 @@ POSITIVE_FAILS = {
 102 milan  staff  3264 May  5 09:59 wizardcoder-python\end{console}
     
     \section{Metodologie vyhodnocení}
+
+        Následující text v krátkosti popisuje, jaké statické metody a postupy jsou k vyhodnocení výsledků využity a na jakých předpokladech pro výstupy automatizovaného testování je vytvořený statistický nástroj postaven, případně jaké paramery od uživatele vyžaduje. Společně s metodou je vysvětlena i vizualitace a přidán je zde také důkaz o předpokladu pro pravá a případně falešná negativa, která jsou v rámci metody detekována. 
         
         \subsection{Vyhodnocovací program} \label{sec:evaluation}
 
-        Pro vyhodnocení výsledů byl do programové složky vytvořen program \verb|stats.py|, který jako první argument vyžaduje cestu s \verb|.sqlite| výstupnímu reportu hlavního programu v režimu běhu (viz sekce \ref{sec:orchestration}). Ukázkové volání programu je zobrazeno v ukázce \ref{lst:stats_call}. Tento report si uživatel může libovolně přesouvat v souborovém systému. Reporty vygenerované v rámci tohoto projektu a využité pro hodnocení modelů byli uloženy do podsložky \verb|results| kořenové složky repozitáře. Program má i další argumenty, které jsou jeho klíčovou součástí:
+        Pro vyhodnocení výsledů byl do programové složky vytvořen program \verb|stats.py|, který jako první argument vyžaduje cestu s \verb|.sqlite| výstupnímu reportu hlavního programu v režimu běhu (viz sekce \ref{sec:orchestration}). Ukázkové volání programu je zobrazeno v ukázce \ref{lst:stats_call}. Tento report si uživatel může libovolně přesouvat v souborovém systému. Reporty vygenerované v rámci tohoto projektu a využité pro hodnocení modelů byly uloženy do podsložky \verb|results| kořenové složky repozitáře. Program má i další argumenty, které jsou jeho klíčovou součástí:
         \begin{itemize}
             \item \verb|-t [nadpis]| - Nastaví nadpis nad tabulkou (název modelu).
             \item \verb|-e [nazev_souboru]| - Vyexportuje soubor do PDF. Hodnotou je název výstupního PDF souboru (s příponou).
@@ -911,7 +915,10 @@ POSITIVE_FAILS = {
 
         Výstupem vyhodnocení výsledků je tabulka (jako příklad poslouží výstup v obr. \ref{fig:res:gpt-4}), jejíž řádky reprezentují testované \textit{varianty aplikace} (v tabulce označované jako \emph{container}) a jednotlivé sloupce představují konkrétní test (dle specifikace), který byl spouštěn. Jednotlivé buňky poté obsahují informaci o počtu variant daného testu, které vyhovují předpokládanému výsledku pro danou variantu aplikace. Tyto hodnoty jsou po vyfiltrování, které se vždy děje dle první řádky od shora (v našem označení jde o variantu \verb|defect-00_free.war|). Tento přístup byl popsán v předchozí sekci \ref{sec:evaluation}. Ve spodním řádku tabulky je také vyznačeno, kolik variant daného testu bylo \emph{ignorováno}. Celá tabulka zároveň funguje jako \textit{tepelná mapa} a je tedy nejen číselně, ale i barevně vyznačeno, jaký test má pro kterou variantu aplikace nejvyšší míru úspěšnosti (shody s předpokládaným výsledkem). Barevná škála a její odpovídají hodnoty se nachází po pravé straně tabulky.
 
-    %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
+        \subsection{Předpoklady}
+
+        %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
+        %TODO Dopsat a asi ty konkrítní výsledky dát do přílohy 
 
     \section{Výsledky pro jednotlivé modely}
     

@@ -126,11 +126,17 @@
     
     \section{Testy}
 
-    %TODO Asi i RF a jak funguje
+    %TODO Co to jsou SW testy, proč se dělají, jak se dělají, specifikace, druhy, příklad
 
     \section{Jazykové modely}
 
+    %TODO Co to je LLM, jak fungují
+
     \section{Motivace}
+
+    Tím, že tvorba softwarových testů ze specifikací je problém převodu \emph{text na text} (přesněji zdrojový kód), souhlasí tak s funkcí  \Gls{llm}, která spočívá v predikci \emph{textu} na bázi \emph{textového} vstupu (promptu). Jinými slovy jde o stejný problém. Tento předpoklad nám umožňuje převést vytváření testů na automatizovanou činnost s využitím strojového učení. Samotné vytváření testů v softwarovém vývoji je činnost, která je časově náročná a často vyžaduje i zkušeného uživatele (často programátora) pro jejich sestavení. Mimo jejich sestavení je také nutné i manuálně odhadovat chování softwaru, které v rámci speficikace nemusí být dáno. I přes nepopiratelnou důležitosttestů jsou však z výše zmíněných důvodů často neúplné či naprosto opomenuté, což vede k neotestovanému softwaru.
+
+    Naším návrhem tedy je zautomatizovat samotný proces tvorby testů tak, aby je za pomocí jednoduchého nástroje zvládl vytvořit i méně zkušený (neprofesionální) uživatel jako například \textit{tester, manažer, apod}. Potenciálním scénářem může být, když zákazník určí specifikace (případně požadavky či podobně), vývojář vytvoří prototyp softwaru, na kterém poté může tester dle dostupné speficikace definovat chování testu a dle něj je za pomocí automatizovaného procesu sestaven samotná sada testů. Výhodou generování za pomocí \Gls{llm} může být, že mohou do určité míry porozumnět kontextu textu a mohou tak případně odhalit chyby (či stavy), které by nezkušený uživatel nemusel odhadnout. Zároveň jsou oproti člověku rychlé a tím, že jsou naučeny na širokém spektru dat (často čítající programovací jazyky, dokumentace, ...), tak je také možné, že spoustu vzorů ve zdrojových kódech a chování softwaru již viděli v učících datech.
 
 \chapter{Rešerše} \label{sec:research}
 
@@ -279,7 +285,7 @@ Open Browser
 
         Výsledným cílem práce je tedy předpokládán nástroj pro vygenerování jednotkových testů využívající Robot Framework na bázi uživatelské specifikace. Tento nástroj by také měl být schopen otestovat vygenerované testy dle daných specifikací na požadovaných variantách testované aplikace, mezi kterými budou klony u kterých je i není očekávané selhání testu. Tyto výsledky budou na konci vyhodnoceny pro různé \Gls{llm} modely a bude určeno, které z modelů dokáží generovat testy s co nejvyšší úspěšností detekce chyb a také je možno takovýto přístup využít v navazujících pracích, které by popisovanou generaci testů využívali.
 
-        \section{Navrhované řešení}
+        \section{Navrhované řešení} \label{sec:proposal}
 
         Řešení by v návrhu mělo fungovat jako softwarová \emph{pipeline}, tedy řetězec úkonů, které na sebe v rámci automatizovaného pracovního postupu musí navazovat, aby docílili určitého výsledku, za který v tomto případě považujeme \textit{otestovaný software}, zatímco jednotlivé vygenerované testy a jejich varinaty se berou jako mezivýsledky. Celý návrh pipeline je zobrazen na obr. \ref{fig:pipeline}. Kompletní proces začíná tím, že uživatel vytvoří s pomocí nástroje záznam prostupu webovou stránkou, tedy dokument, který obsahuje, na které prvky kliká či s nimi jinak interaguje a v jakém pořadí či časovém intervalu. Zároveň je od uživatele očekáváno, že označí nebo si poznamená prvky (např. dle jejich identifikátoru) od kterých je očekávána nějaká hodnota nebo chování (assert). Poté uživatel za pomocí orchestračního programu vytvoří nový test, nebo spíše šablonu podle které ho bude model generovat. Vyvořená šablona bude uživatelem doplněna o záznam (přesněji \textit{odkaz na něj}) a také doplněna o podmínky pro testovaní, které byli během záznamu poznamenány nebo vycházejí ze specifikace, dle které je testovací sénář (nebo přesněji test) tvořen. Doplněná šablona poté tvoří \emph{prompt} pro model.
 
@@ -699,9 +705,9 @@ Adjust the locators (xpath) as necessary to match the exact structure and identi
 
         Vyfiltrovaný výstupní text modelu je poté zapsán do souboru ve výstupní složce nazvané \verb|generated|, nacházející se v kořenové složce programu. Test je uložen s názvem ve formátu \verb|{nazev-vstupu}-{cislo-varianty}.robot| jakožto \textit{RobotFramework} soubor. První část tohoto názvu souhlasí s názvem \textit{promptové šablony}, pro kterou uživatel vytváří testy. Druhá část poté čísluje vygenerované varianty. Pokud již ve výstupní složce existuje vygenerovaný test pro danou specifikaci, program nové variantě přiřadí číslo o \(1\) vyšší, tedy pokračuje v číselné řadě. Názvy vygenerovaných testů jsou postupně vypisovány do konzole. Od uživatele je očekáváno, že vygenerované testy ve výstupní složce zkontroluje a ověří, že obsahují validní (\textit{např. obsahuje text, připomínající RobotFramework test}). Je zde totiž stále možnost, že model nevygenerovat žádný kód a vypsat pouze text nebo \textit{filtrace} neproběhla validně. Tento krok by v ideálním případě bylo možné automatizovat za pomocí \textit{analyzátoru} pro \textit{RobotFramework}, který se nachází v rámci \Gls{lsp} pro \textit{RobotFramework} \verb|rebotframework-lsp| nachází. Bohužel však neumí validovat zápis pro knihovnu \verb|SeleniumLibrary|, která je v rámci systémového promptu vyžadována a očekávána, že bude přítomná ve vygenerovaném testu.
 
-        %TODO možná pak někde vysvětlit, co to ta SeleniumLibrary je a jak vlastně funguje testování v Robot Frameworku
-
 \chapter{Spuštění testů}
+ 
+    V této kapitole je diskutováno spuštění vygenerovaných testů a jde o implementaci kroku popisovaného v návrhu (\ref{sec:proposal}). Samotnému spuštění vybrané sady testů musí nejdříve předcházet nasazení testovaného softwaru, pro které zde byla vytvořena automatizovaná orchestrace využívající technologii \textit{Docker}. Dále bylo také potřeba spustit samotné testy na vybraných varinatách testované aplikace. I o toto spuštění se stará orchestrační software. Popsána zde je také \emph{konfigurace}, která je pro jednotlivé kroky potřeba, a jak jsou ukládány výsledky testů společně s jejich formátem.
 
     \section{Spuštění testovaného programu a jeho orchestrace}
 
@@ -777,7 +783,6 @@ networks:
 `\uxprompt`python3 test.py -r "codellama/spec-*" --name "codellama-runs"
     \end{console}
 
-    %TODO Obrázek orchestrace
     \begin{figure}
         \begin{tikzpicture}[node distance=2cm]
             \node (start) [startstop] {START};
@@ -858,13 +863,11 @@ POSITIVE_FAILS = {
     \end{figure}
 
     \begin{figure}
-        %TODO Přidat ukázku ze SQLite db
+        \includegraphics[width=\textwidth]{pic/sqlite_example.png}
         \centering
         \caption{Ukázka databázové tabulky výsledků}
         \label{fig:sqlite_report}
     \end{figure}
-
-    %TODO někam pak vypsat prerekvizity pro spuštění programu
 
 \chapter{Vyhodnocení výsledků}
 
@@ -872,7 +875,20 @@ POSITIVE_FAILS = {
 
     Vygenerované testy z kroku \ref{sec:test_generation} (konkrétně scénáře vypsané v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2}) byly v rámci výstupní složky \verb|generated| rozděleny do podsložek s odpovídajícím názvem, ze kterého je patrné, jakým modelem (případně od jaké společnosti) byly vygenerovány. Možnost takového rozdělení byla popsán v sekci \ref{sec:orchestration}. Tyto vygenerové testy, využité k následnému testování poruchových klonů, jsou součástí programového repozitáře projektu. Do konfiguračního souboru byli přidány varianty aplikace dle tabulky \ref{tab:clones} (ukázka konfiguračního souboru ve výpisu \ref{lst:configuration}). Z tabulky scénářů také víme, pro které varianty testovacího programu také můžeme očekávat chybu v daném scénáři. Proto je do konfiguračního souboru přidáno i \textit{mapování}, které každému scénáři (označené pouze číslem) přiřazuje pole názvů \textit{WAR} souborů aplikace, ve kterých je chybovost očekávána. Na bázi tohoto mapování dále vyhodnocovací program určí správnost výsledku testu (tj. v případě očekávaného selhávání jde o správný výsledek). Tento program a použité metody jsou popsány v následující sekci.
 
-    %TODO Asi ukázka ls command výstupní složky
+    \begin{console}
+`\uxprompt`ls -l generated
+ 15 milan  staff   480 May  5 09:59 .
+ 19 milan  staff   608 May  6 22:38 ..
+102 milan  staff  3264 Apr 30 15:07 anthropic-claude-3-opus
+102 milan  staff  3264 Apr 16 07:40 codellama
+102 milan  staff  3264 May  4 09:45 gemini-1.5-pro
+102 milan  staff  3264 May  3 18:52 local-llama3
+102 milan  staff  3264 Apr 30 15:07 mistral-large
+102 milan  staff  3264 May  5 11:05 mistral-v0.2
+  3 milan  staff    96 May  5 09:59 openai-gpt35
+102 milan  staff  3264 Apr 30 15:07 openai-gpt4
+102 milan  staff  3264 May  3 18:52 openai-gpt4-turbo
+102 milan  staff  3264 May  5 09:59 wizardcoder-python\end{console}
     
     \section{Metodologie vyhodnocení}
         
@@ -1244,6 +1260,7 @@ Page Should Contain Element    id=overview.personalInfoForm
     %TODO Jak snížit cenu - kratší prompty, komprese, atd.
 
 \chapter{Závěr}
+    %TODO Použitelné modely, co zlepšit
 
 % _____________________________________________________________________________
 %

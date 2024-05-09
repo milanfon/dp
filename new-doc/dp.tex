@@ -843,11 +843,10 @@ POSITIVE_FAILS = {
     "4": ["defect-04-C0.H0.M0.L1_S_S_04.war", "defect-19-C0.H1.M0.L0_S_S_10.war", "defect-25-C1.H0.M0.L0_S_S_01.war", "defect-26-C1.H0.M0.L0_T_S_01.war", "defect-28-C2.H2.M1.L0_M_CR.war"],
     "6": ["defect-25-C1.H0.M0.L0_S_S_01.war", "defect-26-C1.H0.M0.L0_T_S_01.war", "defect-28-C2.H2.M1.L0_M_CR.war"],
     ...
-}
-    \end{code}
+}\end{code}
     
     \section{Ukládání výsledků}
-    Při spuštění testu vyváří \textit{RobotFramework} hned několik výstupních souborů, mezi kterými je i \textit{report} jakožto soubor \verb|output.xml|. V rámci něj se nacházejí veškteré klíčové informace o běhu scénáře. Konkrétně jde o \textit{log} provedených úkonů, \textit{výsledky} jednotlivých testovacích případů a také případné \textit{errory}. Protože tento výstup obsahuje spoustu redundantních informací, je v rámci programu zpracován a uložen na 2 samostatná místa. Z původního výstupu jsou vyjmuty hodnoty: \textit{počet úspěšných}, \textit{neúspěšných} a \textit{chybových} testovacích případů pro každý ze spuštěných testovacích scénářů. Pro ten je vždy také vyhodnocen koncový stav (\textit{FAIL, PASS} nebo \textit{ERROR}). Protože \textit{RobotFramework} nerozlišuje mezi testem, který \emph{selhal} a testem, který neměl spustit nebo při jeho běhu došlo k chybě nesouvisející se scénářem, bylo potřena toto rozlišení implementovat na bázi přítomných \textit{errorů} v rámci výstupního souboru. 
+    Při spuštění testu vyváří \textit{RobotFramework} hned několik výstupních souborů, mezi kterými je i \textit{report} jakožto soubor \verb|output.xml|. V rámci něj se nacházejí veškteré klíčové informace o běhu scénáře. Konkrétně jde o \textit{log} provedených úkonů, \textit{výsledky} jednotlivých testovacích případů a také případné \textit{errory} (kritické chyby, kvůli kterým nelze vygenerovaný test ani spustit). Protože tento výstup obsahuje spoustu redundantních informací, je v rámci programu zpracován a uložen na 2 samostatná místa. Z původního výstupu jsou vyjmuty hodnoty: \textit{počet úspěšných}, \textit{neúspěšných} a \textit{chybových} testovacích případů pro každý ze spuštěných testovacích scénářů. Pro ten je vždy také vyhodnocen koncový stav (\textit{FAIL, PASS} nebo \textit{ERROR}). Protože \textit{RobotFramework} nerozlišuje mezi testem, který \emph{selhal} a testem, který neměl spustit nebo při jeho běhu došlo k chybě nesouvisející se scénářem, bylo potřena toto rozlišení implementovat na bázi přítomných \textit{errorů} v rámci výstupního souboru. 
 
     Pro označení výsledku testu (dále také jako \emph{report}) je využito \textit{časové razítko} doby spuštění série testů ve formátu \verb|YYYYMMDDhhmmss| společně s vybraným názvem v rámci argumentu (popsáno v předchozí sekci \ref{sec:orchestration}) oddělěných znakem "-". V případě, že samostatný název běhu testů není uživatelem vybrán, zůstává pro plné označení reportu pouze časové razítko.
 
@@ -1037,7 +1036,7 @@ Teacher Scenario
     Wait Until Page Contains Element    xpath:///*[@id="tea.myExamDates.table.cancelButton-0-0"]
             \end{code}
 
-            Dalším problémem také bylo vybírání prvku z rozbalovací nabídky za pomocí hodnoty \varb|value| prvku \verb|option|, které se však při každé inicializaci DB mění a tedy nelze se na tyto hodnoty spolehnout. Z tohoto důvodu bylo do instrukcí pro prompt specificky přidáno, aby model vybíral položku v těchto seznamech za pomocí obsahu prvku \verb|option|. Chybová zpráva o nenalezeném prvku je zobrazena v ukázce \ref{lst:value_fail}. V některých testech se také objevil defekt, kdy model namísto názvu knihovny \verb|SeleniumLibrary| použil název \verb|Selenium2Library|, což vede k \textit{erroru} testu. Podobně jako u modelu GPT-4 i zde se objevuje nesprávná indexace prvků v rámcí XPath. Některé z testů také obsahovali neplatná klíčová slova jako \verb|Page Should Be| nebo \verb|Element Text Should Match|.
+            Dalším problémem také bylo vybírání prvku z rozbalovací nabídky za pomocí hodnoty \varb|value| prvku \verb|option|, které se však při každé inicializaci DB mění a tedy nelze se na tyto hodnoty spolehnout. Z tohoto důvodu bylo do instrukcí pro prompt specificky přidáno, aby model vybíral položku v těchto seznamech za pomocí obsahu prvku \verb|option| (lze vidět v ukázce \ref{lst:spec-10} na řádce 6 a 7). Chybová zpráva o nenalezeném prvku je zobrazena v ukázce \ref{lst:value_fail}. V některých testech se také objevil defekt, kdy model namísto názvu knihovny \verb|SeleniumLibrary| použil název \verb|Selenium2Library|, což vede k \textit{erroru} testu. Podobně jako u modelu GPT-4 i zde se objevuje nesprávná indexace prvků v rámcí XPath. Některé z testů také obsahovali neplatná klíčová slova jako \verb|Page Should Be| nebo \verb|Element Text Should Match|.
 
             \begin{console}{Ukázka selhání testu po nenalezeném prvku s danou hodnotou. \label{lst:value_fail}}
 `\uxprompt`python3 -m robot ../generated/anthropic-claude-3-opus/spec-12-2.robot
@@ -1056,6 +1055,21 @@ Output:  /Users/milan/Škola/DP/program/tbuis/output.xml
 Log:     /Users/milan/Škola/DP/program/tbuis/log.html
 Report:  /Users/milan/Škola/DP/program/tbuis/report.html
             \end{console}
+
+            \begin{code}{text}{Ukázka promptu dle testového scénáře 10. \label{lst:spec-10}}
+Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
+
+- On page "My Subjects" before clicking the "Remove" button check if element all the other button with value "Remove" are disabled
+- On page "My Subjects" after clicking the "Remove" button check if element with id "tea.mySubjects.successAlert" has appeared
+- On page "My Exam Dates" check if element <th> with text "Operating Systems" is not present
+- On page "New Exam Dates" check if element <option> with text "Operating Systems" is not present
+- On page "Set Evaluation" check if element <option> with text containing string "Operating Systems" is not present
+- On page "Evaluation Table" check if element <option> with text "Operating Systems" is not present
+- On page "Other's Subjects" check if element <td> with text "Operating Systems" is present
+- On page "List of All Teachers" check if inside element <tr> with id "tea.listOfAllTeachers.table.teacherRow-5" there is not <td> element containig string "Operating Systems" 
+
+{% include 'recording-spec-10-teacher.json' %}
+... \end{code}
 
             Pro specifikaci \(4\) jsou indikovány 2 z validních testů jako varianty, nesplňující předpoklad. Chyba tohoto nasazeného klonu \(19\), na kterém se však tato nedokonalost projevuje, spočívá v náhodně mizejícím tlačítku při odepsání předmětu, avšak toto tlačítko je při každém načtení stránky jiné a tedy nemusí se jednat přesně o tlačítko vyžadované pro odhlášení konkrétního předmětu, který vyžaduje přiložená nahrávka promptu. V tomto případě se tedy jedná o správný výsledek, protože jak úspěšný tak neúspěšný výstup testu zde mohou být validní a záleží jen na tom, jak test selže. Stejně jako v případě modelu GPT-4 i zde validní testy dle specifikace \(10\) selhávají na kontejneru \(27\), protože celá tabulka není vykreslena a selektory využívající její přítomnosti pro nalezení hledaného řetězce selhávají. 
 
@@ -1097,18 +1111,18 @@ Teacher Test
 
             Model \textbf{Llama 3} ve verzi se 70 miliardy parametrů vygeneroval funkční nebo splňující filry pouze 2 varianty testu a to pro specifikaci 10. Oba testy (a to konkrétně \verb|llama3/spec-10-3| a \verb|llama3/spec-10-6|) se i po manuálním přezkoumání zdají být validní, avšak nesplňují přesně požadavky promptu na časování mezi jednotlivými kroky. Mezi časté chyby tohoto modelu se řadí například \textit{špatné pořadí argumentů pro otevření webového prohlížeče}, kdy pro klíčové slovo \verb|Open Browser| uvedl jako první argument URL a jako druhý název prohlížeče, kdežto správné pořadí argumentů je opačně. Dále byla existence prvků ověřována klíčovým slovem \verb|Element Should Exists|, které však neexistuje a správně by měla být kontrolována použitím klíčového slova \verb|Page Should Contain Element|. V některých případech také nedošlo k načtení \textit{přihlašovací URL} mezi jednotlivými scénáři či k uzavření prohlížeče bez jeho následného otevření v následujícím scénáři. Frekventovaně se ve výsledcích objevuje i nesprávné použití selektoru, kdy model využije selektor včetně \textit{třídy} pouze jako \textit{ID} (příklad v ukázce \ref{lst:wrong_selector}). Podobně jako v předchozích modelech i zde byl pro nastavení velikosti okna četně použit nesprávný příkaz \verb|Set Viewport|. U některých vygenerovaných varint lze spozorovat využití příkazu \verb|:FOR| pro smyčku, který však již v rámci \textit{RobotFramework} není podporovaný a byl nahrazen novějším zápisem. Ve zbytku varint neplatných testů se poté znovu objevují chyby jako \textit{neexistující klíčová slova} nebo \textit{nesprávné otevření prohlížeče}. Některé z chyb popsané u předchozích modelů byly opakovány.
 
-            \begin{figure}
+            \begin{code}{python}{Nesprávné použití selektoru. \label{lst:wrong_selector}}
+                ...
+                Scenario 2: Teacher Login
+                ...
+                Element Should Be Visible    xpath://*[@id="header.teacher-view-nav"]
+            ...            \end{code}
+
+            \begin{figure}[H]
                 \includegraphics[width=\textwidth]{pic/llama-3-results.pdf}
                 \caption{Výsledky pro lokální model Llama 3}
                 \label{fig:res:llama3}
             \end{figure}
-
-            \begin{code}{python}{Nesprávné použití selektoru. \label{lst:wrong_selector}}
-...
-Scenario 2: Teacher Login
-    ...
-    Element Should Be Visible    xpath://*[@id="header.teacher-view-nav"]
-    ...            \end{code}
 
             Více vyladěným modelem vycházejí z modelu Codellama je \textbf{WizardCoder Python 34B}, který je konkrétně optimalizovaný pro jazyk Python a jeho generování. Zvolený byl, protože RobotFramework nad Pythonem pracuje, může volat jeho skripty a je tedy pravděpodobnost, že mezi sadou ladících dat budou právě i testy využívající RobotFramework. Podobně jako původní Codellama model zde není vygenerovaná žádná validní varianta pro 11 ze všech 12 testů. Pro jediný test 18 dokázal model vygenerovan jednu platnou variantu, odpovídající všem požadavkům. Specificky se v neplatných variantách nacházeli následující chyby:
             \begin{itemize}
@@ -1141,6 +1155,7 @@ Scenario 1
                 \label{fig:res:wizardcoder}
             \end{figure}
 
+        \pagebreak
         \subsection{Google}
 
             Uspokojivé výsledky také poskytl model \textit{Gemini 1.5 Pro} od společnosti Google. Ten byl schopen pro každý test (vyjma specifikace \(12\) a \(6\)) vygenerovat minimálně jednu variantu testu, schopnou odhalit veškeré chyby aplikace, jak lze vyčíst z obr. \ref{fig:res:gemini}. Jedním z problémů objevůjící se např ve 2 z nevalidních variant testu 1 je nesprávné escapování znaků, kdy namísto jednoho escape indikátoru "\\" byli použity 2 (např. v ukázce \ref{lst:wrong_escaping} na řádce 16). V druhé chybné varintě model definoval více vlastních klíčových slov se stejným názvem. V některých případech také došlo k nesprávnému umístění asserce nebo nesprávnému pojmenovaní proměnné nevyhovující podmínkám názvu v rámci \textit{RobotFramework} (např. v ukázce \ref{lst:wrong_variable} na řádce 5) či k jejímu úplnému nedefinování. Dalším problémem také je vytváření přiřazení, která nejsou v rámci promptu definovaná. Stejně tak je u některých volání klíčových slov opomenut argument. Stejně jako v případě modelu \textit{Llama 3} zde v některých selhávajících testech na bezchybné variantě aplikace dochází k chybám jako \textit{chybějící znovuotevření webového prohlížeče} nebo \textit{využití již nepodporovaného zápisu FOR cyklu} nebo jeho neukončení. Z chyb, které také šlo pozozovat u jiných modelů se zde opakuje \textit{nesprávné přiřazení hodnoty cesty XPath v argumentu} (viz \ref{sec:res:anthropic}), \textit{posunutá indexace prvku v rámci cesty}, \textit{nesprávné určení cesty k prvku}, \textit{výběr z nabídky dle ID namísto pořadí} či \textit{využití nevhodného klíčového slova pro odsouhlasení upozornění}.
@@ -1153,7 +1168,7 @@ Scenario 1
 
             V případě testu 4 selhávají 2 varianty (resp. procházejí, protože selhání je očekáváno) ze stejného důvodu jako v případě předchozích modelů, protože chyba je založena čistě na pseudonáhodě a nemusí se projevut vždy, takže veškeré z variant lze považovat za obecně platné. Stejně jako v případě modelu \textit{Codellama} 2 z platných testů pro specifikaci 17 na poruchovém klonu 18 neselhávají. Naopak varianta 1 testu 10 selhává na neplatném importu knihovny, ale samotné testové scénáře jsou platné a prochází.
             
-            \begin{code}{python}{Ukázka nesprávného escapování znaků. \label{lst:wrong_escaping}}
+            \begin{code}{robot}{Ukázka nesprávného escapování znaků. \label{lst:wrong_escaping}}
 ...               
 *** Test Cases ***
 Student View Login
@@ -1176,16 +1191,14 @@ Student View Login
     Page Should Contain Element    xpath://*[@id="overview.personalInfoForm"]
     Sleep    1s
     Close Browser
-...
-            \end{code}
+...\end{code}
 
             \begin{code}{robotframework}{Ukázka nesprávného pojmenovaní proměnné. Zbytek kódu vynechán. \label{lst:wrong_variable}}
 *** Variables ***
 ${URL}            http://localhost:4680/tbuis/index.jsp
 ${LOGIN PAGE}    http://localhost:4680/tbuis/login
 ${OVERVIEW PAGE}  http://localhost:4680/tbuis/student-view/overview
-${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates
-            \end{code}
+${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates \end{code}
 
         \subsection{Mistral}
 
@@ -1253,7 +1266,7 @@ Page Should Contain    Student's View    xpath://*[@id="stu.view.title"]
 Page Should Contain Element    id=overview.personalInfoForm
         \end{code}
 
-        \begin{figure}
+        \begin{figure}[H]
             \includegraphics[width=\textwidth]{pic/mistral-large-results.pdf}
             \caption{Výsledky pro model Mistral Large.}
             \label{fig:res:mistral-large}

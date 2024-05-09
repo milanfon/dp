@@ -295,15 +295,15 @@ Open Browser
 
         \begin{figure}
             \begin{tikzpicture}[node distance=2cm, auto]
-                    \node (start) [block, fill=red!30] {Record and tag};
-                    \node (in1) [block, below of=start, fill=blue!30] {Create test};
-                    \node (pro1) [block, below of=in1, fill=gray!50] {Edit prompt};
-                    \node (pro2) [block, below of=pro1, fill=gray!50] {Generate};
-                    \node (out1) [block, below of=pro2, fill=gray!50] {View};
-                    \node (pro3) [block, below of=out1, fill=gray!50] {Manual Edit};
-                    \node (dec1) [block, below of=pro3, fil=orange] {Validate test};
-                    \node (pro4) [block, below of=dec1, fill=blue!30] {Deploy servers and run tests};
-                    \node (stop) [block, below of=pro4, fill=green!50] {Evaluate results};
+                    \node (start) [block, fill=red!30] {Nahrávka a značkování};
+                    \node (in1) [block, below of=start, fill=blue!30] {Vytvoření testu};
+                    \node (pro1) [block, below of=in1, fill=gray!50] {Úprava promptu};
+                    \node (pro2) [block, below of=pro1, fill=gray!50] {Generování};
+                    \node (out1) [block, below of=pro2, fill=gray!50] {Zobrazení};
+                    \node (pro3) [block, below of=out1, fill=gray!50] {Manualní úprava};
+                    \node (dec1) [block, below of=pro3, fil=orange] {Validace testu};
+                    \node (pro4) [block, below of=dec1, fill=blue!30] {Nasazení serverů a spuštění testů};
+                    \node (stop) [block, below of=pro4, fill=green!50] {Vyhodnocení výsledků};
 
                     \draw [arrow] (start) -- (in1);
                     \draw [arrow] (in1) -- (pro1);
@@ -629,24 +629,24 @@ You're an intelligent programming assistant. Output code only, no text around.
             \begin{tikzpicture}[node distance=2cm]
                 \node (start) [io] {Uživatelská specifikace test (šablona)};
                 \node (in1) [process, below of=start] {Jinja2 templating};
-                \node (in2) [io, below of=in1] {test count};
-                \node (dec1) [decision, below of=in2, yshift=-1cm] {count > 0};
-                \node (pro1) [process, below of=dec1, yshift=-1.5cm] {model prompt};
-                \node (pro2) [process, below of=pro1] {output filtering};
-                \node (out1) [startstop, below of=pro2] {save test};
-                \node (procCount) [process, below of=out1] {count - 1};
-                \node (stop) [startstop, right of=dec1, xshift=3cm] {end};
+                \node (in2) [io, below of=in1] {počet testů};
+                \node (dec1) [decision, below of=in2, yshift=-1cm] {počet > 0};
+                \node (pro1) [process, below of=dec1, yshift=-1.5cm] {Prompt modelu};
+                \node (pro2) [process, below of=pro1] {Filtrace výstupu};
+                \node (out1) [startstop, below of=pro2] {Uložit test};
+                \node (procCount) [process, below of=out1] {počet - 1};
+                \node (stop) [startstop, right of=dec1, xshift=3cm] {KONEC};
                 \coordinate [left of=procCount] (lc);
                 \coordinate [left of=dec1] (lif);
 
                 \draw [arrow] (start) -- (in1);
                 \draw [arrow] (in1) -- (in2);
                 \draw [arrow] (in2) -- (dec1);
-                \draw [arrow] (dec1) -- node[anchor=east] {yes} (pro1);
+                \draw [arrow] (dec1) -- node[anchor=east] {ano} (pro1);
                 \draw [arrow] (pro1) -- (pro2);
                 \draw [arrow] (pro2) -- (out1);
                 \draw [arrow] (out1) -- (procCount);
-                \draw [arrow] (dec1) -- node[anchor=south] {no} (stop);
+                \draw [arrow] (dec1) -- node[anchor=south] {ne} (stop);
                 \draw [arrow] (procCount) -- (lc) (lc) -- (lif) (lif) -- (dec1);
             \end{tikzpicture}
             \centering
@@ -717,7 +717,7 @@ Adjust the locators (xpath) as necessary to match the exact structure and identi
     \subsection{Vytvoření kompozice} \label{sec:composition}
     Pro účely \textit{automatizovaného nasazení} byla zvolena technologie \textit{Docker}, tedy \textit{kontejnerové} řešení s možností vytvářet obrazy a kompozice. Právě kompozice je vhodným nástrojem pro jednoduché \textit{lokální} nasazení aplikace \textit{TbUIS}, protože potřebujeme 2 samostatné kontejnery; první s \textit{aplikačním servervem} a druhý s \textit{databází}.
 
-    Před samotnou integrací je nutné v každé z variant aplikace (\textit{WAR} soubory) změnit \textit{adresu} databáze. Docker kompozice umoňují přidělit jednotlivým kontejnerům názvy, za pomocí kterých lze v rámci interní DNS tyto kontejnery adresovat. V rámci archivů bylo nutné modifikovat adresu v souborech \textit{WEB-INF/classes/META-INF/persistence.xml} a \textit{WEB-INF/classes/applicationContext.xml}. Pro zjednodušení vlastního nasazení jsou modifikované webové archivy součástí repozitáře této práce. Pro kontejner \textit{databáze} byl zvolen název \verb|tbuis-db|. Veškeré potřebné soubory pro spuštění testovaného programu se nachází ve složce \verb|tbuis| v rámci programové složky.
+    Před samotnou integrací je nutné v každé z variant aplikace (\textit{WAR} soubory) změnit \textit{adresu} databáze. Docker kompozice umoňují přidělit jednotlivým kontejnerům názvy, kterými lze v rámci interní DNS tyto kontejnery adresovat. V rámci archivů bylo nutné modifikovat adresu v souborech \textit{WEB-INF/classes/META-INF/persistence.xml} a \textit{WEB-INF/classes/applicationContext.xml}. Pro zjednodušení vlastního nasazení jsou modifikované webové archivy součástí repozitáře této práce. Pro kontejner \textit{databáze} byl zvolen název \verb|tbuis-db|. Veškeré potřebné soubory pro spuštění testovaného programu se nachází ve složce \verb|tbuis| v rámci programové složky.
 
     K vytvoření \textit{kompozice} je potřeba mít také obrazy, ze kterých se budou vytvářet kontejnery. Zatímco pro databázi stačí \textit{MariaDB} kontejner z veřejného repozitáře, tak pro aplikační server je potřeba vytořit vlastní obraz, který bude vycházet z obrazu pro \textit{Tomcat} aplikační server, ale vždy do něj budou nahrána data jiné varianty aplikace. Pro vytoření obrazu byl do složky přidán \textit{Dockerfile} sloužící k jeho sestavení. Obsah tohoto souboru lze vidět v ukázce \ref{lst:dockerfile}. Skript přebírá cestu k \textit{WAR} souboru za pomocí argumentu a ten poté vkládá do obrazu na předem definovanou cestu a s definovaným názvem. V rámci Tomcat kontejneru slouží právě složka \verb|webapps| pro servlety a jejich název udává cestu, které v rámci HTTP dotazů jsou dostupné. Pro zvolený název \verb|tbuis| tedy odpovídá cesta \verb|/tbuis|.
 
@@ -727,7 +727,7 @@ ARG WAR_FILE
 COPY ${WAR_FILE} /usr/local/tomcat/webapps/tbuis.war
     \end{code}
 
-    Obraz z \textit{Dockerfile} lze vytvořit samostatně, ale také lze jeho sestavení zavolat při vytváření kompozice. To se provádí nástrojem \textit{Docker Compose}. Defaultní název souboru, který příkaz pro vytváření kompozice \verb|docker-compose up| využívá je \verb|docker-compose.yml|. Takovýto defaultní soubor je vytvořen v podsložce programu \verb|tbuis| (jeho obsah se nachází v ukázce \ref{lst:docker-compose}). Jak přípony souboru vyplývá, jedná se o textový soubor ve formátu \textit{YAML}. V rámci něj definujeme dvojici služeb potřebných pro nasazení aplikace. Službou v kompozici je myšlen kontejner. Při vytváření služby lze definovat i její \textit{proměnné prostředí}, \textit{porty} a jejich předávání, \textit{připojené} složky, \textit{sítě} a další vlastnosti běžně nastavované pro kontejner. Pro \textit{databázi} je potřeba předat port \(3306\), ale také připojit složku s inicializačními skripty (v našem případě dostupná ve stejné složce jako kompoziční soubor). V ní se nachází soubor \verb|init-db.sql|, který obsahuje příkazy pro vytvoření databáze s daným názvem a uživatele, za kterého se aplikační server připojuje. U služby aplikačního serveru je potřeba sestavit obraz. Pro toto sestavení využíváme vytvořený Dockerfile, nacházející se ve stejné složce. Také je potřeba předat argument s cestou pro \textit{WAR} soubor, který bude do serveru nahraný. Pro přístup do webového rozhraní aplikace z venčí kompozice byl zvolen port \(4680\) předaný z defaultního portu \(8080\), který aplikace používá. Tento port bude sloužit vygenerovaným testům pro přístup. V případě potřeby může uživatel tento port změnit dle svých požadavků. Oba kontejnery jsou také připojeny do stejné \textit{virtuální sítě}, který zajišťuje komunikaci mezi nimi. 
+    Obraz z \textit{Dockerfile} lze vytvořit samostatně, ale také lze jeho sestavení zavolat při vytváření kompozice. To se provádí nástrojem \textit{Docker Compose}. Defaultní název souboru, který příkaz pro vytváření kompozice \verb|docker-compose up| využívá je \verb|docker-compose.yml|. Takovýto defaultní soubor je vytvořen v podsložce programu \verb|tbuis| (jeho obsah se nachází v ukázce \ref{lst:docker-compose}). Jak přípona souboru naznačuje, jedná se o textový soubor ve formátu \textit{YAML}. V rámci něj definujeme dvojici služeb potřebných pro nasazení aplikace. Službou v kompozici je myšlen kontejner. Při vytváření služby lze definovat i její \textit{proměnné prostředí}, \textit{porty} a jejich předávání, \textit{připojené} složky, \textit{sítě} a další vlastnosti běžně nastavované pro kontejner. Pro \textit{databázi} je potřeba předat port \(3306\), ale také připojit složku s inicializačními skripty (v našem případě dostupná ve stejné složce jako kompoziční soubor). V ní se nachází soubor \verb|init-db.sql|, který obsahuje příkazy pro vytvoření databáze s daným názvem a uživatele, za kterého se aplikační server připojuje. U služby aplikačního serveru je potřeba sestavit obraz. Pro toto sestavení využíváme vytvořený Dockerfile, nacházející se ve stejné složce. Také je potřeba předat argument s cestou pro \textit{WAR} soubor, který bude do serveru nahraný. Pro přístup do webového rozhraní aplikace z venčí kompozice byl zvolen port \(4680\) předaný z defaultního portu \(8080\), který aplikace používá. Tento port bude sloužit vygenerovaným testům pro přístup. V případě potřeby může uživatel tento port změnit dle svých požadavků. Oba kontejnery jsou také připojeny do stejné \textit{virtuální sítě}, který zajišťuje komunikaci mezi nimi. 
 
     \begin{code}{dockerfile}{Docker Compose soubor pro sestavení kompozice \label{lst:docker-compose}}
 version: '3.8'
@@ -785,15 +785,15 @@ networks:
 
     \begin{figure}
         \begin{tikzpicture}[node distance=2cm]
-            \node (start) [startstop] {START};
-            \node (loadConfig) [io, below of=start] {LOAD CONFIG};
-            \node (decision1) [decision, aspect=2, below of=loadConfig, yshift=-1cm] {ARE ALL VARIANTS COMPLETE?};
-            \node (end) [startstop, right of=decision1, xshift=5cm] {END};
-            \node (deployVariant) [process, below of=decision1, yshift=-1.5cm] {DEPLOY VARIANT};
-            \node (waitDeploy) [process, below of=deployVariant] {WAIT UNTIL DEPLOYED};
-            \node (decision2) [decision, aspect=1.5, below of=waitDeploy, yshift=-1cm] {ARE ALL TESTS COMPLETE?};
-            \node (runTest) [process, below of=decision2, yshift=-1.5cm] {RUN TEST};
-            \node (saveReport) [io, below of=runTest] {SAVE REPORT};
+            \node (start) [startstop] {ZAČÁTEK};
+            \node (loadConfig) [io, below of=start] {NAČTENÍ KONFIGURACE};
+            \node (decision1) [decision, aspect=2, below of=loadConfig, yshift=-1cm] {Všechny varinaty dokončené?};
+            \node (end) [startstop, right of=decision1, xshift=5cm] {KONEC};
+            \node (deployVariant) [process, below of=decision1, yshift=-1.5cm] {NASADIT VARIANTU};
+            \node (waitDeploy) [process, below of=deployVariant] {POČKAT DOKOUD NENÍ NASAZENA};
+            \node (decision2) [decision, aspect=1.5, below of=waitDeploy, yshift=-1cm] {Jsou všechny testy dokončené?};
+            \node (runTest) [process, below of=decision2, yshift=-1.5cm] {SPUSTIT TEST};
+            \node (saveReport) [io, below of=runTest] {ULOŽIT REPORT};
             \node (resetDB) [process, below of=saveReport] {RESET DB};
             \coordinate [left of=decision1, xshift=-2cm] (ld1);
             \coordinate [left of=decision2, xshift=-2cm] (ld2);
@@ -802,14 +802,14 @@ networks:
 
             \draw [arrow] (start) -- (loadConfig);
             \draw [arrow] (loadConfig) -- (decision1);
-            \draw [arrow] (decision1) -- node[anchor=east] {no} (deployVariant);
+            \draw [arrow] (decision1) -- node[anchor=east] {ne} (deployVariant);
             \draw [arrow] (deployVariant) -- (waitDeploy);
             \draw [arrow] (waitDeploy) -- (decision2);
-            \draw [arrow] (decision2) -- node[anchor=east] {no} (runTest);
+            \draw [arrow] (decision2) -- node[anchor=east] {ne} (runTest);
             \draw [arrow] (runTest) -- (saveReport);
             \draw [arrow] (saveReport) -- (resetDB);
-            \draw [arrow] (decision1.east) -- node[anchor=south] {yes} (end);
-            \draw [arrow] (decision2.west) -- node[anchor=south] {yes} (ld2) -- (ld1) -- (decision1.west);
+            \draw [arrow] (decision1.east) -- node[anchor=south] {ano} (end);
+            \draw [arrow] (decision2.west) -- node[anchor=south] {ano} (ld2) -- (ld1) -- (decision1.west);
             \draw [arrow] (resetDB) -- (rdb) -- (rd2) -- (decision2.east);
         \end{tikzpicture}
         \centering

@@ -132,7 +132,7 @@
 
     Testy jsou běžně stavěny dle \emph{testového případu} (Anglicky \textit{test case}), který je \emph{speficikací}, poskytující jednoduše srozumitelné shrnutí jednotlivých funkcí softwarové aplikace. Ten může vyházet například z funkčního požadavku nebo případu použití. Měl by obsahovat: \textit{unikátní identifikátor, jasný název, podrobnosti, prerekvizity} a případné \textit{reference} na další dokumenty. Dále by měl obsahovat jak standardní průběh testového scénáře tak i alternativní scénáře (například \textit{selhání}) a jejich podmínky (zejména jejich \textit{vstupy a výstupy}). Každý se scénářů by měl být detailně popsaný a přesně určeny jejich místa výskytu a příčiny. Něměl by být opomenut žádný z možných stavů a alternativních scénářů, které mohou nastat, protože by to vedlo k \emph{nejasnosti} speficikace. Součástí testového případu by také měl být očekávaný stav systému před a po dokončení \emph{standardního průběhu} a popis metody, kterou lze úspěšné splnění testu ověřit. \cite{brada2023usecase} Při \textit{automatizovaném} testování se také využívá pojmů \textit{testovací skript} (Test Script) a \textit{testovací sada} (Test Suite), kdy skript je přepis \textit{testového} případů do zdrojového kódu a soubor takových kódů poté tvoří právě \textit{testovací sadu}. \cite{brada2015crashcourse}
 
-    Testy se v softwarovém vývoji rozdělují na různé druhy dle jejich specifického zaměření a rozsahu. Mezi nejčastější druhy se řadí:
+    Testy se v softwarovém vývoji rozdělují na různé druhy dle jejich specifického zaměření a rozsahu. Zde je potřeba podotknout, že toto rozdělení testů je sémantické a v reálné implementaci může jeden test mít přesah i do jiné kategorie nebo sám spadat do více z nich. Mezi nejčastější druhy se řadí:
     \begin{itemize}
         \item \textbf{jednotkové (unit) testy} - Kontroluje správnou funkčnost nejmenších částí (tzv. \textit{jednotek}) softwaru. Těmi může být např. \textit{funkce, třída, modul, komponenta, ...} Testování jednotek probíhá bez jejich závislostí, které jsou většinou nahrazeny \glslink{mock}{maketami}.
         \item \textbf{integrační testy} - \glslink{mock}{Makety} jsou nahrazeny reálnými závislostmi a je testována integrace softwaru do jejího kompletního běhového prostředí. 
@@ -140,8 +140,70 @@
         \item \textbf{kvalifikační testy} - Rigorózní testování, při kterém je ověřeno, zda produkt odpovídá návrhu, standardům a požadavkům. 
         \item \textbf{kouřové (smoke) testy} - Zjednodušené a nenáročné testy, které jsou spuštěny při každém sestavení softwaru.
     \end{itemize}
+ 
+    Pro demonstraci testů lze ukázat jednotkové testování na příkladu \textit{kalkulačky}, kterou při objektové implementaci v jazyce Java může předstvovat třída obsahující metody se základními operacemi (viz obr. \ref{fig:calc_func}). Ukázkové příklady pro jednodnoduché testové požadavky jsou uvedeny v tabulce \ref{tab:calc_tets_cases}. Podle této specifikace a s využitím např. frameworku \textit{JUnit} lze sestavit testovací skripy pro jednotlivé \emph{jednotky}, za které se zde považují právě metody pro základní výpočetní operace. Z tabulky lze vidět, že pro každou funkci definujeme platné vstupy, výstupy  a případně možné vyjímky, které mohou nastat při neplatných vstupech měli by být odchyceny. Jak je zobrazeno v obrázku \ref{fig:calc_tests}, pro \textit{součet} by měl test projít s libovolnými celými čísly na vstupu. Lze zde také otestovat prohození vstupních hodnot \(A\) \(B\) a ověřit, zda se výsledek korektně mění či němění (dle toho, co je předpokladem). Podobně je tomu i pro \textit{rozdíl} nebo \textit{součin}. Tím, že použitý Jazyk Java je \textit{silně typovaný}, není zde potřeba kontrolovat, zda vstupní číslo je zde z oboru \textit{celých čísel} (jinými slovy \textit{integer}), protože pokud by se jednalo například o číslo v datovém typu \verb|float|, nešel by takový kód ani spustit. Ovšem hodnota \(0\) je stále platná ve zde využitém datovém typu \verb|integer| a v případě dělení nesmí být druhý argument nulový. V tomto případě je tady také potřeba otestovat, zda jednotka při nulovém argumentu korektně skončí vyjímkou. K testování se také běžně využívá znalostí odborného \textit{testera}, který by měl být schopen odhalit i možné nečekané chování nad rámec specifikace.
 
-    %TODO Co to jsou SW druhy, příklad, asi i to GUI testování a jak probíhá automatizovaně
+    \begin{table}
+        \catcode`\-=12
+        \begin{tabular}{|c|c|c|p{7.5cm}|}
+            \hline
+            \textbf{ID} & \textbf{Název} & \textbf{Vlastnost} & \textbf{Hodnota} \\
+            \hline
+            \multirow{4}{*}{TC-1} & \multirow{4}{*}{Součet} & Popis & Matematický sočet dvou celých čísel \\
+            \cline{3-4}
+            & & Vstupy & Celá čísla \(A\) a \(B\) \\
+            \cline{3-4}
+            & & Výstupy & Celé číslo, které je výsledkem součtu čísel \(A\) a \(B\) \\
+            \cline{3-4}
+            & & Vyjímky & \(A\) nebo \(B\) nejsou validní celé číslo \\
+            \hline
+            \multirow{4}{*}{TC-2} & \multirow{4}{*}{Rozdíl} & Popis & Matematický rozdíl dvou celých čísel \\
+            \cline{3-4}
+            & & Vstupy & Celá čísla \(A\) a \(B\) \\
+            \cline{3-4}
+            & & Výstupy & Celé číslo, které je výsledkem rozdílu čísel \(A\) a \(B\) \\
+            \cline{3-4}
+            & & Vyjímky & \(A\) nebo \(B\) nejsou validní celé číslo \\
+            \hline
+            \multirow{4}{*}{TC-3} & \multirow{4}{*}{Násobení} & Popis & Matematický násobek dvou celých čísel \\
+            \cline{3-4}
+            & & Vstupy & Celá čísla \(A\) a \(B\) \\
+            \cline{3-4}
+            & & Výstupy & Výsledek násobení čísla \(A\) hodnotou \(B\) \\
+            \cline{3-4}
+            & & Vyjímky & \(A\) nebo \(B\) nejsou validní celé číslo \\
+            \hline
+            \multirow{4}{*}{TC-3} & \multirow{4}{*}{Dělení} & Popis & Matematické dělení dvou celých čísel \\
+            \cline{3-4}
+            & & Vstupy & Celá čísla \(A\) a \(B\) \\
+            \cline{3-4}
+            & & Výstupy & Výsledek dělení čísla \(A\) číslem \(B\) \\
+            \cline{3-4}
+            & & Vyjímky & \(A\) nebo \(B\) nejsou validní celé číslo \newline Číslo \(B\) je rovno \(0\). \\
+            \hline
+        \end{tabular}
+        \centering
+        \caption{Zjednodušené testové požadavky pro ukáukový příklad kalkulačky.}
+        \label{tab:calc_tets_cases}
+    \end{table}
+
+    \begin{figure}[H]
+        \includegraphics[width=0.6\textwidth]{pic/calc_func.png}
+        \centering
+        \caption{Ukázkové funkce kalkulačky vhodné pro jednotkové otestování.}
+        \label{fig:calc_func}
+    \end{figure}
+
+    \begin{figure}[H]
+        \includegraphics[width=\textwidth]{pic/calc_tests.png}
+        \centering
+        \caption{Ukázkové jednotkové testy pro funkce kalkulačky.}
+        \label{fig:calc_tests}
+    \end{figure}
+
+    Testovat je možné nejen zdrojový kód softwaru, ale také jeho grafické rozhraní (dále pouze \Acrshort{gui}). Zde je možné využít stejného manuálního testování jako bylo popsáno výše, ovšem existují i sofistikované automatizované metody. Účelem \Acrshort{gui} testů nemusí být pouze základní ověření funkčnosti na testových scénářích, ale také zajištění, že \Acrshort{gui} se správně chová napřílad na různých zařízeních nebo velikostích obrazovky. Dále lze také ověřovat, zda nové aktualizace neporušili staré funkce (regresní testy) či zhodnotit, zda výkon aplikace odpovídá předpokladu. Tyto testy lze automatizovat jak skriptem (příkladem zde je framework \textit{Robot Framework} nebo \textit{Selenium}, využívané pro testy webu a v tomto projetu) tak skze nástroje umožňující nahrávání uživatelských akcí a interakcí se softwarem a jejich následné přehrání (podobně jako funguje například \textit{makro} v sadě Microsoft Office). Mezi takové nástroje se řadí software jako např. \textit{Ranorex}, \textit{AutoHotKey} či \textit{PyAutoGUI}. \cite{alegroth2016maintenance}
+
+    %TODO Možná metriky, které se u testů sbírají?
 
     \section{Jazykové modely}
 

@@ -132,6 +132,15 @@
 
     Testy jsou běžně stavěny dle \emph{testového případu} (Anglicky \textit{test case}), který je \emph{speficikací}, poskytující jednoduše srozumitelné shrnutí jednotlivých funkcí softwarové aplikace. Ten může vyházet například z funkčního požadavku nebo případu použití. Měl by obsahovat: \textit{unikátní identifikátor, jasný název, podrobnosti, prerekvizity} a případné \textit{reference} na další dokumenty. Dále by měl obsahovat jak standardní průběh testového scénáře tak i alternativní scénáře (například \textit{selhání}) a jejich podmínky (zejména jejich \textit{vstupy a výstupy}). Každý se scénářů by měl být detailně popsaný a přesně určeny jejich místa výskytu a příčiny. Něměl by být opomenut žádný z možných stavů a alternativních scénářů, které mohou nastat, protože by to vedlo k \emph{nejasnosti} speficikace. Součástí testového případu by také měl být očekávaný stav systému před a po dokončení \emph{standardního průběhu} a popis metody, kterou lze úspěšné splnění testu ověřit. \cite{brada2023usecase} Při \textit{automatizovaném} testování se také využívá pojmů \textit{testovací skript} (Test Script) a \textit{testovací sada} (Test Suite), kdy skript je přepis \textit{testového} případů do zdrojového kódu a soubor takových kódů poté tvoří právě \textit{testovací sadu}. \cite{brada2015crashcourse}
 
+    Testy se v softwarovém vývoji rozdělují na různé druhy dle jejich specifického zaměření a rozsahu. Mezi nejčastější druhy se řadí:
+    \begin{itemize}
+        \item \textbf{jednotkové (unit) testy} - Kontroluje správnou funkčnost nejmenších částí (tzv. \textit{jednotek}) softwaru. Těmi může být např. \textit{funkce, třída, modul, komponenta, ...} Testování jednotek probíhá bez jejich závislostí, které jsou většinou nahrazeny \glslink{mock}{maketami}.
+        \item \textbf{integrační testy} - \glslink{mock}{Makety} jsou nahrazeny reálnými závislostmi a je testována integrace softwaru do jejího kompletního běhového prostředí. 
+        \item \textbf{akceptační testy} - Scénáře dle kterých probíhá převzetí softwaru do rukou zákazníka, předem domluvených oběma stranami.
+        \item \textbf{kvalifikační testy} - Rigorózní testování, při kterém je ověřeno, zda produkt odpovídá návrhu, standardům a požadavkům. 
+        \item \textbf{kouřové (smoke) testy} - Zjednodušené a nenáročné testy, které jsou spuštěny při každém sestavení softwaru.
+    \end{itemize}
+
     %TODO Co to jsou SW druhy, příklad, asi i to GUI testování a jak probíhá automatizovaně
 
     \section{Jazykové modely}

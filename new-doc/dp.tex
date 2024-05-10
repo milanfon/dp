@@ -207,7 +207,16 @@
 
     \section{Jazykové modely}
 
-    %TODO Co to je LLM, jak fungují
+    Velké jazykové modely (zkráceně \Gls{llm}) je druh modelu strojového učení (\Acrshort{ml}), který využívá techniky \textit{hlubokého učení}, které se zaměřují na techniky zpracování a generování přirozeného jazyka (také známé jako techniky \Acrshort{nlp}). Tyto modely jsou navrženy tak, aby rozumněli kontextu a významu jazyka, a dokázali pro \textit{textový vstup} odhadnout (vygenerovat) \textit{textový výstup}. Tato schopnost jim umožňuje provádět široké spektrum operací nad přirozeným jazykem jako sumarizace, překlad textu, generování absahu či dialogu a podobně. Příkladem takových modelů je například známý \textit{GPT} (Generative Pre-trained Transformer) od společnosti OpenAI nebo BERT (Bidirectional Encoder Representations from Transformers).
+    \cite{devlin2019bert} \cite{googleML2023} \cite{cloudflareLLM2023}
+
+    \Gls{llm} modely získávají svá data při procesu \textit{trénování}. Jejich trénink zahrnuje analýzu a zpracování obrovského množství textových dat, jejichž řetězce jsou rozděleny na jednotky zvané \gls{token}y. Tokenizace je proces, při kterém je text rozdělen na menší části, které mohou být \textit{slova, části slov} nebo pouze \textit{jednotlivé znaky}. Toto rozdělení Toto rozdělení umožňuje lépe analyzovat a učit se závislosti mezi jednotlivými částmi textu. Každý token je pak převeden na numerický vektor pomocí techniky zvané \emph{embedding}, což jsou vlastně váhy přiřazené jednotlivým tokenům. Váhy v modelu jsou kritické, protože určují, jaký význam a důležitost jednotlivá slova a tokeny mají. Tyto váhy jsou dynamicky upravovány během trénování, aby co nejlépe odráželi vzory a závislosti v tréninkových datech. Model díky těmto hodnotám může model zpracovávat text v matematické formě. Modely jsou většinou předtrénovány na rozsáhlé sadě korpusů textových dat, které zahrnují články, knihy, webové stránky a další prameny obsahující psaný text. Cílem trénování je naučit model základní struktu jazyka bez specifického cíle. Váhy jsou zároveň jedny z parametrů modelu. Dalšími parametry také mohou být zkreslení (bias) jednotlivých vrstev nebo jejich aktivace. Věškteré parametry modelu mohou být upravovány v rámci trénovacího procesu a mají zásadní vliv na výstup modelu. \cite{prazak2022embedding} \cite{prazak2022seq2seq}
+
+    Po natrénování modelu na obecné sadě dat je také možné přejít ke kroku zvanému \uv{fine-tuning}, ve kterém dochází k jeho jemnému doladění, aby jeho schopnosti odpovídali konkrétním úkolům nebo aplikacím, pro které by model měl být použit. K tomu je využita datová sada úzce zaměřená na tuto oblast. Během této fáze se upravují vnitřní parametry modelu tak, aby lépe odpovídali cílovým úkonům. Váhy v modelu, které jsou upravovány, určují, jak model reaguje na různé vstupy během interferenční fáze. Příkladem takového \textit{fine-tuningu} může být úprava modelu pro generování zdrojového kódu specifického programovacího jazyka.
+
+    Pro funkci \Gls{llm} je také důležitý kontext modelu, který je definován jako soubor relevatních informací, které předcházejí nebo následují za aktuálním tokenem a ovlivňují jeho význam nebo použití v dané situlaci. \Gls{llm} využívají kontext k lepšímu porozumění tomu, jak jsou slova používaná ve větách, což umožňuje modelu generovat text, který je koherentní a relevantní k zadaným promptům. Kontext je tedy klíčový pro trénink modelu, protože pomáhá modelu pochopit nejen izolované tokeny, ale také celkovou struktu a význam textu.
+
+    Jazykové modely se spouštějí během procesu zvaného \textit{interference}. Jde o proces, při kterém model generuje výstupy (odpovědi, texty) na základě vstupních dat, které dostává. Těmto vstupním datům se říká \textit{prompt}, kterým je podnět poskytnutý uživatelem jako \textit{otázka, věta k dokončení}, nebo jiný typ zadání, které model používá jako východisko pro generování odpovídajícího textu. Znalosti a kontext nabrané při tréninku jako váhy jsou využity k predikci nejpravděpodobnějších tokenů, které by měli následovat po promptu. Interakce s \Gls{llm} prostřednictvím promptu umožňuje uživatelům specfikovat, jaký typ informace nebo textu chtějí od modelu získat. Modely jsou běžně navrženy tak, aby rozpoznávali struktu jazyka, tak kontext, ve kterém jsou jeho tokeny použity. To umožňuje modelům přizpůsobovat své odpovědi v závislosti na zadání a předchozím textu v konverzaci. \cite{pasekprazak2022}
 
     \section{Motivace}
 
@@ -611,8 +620,6 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                      & WizzardCoder & TBD & \\
                     \hline
                     Google & Gemini 1.5 Pro & gemini-1.5-pro-preview-0409 & API \textit{Google Cloud} \\
-                    \hline
-                    DeepSeek & DeepSeek Coder & TBD & Lokální \\
                     \hline
                     % TODO Dopsat modely informace
                 \end{tabular}

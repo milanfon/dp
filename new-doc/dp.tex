@@ -1408,13 +1408,13 @@ Page Should Contain Element    id=overview.personalInfoForm
                 \textbf{Model} & \textbf{Úspěšnost pro \linebreak scénáře} & \textbf{Celková úspěšnost případů} & \textbf{Validita} & \textbf{Úspěšnost z validních} & \textbf{Celková úspěšnost testů} \\
                 \hline
                 \hline
-                Claude 3 Opus & \textbf{100,00\%} & \textbf{43,71\%} & 47,00\% & \textbf{96,23\%} & \textbf{51,00\%} \\
-                \hline
-                GPT-4-Turbo   & 70,00\%  & 37,29\% & 39,00\% & 61,54\% & 46,00\% \\
+                Claude 3 Opus & \textbf{100,00\%} & \textbf{43,71\%} & 47,00\% & \textbf{95,74\%} & \textbf{45,00\%} \\
                 \hline
                 Gemini 1.5 Pro & 90,00\% & 39,43\% & \textbf{48,00\%} & 87,50\% & 42,00\% \\
                 \hline
                 GPT-4         & 90,00\%  & 36,71\% & 39,00\% & 92,31\% & 36,00\% \\
+                \hline
+                GPT-4-Turbo   & 70,00\%  & 37,29\% & 39,00\% & 61,54\% & 24,00\% \\
                 \hline
                 Mistral Large & 40,00\%  & 17,79\% & 18,00\% & 83,33\% & 15,00\% \\
                 \hline
@@ -1434,11 +1434,13 @@ Page Should Contain Element    id=overview.personalInfoForm
             \label{tab:model_metrics}
         \end{table}
 
-        Z výsledků (v tabulce \ref{tab:model_metrics}) lze usuzovat, že 
+        Z výsledků (v tabulce \ref{tab:model_metrics}) lze usuzovat, že modelem s nejpřesnějšími výsledky je \textit{Claude 3 Opus}, který pro každý \textit{testový případ} byl jako jediný schopen vygenerovat alespoň jednu \textit{validní} testovou variantu. Ve všech otestovaných kombinacích \textit{testovací případ - varianta aplikace} vyšel v necelých 44\% případů s očekávaným výsledkem. Přibližně polovina vygenerovaných testů šla považovat za validní. Z nich zde pouze 2 nebyly schopny odhalit vloženou chybu, což při ignorování modelů, které vygenerovali jen jednotky validních testů, dává nejvyšší přesnost ve vygenerovaných testových skriptech pro tento model. Model \textit{Gemini 1.5 Pro} ve validitě o jeden test test předběh model \textit{Claude 3 Opus}. Výsledná úspěšnost z validních testů však již byla nižší, ale ve výsledku stále dokázal vygenerovat 42 ze 100 testů, které plně splňovali veškeré požadavky a podávali očekávané výsledky. Druhou největší úspěšnost validních vygenerovaných testů poté vykazuje model \textit{GPT-4}, který však podobně jako \textit{Gemini 1.5 Pro} nebyl schopen pro 1 testový případ vygenerovat ani jeden platný test. Zároveň přibližně pouze třetina ze všech 100 vygenerovaných testů uspojovala předpoklad. Stejných 39 validních testů dokázala vygenerovat i jeho varianta \textit{GPT-4 Turbo}. Ta však již měla vysokou míru selhání jednotlivých variant testů, což se propsalo do výsledu, ve kterém jen 24 z nich šlo považovat za korektní z pohledu předpokladu. Vyšší úspěšnost jednotlivých variant zaznamenává model \textit{Mistral Large}, který však korektně určil pouze 18 testů, z nichž 15 bylo schopno detekovat problém.
 
-        %TODO Tabulka celkové úspěšnosti modelů
+        Ostatní modely jako \texti{GPT 3.5 Turbo} nebo zejména lokální modely jako \textit{CodeLlama} či \textit{Mistral 7B} byly schopny vyprodukovat pouze jednotky úspěšných testů, případně ani jeden. Jediný \textit{CodeLlama} nabídl výsledky obsahující polovinu testových případů, avšak objevuje se zde vysoká míra neúspěšného detekování poruchy. Z testovaných lokálních modelů ho však lze s jeho 2 úspěšnými testy považovat za schopné lokální \Gls{llm}. Nízká úspěšnost těchto modelů může být způsobena například nízkým počtem jejich parametrů nebo nízkou mírou zastoupení právě dat o testech a příkladech Robot Framework skriptů v trénovací sadě těchto modelů.
 
         \subsection{Srovnání s lidsky psanými testy}
+
+        V příloze \ref{sec:appendix:src} se nacházejí zdrojové kódy, které obsahují ukázky jak testů vygenerovaných 
 
         %TODO Tady asi jako zkusit code coverage a asi bych udělal srovnání s lidskými testy
 
@@ -1453,7 +1455,7 @@ Page Should Contain Element    id=overview.personalInfoForm
 
 \appendix
 
-    \chapter{Přiložené zdrojové kódy}
+    \chapter{Přiložené zdrojové kódy} \label{sec:appendix:src}
 
     \begin{code}{robot}{Korekntně vygenrovaný test dle specifikace 10 (soubor \uv{openai-gpt4/spec-10-3.robot}). \label{lst:gpt4:spec-10-3}}
 *** Settings ***

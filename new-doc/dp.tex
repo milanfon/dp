@@ -273,18 +273,18 @@
 
     \paragraph{Anthropic} Velmi schopným modelem, který jak jeho tvůrci\footnote{\url{https://www.anthropic.com/news/claude-3-family}} tak i nezávislé strany pusuzují jakožto stejně přesný a inteligentní, ne-li v některých případech přesnější a schopnější jak model GPT-4, je Claude 3 od společnosti Anthropic. \cite{kevian2024capabilities} Ten je nabízen ve 3 varintách: \textit{Opus, Sonnet a Haiku}, kdy verze \textit{Opus} je s počtem 137 miliard parametrů a kontextovým oknem 200 tisíc tokenů největší z nich a ostatní využívají méně parametrů. Znamená to ale také, že mají nižší cenu, protože rodina modelů Claude 3 je pouze proprietární a dostupná buďto skrze API společnosti Anthropic či na službě AWS. Mimo EU je také dostupný v rámci chatovací aplikace. \cite{anthropic2023claude}
 
-    \paragraph{Cohere} Podobně jako společnost Meta, vydává otevřené modely i startup \textit{Cohere}, který stojí za modely jako \textit{Command, Command R a Command R+}. Všechny z nich jsou otevřené\footnote{Např. model Command R+: \url{https://huggingface.co/CohereForAI/c4ai-command-r-plus}} pro \emph{nekomerční} použití (pod licencí CC-BY-NC-4.0) a tedy volně použitelné např. pro výzkumné a neziskové účely. Mimo základních schopností tyto modely oficiálně podporují více jak 13 mluvených jazyků. Zároveň modely \textit{Command R(+)} byli navrženy se schopností využívat zdrojování metodou \Gls{rag} za pomocí konektorů, kterými může být například \textit{internetový vyhledávač} nebo \textit{lokální soubory}. Sám tvůrce však upozorňuje na fakt, že větší modely jsou vhodné spíše pro účely \Acrshort{ir}, zatímco pro běžné úlohy sumarizace je vhodný menší model \textit{Command}. I přes fakt, že tyto modely lze provozovat \textit{lokálně}, je zde problém ve velké náročnosti na hardware. Modely jsou však dostupné i skze nejen oficiální API, ale i jako služba u cloudových poskytovatelů. \cite{cohere_models} \cite{ruder_command_r}
+    \paragraph{Cohere} Podobně jako společnost Meta, vydává otevřené modely i startup \textit{Cohere}, který stojí za modely jako \textit{Command, Command R a Command R+}. Většina z nich je otevřena\footnote{Např. model Command R+: \url{https://huggingface.co/CohereForAI/c4ai-command-r-plus}} pro \emph{nekomerční} použití (pod licencí CC-BY-NC-4.0) a tedy volně použitelné např. pro výzkumné a neziskové účely. Mimo základních schopností tyto modely oficiálně podporují více jak 13 mluvených jazyků. Zároveň modely \textit{Command R(+)} byli navrženy se schopností využívat zdrojování metodou \Gls{rag} za pomocí konektorů, kterými může být například \textit{internetový vyhledávač} nebo \textit{lokální soubory}. Sám tvůrce však upozorňuje na fakt, že větší modely jsou vhodné spíše pro účely \Acrshort{ir}, zatímco pro běžné úlohy sumarizace je vhodný menší a proprietární model \textit{Command}. I přes fakt, že tyto modely lze provozovat \textit{lokálně}, je zde problém ve velké náročnosti na hardware. Modely jsou však dostupné i skze nejen oficiální API, ale i jako služba u cloudových poskytovatelů. \cite{cohere_models} \cite{ruder_command_r}
 
-    \paragraph{Google} Společnost Google v současnosti nabízí 2 rodiny LLM modelů a to víceúčelové \textit{Gemini}\footnote{\url{https://deepmind.google/technologies/gemini/}}, které jsou proprietární a dostupné ve verzi 1.0 Pro a Ultra a novější 1.5 Pro. Google také vypustil malé modely pro generování zdrojového kódu s názvem \textit{Gemma} a pod Apache 2.0 licencí. Podobně jako \textit{Command R} modely mají schopnost podkládat svůj výstup na bázi webového vyhledání nebo poskytnutých dokumentů. V případě modelu \textit{Gemini 1.5 Pro} je tato schopnost navíc rozšířena tím, že podporuje kontext s velikostí až 1 milion tokenů. Tato schopnost může přijít vhod například pro návrh zdrojového kódu v rámci větší kódové základny. Gemini je dostupné v základním modelu 1.O Pro zdarma (dříve Bard), ovšem služba Gemini Studio nabízející ostatní modely není v současnosti dostupná v EU a tedy jediný přístup k modelům je skrze API v rámci služby Google Cloud\footnote{https://cloud.google.com/vertex-ai}.
+    \paragraph{Google} Společnost Google v současnosti nabízí 2 rodiny LLM modelů a to víceúčelové \textit{Gemini}\footnote{\url{https://deepmind.google/technologies/gemini/}}, které jsou proprietární a dostupné ve verzi 1.0 Pro a Ultra a novější 1.5 Pro. Google také vypustil malé modely pro generování zdrojového kódu s názvem \textit{Gemma} a pod upravenou Apache 2.0 licencí\footnote{\url{https://ai.google.dev/gemma/terms}}. Podobně jako \textit{Command R} modely mají schopnost podkládat svůj výstup na bázi webového vyhledání nebo poskytnutých dokumentů. V případě modelu \textit{Gemini 1.5 Pro} je tato schopnost navíc rozšířena tím, že podporuje kontext s velikostí až 1 milion tokenů. Tato schopnost může přijít vhod například pro návrh zdrojového kódu v rámci větší kódové základny. Gemini je dostupné v základním modelu 1.O Pro zdarma (dříve Bard), ovšem služba Gemini Studio nabízející ostatní modely není v současnosti dostupná v EU a tedy jediný přístup k modelům je skrze API v rámci služby Google Cloud\footnote{https://cloud.google.com/vertex-ai}.
 
-    Rodina modelů Gemma je poté volně dostupná a to v provedení se 2 nebo 7 miliardy tokenů a ve verzích \textit{Base} a \textit{Instruct}. Dle tvůrců by model měl být pro účely psaní zdrojového kódu, matematického zápisu a logiky přesnější jak model \textit{Llama 2} ve verzi se 13 miliardy paramterů. \cite{gemma_introduction}
+    Rodina modelů Gemma je poté volně dostupná a to v provedení se 2 nebo 7 miliardy tokenů a ve verzích \textit{Base} a \textit{Instruct}. Dle tvůrců by model měl být pro účely psaní zdrojového kódu, matematického zápisu a logiky přesnější jak model \textit{Llama 2} ve verzi se 13 miliardy paramterů. \cite{gemma_introduction} V rámci upravené licence se společnost \textit{Google} vzdává odpovědnosti za kôd vygenerovaný těmito modely.
 
-    \paragraph{Mistral} Open-source modely schopné generovat kód také nabízí společnost Mistral společně s jejich proprietárními modely jako \textit{Mistral Large} modelem. Jedním z jejich prvních otevřeně vydaných modelů byl \textit{Mistral 7B}, který jak název vypovídá obshuje pouze 7 miliard parametrů, ale i přes tento fakt je schopen v některých katergoriích překonat větší modely jako například \textit{Llama 2}. Výhodou je, že může být jednoduše vyladěn pro potřeby specifické aplikace. Jejich dalším modelem je také \textit{Mistral 8x7B} cílící na dosažení stejných kvalit jako např. model \textit{GPT-3.5 Turbo} v běžně používaných benchmarcích. Jeho větší varianta \textit{Mistral 8x22B} pak přidává podporu pro další mluvené jazyky. Všechny jejich otevřené modely jsou uvolněny pod licencí Apache 2.0. Mezi jejich proprietární modely se pak řadí model \textit{Mistral Small} a zejména \textit{Mistral Large}\footnote{\url{https://mistral.ai/news/mistral-large/}}, který podobně jako \textit{Mistral 8x22B} zvládá více jazyků tak i podporuje \Gls{rag}. Dostupný je jako API na jejich vlastní platformě \textit{Le Platforme} či u cloudových poskytovatelů.
+    \paragraph{Mistral} Open-source modely schopné generovat kód také nabízí společnost Mistral společně s jejich proprietárními modely jako \textit{Mistral Large} modelem. Jedním z jejich prvních otevřeně vydaných modelů byl \textit{Mistral 7B}, který jak název vypovídá obshuje pouze 7 miliard parametrů, ale i přes tento fakt je schopen v některých katergoriích překonat větší modely jako například \textit{Llama 2}. \cite{jiang2023mistral} Výhodou je, že může být jednoduše vyladěn pro potřeby specifické aplikace. Jejich dalším modelem je také \textit{Mixtral 8x7B} cílící na dosažení stejných kvalit jako např. model \textit{GPT-3.5 Turbo} v běžně používaných benchmarcích. Jeho větší varianta \textit{Mistral 8x22B} pak přidává podporu pro další mluvené jazyky. \cite{jiang2024mixtral} Všechny jejich otevřené modely jsou uvolněny pod licencí Apache 2.0. Mezi jejich proprietární modely se pak řadí model \textit{Mistral Small} a zejména \textit{Mistral Large}\footnote{\url{https://mistral.ai/news/mistral-large/}}, který podobně jako \textit{Mistral 8x22B} zvládá více jazyků tak i podporuje \Gls{rag}. Dostupný je jako API na jejich vlastní platformě \textit{Le Platforme} či u cloudových poskytovatelů.
 
         \newpage
 
         \begin{landscape}
-            \centering
+            \vspace*{\fill}
             \begin{table}[H]
                 \begin{tabular}{|p{6cm}|c|c|c|c|}
                     \hline
@@ -309,6 +309,11 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
                 \caption{Přehled a srovnání studií}
                 \label{tab:paper_comp}
             \end{table}
+            \vspace*{\fill}
+
+            \pagebreak
+
+            \vspace*{\fill}
             \begin{table}[H]
                 \begin{tabular}{|c|c|c|c|c|c|}
                     \hline
@@ -316,17 +321,36 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
                     \hline
                     \textit{StarCoderBase} & Volně dostupný & CodeML OpenRAIL-M 0.1 & 15.5 miliardy & 80+ & 5/2023 \\
                     \hline
-                    \textit{Code Llama} & Volně dostupný & Llama 2 Licence & 34 miliard & 8+ & 8/2023 \\
+                    \textit{CodeLlama} & Volně dostupný & Llama 2 Licence & 34 miliard & 8+ & 8/2023 \\
                     \hline
                     \textit{gpt-3.5-turbo} & Uzavřený & Proprietární & 175 miliard? & ? & 5/2023 \\
                     \hline
                     \textit{gpt-4} & Uzavřený & Proprietární & 1.76 bilionu & ? & 3/2023 \\
+                    \hline
+                    \textit{claude-3-opus} & Uzavřený & Proprietární & 137 miliard & ? & 3/2024 \\
+                    \hline
+                    \textit{command} & Uzavřený & Proprietární & 52 miliard & ? & ? \\
+                    \hline
+                    \textit{command-r} & Volně dostupný & CC-BY-NC-4 & 35 miliard & ? & 3/2024 \\
+                    \hline
+                    \textit{command-r-plus} & Volně dostupný & CC-BY-NC-4 & 104 miliard & ? & 4/2024 \\
+                    \hline
+                    \textit{mistral-7b} & Volně dostupný & Apache 2.0 & 7 miliard & ? & 9/2023 \\
+                    \hline
+                    \textit{mixtral-8x7b} & Volně dostupný & Apache 2.0 & 7 miliard & ? & 2/2024 \\
+                    \hline
+                    \textit{mixtral-8x22b} & Volně dostupný & Apache 2.0 & 22 miliard & ? & 4/2024 \\
+                    \hline
+                    \textit{mixtral-large} & Uzavřený & Proprietární & ? & ? & 2/2024 \\
+                    \hline
+                    \textit{gemma} & Volně dostupný & Gemma & 7 miliard & ? & 2/2024 \\
                     \hline
                 \end{tabular}
                 \centering
                 \caption{Přehled a srovnání modelů generujících kód}
                 \label{tab:code_models_comp}
             \end{table} 
+            \vspace*{\fill}
         \end{landscape}
     
     \section{Testovací program} \label{sec:test_program}

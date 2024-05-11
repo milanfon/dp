@@ -317,7 +317,7 @@ Models in Generating Unit Tests} & \multirow{2}{*}{\textit{gpt-3.5-turbo}} & Hum
             \begin{table}[H]
                 \begin{tabular}{|c|c|c|c|c|c|}
                     \hline
-                    \textbf{Model} & \textbf{Otevřenost} & \textbf{Licence} & \textbf{Počet parametrů} & \textbf{Počet programovacích jazyků} & \textbf{Datum vydání} \\
+                    \textbf{Model} & \textbf{Otevřenost} & \textbf{Licence} & \textbf{Počet parametrů} & \textbf{Programovacích jazyků} & \textbf{Datum vydání} \\
                     \hline
                     \textit{StarCoderBase} & Volně dostupný & CodeML OpenRAIL-M 0.1 & 15.5 miliardy & 80+ & 5/2023 \\
                     \hline
@@ -628,7 +628,7 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 
             \begin{table}
                 \catcode`\-=12
-                \begin{tabular}{|c|c|c|c|}
+                \begin{tabular}{|c|c|p{5cm}|c|}
                     \hline
                     \textbf{Tvůrce} & \textbf{Model} & \textbf{Použitá verze} & \textbf{Runtime} \\
                     \hline
@@ -638,21 +638,20 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
                     \cline{2-3} 
                     & GPT-3 Turbo & gpt-3-turbo-0125 &  \\
                     \hline
-                    \multirow{2}{*}{Mistral} & Mistral 22B v0.2 & TBD & Lokální \\
+                    \multirow{2}{*}{Mistral} & Mixtral 7B & TheBloke/Mistral-7B-Instruct-v0.2 & Lokální \\
                     \cline{2-4} 
                      & Mistral Large & mistral-large-2402 & API \textit{La Plateforme} \\
                     \hline
                     Anthropic & Claude 3 Opus & claude-3-opus-20240229 & API \\
                     \hline
-                    \multirow{3}{*}{Meta} & Codellama & TBD & \multirow{3}{*}{Lokální} \\
+                    \multirow{3}{*}{Meta} & Codellama & TheBloke/Phind-CodeLlama-34B-v2 & \multirow{3}{*}{Lokální} \\
                     \cline{2-3}
-                     & Llama 3 70B & TBD & \\
+                     & Llama 3 70B & MaziyarPanahi/Meta-Llama-3-70B-Instruct & \\
                     \cline{2-3}
-                     & WizzardCoder & TBD & \\
+                     & WizzardCoder & TheBloke/WizardCoder-Python-34B-V1.0 & \\
                     \hline
                     Google & Gemini 1.5 Pro & gemini-1.5-pro-preview-0409 & API \textit{Google Cloud} \\
                     \hline
-                    % TODO Dopsat modely informace
                 \end{tabular}
                 \centering
                 \caption{Použité LLM modely}
@@ -1317,7 +1316,7 @@ ${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates \end{code}
 
         \subsection{Mistral}
 
-        Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 22B}, nyní ve verzi \textit{0.2}. Tento model však nebyl schopen vygenerovat ani jeden validní test dle výsledků v obr. \ref{fig:res:mistral-22b}. Primárními problémy zde byly:
+        Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 7B}, nyní ve verzi \textit{0.2}. Tento model však nebyl schopen vygenerovat ani jeden validní test dle výsledků v obr. \ref{fig:res:mistral-7b}. Primárními problémy zde byly:
         \begin{itemize}
             \item \emph{Neplatná deklarace proměnných} - Byl použit neplatný zápis pro deklaraci i následné použití proměnných (např. v ukázce \ref{lst:mistral:variables}).
             \item Využití klíčového slova \verb|Set Viewport| jako předchozí modely.
@@ -1340,8 +1339,8 @@ password3 = "bla"
 
         \begin{figure}
             \includegraphics[width=\textwidth]{pic/mistral-v0.2-res.pdf}
-            \caption{Výsledky pro model Mistral 22B v0.2}
-            \label{fig:res:mistral-22b}
+            \caption{Výsledky pro model Mistral 7B v0.2}
+            \label{fig:res:mistral-7b}
         \end{figure}
 
         \noindent Tato společnost nabízí i větší a proprietární model \textbf{Mistral Large}, který již byl schopen alespoň pro polovinu testových případů vygenerovat platný test. Konkrétně pro testy 4, 6, 10, 12, 17 a 18 nebyla vygenerována žádná z těchto variant (viz obr. \ref{fig:res:mistral-large}) a ve všech chybových testech se objevovali následující chyby:

@@ -1387,7 +1387,60 @@ Page Should Contain Element    id=overview.personalInfoForm
         \end{figure}
 
     \section{Kvalita výsledků}
-    %TODO Tady asi jako zkusit code coverage a asi bych udělal srovnání s lidskými testy
+
+    Protože pro \Acrshort{gui} testy nelze využít běžné metriky využívané v softwarovém testování \cite{COPPOLA2022107062}, bylo pro zhodnocení jejich kvality využita statistika úspěšnosti vygenerovaných tetů dle předpokladu pro jednotlivé modely a následně také došlo ke srovnání s testy psané člověkem, které jsou dostupné k projetu TbUIS v rámci samostatného repozitáře \footnote{\url{https://gitlab.kiv.zcu.cz/herout/tbuis-robotframework}}.
+
+        \subsection{Úspěšnost LLM modelů v generování testů}
+
+        Pro určení úspěšnosti a kvality jednotlivých modelů pro účely generování \Acrshort{gui} testů v Robot Framework zápisu jsme definovali následující metriky: 
+        \begin{itemize}
+            \item \textbf{Úspěšnost pro scénáře} - Pro kolik scénářů vygeneroval model alespoň jednu variantu testu, schopnou určit správné chování aplikace.
+            \item \textbf{Celková úspěšnost případů} - Kolik ze všech 1400 spuštěných testů skončilo s očekávaným výsledkem pro nasazenou variantu aplikace při daném chodu (chybový stav se považuje za selhání).
+            \item \textbf{Validita} - Kolik ze 100 vygenrovaných testových variant prošlo filtračním kritériem, popsaným v sekci \ref{sec:evaluation}. 
+            \item \textbf{Úspěšnost z validních} - Kolik z validních testů bylo skutečně schopno odhalit vloženou chybu do systému. Poměr vůči předchozí metrice.
+            \item \textbf{Celková úspěšnost testů} - Kolik ze 100 vygenerovaných testů bylo schopno odhalit jak běžné chování nasazené varinaty softwaru tak její defekt. Jedná se o poměr předchozí metriky vůči celkovému počtu vygenerovaných testů (100).
+        \end{itemize}
+
+        \begin{table}[H]
+            \catcode`\-=12
+            \begin{tabular}{|c|p{2cm}|p{2cm}|l|p{2cm}|p{2cm}|}
+                \hline
+                \textbf{Model} & \textbf{Úspěšnost pro \linebreak scénáře} & \textbf{Celková úspěšnost případů} & \textbf{Validita} & \textbf{Úspěšnost z validních} & \textbf{Celková úspěšnost testů} \\
+                \hline
+                \hline
+                Claude 3 Opus & \textbf{100,00\%} & \textbf{43,71\%} & 47,00\% & \textbf{96,23\%} & \textbf{51,00\%} \\
+                \hline
+                GPT-4-Turbo   & 70,00\%  & 37,29\% & 39,00\% & 61,54\% & 46,00\% \\
+                \hline
+                Gemini 1.5 Pro & 90,00\% & 39,43\% & \textbf{48,00\%} & 87,50\% & 42,00\% \\
+                \hline
+                GPT-4         & 90,00\%  & 36,71\% & 39,00\% & 92,31\% & 36,00\% \\
+                \hline
+                Mistral Large & 40,00\%  & 17,79\% & 18,00\% & 83,33\% & 15,00\% \\
+                \hline
+                GPT-3.5 Turbo & 20,00\%  & 3,00\%  & 3,00\%  & 100,00\% & 3,00\% \\
+                \hline
+                CodeLlama     & 50,00\%  & 7,07\%  & 9,00\%  & 22,22\% & 2,00\% \\
+                \hline
+                Llama 3       & 10,00\%  & 2,00\%  & 2,00\%  & 100,00\% & 2,00\% \\
+                \hline
+                WizzardCoder  & 10,00\%  & 0,86\%  & 1,00\%  & 0,00\%  & 0,00\% \\
+                \hline
+                Mistral 7B    & 0,00\%   & 0,00\%  & 0,00\%  & 0,00\%  & 0,00\% \\
+                \hline
+            \end{tabular}
+            \centering
+            \caption{Výsledky metrik pro zhodnocení schopností modelů.}
+            \label{tab:model_metrics}
+        \end{table}
+
+        Z výsledků (v tabulce \ref{tab:model_metrics}) lze usuzovat, že 
+
+        %TODO Tabulka celkové úspěšnosti modelů
+
+        \subsection{Srovnání s lidsky psanými testy}
+
+        %TODO Tady asi jako zkusit code coverage a asi bych udělal srovnání s lidskými testy
 
     \section{Cena a časová náročnost generování}
     %TODO Je tohle dobré mít tady?
@@ -1397,6 +1450,123 @@ Page Should Contain Element    id=overview.personalInfoForm
 
 \chapter{Závěr}
     %TODO Použitelné modely, co zlepšit
+
+\appendix
+
+    \chapter{Přiložené zdrojové kódy}
+
+    \begin{code}{robot}{Korekntně vygenrovaný test dle specifikace 10 (soubor \uv{openai-gpt4/spec-10-3.robot}). \label{lst:gpt4:spec-10-3}}
+*** Settings ***
+Library           SeleniumLibrary
+Suite Teardown    Close Browser
+
+*** Test Cases ***
+Teacher My Subjects And Exam Date Checks
+    Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
+    Set Window Size    1501    1104
+    # Login Steps
+    Click Element    xpath=//*[@id="header.link.login"]
+    Sleep    1s
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    strict
+    Sleep    1s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    1s
+    Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+    Sleep    2s
+    # My Subjects
+    Click Element    xpath=//*[@id="tea.menu.mySubjects"]
+    Sleep    2s
+    Wait Until Element Is Not Visible    xpath=//button[@id!="tea.mySubjects.table.unregisterSubjectButton-0" and @value="Remove"]    10s
+    Click Element    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"]
+    Sleep    2s
+    Page Should Contain Element    id=tea.mySubjects.successAlert
+    # My Exam Dates
+    Click Element    xpath=//*[@id="tea.menu.myExamDates"]
+    Sleep    2s
+    Element Should Not Be Visible    xpath=//th[contains(., "Operating Systems")]
+    # New Exam Dates
+    Click Element    xpath=//*[@id="tea.menu.newExamDates"]
+    Sleep    2s
+    Element Should Not Be Visible    xpath=//option[contains(., "Operating Systems")]
+    # Set Evaluation
+    Click Element    xpath=//*[@id="tea.menu.setEvaluation"]
+    Sleep    2s
+    Element Should Not Be Visible    xpath=//option[contains(., "Operating Systems")]
+    # Evaluation Table
+    Click Element    xpath=//*[@id="tea.menu.evaluationTable"]
+    Sleep    2s
+    Element Should Not Be Visible    xpath=//option[contains(., "Operating Systems")]
+    # Other's Subjects
+    Click Element    xpath=//*[@id="tea.menu.otherSubjects"]
+    Sleep    2s
+    Page Should Contain Element    xpath=//td[contains(., "Operating Systems")]
+    # List of All Teachers
+    Click Element    xpath=//*[@id="tea.menu.listOfAllTeachers"]
+    Sleep    2s
+    Element Should Not Contain    xpath=//*[@id="tea.listOfAllTeachers.table.teacherRow-5"]    "Operating Systems"
+    Close Browser
+
+Student Other Subjects Check
+    Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
+    Set Window Size    1501    1104
+    # Login Steps
+    Click Element    xpath=//*[@id="header.link.login"]
+    Sleep    1s
+    Input Text    xpath=//*[@id="loginPage.userNameInput"]    orange
+    Sleep    1s
+    Input Text    xpath=//*[@id="loginPage.passwordInput"]    pass
+    Sleep    1s
+    Click Element    xpath=//*[@id="loginPage.loginFormSubmit"]
+    Sleep    2s
+    # Other Subjects
+    Click Element    xpath=//*[@id="stu.menu.otherSubjects"]
+    Sleep    2s
+    ${is_present}=    Run Keyword And Return Status    Element Should Not Contain    xpath=//tr[contains(., "Operating Systems")]    "Peter Strict"
+    Should Be True    ${is_present}
+    Close Browser\end{code}
+
+    \begin{code}{robot}{Ručně psaný test pro specifikaci 10. \label{lst:acc:spec-10-root}}
+*** Settings ***
+
+Resource          ../../baseKeywords.robot
+Resource          ../../keywords/scenarios/subjects/cancel/teaching.robot
+
+Variables         ../data/teacher/UC10_CancellationSubject.yaml
+
+Suite Setup       Prepare Suite without DB restore
+Test Setup        Prepare Test with DB restore
+Suite Teardown    End Test
+
+*** Test Cases ***
+
+TC.10.01 Teacher Cancel Teaching Of Subject
+    [Template]          Cancel Subject Teaching Success
+    [Tags]              UC.10  HappyDay  MAJOR
+    [Documentation]     In this test case teacher cancel teaching of subject when all preconditions are fullfilled.
+    ...
+    FOR    ${params}    IN    @{SuccessCancellations}
+       @{params}
+    END
+
+TC.10.02 Teacher Cancel Teaching Of Subject Fails - Some Students Enrolled
+    [Template]          Cancel Subject Teaching Failiture
+    [Tags]              UC.10  MINOR
+    [Documentation]     In this test case teacher tries cancel subject where some students are enrolled.
+    ...
+    FOR    ${params}    IN    @{SomeStudentsEnrolled}
+       @{params}
+    END
+
+TC.10.03 Teacher Cancel Teaching Of Subject Fails - Teacher does not teach this subject
+    [Template]          Cancel Subject Teaching Not Found
+    [Tags]              UC.10  MINOR
+    [Documentation]     In this test case teacher try leave subject which is not teached by.
+    ...
+    FOR    ${params}    IN    @{WrongSubject}
+       @{params}
+    END\end{code}
+
+\appendix
 
 % _____________________________________________________________________________
 %

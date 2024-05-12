@@ -544,7 +544,7 @@ Open Browser
         \caption{Seznam poruchových klonů využitých pro testování.}
     \end{table}
 
-    \section{Nahrávání scénářů}
+    \section{Nahrávání scénářů} \label{sec:recording}
 
     Dle \emph{specifikace} z předchozího bodu, vytvoří uživatel LLM generačního nástroje nahrávku jednotlivých kroků, které má test provést. V případě, že specifikace udává více uživatelských pohledů (\textit{student / učitel}), nahraje uživatel tyto pohledy jednotlivě. Současný projekt pracuje s nahrávacím nástrojem v rámci vývojářských nástrojů webového prohlížeče \textit{Google Chrome} (pro vývoj byla využita verze \(124\)). Tento nástroj je stále experimentální funkce, takže nelze vyloučit možnost, že v následujícíh verzích již nemusí být dostupný. Díky této funkci lze nahrávat uživatelské vstupy a interakce s jednotlivými prvky v rámci webových stránek. Mimo jiné také umožňuje přidávat \textit{asserty}, avšak tyto možnosti jsou nedostatečné a tedy v rámci této práce se omezíme pouze na údaje o interakci s prvky. Nahrávání zobrazeno na obr. \ref{fig:chrome_recording}. Nástroj je schopen vyexportovat výstup nahrávání v řadě formátů. Zde jsme zvolili JSON formát, který popisuje jednotlivé akce dle objektů. Nahrané scénáře uživatel vhodně pojmenuje a uloží do složky \verb|input| programu, který je součástí tohoto projektu. Vytvořený program pro generování testů za pomocí LLM se stará o veškerou orchestraci generování i spouštění testů a také vytovření \emph{šablon} pro testy, ze kterých se generují. Součástí těchto \emph{šablon} je právě i uživatelova nahrávka. Ukázkovou strukturu \verb|input| složky lze vidět ve výpisu \ref{con:input}, kde se nachází \emph{šablona} pro \textit{specifikace} \(1\) a \(4\). Význam \emph{šablon} je diskutován v následující sekci.
 
@@ -1031,7 +1031,7 @@ POSITIVE_FAILS = {
         \subsection{Předpoklady}
 
         %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
-        %TODO Dopsat a asi ty konkrítní výsledky dát do přílohy 
+        %TODO Dopsat a asi ty konkrítní výsledky dát do přílohy, nebo je jen referovat a přidat i referenci na akceptační testy samostatného projektu a jejich výsledky
 
     \section{Výsledky pro jednotlivé modely}
 
@@ -1499,7 +1499,7 @@ Invalid Password
     U \textit{lokálních} modelů je stěžejní \textit{doba}, kterou model generuje sadu našich požadovaných testů. Z tohoto důvodu lze u každého z nich změřit rychlost v jednotce vygenerovaných tokenů za sekundu. Mimo samotných hardwarových nároků modelu, které mohou být dány i nastavením prostředí, má při volbě lokálního modelu k použití vliv i jeho \textit{energetická náročnost}, tedy současná spotřeba elektrické energie (výkon) počítače, který model provozuje. Tato náročnost může být dána samotnou architekturou modelu, jeho využitím CPU a GPU nebo také pamětí RAM. \cite{zhang2023hardware} Celková elektrická spotřeba stroje\footnote{Měřeno nástrojem: \url{https://github.com/milanfon/shelly-power-client}} (práce) je poté dána \textit{časem}, po který je provozován. Tento údaj umožnuje zhodnotit cenové nároky na provoz lokálního \Gls{llm} mimo samostatných nároků na pořízení hardwaru.
 
     \begin{table}[H]
-        \begin{tabular}{|c|p{2.5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
+        \begin{tabular}{|c|p{2.5cm}|p{2.5cm}|p{2cm}|p{2cm}|}
             \hline
             \textbf{Model} & \textbf{Rychlost \linebreak generování} [tok/s] & \textbf{Vygenerováno tokenů} & \textbf{Časová \linebreak náročnost} & \textbf{Energetická spotřeba} [W] \\
             \hline
@@ -1520,6 +1520,66 @@ Invalid Password
     Naměřené nároky a čas potřebný k vygerování sady testů lokálními \Gls{llm} je zobrazen v tabulce \ref{tab:eval:local}. Zde je potřeba upozornit na fakt, že různým počtem výstupních tokenů mezi modely je nelze napřímo srovnávat pomocí této metriky a slouží spíše pro pro přehled. Více relevatní je \textit{rychlost generování} jednotlivých modelů na daném hardwaru, kde nejrychlejším a zároveň nejméně náročným modelem je \textit{Mistral 7B}, který díky své malé velikosti bylo možné provozovat čistě na VRAM grafické karty. Modely \textit{CodeLlama} a \textit{WizardCoder} byly provozovány z poloviny vrstev na CPU a z poloviny na GPU, což způsobuje i větší energetické nároky a také pomalejší generování (resp. interferenci). Nejvyšší nároky zde má model \textit{LLama 3}, který v jeho variantě se 70 miliardy parametrů lze jen z přibližně třetiny provozovat na GPU a tedy většina interference je provozována na CPU, což vede k velmi nízké rychlosti.
 
 \chapter{Budoucí vylepšení}
+
+    V předchozím zhodnocení šlo pozorovat některé nevýhody zvolené metody generování jednotkových testů skrze \Gls{llm} modely a jejich spouštění. V rámci této sekce jsou navrženy některé úpravy a vylepšení, která by mohli navazující práce využít.
+
+    \section{Vlastní formát nahrávky}
+
+    Jedním z primárních nedostatků, které šlo pozorovat je velká délka \textit{vstupního promptu}, kvůli které může u modelu docházet ke ztrátě kontextu (kontextové okno již nebude původní prompt obsahovat) nebo také způsobuje vysokou cenu v případě proprietárních modelů (viz sekce \ref{sec:price_and_requirements}). Značnou část délky vstupního promptu tvoří vložená nahrávka ve formátu \textit{JSON} (viz sekce \ref{sec:recording}). Tento formát je již své své podstaty nekompatní. V tomto případě navíc obsahuje spoustu redundantních informací navíc jako například čtveřici identifikátorů pro každý interagovaný prvek, ze kterých pouze jeden (konkrétně \textit{XPath} cesta) je využit na  sestavení výsledného testu. To lze vidět v ukázce zdrojového kódu \ref{lst:json_element}.
+
+    \begin{code}{robot}{Ukázka interakce s prvkem v rámci JSON nahrávky. \label{lst:json_element}}
+...
+{
+    "type": "click",
+    "target": "main",
+    "selectors": [
+        [
+            "aria/Login"
+        ],
+        [
+            "#header\\.link\\.login"
+        ],
+        [
+            "xpath///*[@id=\"header.link.login\"]"
+        ],
+        [
+            "pierce/#header\\.link\\.login"
+        ],
+        [
+            "text/Login"
+        ]
+    ],
+    "offsetY": 32,
+    "offsetX": 39.671875,
+    "assertedEvents": [
+        {
+            "type": "navigation",
+            "url": "http://localhost:4680/tbuis/login",
+            "title": "Login Page"
+        }
+    ]
+}
+...  \end{code}
+
+    Návrhem v tomto případě je vytvořit vlastní formát pro nahrávku, který by obsahoval pouze relevantní informace pro tvorbu testu a zároveň je prezentoval ve formě přirozeného jazyka jakožto kroky namísto kódového zápisu. Takový návrh je ukázaný v ukázce \ref{lst:proposed_recording}. Takový formát by mohl vzniknout jak převodem z výstupu stávajícího nástroje pro nahrávání interakce s webovým rozhraním tak vytvořením vlastního nástroje, který by právě tyto informace přesně zaznamenával a ukládal do požadovaného formátu.
+
+    \begin{code}{robot}{Ukázkna navrhovaného formátu pro nahrávku. \label{lst:proposed_recording}}
+- Open url "http://localhost:4680/tbuis/index.jsp"
+- Click element xpath=//*[@id=\"header.link.login\"]
+- Click element xpath=//*[@id=\"loginPage.userNameInput\"]
+- Change value of the element xpath=//*[@id=\"loginPage.userNameInput\"] to "pedant"
+- Click element xpath=//*[@id=\"loginPage.passwordInput\"]
+- Change value of the element xpath=//*[@id=\"loginPage.passwordInput\"] to "pass"
+- Click element xpath=//*[@id=\"loginPage.loginFormSubmit\"]
+- Click element xpath=//*[@id=\"tea.menu.otherSubjects\"]
+- Click element xpath=//*[@id=\"tea.otherSubjects.table.participateButton-3\"]
+- Check if we are on the page "Others' Subjects" and if element with id "tea.otherSubjects.successAllert" is visible
+    - ...\end{code}
+
+    \section{Komprese promptu}
+
+    \section{Úpravy promptu dle modelu}
+ 
     %TODO Jak snížit cenu - kratší prompty, komprese, batch u OAI atd., psaní promptů zvlášť pro jednotlivé modely a adresace problémů objevujících se v nich
 
 \chapter{Závěr}

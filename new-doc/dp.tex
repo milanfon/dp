@@ -1270,7 +1270,7 @@ Scenario 1
             \end{figure}
 
         \pagebreak
-        \subsection{Google}
+        \subsection{Google} \label{sec:res:google}
 
             Uspokojivé výsledky také poskytl model \textit{Gemini 1.5 Pro} od společnosti Google. Ten byl schopen pro každý test (vyjma specifikace \(12\) a \(6\)) vygenerovat minimálně jednu variantu testu, schopnou odhalit veškeré chyby aplikace, jak lze vyčíst z obr. \ref{fig:res:gemini}. Jedním z problémů objevůjící se např ve 2 z nevalidních variant testu 1 je nesprávné escapování znaků, kdy namísto jednoho escape indikátoru "\\" byli použity 2 (např. v ukázce \ref{lst:wrong_escaping} na řádce 16). V druhé chybné varintě model definoval více vlastních klíčových slov se stejným názvem. V některých případech také došlo k nesprávnému umístění asserce nebo nesprávnému pojmenovaní proměnné nevyhovující podmínkám názvu v rámci \textit{RobotFramework} (např. v ukázce \ref{lst:wrong_variable} na řádce 5) či k jejímu úplnému nedefinování. Dalším problémem také je vytváření přiřazení, která nejsou v rámci promptu definovaná. Stejně tak je u některých volání klíčových slov opomenut argument. Stejně jako v případě modelu \textit{Llama 3} zde v některých selhávajících testech na bezchybné variantě aplikace dochází k chybám jako \textit{chybějící znovuotevření webového prohlížeče} nebo \textit{využití již nepodporovaného zápisu FOR cyklu} nebo jeho neukončení. Z chyb, které také šlo pozozovat u jiných modelů se zde opakuje \textit{nesprávné přiřazení hodnoty cesty XPath v argumentu} (viz \ref{sec:res:anthropic}), \textit{posunutá indexace prvku v rámci cesty}, \textit{nesprávné určení cesty k prvku}, \textit{výběr z nabídky dle ID namísto pořadí} či \textit{využití nevhodného klíčového slova pro odsouhlasení upozornění}.
 
@@ -1314,7 +1314,7 @@ ${LOGIN PAGE}    http://localhost:4680/tbuis/login
 ${OVERVIEW PAGE}  http://localhost:4680/tbuis/student-view/overview
 ${MY EXAMS PAGE} http://localhost:4680/tbuis/student-view/myExamDates \end{code}
 
-        \subsection{Mistral}
+        \subsection{Mistral} \label{sec:res:mistral}
 
         Jedním z modelů, který společnost \textit{Mistral} nabízí je poměrně malý model \textbf{Mistral 7B}, nyní ve verzi \textit{0.2}. Tento model však nebyl schopen vygenerovat ani jeden validní test dle výsledků v obr. \ref{fig:res:mistral-7b}. Primárními problémy zde byly:
         \begin{itemize}
@@ -1386,7 +1386,7 @@ Page Should Contain Element    id=overview.personalInfoForm
             \label{fig:res:mistral-large}
         \end{figure}
 
-    \section{Kvalita výsledků}
+    \section{Kvalita výsledků} \label{sec:quality_eval}
 
     Protože pro \Acrshort{gui} testy nelze využít běžné metriky využívané v softwarovém testování \cite{COPPOLA2022107062}, bylo pro zhodnocení jejich kvality využita statistika úspěšnosti vygenerovaných tetů dle předpokladu pro jednotlivé modely a následně také došlo ke srovnání s testy psané člověkem, které jsou dostupné k projetu TbUIS v rámci samostatného repozitáře \footnote{\url{https://gitlab.kiv.zcu.cz/herout/tbuis-robotframework}}.
 
@@ -1440,15 +1440,87 @@ Page Should Contain Element    id=overview.personalInfoForm
 
         \subsection{Srovnání s lidsky psanými testy}
 
-        V příloze \ref{sec:appendix:src} se nacházejí zdrojové kódy, které obsahují ukázky jak testů vygenerovaných 
+        V příloze \ref{sec:appendix:src} se nacházejí zdrojové kódy, které obsahují ukázky jak testů vygenerovaných \Gls{llm} modely tak zároveň lisky psané \textit{akceptační} testy, které jsou součástí testovaného projektu. Při srovnání např. testů pro testový případ 10 (viz. \ref{tab:specs_1}, zrušení předmětu) lze přímo spozorovat, že zatímto strojově vytvořený test (ukázka \ref{lst:gpt-4:spec-10-3}) volá jednotlivá \textit{klíčová slova} a využívá pevně definované vstupní hodnoty, tak lidsky psaný test (viz zdrojový kód \ref{lst:acc:spec-10-root}) využívá tzv. \uv{data-driven} přístup\footnote{\url{https://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#data-driven-style}}, využívající šablony (templates). V rámci tohoto přístupu běžně umožňuje Robot Framework vytvořit jedno uživatelsky definované klíčové slovo vyššího řádu, jehož samotná logika je skritá a umožňuje volání s odlišnou sadou vstupních a výstupních dat. Dokumentace frameworku poskytuje příklad, ve kterém namíto opakování klíčových slov (viz příklad \ref{lst:ex_not_template}) stačí přidat nastavení testového případu pro šablonu (viz řádek 3 ukázky \ref{lst:ex_template}) a dále psát pouze argumenty pro klíčová slova bez volání jejich názvem. Tento test je navíc parametrizován skrze data v \textit{YAML} (v ukázce \ref{lst:acc:input_data}), kde pro různé scénáře jsou uloženy přihlašovací údaje užitele a studenta společně s názvem předmětu, který má být odepsán. Jednotlivá vlastní klíčová slova jsou poté importovány z externích souborů, díky čemuž mohou být znovu použivat v jiných testech.
 
-        %TODO Tady asi jako zkusit code coverage a asi bych udělal srovnání s lidskými testy
+        \begin{code}{robot}{Ukázka logiky Robot Framework testu bez šablony. \label{lst:ex_not_template}}
+*** Settings ***
+Test Template    Login with invalid credentials should fail
 
-    \section{Cena a časová náročnost generování}
-    %TODO Je tohle dobré mít tady?
+*** Test Cases ***                USERNAME         PASSWORD
+Invalid User Name                 invalid          ${VALID PASSWORD}
+Invalid Password                  ${VALID USER}    invalid
+Invalid User Name and Password    invalid          invalid
+Empty User Name                   ${EMPTY}         ${VALID PASSWORD}
+Empty Password                    ${VALID USER}    ${EMPTY}
+Empty User Name and Password      ${EMPTY}         ${EMPTY}\end{code}
+
+        \begin{code}{robot}{Ukázka logiky Robot Framework testu využívajícího šablonu. \label{lst:ex_template}}
+*** Test Cases ***
+Invalid Password
+    [Template]    Login with invalid credentials should fail
+    invalid          ${VALID PASSWORD}
+    ${VALID USER}    invalid
+    invalid          whatever
+    ${EMPTY}         ${VALID PASSWORD}
+    ${VALID USER}    ${EMPTY}
+    ${EMPTY}         ${EMPTY}\end{code}
+
+        Zatímco u lidsky psaných testů je kladen důraz i na nefunkční požadavky jako \textit{znovupoužitelnost kódu, modularita, škálovatelnost, parametrizace} či jednoduchá srozumitelnost \textit{struktury} a případné \textit{úpravy} dat, tak stroj (přesněji \Gls{llm}) vygeneruje test pouze ve \textit{strukturované} nemodulární podobě, funkční jako jeden soubor, ve kterém jsou všechny hodnoty \textit{napevno} uloženy. Neznamená to však, že by ho nebylo možné parametrizovat podobně jako lidsky psané testy. Zde se však parametry nacházejí již v \emph{promptu} (viz \ref{sec:test_creation}) a je potřeba je upravit tam, případně přepsat tyto hodnoty ve vygenrovaném testu, pokud to jeho forma umožní. Při generování je však problematický jeho \textit{nedeterministický} aspekt. Zatímco u lidsky psaných testů jednu funkční komponentu lze využít na více místech, zde bude vždy přegenerována a tedy není zajištěno, zda pokaždé bude korektní a spustitelná. Většina nedostatků vůči lidsky psaným testům je však očekávána a svou funkci z pohledu \uv{black-box} tyto testy splňují.
+
+    \section{Cena a časová náročnost generování} \label{sec:price_and_requirements}
+
+    Pro případný výběr modelu k účelu generování softwarových testů lze také zvážit jejich \textit{cenu}, \textit{časovou} a \textit{hardwarovou} náročnost. Pro \textit{proprietární} \Gls{llm} modely hostované na serverech jejich poskytovatele je primární metrikou \textit{cena}\footnote{Ceny uvedené v tomto dokumentu jsou platné k 4/2024.}. V případě těchto služeb není na místě hodnotit jejich rychlost, která je běžně vysoká a zároveň silně závisí na současném zatížení serverů a dalších faktorech. Cena je běžně odvozena od počtu \textit{vstupních} (v rámci promptu) a \textit{výstupních} tokenů (vygenerovaná reakce modelu). Jejich ceníky\footnote{Např. \url{https://openai.com/api/pricing/}} udávají cenu pro obě kategorie tokenů zvlášť a to v jednotkách za milion nebo tisíc tokenů. Z použitých modelů jediný \textit{Google Gemini} ve službě Vertex AI na platformě Google Cloud\footnote{Ceník: \url{https://cloud.google.com/vertex-ai/generative-ai/pricing}} využívá cenu za znak namísto za token. Tokeny vstupních a výstupních dat byli v rámci této sekce určeny za pomocí pomocných skritpů \verb|token_counter_<model>.py|, které lze nalézt v adresáři \verb|aux| v rámci programové složky. Pro účely výpočetu tokenů a případně odhadované ceny je u nich potřeba upravit tyto konkrétní parametry na požadovanou hodnotu.
+
+    Ceny a celková náročnost za použité proprietární modely v rámci tohoto projektu k vygenerování celkových 100 testových variant jsou uvedeny v tabulce \ref{tab:eval:price}. Nejdražším z modelů je ze \textit{GPT-4} (varianta s kontextovým oknem 32 tisíc tokenů). Oproti němu model \textit{Claude 3 Opus}, podávající v některých případech lepší výsledky (viz \ref{sec:quality_eval}), vychází na poloviční cenu. Stále se však jedná o nákladný model na využití. \textit{GPT-4 Turbo} zde vychází na přibližně čtvrtinovou cenu originální \textit{GPT-4} modelu a s přihlédnutím k jeho výsledkům (v sekci \ref{sec:res:openai}) se jedná o výhodný model. Jako modely s nízkými náklady na využití se zde ukazjí \textit{Mistral Large}, \textit{GPT-3.5 Turbo} a také \textit{Google Gemini}, které se vzhledem k jeho výsledkům (viz \ref{sec:res:google}) jeví jako cenově nejvýhodnější z použitých modelů. V případě modelu \textit{Mistral Large} je jeho cena odpovídající výkonu (dle \ref{sec:res:mistral}) a pro určité účely se může jednat o vhodný a cenově přívětivý model.
+
+    \begin{table}[H]
+        \begin{tabular}{|c|c|c|c|}
+            \hline
+            \textbf{Model} & \textbf{Vstupních tokenů} & \textbf{Výstupních tokenů} & \textbf{Cena} [USD] \\
+            \hline
+            GPT-4 & 239 500 & 58 238 & \$21.36 \\
+            \hline
+            Claude 3 Opus & 317 583 & 80 233 & \$10.78 \\
+            \hline
+            GPT-4 Turbo & 239 500 & 61 546 & \$4.24 \\
+            \hline
+            Mistral Large & 342 602 & 62 520 & \$2.20 \\
+            \hline
+            Gemini 1.5 Pro & 118 951 & 62 239 & \$0.81 \\
+            \hline
+            GPT-3.5 Turbo & 239 500 & 45 798 & \$0.19 \\
+            \hline
+        \end{tabular}
+        \centering
+        \caption{Cena a využití za proprietární modely pro generování sady testů.}
+        \label{tab:eval:price}
+    \end{table}
+
+    U \textit{lokálních} modelů je stěžejní \textit{doba}, kterou model generuje sadu našich požadovaných testů. Z tohoto důvodu lze u každého z nich změřit rychlost v jednotce vygenerovaných tokenů za sekundu. Mimo samotných hardwarových nároků modelu, které mohou být dány i nastavením prostředí, má při volbě lokálního modelu k použití vliv i jeho \textit{energetická náročnost}, tedy současná spotřeba elektrické energie (výkon) počítače, který model provozuje. Tato náročnost může být dána samotnou architekturou modelu, jeho využitím CPU a GPU nebo také pamětí RAM. \cite{zhang2023hardware} Celková elektrická spotřeba stroje\footnote{Měřeno nástrojem: \url{https://github.com/milanfon/shelly-power-client}} (práce) je poté dána \textit{časem}, po který je provozován. Tento údaj umožnuje zhodnotit cenové nároky na provoz lokálního \Gls{llm} mimo samostatných nároků na pořízení hardwaru.
+
+    \begin{table}[H]
+        \begin{tabular}{|c|p{2.5cm}|p{2.5cm}|p{3cm}|p{2cm}|}
+            \hline
+            \textbf{Model} & \textbf{Rychlost \linebreak generování} [tok/s] & \textbf{Vygenerováno tokenů} & \textbf{Časová \linebreak náročnost} & \textbf{Energetická spotřeba} [W] \\
+            \hline
+            CodeLlama 34B & 2.66 & 56 759 & 5h 56m & 247 \\
+            \hline
+            WizardCoder & 2.65 & 61 126 & 6h 24m & 251 \\
+            \hline
+            Llama 3 & 1.33 & 53 313 & 11h 8m & 269 \\
+            \hline
+            Mistral 7B & 10.86 & 134 695 & 3h 27m & 218 \\
+            \hline
+        \end{tabular}
+        \centering
+        \caption{Náročnost lokálních LLM modelů.}
+        \label{tab:eval:local}
+    \end{table}
+ 
+    Naměřené nároky a čas potřebný k vygerování sady testů lokálními \Gls{llm} je zobrazen v tabulce \ref{tab:eval:local}. Zde je potřeba upozornit na fakt, že různým počtem výstupních tokenů mezi modely je nelze napřímo srovnávat pomocí této metriky a slouží spíše pro pro přehled. Více relevatní je \textit{rychlost generování} jednotlivých modelů na daném hardwaru, kde nejrychlejším a zároveň nejméně náročným modelem je \textit{Mistral 7B}, který díky své malé velikosti bylo možné provozovat čistě na VRAM grafické karty. Modely \textit{CodeLlama} a \textit{WizardCoder} byly provozovány z poloviny vrstev na CPU a z poloviny na GPU, což způsobuje i větší energetické nároky a také pomalejší generování (resp. interferenci). Nejvyšší nároky zde má model \textit{LLama 3}, který v jeho variantě se 70 miliardy parametrů lze jen z přibližně třetiny provozovat na GPU a tedy většina interference je provozována na CPU, což vede k velmi nízké rychlosti.
 
 \chapter{Budoucí vylepšení}
-    %TODO Jak snížit cenu - kratší prompty, komprese, atd.
+    %TODO Jak snížit cenu - kratší prompty, komprese, batch u OAI atd., psaní promptů zvlášť pro jednotlivé modely a adresace problémů objevujících se v nich
 
 \chapter{Závěr}
     %TODO Použitelné modely, co zlepšit
@@ -1567,6 +1639,28 @@ TC.10.03 Teacher Cancel Teaching Of Subject Fails - Teacher does not teach this 
     FOR    ${params}    IN    @{WrongSubject}
        @{params}
     END\end{code}
+
+    \begin{code}{yaml}{Vstupní data pro lisky psaný test. \label{lst:acc:input_data}}
+SuccessCancellations:
+  -
+    - pedant
+    - Operating Systems
+  -
+    - strict
+    - Operating Systems
+
+SomeStudentsEnrolled:
+  -
+    - keen
+    - Database Systems
+  -
+    - strict
+    - Programming in Java
+
+WrongSubject:
+  -
+    - lazy
+    - Database Systems\end{code}
 
 \appendix
 

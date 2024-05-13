@@ -205,7 +205,7 @@
 
     %TODO Možná metriky, které se u testů sbírají?
 
-    \section{Jazykové modely}
+    \section{Jazykové modely} \label{sec:language_models}
 
     Velké jazykové modely (zkráceně \Gls{llm}) je druh modelu strojového učení (\Acrshort{ml}), který využívá techniky \textit{hlubokého učení}, které se zaměřují na techniky zpracování a generování přirozeného jazyka (také známé jako techniky \Acrshort{nlp}). Tyto modely jsou navrženy tak, aby rozumněli kontextu a významu jazyka, a dokázali pro \textit{textový vstup} odhadnout (vygenerovat) \textit{textový výstup}. Tato schopnost jim umožňuje provádět široké spektrum operací nad přirozeným jazykem jako sumarizace, překlad textu, generování absahu či dialogu a podobně. Příkladem takových modelů je například známý \textit{GPT} (Generative Pre-trained Transformer) od společnosti OpenAI nebo BERT (Bidirectional Encoder Representations from Transformers).
     \cite{devlin2019bert} \cite{googleML2023} \cite{cloudflareLLM2023}
@@ -1583,6 +1583,10 @@ Invalid Password
     \section{Úpravy promptu dle modelu}
 
     Mimo velikosti promptu by také bylo vhodné adresovat kvalitativní nedostatky vygenerovaných testů jednotlivými modely. V sekci \ref{sec:results} jsme mohli pozorovat, že každý z modelů opakuje ve svých vygenerovaných varintách testu podobné chyby. Z tohoto důvodu by bylo možné tyto chyby adresovat přímo v promptu, aby se snížilo riziko, že je model bude opakovat. Pro každý model by tak vznika odlišná varianta promptu (různá např. od ukázky \ref{lst:template} pro stejný testový případ). Takovýto přístup nebyl v rámci této práce využit a bylo jako řešení přistoupeno k požití obecného promptu, společného pro všechny modely, který adresuje pouze základní nedostatky, které modely mají. Příkladem takového rozšíření promptu by mohlo být předložení správného formátu adresování XPath cesty, dále by také mohlo být prospěšné nabídnout modelu správná klíčová slova, která může pro určité akce využít. Přínosné by také mohlo být určit v případě některých modelů již neplatná klíčová slova či zápisy, aby nedocházelo k jejich využívání modelem ve výstupu.
+
+    \section{Fine-tuning}
+
+    Při představení jazykových modelů v úvodu (\ref{sec:language_models}) došlo také ke zmínce o tuv. \uv{fine-tuningu}, tedy možnosti již \textit{předtrénovaný} modely doučit o expertízu v daném sektoru konkrétní datovou sadou. Tato možnost by šla aplikovat i v našem případě, kdy vyžadujeme, aby model shopný generovat zdrojový kód, byl obohacen o detailnější znalosti Robot Framework scénářů, případně dokumentace, atd. Tento krok by však vyžadoval vytvoření rozsáhlé datové sady obsahující tyto informace a příklady, které by se využily k jeho dotrénování. Tento proces je však sám o sobě velmi náročný a komplexní do míry, kdy by se musela řešit například kvalita a relevance jednotlivých dat, apod. Fine-tuningem otevřených modelů se zabívají například práce \cite{weyssow2024exploring, shi2024deep}.
 
 \chapter{Závěr}
     

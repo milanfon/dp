@@ -1031,8 +1031,7 @@ POSITIVE_FAILS = {
 
         \subsection{Předpoklady}
 
-        %TODO Někam pak taky ověření, že výběr true negatives je správný - asi sem
-        %TODO Dopsat a asi ty konkrítní výsledky dát do přílohy, nebo je jen referovat a přidat i referenci na akceptační testy samostatného projektu a jejich výsledky
+        U variant testované aplikace, které jsou označeny v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2} jako poruchové pro danou specifikaci je očekáváno \textit{selhání} testu a pokud toto selhání při spuštění testu na takové variantě detekujeme, dostáváme korektně negativní výsledek. V ostatních případech variant aplikace považujeme za očekávaný výsledek testu jeho \textit{úspešný průchod} a takový výsledek je brán za korektně pozitivní. Ostatní výsledky jsou poté považovány za falešně negativní či pozitivní. Zatímco falešná pozitiva nelze odhalit při průchodu \textit{neporuchovou} variantou aplikace, tak falešná negativa je takto možné odhalit, protože při této kombinaci je očekáván vždy průchod testu bez selhání. Mimo tuto klasifikaci se poté řadí testy, které jsou chybové a není je možné spustit nebo dokončit jejich chod a obvykle končí chybovým kódem. Selhání jednotlivých testových případů na konkrétních variantách aplikace, jak je definuje dokumentace projektu, je ověřeno \textit{akceptačními testy} vzniklými v práci \cite{Vais2020}. Mimo toho bylo v úvodu na testech vygenerovaných modelech \textit{GPT-4} otestováno jejich spuštění na všech 29 variantách, které projekt TbUIS nabízí a jejich výsledky jsou dostupné ve složce výsledků pro každou ze specifikací samostatně jakožto soubory \verb|test-<číslo specifikace>-all.sqlite|. 
 
     \section{Výsledky pro jednotlivé modely} \label{sec:results}
 

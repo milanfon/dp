@@ -1,9 +1,17 @@
+"""
+This is an experimental script that allows it's user to try to compress prompt given as a string literal using the LLMLingua 2 library.
+
+Enter prompt into original_prompt variable.
+
+User also needs to set device specific to device this script runs on. 
+"""
+
 from llmlingua import PromptCompressor
 
 compressor = PromptCompressor(
         model_name="microsoft/llmlingua-2-bert-base-multilingual-cased-meetingbank",
         use_llmlingua2=True,
-        device_map="mps"
+        device_map="mps" #Set your specific device
     )
 
 original_prompt = """

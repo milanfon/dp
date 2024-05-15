@@ -12,11 +12,11 @@
 %        Copyright (c) 2022-2024 Kamil Ekštein, Dept. of Computer Science
 %        and Engineering, Faculty of Applied Sciences, UWB
 %
-%        Version:  0.96 (Release Candidate 4)
+%        Version:  0.97 (Release Candidate 5)
 %        Encoding: UTF-8
 %        TeXer:    pdflatex
 %
-%        Last modification on 10-Apr-2024 by KE
+%        Last modification on 22-Apr-2024 by KE
 %
 % *****************************************************************************
 
@@ -161,7 +161,7 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage[\FASThesis@lang]{babel}
 % the recommended font that fits best the Unified Visual Style of UWB/FAS is 'cochineal'
-\RequirePackage[p, osf, cochineal]{newtx} % <== applicable are also: libertine, ebgaramond, vvarbb
+\RequirePackage[p, cochineal]{newtx} % <== applicable are also: libertine, ebgaramond, vvarbb
 \RequirePackage[cochineal]{newtxmath}
 \RequirePackage[final, protrusion=true, kerning=true, babel=true, stretch=10, shrink=10, nopatch=item]{microtype} 
 
@@ -1446,7 +1446,7 @@
 \NewDocumentCommand{\filename}{v}{{\ttfamily#1}}%
 \NewDocumentCommand{\command}{v}{{\ttfamily#1}}%
 
-\def\typesetpath#1{%
+\def\FASThesis@typeset@win@path#1{%
 	\edef\FASThesis@temp@fna{\detokenize{#1}}%
 	\StrSubstitute{\FASThesis@temp@fna}{/}{\textbackslash}%
 }
@@ -1514,15 +1514,15 @@
 \newcommand{\uxprompt}{}
 \newcommand{\setwinprompt}[1]{%
 	\renewcommand{\winprompt}{%
-		{\bfseries\typesetpath{#1}>}%
+		{\bfseries\FASThesis@typeset@win@path{#1}>}%
 	}%
 }
 \newcommand{\setuxprompt}[2]{%
 	\renewcommand{\uxprompt}{%
 		{\ifx\FASThesis@style\c@fullcolor\color{FASThesis@UXConGreen}\else\color{black}\fi%
-			\bfseries\typesetpath{#1}}{\bfseries:}%
+			\bfseries#1}{\bfseries:}%
 		{\ifx\FASThesis@style\c@fullcolor\color{FASThesis@UXConBlue}\else\color{black}\fi%
-			\bfseries\typesetpath{#2}}{\bfseries\$~}%
+			\bfseries#2}{\bfseries\$~}%
 	}%
 }
 

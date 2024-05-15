@@ -1,5 +1,0 @@
-Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
-
-- //TODO
-
-{% include 'recording.json' %}

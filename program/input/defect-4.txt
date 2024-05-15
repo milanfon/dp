@@ -1,5 +1,0 @@
-Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
-
-- Check if element "<a id="stu.menu.mySubjects" class="nav-link" href="/tbuis/student-view/mySubjects" title="My Subjects tooltip">My Subjects</a>" has a background with color #007bff
-
-{% include 'recording-defect-4.json' %}

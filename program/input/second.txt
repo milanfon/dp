@@ -1,5 +1,0 @@
-Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
-
-- check if the title of the page (h1 with id of "stu.view.title") has the value "Student's View"
-
-{% include 'recording.json' %}

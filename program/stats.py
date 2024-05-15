@@ -1,3 +1,16 @@
+"""
+This file fetches test run data from a local SQLite database file and processes it to determine correct and incorrect test results, 
+from which it generates a heatmap.
+
+Usage:
+    python stats.py <db_path> [-e EXPORT] [-t TITLE]
+
+Arguments:
+    first_arg (str): Path to the SQLite report file.
+    -e, --export (str): Path to export the generated heatmap as a PDF file.
+    -t, --title (str): Title of the heatmap plot. Default is 'Test correct result heatmap'.
+"""
+
 import sqlite3 
 import numpy as np 
 import matplotlib.pyplot as plt
@@ -8,15 +21,22 @@ from collections import Counter
 import sys
 import argparse
 
+# Argument parser setup
 parser = argparse.ArgumentParser(description="Statics and plotting")
 parser.add_argument('first_arg', type=str, help='Path to DB file')
 parser.add_argument('-e', '--export', type=str, help='Export to PDF')
 parser.add_argument('-t', '--title', type=str, default='Test correct result heatmap', help='Plot title')
 args = parser.parse_args()
 
-db_path = args.first_arg
+db_path = args.first_arg # Path to report file
 
 def fetch_data():
+    """
+    Fetches test run data from the SQLite report file.
+
+    Returns:
+        list: A list of tuples containing container, test_name, and result.
+    """
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     query = """
@@ -29,6 +49,16 @@ def fetch_data():
     return rows
 
 def process_data(rows):
+    """
+    Processes the fetched data to determine correct and incorrect test results.
+
+    Args:
+        rows (list): List of tuples containing container, test_name, and result.
+
+    Returns:
+        dict: Processed data with containers as keys and test results as nested dictionaries.
+        Counter: Counts of ignored tests based on false negatives.
+    """
     data = {}
     false_negatives = set()
     for container, test_name, result in rows:
@@ -52,6 +82,14 @@ def process_data(rows):
     return data, ignored
 
 def generate_heatmap(data, ignores):
+    """
+    Generates a heatmap of the test results.
+
+    Args:
+        data (dict): Processed data with containers as keys and test results as nested dictionaries.
+        ignores (Counter): Counts of ignored tests based on false negatives.
+    """
+
     # Convert data into 2D array
     containers = sorted(data.keys())
 
@@ -80,6 +118,7 @@ def generate_heatmap(data, ignores):
     table = plt.table(cellText=[ignores_sorted],rowLabels=["Test variants ignored"], loc='bottom', cellLoc='center')
     table.scale(1,2)
 
+    # PDF export
     if args.export:
         plt.savefig(args.export, bbox_inches='tight')
         print(f"Plot exported as {args.export}")

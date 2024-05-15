@@ -1,3 +1,4 @@
+# What test application versions to run (names of WAR files in tbuis directory)
 RUN_CONTAINERS = [
     "defect-00_free.war",
     "defect-02-C0.H0.M0.L1_S_S_03.war",
@@ -15,6 +16,7 @@ RUN_CONTAINERS = [
     "defect-28-C2.H2.M1.L0_M_CR.war"
 ]
 
+# On which application version is expected failure for given test specification
 POSITIVE_FAILS = {
     "1": ["defect-02-C0.H0.M0.L1_S_S_03.war"],
     "4": ["defect-04-C0.H0.M0.L1_S_S_04.war", "defect-19-C0.H1.M0.L0_S_S_10.war", "defect-25-C1.H0.M0.L0_S_S_01.war", "defect-26-C1.H0.M0.L0_T_S_01.war", "defect-28-C2.H2.M1.L0_M_CR.war"],

@@ -472,8 +472,8 @@ Open Browser
             \hline
         \end{tabular}
         \centering
-        \label{tab:specs_1}
         \caption{Specifikace pro generované testy - část 1}
+        \label{tab:specs_1}
     \end{table}
 
     \begin{table}
@@ -489,8 +489,8 @@ Open Browser
             \hline
         \end{tabular}
         \centering
-        \label{tab:specs_2}
         \caption{Specifikace pro generované testy - část 2}
+        \label{tab:specs_2}
     \end{table}
 
     \begin{table}
@@ -769,7 +769,6 @@ DEVICE="mps" \end{code}
 
         I přes důraz na nutnost pouze \textit{programového} výstupu v rámci systémového promptu, mají modely tendenci tuto podmínku ignorovat a generovat text okolo kódu. Protože jsou modely naučené tak, aby jejich výstup byl text v \textbf{Markdown} formátu, obsahují i značky se začátkem kódového bloku a značením jazyka, ale také prvky jako odrážky, apod. Tyto prvky se pak objevují i ve výstupech, kde je požadován pouze \textit{čistý text} (jako například v ukázce \ref{lst:text_around}). V našem případě je toto chování nevhodné, protože vyžadujeme na výstupu pouze \textit{kód testu}. Díky struktuře \textit{Markdown} formátování však lze kód z tohoto výstupu jednoduše vyparsovat. Toto parsování má právě na starosti funkce \textit{filtrování výstupu} ve schematu \ref{fig:llm_query_algo}. V rámci programu byla implementována tak, že ze vstupního textu vyjme kód v prvním nalezeném kódovém bloku, označeného pomocí znaků \verb|```|. Pokud blok nenajde, vrátí původní text bez změny (předpokládá, že model se držel systémového promptu). V případě více kódových bloků přítomných ve výstupu, kdy požadovaný kód nebude v prvním z bloků, dojde k nesprávnému parsování, avšak jedná se o očekávaný případ, protože detekce správného kódu je \textit{netriviální} a zároveň \textit{subjektivní} problematika.
 
-        \vfill
         \begin{code}{robotframework}{Výstup modelu s nadbytečným textem. \label{lst:text_around}}
 Here's a Robot Framework scenario that follows the recorded JSON steps for interacting with the web page, and then performs the checks as specified:
 
@@ -796,7 +795,6 @@ In this Robot Framework script, I've incorporated commands that:
 - Validate the text content of specific table cells related to the teachers' courses.
 Adjust the locators (xpath) as necessary to match the exact structure and identifiers used in your application's HTML. \end{code}
 
-        \newpage
         Vyfiltrovaný výstupní text modelu je poté zapsán do souboru ve výstupní složce nazvané \verb|generated|, nacházející se v kořenové složce programu. Test je uložen s názvem ve formátu \verb|{nazev-vstupu}-{cislo-varianty}.robot| jakožto \textit{RobotFramework} soubor. První část tohoto názvu souhlasí s názvem \textit{promptové šablony}, pro kterou uživatel vytváří testy. Druhá část poté čísluje vygenerované varianty. Pokud již ve výstupní složce existuje vygenerovaný test pro danou specifikaci, program nové variantě přiřadí číslo o \(1\) vyšší, tedy pokračuje v číselné řadě. Názvy vygenerovaných testů jsou postupně vypisovány do konzole. Od uživatele je očekáváno, že vygenerované testy ve výstupní složce zkontroluje a ověří, že obsahují validní (\textit{např. obsahuje text, připomínající RobotFramework test}). Je zde totiž stále možnost, že model nevygeneroval žádný kód a vypsat pouze text nebo \textit{filtrace} neproběhla správně. Tento krok by v ideálním případě bylo možné automatizovat za pomocí \textit{analyzátoru} pro \textit{RobotFramework}, který se nachází v rámci \Gls{lsp} pro \textit{RobotFramework} \verb|rebotframework-lsp| nachází. Bohužel však neumí validovat zápis pro knihovnu \verb|SeleniumLibrary|, která je v rámci systémového promptu vyžadována a očekávána, že bude přítomná ve vygenerovaném testu.
 
 \chapter{Spuštění testů}
@@ -983,7 +981,7 @@ POSITIVE_FAILS = {
     
     \section{Metodologie vyhodnocení}
 
-        Následující text v krátkosti popisuje, jaké statické metody a postupy jsou k vyhodnocení výsledků využity a na jakých předpokladech pro výstupy automatizovaného testování je vytvořený statistický nástroj postaven, případně jaké parametry od uživatele vyžaduje. Společně s metodou je vysvětlena i vizualitace a přidán je zde také důkaz o předpokladu pro pravá a případně falešná negativa, která jsou v rámci metody detekována. Hodnotit se bude, zda zaznamenané výstupní stavy testů odpovídají předpokladu.
+        Následující text v krátkosti popisuje, jaké statické metody a postupy jsou k vyhodnocení výsledků využity a na jakých předpokladech pro výstupy automatizovaného testování je vytvořený statistický nástroj postaven, případně jaké parametry od uživatele vyžaduje. Společně s metodou je vysvětlena i vizualizace a přidán je zde také důkaz o předpokladu pro pravá a případně falešná negativa, která jsou v rámci metody detekována. Hodnotit se bude, zda zaznamenané výstupní stavy testů odpovídají předpokladu.
         
         \subsection{Vyhodnocovací program} \label{sec:evaluation}
 
@@ -992,20 +990,20 @@ POSITIVE_FAILS = {
             \item \verb|-t [nadpis]| - Nastaví nadpis nad tabulkou (název modelu).
             \item \verb|-e [nazev_souboru]| - Vyexportuje soubor do PDF. Hodnotou je název výstupního PDF souboru (s příponou).
         \end{itemize}
-        Pro každý test je vyhodnoceno, kolik z jeho vygenerovaných variant pro každou variantu testovacího programu skončilo s \textit{očekávaným výsledkem}. Tím je zde myšleno, že test prošel úspěšně na variantách aplikace, kde se nevyskytuje chyba a je tak očekáván bezchybný průchod, a že test selhal v na takových variantách, kde je definováno specifikací (diskutováno v sekci \ref{sec:run_parameters}), že by selhat měl. Chybový test je vždy považován za \textit{neočekávaný výsledek}. Při takto naivním přístupu by však jako \emph{očekávané} byly označovány i testy (resp. jejich vygenerované varianty) chybující i v případě nasazených variant aplikace bez konkrétní testované chyby (tedy falešná negativa). Z důvodu, aby takové testy nezkreslovali výsledky, bylo přistoupeno ke kroku jejich vyřazení a následnému ignorování při vyhodnocování výsledků.
+        Pro každý test je vyhodnoceno, kolik z jeho vygenerovaných variant pro každou variantu testovacího programu skončilo s \textit{očekávaným výsledkem}. Tím je zde myšleno, že test prošel úspěšně na variantách aplikace, kde se nevyskytuje chyba a je tak očekáván bezchybný průchod, a že test selhal v na takových variantách, kde je definováno specifikací (diskutováno v sekci \ref{sec:run_parameters}), že by selhat měl. Chybový test je vždy považován za \textit{neočekávaný výsledek}. Při takto naivním přístupu by však jako \emph{očekávané} byly označovány i testy (resp. jejich vygenerované varianty) chybující i v případě nasazených variant aplikace bez konkrétní testované chyby (tedy falešná negativa). Z důvodu, aby takové testy nezkreslovaly výsledky, bylo přistoupeno ke kroku jejich vyřazení a následnému ignorování při vyhodnocování výsledků.
 
-        Pro odhalení falešných negativ budeme využívat předpokladu výsledku na \emph{neporuchové} variantě aplikace, že varianta testu skončí úspěšně. V případě, kdy dojde k jejímu selhání nebo skončí chybou, je taková testová varinta ignorována při vyhodnocení výsledků testů na všech poruchových kontejnerech, protože se předpokládá, že takový test není schopen správně odhadit chybu aplikace, protože by chybový stav hlásil vždy. Počet ignorovaných variant od každého testu je zobrazen ve spodní řádce tabulky výsledků (více v následující sekci \ref{sec:plot_legend}).
+        Pro odhalení falešných negativ budeme využívat předpokladu výsledku na \emph{neporuchové} variantě aplikace, že varianta testu skončí úspěšně. V případě, kdy dojde k jejímu selhání nebo skončí chybou, je taková testová varianta ignorována při vyhodnocení výsledků testů na všech poruchových kontejnerech, protože se předpokládá, že takový test není schopen správně odhalit chybu aplikace, protože by chybový stav hlásil vždy. Počet ignorovaných variant od každého testu je zobrazen ve spodní řádce tabulky výsledků (více v následující sekci \ref{sec:plot_legend}).
 
         \begin{console}{Volání programu pro vyhodnocení dat. \label{lst:stats_call}}
 `\uxprompt`python3 stats.py ../results/claude-3-opus-run.sqlite -t "Claude 3 Opus" -e claude-results.pdf \end{console}
 
         \subsection{Legenda tabulek} \label{sec:plot_legend}
 
-        Výstupem vyhodnocení výsledků je tabulka (jako příklad poslouží výstup v obr. \ref{fig:res:gpt-4}), jejíž řádky reprezentují testované \textit{varianty aplikace} (v tabulce označované jako \emph{container}) a jednotlivé sloupce představují konkrétní test (dle specifikace), který byl spouštěn. Jednotlivé buňky poté obsahují informaci o počtu variant daného testu, které vyhovují předpokládanému výsledku pro danou variantu aplikace. Tyto hodnoty jsou po vyfiltrování, které se vždy děje dle první řádky od shora (v našem označení jde o variantu \verb|defect-00_free.war|). Tento přístup byl popsán v předchozí sekci \ref{sec:evaluation}. Ve spodním řádku tabulky je také vyznačeno, kolik variant daného testu bylo \emph{ignorováno}. Celá tabulka zároveň funguje jako \textit{tepelná mapa} a je tedy nejen číselně, ale i barevně vyznačeno, jaký test má pro kterou variantu aplikace nejvyšší míru úspěšnosti (shody s předpokládaným výsledkem). Barevná škála a její odpovídají hodnoty se nachází po pravé straně tabulky.
+        Výstupem vyhodnocení výsledků je tabulka (jako příklad poslouží výstup v obr. \ref{fig:res:gpt-4}), jejíž řádky reprezentují testované \textit{varianty aplikace} (v tabulce označované jako \emph{container}) a jednotlivé sloupce představují konkrétní test (dle specifikace), který byl spouštěn. Jednotlivé buňky poté obsahují informaci o počtu variant daného testu, které vyhovují předpokládanému výsledku pro danou variantu aplikace. Tyto hodnoty jsou po vyfiltrování, které se vždy děje dle první řádky od shora (v našem označení jde o variantu \verb|defect-00_free.war|). Tento přístup byl popsán v předchozí sekci \ref{sec:evaluation}. Ve spodním řádku tabulky je také vyznačeno, kolik variant daného testu bylo \emph{ignorováno}. Celá tabulka zároveň funguje jako \textit{tepelná mapa} a je tedy nejen číselně, ale i barevně vyznačeno, jaký test má pro kterou variantu aplikace nejvyšší míru úspěšnosti (shody s předpokládaným výsledkem). Barevná škála a její odpovídající hodnoty se nachází po pravé straně tabulky.
 
         \subsection{Předpoklady}
 
-        U variant testované aplikace, které jsou označeny v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2} jako poruchové pro danou specifikaci je očekáváno \textit{selhání} testu a pokud toto selhání při spuštění testu na takové variantě detekujeme, dostáváme korektně negativní výsledek. V ostatních případech variant aplikace považujeme za očekávaný výsledek testu jeho \textit{úspešný průchod} a takový výsledek je brán za korektně pozitivní. Ostatní výsledky jsou poté považovány za falešně negativní či pozitivní. Zatímco falešná pozitiva nelze odhalit při průchodu \textit{neporuchovou} variantou aplikace, tak falešná negativa je takto možné odhalit, protože při této kombinaci je očekáván vždy průchod testu bez selhání. Mimo tuto klasifikaci se poté řadí testy, které jsou chybové a není je možné spustit nebo dokončit jejich chod a obvykle končí chybovým kódem. Selhání jednotlivých testových případů na konkrétních variantách aplikace, jak je definuje dokumentace projektu, je ověřeno \textit{akceptačními testy} vzniklými v práci \cite{Vais2020}. Mimo toho bylo v úvodu na testech vygenerovaných modelech \textit{GPT-4} otestováno jejich spuštění na všech 29 variantách, které projekt TbUIS nabízí a jejich výsledky jsou dostupné ve složce výsledků pro každou ze specifikací samostatně jakožto soubory \verb|test-<číslo specifikace>-all.sqlite|. 
+        U variant testované aplikace, které jsou označeny v tabulkách \ref{tab:specs_1} a \ref{tab:specs_2} jako poruchové pro danou specifikaci je očekáváno \textit{selhání} testu a pokud toto selhání při spuštění testu na takové variantě detekujeme, dostáváme korektně negativní výsledek. V ostatních případech variant aplikace považujeme za očekávaný výsledek testu jeho \textit{úspěšný průchod} a takový výsledek je brán za korektně pozitivní. Ostatní výsledky jsou poté považovány za falešně negativní či pozitivní. Zatímco falešná pozitiva nelze odhalit při průchodu \textit{neporuchovou} variantou aplikace, tak falešná negativa je takto možné odhalit, protože při této kombinaci je očekáván vždy průchod testu bez selhání. Mimo tuto klasifikaci se poté řadí testy, které jsou chybové a není je možné spustit nebo dokončit jejich chod a obvykle končí chybovým kódem. Selhání jednotlivých testových případů na konkrétních variantách aplikace, jak je definuje dokumentace projektu, je ověřeno \textit{akceptačními testy} vzniklými v práci \cite{Vais2020}. Mimo toho bylo v úvodu na testech vygenerovaných modelech \textit{GPT-4} otestováno jejich spuštění na všech 29 variantách, které projekt TbUIS nabízí a jejich výsledky jsou dostupné ve složce výsledků pro každou ze specifikací samostatně jakožto soubory \verb|test-<číslo specifikace>-all.sqlite|. 
 
     \section{Výsledky pro jednotlivé modely} \label{sec:results}
 

@@ -29,6 +29,7 @@ load_dotenv()
 API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
 API_MODEL = os.getenv('API_MODEL')
+MAX_TOKENS = os.getenv('MAX_TOKENS')
 DEVICE = os.getenv('DEVICE')
 
 parser = argparse.ArgumentParser(description="Robot Framework test generator.")
@@ -118,27 +119,45 @@ def render_template(input_name):
 def prompt_model(rendered_text):
     if args.manual_oai:
         return manual_prompt(rendered_text)
-    client = OpenAI(base_url=API_URL, api_key=API_KEY)
-    completion = client.chat.completions.create(
-      model=API_MODEL, 
-      messages=[
-        {"role": "system", "content": system_prompt()},
-        {"role": "user", "content": rendered_text}
-      ],
-      temperature=0.7,
-      top_p=1,
-      max_tokens=-1,
-      stream=False
-    )
-    message = completion.choices[0].message.content
+    #client = OpenAI(base_url=API_URL, api_key=API_KEY)
+    #client = anthropic.Anthropic(api_key=API_KEY)
+#    completion = client.chat.completions.create(
+#      model=API_MODEL, 
+#      #system=system_prompt(),
+#      messages=[
+#        {"role": "system", "content": system_prompt()},
+#        {"role": "user", "content": rendered_text}
+#      ],
+#      temperature=0.7,
+#      top_p=1,
+#      max_tokens=int(MAX_TOKENS),
+#      stream=False
+#    )
+#    message = completion.choices[0].message.content
+    #message = completion.content[0].text
+
+    vertexai.init(project="dp-modely", location="us-central1")
+    parameters = {
+            "max_output_tokens": 2500,
+            "temperature": 0.7,
+            "top_p": 0.95
+        }
+    model = GenerativeModel("gemini-1.5-pro-preview-0409")
+    message = model.generate_content(
+            [system_prompt(), rendered_text],
+            generation_config=parameters,
+            stream=False
+        )
+    message = message.candidates[0].content.parts[0].text
+
     return extract_code_block(message)
 
 def manual_prompt(rendered_text):
     concantenated = f"{system_prompt()}\n\n{rendered_text}"
-    subprocess.run("pbcopy", text=True, input=concantenated) # MacOS only
+    subprocess.run("clip.exe", text=True, input=concantenated) # MacOS only
     print("Prompt copied to clipboard")
     input("Copy the model output and press Enter key")
-    output = subprocess.check_output('pbpaste', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
+    output = subprocess.check_output('powershell.exe Get-Clipboard', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
     return extract_code_block(output)
 
 def compress_prompt(prompt, rate):

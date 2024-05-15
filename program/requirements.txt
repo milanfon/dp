@@ -60,3 +60,7 @@ typing_extensions==4.10.0
 urllib3==2.2.1
 wheel
 wsproto==1.2.0
+matplotlib==3.8.4
+seaborn==0.13.2
+statsmodels
+fastcluster

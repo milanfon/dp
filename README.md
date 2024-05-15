@@ -36,7 +36,7 @@ The template is copied from the `templates` directory. It is expected from used 
 
 To generate test from template using LLM querying, call:
 ```shell
-python3 test . py -i spec -4 --count 10
+python3 test.py -i spec -4 --count 10
 ```
 
 This step supports multiple additional arguments:

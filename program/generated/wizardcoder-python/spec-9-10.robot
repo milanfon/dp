@@ -1,1 +1,0 @@
-Here's the Robot Framework scenario for the given steps:

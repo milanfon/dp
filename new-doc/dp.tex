@@ -1017,7 +1017,7 @@ POSITIVE_FAILS = {
                 \label{fig:res:gpt-4}
             \end{figure}
 
-            Model \textbf{GPT-4} od společnosti OpenAI dokázal pro většinu \textit{testových případů} vygenerovat minimálně \emph{jeden} test podávající pro všechny testované varianty aplikace očekávaný výsledek. Výsledky zobrazené v obr. \ref{fig:res:gpt-4}. Jediný test, pro který model \textit{GPT-4} nebyl schopen vygenerovat ani jednu variantu testu, která by podala očekávaný výsledek, pro specifikaci 4 (viz \ref{tab:specs_1}). Tento konkrétní testový případ popisuje odhlášení studenta ze zkoušky a následnou kontrolu učitelem, zda je seznam studentů, přihlášených na zkoušce, prázdný. Každá z vygenerovaných variant hlásila pro tento případ poruchu i na klonech, které by ji pro tento případ neměli vykazovat. Primárním probléme ve vygenerovaném kódu zde byla nesprávná identifikace prvků, které mají být stisknuty nebo měla být detekována jejich hodnota následně srovnána s očekávanou. V případě studenta častokrát nedochází k úspěšnému odhlášení ze zkoušky, což vede i k následnému selhání \textit{test casu} ze strany učitele. Na této straně zároveň docházelo k nesprávnému výběru předmětu z rozbalovacího seznamu. Například v obr. \ref{fig:wrong_subject_select}, kde správně má být zvolený předmět \uv{Database Systems}.
+            Model \textbf{GPT-4} od společnosti OpenAI dokázal pro většinu \textit{testových případů} vygenerovat minimálně \emph{jeden} test podávající pro všechny testované varianty aplikace očekávaný výsledek. Jediný testový případ, pro který model \textit{GPT-4} nebyl schopen vygenerovat ani jednu variantu testu (výsledky zobrazené v obr. \ref{fig:res:gpt-4}), která by podala očekávaný výsledek pro specifikaci 4 (viz tab. \ref{tab:specs_1}). Tento konkrétní testový případ popisuje odhlášení studenta ze zkoušky a následnou kontrolu učitelem, zda je seznam studentů, přihlášených na zkoušce, prázdný. Každá z vygenerovaných variant hlásila pro tento případ poruchu i na klonech, které by ji pro tento případ neměly vykazovat. Primárním problémem ve vygenerovaném kódu zde byla nesprávná identifikace prvků, které mají být stisknuty nebo měla být detekována jejich hodnota následně srovnána s očekávanou. V případě studenta častokrát nedochází k úspěšnému odhlášení ze zkoušky, což vede i k následnému selhání \textit{test casu} ze strany učitele. Na této straně zároveň docházelo k nesprávnému výběru předmětu z rozbalovacího seznamu. Například v obr. \ref{fig:wrong_subject_select}, kde správně má být zvolený předmět \uv{Database Systems}.
 
             \begin{figure}
                 \includegraphics[width=0.8\textwidth]{pic/wrong_subject_select.png}
@@ -1026,13 +1026,13 @@ POSITIVE_FAILS = {
                 \label{fig:wrong_subject_select}
             \end{figure}
 
-            V případě testu dle specifikace \(1\) dochází u varianty aplikace \(02\) (dle tab. \ref{tab:clones}) k nedetekování poruchy, která po analýze 2 testů, u kterých se tento nedostatek vyskytl, je dána absenci detekce nadpisu a jeho obsahu, jehož kontrolu vyžaduje vstupní prompt, který byl využit (viz vstup \verb|spec-01.text| v repozitáři projektu). Zároveň právě \textit{nesprávný nadpis} je poruchou, které se v klonu \(02\) vyskytuje. Z tohoto důvodu vychází tato dvojice vygenerovaných testů s kladným výsledkem, i přesto že nasazená varianta aplikace obsahuje namísto hodnoty nadpisu \uv{Student's View} hodnotu "Stu View". U testu \(10\) poté jedna ze dvou validních variant neodpovídá předpokládanému výsledku. Tato konkrétní varianta končí v neúspěšném stavu u nasazené varianty aplikace \(25\) (tabulka studentů prázdná), protože server vrací chybový kód 500 a nejedná se tedy o chybu testu. V rámci varianty \(27\) naopak testovaný web apliakce vypisuje práznou tabulku učitelů, kdy test vyhledává pole v tabulce a porovnává jeho hodnotu. V tomto případě však nedokáže ono pole lokalizovat. Tento konkrétní test (konkrétně jde o soubor \verb|openai-gpt4/spec-10-3.robot|) tedy není chybný, ale v jednom případě se jedná o odlišnou chybu testované aplikace a v druhém případě jde o nedostatečnou granularitu specifikace testu a pouze v závislosti na její reprezentaci jde varianta \(27\) aplikace také považovat za chybovou. Obě nevyfiltrované varianty testu \(10\) mohou být považovány za validní na všech verzích testovaného webu. 
+            V případě testu dle specifikace \(1\) docházelo u varianty aplikace \(02\) (dle tab. \ref{tab:clones}) k nedetekování poruchy, která po analýze 2 testů, u kterých se tento nedostatek vyskytl, je dána absenci detekce nadpisu a jeho obsahu, jehož kontrolu vyžaduje vstupní prompt, který byl využit (viz vstup \verb|spec-01.text| v repozitáři projektu). Zároveň právě \textit{nesprávný nadpis} je poruchou, které se v klonu \(02\) vyskytuje. Z tohoto důvodu vychází tato dvojice vygenerovaných testů s kladným výsledkem, i přestože nasazená varianta aplikace obsahuje namísto hodnoty nadpisu \uv{Student's View} hodnotu \uv{Stu View}. U testu \(10\) poté jedna ze dvou validních variant neodpovídá předpokládanému výsledku. Tato konkrétní varianta končí v neúspěšném stavu u nasazené varianty aplikace \(25\) (tabulka studentů prázdná), protože server vrací chybový kód 500 a nejedná se tedy o chybu testu. V rámci varianty \(27\) naopak testovaný web aplikace vypisuje práznou tabulku učitelů, kdy test vyhledává pole v tabulce a porovnává jeho hodnotu. V tomto případě však nedokáže ono pole lokalizovat. Tento konkrétní test (konkrétně jde o soubor \verb|openai-gpt4/spec-10-3.robot|) tedy není chybný, ale v jednom případě se jedná o odlišnou chybu testované aplikace a v druhém případě jde o nedostatečnou granularitu specifikace testu a pouze v závislosti na její reprezentaci jde varianta \(27\) aplikace také považovat za chybovou. Obě nevyfiltrované varianty testu \(10\) mohou být považovány za validní na všech verzích testovaného webu. 
 
             %TODO Možná další testy a chybové varianty
 
             Naopak model \textbf{GPT-4 Turbo} dokázal v některých případech, kde model GPT-4 selhával, vygenerovat validní testy, avšak pro 3 testové specifikace nevygeneroval ani jeden test, který by prošel filtračním kritériem (viz obr. \ref{fig:res:gpt-4-turbo}). Jde konkrétně o testy \(6\), \(10\) a \(12\). U testů dle specifikace \(6\) dochází k nesprávnému indexování sloupce tabulky, kdy druhý prvek \verb|<td>| v rámci řádku \verb|<tr>| získává za pomocí dotazovacího jazyka XPath indexem 1, kdežto druhý prvek má v rámci tohoto jazyka index 2. Tuto chybu lze vidět v datazu ukázky \ref{lst:gpt-4-turbo:spec-6-4} na řádcích 23 a 24. V případě testu \(10\) dochází k nesprávné interpretaci specifikace (resp. \emph{promptu}), která říká, že všechna tlačítka na dané stránce mimo tlačítka stisknutého v nahrávce musí být \textit{deaktivovaná} (HTML argument \verb|disabled| s hodnotou "true"). GPT-4 Turbo vyhledává tato tlačítka nekorektně jako např. dceřiné prvky tlačítka stisknutého v nahrávce (v ukázce \ref{lst:gpt-4-turbo:spec-10-10}), zatímco správný odhad provedl model GPT-4 (v příkladu \ref{lst:gpt-4:spec-10}), který usoudil, že všechna tlačítka budou mít stejný základ identifikátoru \verb|id| a pouze tlačítko se shodným identifikátorem z nahrávky bude \textit{aktivní}.
 
-            \begin{code}{python}{Ukázka z vygenerovaného testu "openai-gpt4-turbo/spec-6-4.robot" (zbytek kódu vynechán). \label{lst:gpt-4-turbo:spec-6-4}}
+            \begin{code}{robot}{Ukázka z vygenerovaného testu "openai-gpt4-turbo/spec-6-4.robot" (zbytek kódu vynechán). \label{lst:gpt-4-turbo:spec-6-4}}
 ...
 Student Enrollment and Verification
     Open Browser    http://localhost:4680/tbuis/index.jsp    chrome
@@ -1058,10 +1058,9 @@ Student Enrollment and Verification
     Element Should Contain    xpath=//tr[@id="stu.mySubjects.enrolledTable.subjectRow-2"]/td[1]    Software Quality Assurance
     Element Should Contain    xpath=//tr[@id="stu.mySubjects.enrolledTable.subjectRow-2"]/td[2]    Peter Strict
     Close Browser
-...
-            \end{code}
+... \end{code}
 
-            \begin{code}{python}{Klíčové slovo z testu "openai-gpt4-turbo/spec-10-10.robot". \label{lst:gpt-4-turbo:spec-10-10}}
+            \begin{code}{robot}{Klíčové slovo z testu "openai-gpt4-turbo/spec-10-10.robot". \label{lst:gpt-4-turbo:spec-10-10}}
 ...
 Validate My Subjects Page
     ${disabled_buttons}=    Get Element Count    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"][@disabled='disabled']
@@ -1069,10 +1068,9 @@ Validate My Subjects Page
     Click Element    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"]
     Sleep    1s
     Element Should Be Visible    xpath=//*[@id="tea.mySubjects.successAlert"]
-...
-            \end{code}
+... \end{code}
 
-            \begin{code}{python}{Příklad správné implementace specifikace 10 dle modelu GPT-4. \label{lst:gpt-4:spec-10}}
+            \begin{code}{robot}{Příklad správné implementace specifikace 10 dle modelu GPT-4. \label{lst:gpt-4:spec-10}}
 Navigate To My Subjects And Verify
     Click Element    xpath=//*[@id="tea.menu.mySubjects"]
     Sleep    1s
@@ -1082,23 +1080,22 @@ Navigate To My Subjects And Verify
     END
     Click Element    xpath=//*[@id="tea.mySubjects.table.unregisterSubjectButton-0"]
     Sleep    1s
-    Element Should Be Visible    xpath=//*[@id="tea.mySubjects.successAlert"]
-            \end{code}
+    Element Should Be Visible    xpath=//*[@id="tea.mySubjects.successAlert"] \end{code}
 
-            \begin{figure}
+            \begin{figure}[H]
                 \includegraphics[width=\textwidth]{pic/gpt-4-turbo-results.pdf}
                 \caption{Výsledky pro model GPT-4 Turbo}
                 \label{fig:res:gpt-4-turbo}
             \end{figure}
 
-            V testu \(12\) se objevuje požadavek odsouhlasit vyskakovací upozornění (\textit{alert}). Ten výstup modelu GPT-4 Turbo nesprávně odsouhlasuje za pomocí klíčového slova \verb|Accept Alert|, kdežto správné klíčové slovo je \verb|Handle Alert|\footnote{Dle dokumentace, dostupné na adrese: \url{https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html#Handle\%20Alert}} jako jde vidět například v testu \verb|openai-gpt4/spec-12-10|. Ze 7 validních varint testu \(8\) selhaly veškeré na poruchových klonech \(23\), \(24\) a na klonu \(27\) pouze \(5\) z nich skončilo očekávaným výsledkem. Zde je nutné připomenou, že ani na jednom ze zmíněných klonů (dle tab. \ref{tab:specs_1}) by neměl test skončit neúspěšně.
+            V testu \(12\) se objevuje požadavek odsouhlasit vyskakovací upozornění (\textit{alert}). Ten výstup modelu GPT-4 Turbo nesprávně odsouhlasuje pomocí klíčovým slovem \verb|Accept Alert|, kdežto správné klíčové slovo je \verb|Handle Alert|\footnote{Dle dokumentace, dostupné na adrese: \url{https://robotframework.org/SeleniumLibrary/SeleniumLibrary.html#Handle\%20Alert}} jako jde vidět například v testu \verb|openai-gpt4/spec-12-10|. Ze 7 validních variant testu \(8\) selhaly veškeré na poruchových klonech \(23\), \(24\) a na klonu \(27\) pouze \(5\) z nich skončilo očekávaným výsledkem. Zde je nutné připomenout, že ani na jednom ze zmíněných klonů (dle tab. \ref{tab:specs_1}) by neměl test skončit neúspěšně.
             %TODO Tady je to divný - přetestovat
 
-            V případě specifikace \(17\) žádný z 6 testů určených jako validní, nedokázal ojevit chybu na kontejneru \(24\) a neselhal. Zde se učitel zapíše k výuce nového předmětu, což mu dá hlášku o úspěšném zapsání, avšak do databáze se tento fakt nezapíše a na ostatních stránkách se uživatel nenachází v seznamu učitelů pro daný předmět.
+            V případě specifikace \(17\) žádný z 6 testů určených jako validní, nedokázal odhalit chybu na kontejneru \(24\) a neselhal. Zde se učitel zapíše k výuce nového předmětu, což mu zobrazí hlášku o úspěšném zapsání, avšak do databáze se tento fakt nezapíše a na ostatních stránkách se uživatel nenachází v seznamu učitelů pro daný předmět.
 
-            Model \textbf{GPT-3.5 Turbo} dokázal vygenerovat validní testy pouze pro testové scénáře \(11\) a \(18\), v celkově třech variantách (obr. \ref{fig:res:gpt-35-turbo}). Tyto varianty testů však dokázali odhadit veškeré zavedené chyby. Zbytek vygenerovaných variant pro veškeré testy obsahoval selhával na využitém klíčovém slově \verb|Set Viewport|, kterým test má dle modelu nastavovat velikost okna webového prohlížeče. Správným klíčovým slovem pro toto použití je \verb|Set Window Size|.
+            Model \textbf{GPT-3.5 Turbo} dokázal vygenerovat validní testy pouze pro testové scénáře \(11\) a \(18\), v celkově třech variantách (obr. \ref{fig:res:gpt-35-turbo}). Tyto varianty testů však dokázaly odhalit veškeré zavedené chyby. Zbytek vygenerovaných variant pro veškeré testy selhával na využitém klíčovém slově \verb|Set Viewport|, jenž má dle modelu nastavovat velikost okna webového prohlížeče. Správným klíčovým slovem pro toto použití je \verb|Set Window Size|.
 
-            \begin{figure}
+            \begin{figure}[H]
                 \includegraphics[width=\textwidth]{pic/gpt-3.5-turbo-results.pdf}
                 \caption{Výsledky pro model GPT-3.5 Turbo}
                 \label{fig:res:gpt-35-turbo}
@@ -1108,7 +1105,7 @@ Navigate To My Subjects And Verify
 
             Testovaný model \textbf{Claude 3 Opus} od společnosti Anthropic byl schopen pro každý test vygenerovat nejméně jednu variantu, která je schopna odhladit každou chybu vloženou do systému (obr. \ref{fig:res:claude-3-opus}). Mezi nejméně úspěšné testy se zde řadí varianty dle specifikace \(12\) a \(17\). Časté chyby variant jsou například nesprávné adresování prvků za pomocí \textit{XPath} dotazovacího jazyka, kde namísto počátku selektoru \verb|//|, který vyhledává daný prvek kdekoliv v dokumentu, resp. v poskytnutém kořenovém prvku, využívá nesprávný selektor \verb|///| (příklad \ref{lst:invalid_xpath}). Správné použití lze vidět v ukázce \ref{lst:gpt-4:spec-10}. Pozn: Pro oddělení názvu argumentu a jeho hodnoty lze v rámci \textit{RobotFramework} využít jak znak \verb|:| tak \verb|=|, které lze vidět v obou verzích využívané napříč ukázkami.
 
-            \begin{code}{python}{Ukázka nesprávného adresování XPath. \label{lst:invalid_xpath}}
+            \begin{code}{robot}{Ukázka nesprávného adresování XPath. \label{lst:invalid_xpath}}
 Teacher Scenario
     Open Browser    http://localhost:4680/tbuis/index.jsp    Chrome
     Set Window Size    1501    1104
@@ -1119,8 +1116,7 @@ Teacher Scenario
     Click Button    xpath:///*[@id="loginPage.loginFormSubmit"]
     Wait Until Page Contains Element    xpath:///*[@id="tea.menu.myExamDates"]
     Click Element    xpath:///*[@id="tea.menu.myExamDates"]
-    Wait Until Page Contains Element    xpath:///*[@id="tea.myExamDates.table.cancelButton-0-0"]
-            \end{code}
+    Wait Until Page Contains Element    xpath:///*[@id="tea.myExamDates.table.cancelButton-0-0"] \end{code}
 
             Dalším problémem také bylo vybírání prvku z rozbalovací nabídky za pomocí hodnoty \varb|value| prvku \verb|option|, které se však při každé inicializaci DB mění a tedy nelze se na tyto hodnoty spolehnout. Z tohoto důvodu bylo do instrukcí pro prompt specificky přidáno, aby model vybíral položku v těchto seznamech za pomocí obsahu prvku \verb|option| (lze vidět v ukázce \ref{lst:spec-10} na řádce 6 a 7). Chybová zpráva o nenalezeném prvku je zobrazena v ukázce \ref{lst:value_fail}. V některých testech se také objevil defekt, kdy model namísto názvu knihovny \verb|SeleniumLibrary| použil název \verb|Selenium2Library|, což vede k \textit{erroru} testu. Podobně jako u modelu GPT-4 i zde se objevuje nesprávná indexace prvků v rámcí XPath. Některé z testů také obsahovali neplatná klíčová slova jako \verb|Page Should Be| nebo \verb|Element Text Should Match|.
 

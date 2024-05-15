@@ -1118,7 +1118,7 @@ Teacher Scenario
     Click Element    xpath:///*[@id="tea.menu.myExamDates"]
     Wait Until Page Contains Element    xpath:///*[@id="tea.myExamDates.table.cancelButton-0-0"] \end{code}
 
-            Dalším problémem také bylo vybírání prvku z rozbalovací nabídky za pomocí hodnoty \varb|value| prvku \verb|option|, které se však při každé inicializaci DB mění a tedy nelze se na tyto hodnoty spolehnout. Z tohoto důvodu bylo do instrukcí pro prompt specificky přidáno, aby model vybíral položku v těchto seznamech za pomocí obsahu prvku \verb|option| (lze vidět v ukázce \ref{lst:spec-10} na řádce 6 a 7). Chybová zpráva o nenalezeném prvku je zobrazena v ukázce \ref{lst:value_fail}. V některých testech se také objevil defekt, kdy model namísto názvu knihovny \verb|SeleniumLibrary| použil název \verb|Selenium2Library|, což vede k \textit{erroru} testu. Podobně jako u modelu GPT-4 i zde se objevuje nesprávná indexace prvků v rámcí XPath. Některé z testů také obsahovali neplatná klíčová slova jako \verb|Page Should Be| nebo \verb|Element Text Should Match|.
+            Dalším problémem také bylo vybírání prvku z rozbalovací nabídky za pomocí hodnoty \varb|value| prvku \verb|option|, které se však při každé inicializaci DB mění a tedy nelze se na tyto hodnoty spolehnout. Z tohoto důvodu bylo do instrukcí pro prompt specificky přidáno, aby model vybíral položku v těchto seznamech za pomocí obsahu prvku \verb|option| (lze vidět v ukázce \ref{lst:spec-10} na řádce 6 a 7). Chybová zpráva o nenalezeném prvku je zobrazena v ukázce \ref{lst:value_fail}. V některých testech se také objevil defekt, kdy model namísto názvu knihovny \verb|SeleniumLibrary| použil název \verb|Selenium2Library|, což vede k \textit{erroru} testu. Podobně jako u modelu GPT-4 i zde se objevuje nesprávná indexace prvků v rámci XPath. Některé z testů také obsahovaly neplatná klíčová slova jako \verb|Page Should Be| nebo \verb|Element Text Should Match|.
 
             \begin{console}{Ukázka selhání testu po nenalezeném prvku s danou hodnotou. \label{lst:value_fail}}
 `\uxprompt`python3 -m robot ../generated/anthropic-claude-3-opus/spec-12-2.robot
@@ -1138,6 +1138,8 @@ Log:     /Users/milan/Škola/DP/program/tbuis/log.html
 Report:  /Users/milan/Škola/DP/program/tbuis/report.html
             \end{console}
 
+            Pro specifikaci \(4\) jsou indikovány 2 z validních testů jako varianty, nesplňující předpoklad. Chyba tohoto nasazeného klonu \(19\), na kterém se však tato nedokonalost projevuje, spočívá v náhodně mizejícím tlačítku při odepsání předmětu, avšak toto tlačítko je při každém načtení stránky jiné a tedy nemusí se jednat přesně o tlačítko vyžadované pro odhlášení konkrétního předmětu, který vyžaduje přiložená nahrávka promptu. V tomto případě se tedy jedná o správný výsledek, protože jak úspěšný tak neúspěšný výstup testu zde mohou být validní a záleží jen na tom, jak test selže. Stejně jako v případě modelu GPT-4 i zde validní testy dle specifikace \(10\) selhávají na kontejneru \(27\), protože celá tabulka není vykreslena a selektory využívající její přítomnosti pro nalezení hledaného řetězce selhávají. 
+
             \begin{code}{text}{Ukázka promptu dle testového scénáře 10. \label{lst:spec-10}}
 Write Robot Framework scanario. Open page like in this JSON recording and then when you execute all the steps in the recording, do this:
 
@@ -1152,8 +1154,6 @@ Write Robot Framework scanario. Open page like in this JSON recording and then w
 
 {% include 'recording-spec-10-teacher.json' %}
 ... \end{code}
-
-            Pro specifikaci \(4\) jsou indikovány 2 z validních testů jako varianty, nesplňující předpoklad. Chyba tohoto nasazeného klonu \(19\), na kterém se však tato nedokonalost projevuje, spočívá v náhodně mizejícím tlačítku při odepsání předmětu, avšak toto tlačítko je při každém načtení stránky jiné a tedy nemusí se jednat přesně o tlačítko vyžadované pro odhlášení konkrétního předmětu, který vyžaduje přiložená nahrávka promptu. V tomto případě se tedy jedná o správný výsledek, protože jak úspěšný tak neúspěšný výstup testu zde mohou být validní a záleží jen na tom, jak test selže. Stejně jako v případě modelu GPT-4 i zde validní testy dle specifikace \(10\) selhávají na kontejneru \(27\), protože celá tabulka není vykreslena a selektory využívající její přítomnosti pro nalezení hledaného řetězce selhávají. 
 
             \begin{figure}[H]
                 \includegraphics[width=\textwidth]{pic/claude-3-opus-results.pdf}
@@ -1216,7 +1216,7 @@ Teacher Test
                 \item Zobrazení špatné URL adresy. Namísto cesty \verb|/tbuis| použita pouze kořenová cesta.
                 \item Plně chybějící nebo neplatný obsah testu.
             \end{itemize}
-            \noindent Jediný platný test však byl schopen projít pouze na neporuchových variantách aplikace a nebyl schopen odhladit chyby zanesené klony 27 a 28.
+            \noindent Jediný platný test však byl schopen projít pouze na neporuchových variantách aplikace a nebyl schopen odhalit chyby zanesené klony 27 a 28.
 
             \begin{code}{robot}{Ukázka opomenutého vložení přihlašovacích údajů. \label{lst:wizardcoder:no_login}}
 *** Test Cases ***

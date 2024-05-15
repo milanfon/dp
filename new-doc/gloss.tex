@@ -1,0 +1,86 @@
+\newacronym{put}{PUT}{Parameterized Unit Test}
+\newacronym{gui}{GUI}{Graphical User Interface}
+\newacronym{gguf}{GGUF}{GPT-Generated Unified Format}
+\newacronym{ggml}{GGML}{GPT-Generated Model Language}
+\newacronym{ml}{ML}{Machine Learning - strojové učení}
+\newacronym{vcs}{VCS}{Version Control System}
+\newacronym{rnn}{RNN}{Recurrent Neural Network - Rekurenční neuronová síť}
+\newacronym{cnn}{CNN}{Convolutional Neural Network - Konvoluční neuronová síť}
+\newacronym{tdd}{TDD}{Test Driven Development - Vývoj řízený testy}
+\newacronym{nlp}{NLP}{Natural Language Processing - Zpracování přirozeného jazyka}
+\newacronym{ir}{IR}{Information Retrieval - Získávání informací}
+
+\newglossaryentry{llm}{
+  name={LLM},
+  description={Velký jazykový model (LLM - large language model) je typ modelu strojového učení, který je navržen tak, aby rozuměl a generoval text v přirozeném jazyce. Tyto modely jsou trénovány na obrovských datasetech a jsou schopny provádět různé úkoly, jako je textová klasifikace, generování textu, strojový překlad a další}
+}
+
+\newglossaryentry{testsmells}{
+  name={testové pachy},
+  description={Unit Test Smells jsou špatné návyky nebo postupy, které se mohou objevit při psaní jednotkových testů. Tyto "smelly" často vedou k neefektivním nebo nespolehlivým testům a mohou ztížit údržbu testovacího kódu. Příklady zahrnují Duplicated Asserts, Empty Tests a General Fixture},
+}
+
+\newglossaryentry{kontrakt}{
+  name={kontrakt},
+  plural={kontrakty},
+  description={V kontextu jednotkových testů odkazuje na formálně definované podmínky nebo pravidla, které musí být dodrženy během vykonávání kódu. Kontrakty mohou specifikovat, co funkce očekává od svých vstupů a jaké výstupy nebo stavy by měla produkce kódu způsobit. Použití kontraktů pomáhá zajistit, že kód se chová podle očekávání a usnadňuje identifikaci chyb, když tyto podmínky nejsou splněny}
+}
+
+\newglossaryentry{filtr}{
+  name={filtr},
+  plural={filtry},
+  description={Ve vývoji softwaru a testování se odkazuje na mechanismy nebo kritéria používaná k selektivnímu výběru testovacích vstupů nebo k rozhodování, které výstupy testů jsou relevantní pro další analýzu. Filtry mohou být použity k odstranění redundantních, nelegálních nebo jinak nežádoucích vstupů z procesu generování testů, což zvyšuje efektivitu testování tím, že se zaměřuje pouze na vstupy, které mohou odhalit chyby nebo porušení kontraktů}
+}
+
+\newglossaryentry{temperature}{
+    name={teplota},
+    plural={teploty},
+    description={V terminologii strojového učení se jedná o hyperparametr, který ovládá reativitu a náhodnost vstupu modelu. Vyšší teplota vede k méně předvídatelným a kreativnějším výsledkům, kdežto nižší teplota produkuje více konzervativnější výstup.}
+}
+
+\newglossaryentry{topp}{
+    name={Top P},
+    description={Hyperparametr ovládající rozmanitost generovaného textu. Dynamicky vybírá, jak velkou část pravděpodobnostní distribuce využít. Jeho hodnota údává velikost použité kumulativní pravděpodobnosti v procentech. Při snížení pod 100\% jsou méně pravděpodobná slova ignorována.}
+ }
+
+\newglossaryentry{context}{
+    name={kontext},
+    description={Rozsah textu nebo dat, který může model zpracovat při generování odpovědí. Funguje jako krátkodobá paměť modelu a určuje, kolik informací může model vzít v úvahu při tvorbě odpovědí.}
+}
+
+\newglossaryentry{token}{
+    name={token},
+    plural={tokeny},
+    description={V NLP oblasti se jedná o rozdělení sekvence textu na menší části (například slova, části slov, atd.).}
+}
+
+\newglossaryentry{lsp}{
+    name={LSP},
+    description={Language Server Protocol. Protokol pro jazykový server používaný pro validaci syntaxe, sémantiky nebo formátování zdrojového kódu. Často se pod tímto označením myslí i samotný jazykový sever, který se o tuto analýzu stará.}
+}
+
+\newglossaryentry{servlet}{
+    name={servlet},
+    description={Serverový programový modul napsaný v programovacím jazyce Java, který zpracovává požadavky klientů a implementuje rozhraní Servlet. Přestože servlety mohou reagovat na jakýkoli typ požadavku, nejčastěji se používají k rozšíření aplikací hostovaných webovými servery.}
+}
+
+\newglossaryentry{benchmark}{
+    name={benchmark},
+    description={Standardizovaný test nebo pokus určení k meření a srovnání výkonu sytémů, komponent či aplikací.}
+}
+
+\newglossaryentry{mock}{
+    name={mock objekt},
+    plural={mock objekty}, 
+    description={V kontextu testování jde o simulované objekty, které imituje chování reálných komponent v rámci systému a slouží k izolaci testované jednotky od jejích závislostí.}
+}
+
+\newglossaryentry{rag}{
+    name={RAG},
+    description={Retrieval-Augmented Generation (RAG) je metoda pro vylepšení generativních modelů získáním relevantních informací z velké datové sady a jejím využitím v kontextu pro generování přesnějších a relevantnějších výsledků.}
+}
+
+\newglossaryentry{assert}{
+    name={assert},
+    description={Příkaz používaný k ověření, zda je výsledek testu v souladu s očekávanými hodnotami, což umožňuje automatizovaně identifikovat chyby v testovaném kódu.}
+}

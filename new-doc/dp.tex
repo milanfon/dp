@@ -692,17 +692,17 @@ You're an intelligent programming assistant. Output code only, no text around. \
                 \label{tab:pc_components}
             \end{table}
 
-            Pro spouštění lokálních modelů byla využita PC sestava, jejíž komponenty jsou popsané v tabulce \ref{tab:pc_components}. Runtime programu \textit{LM Studio}, popsaného v minulé sekci, byl nastaven, aby využíval \(12\) z \(16\) dostupných CPU vláken. GPU akcelerace fungovala v režimu \textit{OpenCL}. Počet GPU vrstev se však liší model od modelu. Pro správnou funkčnost je potřeba udržet celý model v paměti RAM, tedy v případě naší sestavy jsme mohli pracovat s modely pouze cca do 60GB, s tím, že do VRAM grafické karty lze nahrát pouze vrstvy o celkové velikosti přibližně 20GB. Na GPU tedy byl akcelerován jen takový počet vrtev, který z jejich celkového počtu odpovídal této velikosti. Délka \textit{kontextového okna} byla nastavena na \(8 192\) \gls{token}ů, avšak pro některé modely je tato délka zkrácena samotným modelem (viz sekce \ref{sec:local_env}). Jednotlivé hyperparametry byly poté nastaveny jako:
+            Pro spouštění lokálních modelů byla využita PC sestava, jejíž komponenty jsou popsány v tabulce \ref{tab:pc_components}. Runtime programu \textit{LM Studio}, popsaného v minulé sekci, byl nastaven, aby využíval \(12\) z \(16\) dostupných CPU vláken. GPU akcelerace fungovala v režimu \textit{OpenCL}. Počet GPU vrstev se však liší model od modelu. Pro správnou funkčnost je potřeba udržet celý model v paměti RAM, tedy v případě naší sestavy jsme mohli pracovat s modely pouze cca do 60GB, s tím, že do VRAM grafické karty lze nahrát pouze vrstvy o celkové velikosti přibližně 20GB. Na GPU tedy byl akcelerován jen takový počet vrtev, který z jejich celkového počtu odpovídal této velikosti. Délka \textit{kontextového okna} byla nastavena na \(8 192\) \gls{token}ů, avšak pro některé modely je tato délka zkrácena samotným modelem (viz sekce \ref{sec:local_env}). Jednotlivé hyperparametry byly poté nastaveny jako:
             \begin{enumerate}
                 \item \textbf{\gls{temperature}}: \(0.7\)
                 \item \textbf{Top P}: \(1\)
                 \item \textbf{Maximum vygenerovaných tokenů}: \(3000\)
                 \item \textbf{režim kontextového okna}: klouzavé okno
             \end{enumerate}
-            Zbytek \emph{hyperparametrů} zůstal na defaultních hodnotách daného modelu, který byl testovaný. Toto nastavení bylo využito jak pro \textit{lokální} modely tak pro \textit{API} dotazy na poskytovatele proprietáních či jiných vzdáleně spuštěných modelů. Použité hodnoty těchto parametrů vycházejí z prvotních testovacích experimentů, kdy se osvědčili jako vhodné pro generování jednotkových testů, protože by měli zaručovat \textit{nižší determiničnost} výsledku a jeho \textit{vyšší přesnost}.
+            Význam hyperparametrů \gls{temperature} a \gls{topp} je vysvětlen ve slovníku pojmů. Zbytek \emph{hyperparametrů} zůstal na defaultních hodnotách daného modelu, který byl testovaný. Toto nastavení bylo využito jak pro \textit{lokální} modely tak pro \textit{API} dotazy na poskytovatele proprietáních či jiných vzdáleně spuštěných modelů. Použité hodnoty těchto parametrů vycházejí z prvotních testovacích experimentů, kdy se osvědčili jako vhodné pro generování jednotkových testů, protože by měly zaručovat \textit{nižší determiničnost} výsledku a jeho \textit{vyšší přesnost}.
 
         \subsection{Dotazy} \label{sec:llm_requests}
-        Samotné vygenerování testů za pomoci dotazování \Gls{llm} je řešeno skrze \textit{generující} režim programu, jako je ukázáno ve výpisu \ref{con:modes}. Tento režim jako argument vyžaduje \textit{název šablony}, která funguje jako \textit{prompt} pro model a byla vytvořena v předchozím kroku (viz sekce \ref{sec:test_creation}). Tento režim poporuje i více nepovinných argumentů jako:
+        Samotné vygenerování testů za pomoci dotazování \Gls{llm} je řešeno skrze \textit{generující} režim programu, jako je ukázáno ve výpisu \ref{con:modes}. Tento režim jako argument vyžaduje \textit{název šablony}, která funguje jako \textit{prompt} pro model a byla vytvořena v předchozím kroku (viz sekce \ref{sec:test_creation}). Tento režim podporuje i více nepovinných argumentů jako:
         \begin{itemize}
             \item \verb|count| - Počet variací testů, které se mají vygenerovat. Celé číslo. Defaultní hodnota \(1\).
             \item \verb|manual| - Zkopírovat prompt do schránky pro manuální vložení do rozhraní modelu. Vlajka. Vhodné pro debug.
@@ -715,11 +715,11 @@ You're an intelligent programming assistant. Output code only, no text around. \
             \item \verb|API_URL| - Adresa URL, na kterou program dělá API dotazy.
             \item \verb|API_KEY| - Klíč pro přístup ke vzdálenému API (pro lokální modely stačí zadat libovolnou hodnotu nebo nedefinovat).
             \item \verb|API_MODEL| - Název modelu, na kterém programu bude v rámci API požadovat vygenerování výstupu (hodnota dána dokumentací daného API).
-            \item \verb|MAX_TOKENS| - Maximální počet tokenů, které má model vygenerovat. V závislosti na dokumentaci API je potřeba nastavit hodnotu v určiném rozsahu.
+            \item \verb|MAX_TOKENS| - Maximální počet tokenů, které má model vygenerovat. V závislosti na dokumentaci API je potřeba nastavit hodnotu v určitém rozsahu.
         \end{itemize}
         Mimo parametrů pro generování může \verb|.env| soubor obsahovat i další parametry (resp. proměnné) určené pro jiné operace programu. Ukázková podoba tohoto souboru je zobrazena ve výpisu \ref{lst:dot_env}. Soubor je umístěn v kořenové složce programu.
 
-        Ukázkové volání programu v režimu generace testů lze vidět v ukázce \ref{con:generation}. Program je schopen vygenerovat pro jeden test více variant na bázi stejného promptu (vytváření nových dotazů na \Gls{llm}). Detailní popis algoritmu je nastíněn v obrázku \ref{fig:llm_query_algo}. \textit{Šablona}, kterou uživatel vytvořil je použita pro \emph{render} finálního promptu za pomocí šablonovacího jazyka \textit{Jinja}. Tato metoda byla zvolena z důvodu \textit{jednoduché a předhledné modifikace} vstupů (zde nazvaých jako \textit{šablon} nebo \textit{uživatelských specifikací}), \textit{možnosti nezávislého vložení nahrávky} a také především případné \textit{parametrizace} vstupu, díky které by mohla jít měnit \textit{uživatelská jména}, \textit{názvy prvků} a další možné údaje v šabloně vhodné pro parametrizaci. 
+        Ukázkové volání programu v režimu generace testů lze vidět v ukázce \ref{con:generation}. Program je schopen vygenerovat pro jeden test více variant na bázi stejného promptu (vytváření nových dotazů na \Gls{llm}). Detailní popis algoritmu je nastíněn v obrázku \ref{fig:llm_query_algo}. \textit{Šablona}, kterou uživatel vytvořil je použita pro \emph{render} finálního promptu za pomocí šablonovacího jazyka \textit{Jinja}. Tato metoda byla zvolena z důvodu \textit{jednoduché a přehledné modifikace} vstupů (zde nazvaných jako \textit{šablon} nebo \textit{uživatelských specifikací}), \textit{možnosti nezávislého vložení nahrávky} a také především případné \textit{parametrizace} vstupu, díky které by mohla jít měnit \textit{uživatelská jména}, \textit{názvy prvků} a další možné údaje v šabloně vhodné pro parametrizaci. 
 
         \begin{figure}
             \begin{tikzpicture}[node distance=2cm]
@@ -752,14 +752,12 @@ You're an intelligent programming assistant. Output code only, no text around. \
 
         \setuxprompt{milan}{dp/program}
         \begin{console}{Ukázka volání generace testu dle šablony \label{con:generation}}
-`\uxprompt`python3 test.py -i spec-4 --count 10
-        \end{console}
+`\uxprompt`python3 test.py -i spec-4 --count 10 \end{console}
 
-        Finální podoba promptu je poté skrze \textit{konektor} pro příslušné \Gls{llm} (například zmíněná \textit{OpenAI} knihovna, \textit{HTTP} dotaz či jiný druh konektoru) předána jako dotaz modelu. Společně s ním je i modelům předán v rámci těchto konektorů i \textit{systémový prompt}. V případě, že se je aktivní vstupní příznak programu \verb|--manual|, systémový prompt se přidá před vyrenderovaný prompt a tento spojený text je zkopírován do \textit{schránky}. Program načítá systémový prompt ze souboru \verb|templates/system.txt|. Jeho znění (viz výpis \ref{lst:system_prompt_used}) vychází poažadavků a nedostatků, které byli při testovacím generování zpozorovány.
+        Finální podoba promptu je poté skrze \textit{konektor} pro příslušné \Gls{llm} (například zmíněná \textit{OpenAI} knihovna, \textit{HTTP} dotaz či jiný druh konektoru) předána jako dotaz modelu. Společně s ním je i modelům předán v rámci těchto konektorů i \textit{systémový prompt}. V případě, že se je aktivní vstupní příznak programu \verb|--manual|, systémový prompt se přidá před vyrenderovaný prompt a tento spojený text je zkopírován do \textit{schránky}. Program načítá systémový prompt ze souboru \verb|templates/system.txt|. Jeho znění (viz výpis \ref{lst:system_prompt_used}) vychází požadavků a nedostatků, které byly při testovacím generování zpozorovány.
 
         \begin{code}{text}{Použitý systémový prompt \label{lst:system_prompt_used}}
-You're an intelligent programming assistant. You write Robot Framework scenarios and scripts using the Selenium Library. Insert delays between steps. Output code only, no text around. Use Chrome as browser. Locate elements using XPath. Close browser between scenarios.
-        \end{code}
+You're an intelligent programming assistant. You write Robot Framework scenarios and scripts using the Selenium Library. Insert delays between steps. Output code only, no text around. Use Chrome as browser. Locate elements using XPath. Close browser between scenarios.  \end{code}
 
         \begin{code}{shell}{Ukázka ".env" souboru \label{lst:dot_env}}
 API_URL="https://api.mistral.ai/v1"
@@ -767,11 +765,11 @@ API_KEY="Zca6nB87qmijn4"
 API_MODEL="mistral-large-latest"
 
 MAX_TOKENS=3000
-DEVICE="mps"
-        \end{code}
+DEVICE="mps" \end{code}
 
-        I přes důraz na nutnost pouze \textit{programového} výstupu v rámci systémového promptu, mají modely tendeci tuto podmínku ignorovat a generovat text okolo kódu. Protože jsou modely naučené tak, aby jejich výstup byl text v \textbf{Markdown} formátu, obsahují i značky se začátkem kódového bloku a značením jazyka, ale také prvky jako odrážky, apod. Tyto prvky se pak objevují i ve výstupech, kde je požadován pouze \textit{čistý text} (jako například v ukázce \ref{lst:text_around}). V našem případě je toto chování nevhodné, protože vyžadujeme na výstupu pouze \textit{kód testu}. Díky struktuře \textit{Markdown} formátování však lze lze kód z tohoto výstupu jednoduše vyparsovat. Toto parsování má právě na starosti funkce \textit{filtrování výstupu} ve schematu \ref{fig:llm_query_algo}. V rámci programu byla implementována tak, že ze vstupního textu vyjme kód v prvním nalezeném kódovém bloku, označeného pomocí znaků \verb|```|. Pokud blok nenajde, vrátí původní text bez změny (předpokládá, že model se držel systémového promptu). V případě více kódových bloků přítomných ve výstupu, kdy požadovaný kód nebude v prvním z bloků, dojde k nesprávnému parsování, avšak jedná se o očekávaný případ, protože detekce správného kódu je \texti{netriviální} a zároveň \textit{subjektivní} problematika.
+        I přes důraz na nutnost pouze \textit{programového} výstupu v rámci systémového promptu, mají modely tendenci tuto podmínku ignorovat a generovat text okolo kódu. Protože jsou modely naučené tak, aby jejich výstup byl text v \textbf{Markdown} formátu, obsahují i značky se začátkem kódového bloku a značením jazyka, ale také prvky jako odrážky, apod. Tyto prvky se pak objevují i ve výstupech, kde je požadován pouze \textit{čistý text} (jako například v ukázce \ref{lst:text_around}). V našem případě je toto chování nevhodné, protože vyžadujeme na výstupu pouze \textit{kód testu}. Díky struktuře \textit{Markdown} formátování však lze kód z tohoto výstupu jednoduše vyparsovat. Toto parsování má právě na starosti funkce \textit{filtrování výstupu} ve schematu \ref{fig:llm_query_algo}. V rámci programu byla implementována tak, že ze vstupního textu vyjme kód v prvním nalezeném kódovém bloku, označeného pomocí znaků \verb|```|. Pokud blok nenajde, vrátí původní text bez změny (předpokládá, že model se držel systémového promptu). V případě více kódových bloků přítomných ve výstupu, kdy požadovaný kód nebude v prvním z bloků, dojde k nesprávnému parsování, avšak jedná se o očekávaný případ, protože detekce správného kódu je \textit{netriviální} a zároveň \textit{subjektivní} problematika.
 
+        \vfill
         \begin{code}{robotframework}{Výstup modelu s nadbytečným textem. \label{lst:text_around}}
 Here's a Robot Framework scenario that follows the recorded JSON steps for interacting with the web page, and then performs the checks as specified:
 
@@ -796,10 +794,10 @@ In this Robot Framework script, I've incorporated commands that:
 - Navigate to the "List of All Teachers" section.
 - Check for the presence of specified names on the page.
 - Validate the text content of specific table cells related to the teachers' courses.
-Adjust the locators (xpath) as necessary to match the exact structure and identifiers used in your application's HTML.
-        \end{code}
+Adjust the locators (xpath) as necessary to match the exact structure and identifiers used in your application's HTML. \end{code}
 
-        Vyfiltrovaný výstupní text modelu je poté zapsán do souboru ve výstupní složce nazvané \verb|generated|, nacházející se v kořenové složce programu. Test je uložen s názvem ve formátu \verb|{nazev-vstupu}-{cislo-varianty}.robot| jakožto \textit{RobotFramework} soubor. První část tohoto názvu souhlasí s názvem \textit{promptové šablony}, pro kterou uživatel vytváří testy. Druhá část poté čísluje vygenerované varianty. Pokud již ve výstupní složce existuje vygenerovaný test pro danou specifikaci, program nové variantě přiřadí číslo o \(1\) vyšší, tedy pokračuje v číselné řadě. Názvy vygenerovaných testů jsou postupně vypisovány do konzole. Od uživatele je očekáváno, že vygenerované testy ve výstupní složce zkontroluje a ověří, že obsahují validní (\textit{např. obsahuje text, připomínající RobotFramework test}). Je zde totiž stále možnost, že model nevygenerovat žádný kód a vypsat pouze text nebo \textit{filtrace} neproběhla validně. Tento krok by v ideálním případě bylo možné automatizovat za pomocí \textit{analyzátoru} pro \textit{RobotFramework}, který se nachází v rámci \Gls{lsp} pro \textit{RobotFramework} \verb|rebotframework-lsp| nachází. Bohužel však neumí validovat zápis pro knihovnu \verb|SeleniumLibrary|, která je v rámci systémového promptu vyžadována a očekávána, že bude přítomná ve vygenerovaném testu.
+        \newpage
+        Vyfiltrovaný výstupní text modelu je poté zapsán do souboru ve výstupní složce nazvané \verb|generated|, nacházející se v kořenové složce programu. Test je uložen s názvem ve formátu \verb|{nazev-vstupu}-{cislo-varianty}.robot| jakožto \textit{RobotFramework} soubor. První část tohoto názvu souhlasí s názvem \textit{promptové šablony}, pro kterou uživatel vytváří testy. Druhá část poté čísluje vygenerované varianty. Pokud již ve výstupní složce existuje vygenerovaný test pro danou specifikaci, program nové variantě přiřadí číslo o \(1\) vyšší, tedy pokračuje v číselné řadě. Názvy vygenerovaných testů jsou postupně vypisovány do konzole. Od uživatele je očekáváno, že vygenerované testy ve výstupní složce zkontroluje a ověří, že obsahují validní (\textit{např. obsahuje text, připomínající RobotFramework test}). Je zde totiž stále možnost, že model nevygeneroval žádný kód a vypsat pouze text nebo \textit{filtrace} neproběhla správně. Tento krok by v ideálním případě bylo možné automatizovat za pomocí \textit{analyzátoru} pro \textit{RobotFramework}, který se nachází v rámci \Gls{lsp} pro \textit{RobotFramework} \verb|rebotframework-lsp| nachází. Bohužel však neumí validovat zápis pro knihovnu \verb|SeleniumLibrary|, která je v rámci systémového promptu vyžadována a očekávána, že bude přítomná ve vygenerovaném testu.
 
 \chapter{Spuštění testů}
  

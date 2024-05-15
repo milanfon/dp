@@ -38,6 +38,11 @@
     description={V terminologii strojového učení se jedná o hyperparametr, který ovládá reativitu a náhodnost vstupu modelu. Vyšší teplota vede k méně předvídatelným a kreativnějším výsledkům, kdežto nižší teplota produkuje více konzervativnější výstup.}
 }
 
+\newglossaryentry{topp}{
+    name={Top P},
+    description={Hyperparametr ovládající rozmanitost generovaného textu. Dynamicky vybírá, jak velkou část pravděpodobnostní distribuce využít. Jeho hodnota údává velikost použité kumulativní pravděpodobnosti v procentech. Při snížení pod 100\% jsou méně pravděpodobná slova ignorována.}
+ }
+
 \newglossaryentry{context}{
     name={kontext},
     description={Rozsah textu nebo dat, který může model zpracovat při generování odpovědí. Funguje jako krátkodobá paměť modelu a určuje, kolik informací může model vzít v úvahu při tvorbě odpovědí.}

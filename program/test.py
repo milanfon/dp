@@ -1,3 +1,21 @@
+"""
+Generate and run Robot Framework tests, process results, and generate reports.
+
+Usage:
+    python test.py [options]
+
+Options:
+    -r, --run: Run the generation process.
+    -n, --new: Create a new input file (test).
+    -i, --input: Render an input file (test).
+    --count: Specify how many variations of the test to generate.
+    --cmd: Output render to command line.
+    --manual: Manually copy and paste prompts into OpenAI Chat instead of using API.
+    --cont_count: Set number of containers to execute.
+    --compress: Compress prompt.
+    --name: Name of the report.
+"""
+
 from datetime import datetime
 from enum import Enum
 import os
@@ -16,6 +34,7 @@ import sqlite3
 import configuration as config
 import glob
 
+# General constants
 CONTAINER_DIRECTORY = "./tbuis/"
 INPUT_FOLDER = "./input/"
 RESTORE_DB_FILE = "./templates/restore_db.robot"
@@ -25,6 +44,7 @@ GEN_FOLDER = "./generated"
 REPORT_FOLDER = "./reports"
 REPORT_DB = os.path.join(REPORT_FOLDER, "report_db.sqlite")
 
+# Load ENV
 load_dotenv()
 API_URL = os.getenv('API_URL')
 API_KEY = os.getenv('API_KEY')
@@ -38,28 +58,43 @@ parser.add_argument('-n', '--new', type=str, help='Create new input file (test)'
 parser.add_argument('-i', '--input', type=str, help='Render input file (test)')
 parser.add_argument('--count', type=int, help='How many variations of the test gnerate?')
 parser.add_argument('--cmd', action='store_true', help='Output render to command line')
-parser.add_argument('--manual_oai', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
+parser.add_argument('--manual', action='store_true', help='Manualy copy and paste prompts into OpenAI Chat instead of using API')
 parser.add_argument('--cont_count', type=int, help='Set number of containers to execute')
 parser.add_argument('--compress', action='store_true', help='Compress prompt')
 parser.add_argument('--name', type=str, help='Name of report')
 args = parser.parse_args()
 
 def get_file_pattern(base):
+    """
+    Returns a regex pattern to match .robot files.
+
+    Args:
+        base (str): The base name of the file.
+    """
     return re.compile(rf'^{re.escape(base)}-(\d+)\.robot$')
 
 def get_files_matching_pattern(pattern, directory):
+    """
+    Returns a list of files matching the given pattern in the specified directory.
+
+    Args:
+        pattern (str): The regex pattern to match files.
+        directory (str): The directory to search for files.
+    """
     full_pattern = os.path.join(directory, pattern)
     return glob.glob(full_pattern)
 
 def system_prompt():
+    """
+    Reads and returns the system prompt from a file.
+    """
     with open(SYSTEM_PROMPT, 'r') as sp_file:
         return sp_file.read()
 
-def parse_code_blocks(markdown_text):
-    pattern = re.compile(r'```(?:.*?)\n(.*?)```', re.DOTALL)
-    return pattern.findall(markdown_text)
-
 def save_test(text, name):
+    """
+    Creates new .robot file and decides on it's name. 
+    """
     if not os.path.exists(GEN_FOLDER):
         os.makedirs(GEN_FOLDER)
     base = os.path.splitext(name)[0]
@@ -81,6 +116,9 @@ def save_test(text, name):
     print(f"Test saved to '{test_path}'")
 
 def new_input(input_name):
+    """
+    Creates new input file for user to modify, which serves as a prompt.
+    """
     if not os.path.exists(INPUT_FOLDER):
         os.makedirs(INPUT_FOLDER)
     if not input_name.endswith('.txt'):
@@ -95,6 +133,9 @@ def new_input(input_name):
             print(f"Template file '{TEMPLATE_FILE}' not found. Empty file created.")
 
 def render_template(input_name):
+    """
+    Renders input file as a jinja2 template.
+    """
     if not input_name.endswith('.txt'):
         input_name += '.txt'
     env = jinja2.Environment(loader=jinja2.FileSystemLoader(INPUT_FOLDER))
@@ -117,50 +158,44 @@ def render_template(input_name):
         save_test(response, input_name)
 
 def prompt_model(rendered_text):
-    if args.manual_oai:
+    """
+    Sends rendered prompt to LLM model using OpenAI API library.
+    """
+    if args.manual:
         return manual_prompt(rendered_text)
-    #client = OpenAI(base_url=API_URL, api_key=API_KEY)
-    #client = anthropic.Anthropic(api_key=API_KEY)
-#    completion = client.chat.completions.create(
-#      model=API_MODEL, 
-#      #system=system_prompt(),
-#      messages=[
-#        {"role": "system", "content": system_prompt()},
-#        {"role": "user", "content": rendered_text}
-#      ],
-#      temperature=0.7,
-#      top_p=1,
-#      max_tokens=int(MAX_TOKENS),
-#      stream=False
-#    )
-#    message = completion.choices[0].message.content
-    #message = completion.content[0].text
-
-    vertexai.init(project="dp-modely", location="us-central1")
-    parameters = {
-            "max_output_tokens": 2500,
-            "temperature": 0.7,
-            "top_p": 0.95
-        }
-    model = GenerativeModel("gemini-1.5-pro-preview-0409")
-    message = model.generate_content(
-            [system_prompt(), rendered_text],
-            generation_config=parameters,
-            stream=False
-        )
-    message = message.candidates[0].content.parts[0].text
+    client = OpenAI(base_url=API_URL, api_key=API_KEY)
+    completion = client.chat.completions.create(
+      model=API_MODEL, 
+      messages=[
+        {"role": "system", "content": system_prompt()},
+        {"role": "user", "content": rendered_text}
+      ],
+      temperature=0.7,
+      top_p=1,
+      max_tokens=int(MAX_TOKENS),
+      stream=False
+    )
+    message = completion.choices[0].message.content
 
     return extract_code_block(message)
 
 def manual_prompt(rendered_text):
+    """
+    Allows manully prompting the model by copying it and then pasting it from the clipboard (for example into ChatGPT).
+    This solution is tailored to be used under WSL and general Linux or MacOS usage would require to change the called programms.
+    """
     concantenated = f"{system_prompt()}\n\n{rendered_text}"
-    subprocess.run("clip.exe", text=True, input=concantenated) # MacOS only
+    subprocess.run("clip.exe", text=True, input=concantenated) # WSL specific
     print("Prompt copied to clipboard")
     input("Copy the model output and press Enter key")
     output = subprocess.check_output('powershell.exe Get-Clipboard', env={'LANG': 'en_US.UTF-8'}).decode('utf-8')
     return extract_code_block(output)
 
 def compress_prompt(prompt, rate):
+    """
+    Compresses the given prompt using the PromptCompressor.
+    Works for GPT and Claude 3.
+    """
     print("Prompt compression started...")
     results = compressor.compress_prompt_llmlingua2(
                 prompt,
@@ -174,6 +209,9 @@ def compress_prompt(prompt, rate):
     return results['compressed_prompt']
 
 def extract_code_block(md_text):
+    """
+    Extracts the first code block from provided text. If not present, returns the original text.
+    """
     pattern = re.compile(r'```.*?\n(.*?)\n```', re.DOTALL)
     match = pattern.search(md_text)
     if match:
@@ -181,6 +219,9 @@ def extract_code_block(md_text):
     return md_text
 
 def is_docker_running():
+    """
+    Checks if Docker is running.
+    """
     try:
         subprocess.run(["docker", "info"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
         return True
@@ -188,6 +229,9 @@ def is_docker_running():
         return False
 
 class TestStatus(Enum):
+    """
+    Enum for carrying the state of test.
+    """
     PASS = 1
     FAIL = 2
     ERROR = 3
@@ -196,6 +240,9 @@ class TestStatus(Enum):
         return self.name
 
 class TestResult():
+    """
+    Represents result state of the test run.
+    """
     def __init__(self, passed, failed, errors):
         self.passed = passed
         self.failed = failed
@@ -208,6 +255,9 @@ class TestResult():
             self.status = TestStatus.PASS
 
 class Report():
+    """
+    Class representing report and responsible for it's creation.
+    """
     def __init__(self):
         self.name = f"{datetime.now().strftime('%Y%m%d%H%M%S')}{'-' + args.name if args.name else ''}"
         self.container_name = ""
@@ -218,10 +268,16 @@ class Report():
             self.init_db()
     
     def set_container_name(self, name: str):
+        """
+        Setter of used test program variant.
+        """
         self.container_name = name
         self.tests[self.container_name] = {}
 
     def add(self, name, file):
+        """
+        Adds new test result and parses output XML.
+        """
         tree = ElementTree.parse(file)
         root = tree.getroot()
         stats = root.find('.//statistics/total/stat')
@@ -247,6 +303,9 @@ class Report():
         self.conn.commit()
 
     def save(self):
+        """
+        Save report to files.
+        """
         report_text = f"Report name: {self.name}\n\n"
         for container_name, _ in self.tests.items():
             report_text += f"\nContainer name: {container_name}\n"
@@ -263,6 +322,9 @@ class Report():
         file.close()
 
     def init_db(self):
+        """
+        Creates structure for report SQLite DB.
+        """
         print("Creating report database...")
         create_table_sql = '''
             CREATE TABLE IF NOT EXISTS runs (
@@ -283,6 +345,9 @@ class Report():
         print("Table structure prepared.")
 
 def run(): 
+    """
+    Executes the given .robot test files using Robot Framework.
+    """
     if (not is_docker_running()):
         print("Docker is not running!")
         return
@@ -294,7 +359,6 @@ def run():
 
     # Running Docker Compose
 
-    #os.chdir(DIRECTORY)
     report = Report()
     i, t = 0, 0
     for file in file_list:
